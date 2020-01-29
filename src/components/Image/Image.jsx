@@ -1,12 +1,14 @@
 import React from 'react';
-import './Image.css';
+import styles from './Image.module.css';
 
 export default function Image(props) {
     return (
         <div>
             <img
-                className="image-component"
+                className={styles.image}
                 src={props.source}
+                onLoad={() => { console.log('IMAGE COMPONENT LOADED'); }}
+                alt=""
             />
         </div>
     );

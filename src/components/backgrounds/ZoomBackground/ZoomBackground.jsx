@@ -1,57 +1,43 @@
-import React, { useRef, useEffect } from 'react';
-import './ZoomBackground.css'
+import React, { useState, useEffect } from 'react';
+import styles from './ZoomBackground.module.css';
+
 import Image from '../../Image/Image';
 
-// user config
-const bgOverlapPercent = 2;
-const bgTransitionTime = 0.5;
-
-// calculated config
-const safetyMargin = bgOverlapPercent / 10;
+const zoomFactor = 2; // side overlap in %
+const transitionTime = 0.5; // seconds
 
 
 export default function ZoomBackground() {
-    const bgBox = useRef(null);
-    const bgImage = useRef(null);
+    const [zoomActive, setZoomActive] = useState(false);
+    const [boxTransform, setBoxTransform] = useState('');
+
+    function calculateBoxTransform(event) {
+        const xFromCenter = event.clientX - (window.innerWidth / 2);
+        const yFromCenter = event.clientY - (window.innerHeight / 2);
+        const transformX = xFromCenter / (window.innerWidth / 2) * zoomFactor;
+        const transformY = yFromCenter / (window.innerHeight / 2) * zoomFactor;
+        setBoxTransform(`translate(-${50 + transformX}%, -${50 + transformY}%)`);
+    }
 
     useEffect(() => {
-        const box = bgBox.current;
-        const image = bgImage.current;
-
-        function onMousemove(event) {
-            growZoomBg();
-            setBoxTransform(event);
-        }
-
         function growZoomBg() {
-            if (box.classList.contains('grow-box')) {
+            if (zoomActive) {
                 return;
             }
-            box.classList.add('grow-box');
-            image.style.width = `${100 + (bgOverlapPercent * 2)}vw`;
-            image.style.height = `${100 + (bgOverlapPercent * 2)}vh`;
+            setZoomActive(true);
         }
 
         function shrinkZoomBg() {
-            if (!box.classList.contains('grow-box')) {
+            if (!zoomActive) {
                 return;
             }
-            box.classList.remove('grow-box');
-            image.style.width = '100vw';
-            image.style.height = '100vh';
+            setZoomActive(false);
         }
 
-        function setBoxTransform(event) {
-            const offsetFactor = bgOverlapPercent - safetyMargin;
-            const xFromCenter = event.clientX - (window.innerWidth / 2);
-            const yFromCenter = event.clientY - (window.innerHeight / 2);
-            const bgTransformX = xFromCenter / (window.innerWidth / 2) * offsetFactor;
-            const bgTransformY = yFromCenter / (window.innerHeight / 2) * offsetFactor;
-            box.style.transform = `translate(-${50 + bgTransformX}%, -${50 + bgTransformY}%)`;
+        function onMousemove(event) {
+            growZoomBg();
+            calculateBoxTransform(event);
         }
-
-        box.style.transition = `width ${bgTransitionTime}s, height ${bgTransitionTime}s`;
-        image.style.transition = `width ${bgTransitionTime}s, height ${bgTransitionTime}s`;
 
         window.addEventListener('mousemove', onMousemove);
         window.addEventListener('blur', shrinkZoomBg);
@@ -62,24 +48,36 @@ export default function ZoomBackground() {
             window.removeEventListener('blur', shrinkZoomBg);
             document.removeEventListener('mouseleave', shrinkZoomBg);
         };
-    }, []);
+    }, [zoomActive]);
 
     return (
-        <div className="zoom-bg">
+        <div
+            className={styles.background}
+            style={{ height: `${window.innerHeight}px` }}
+        >
             <div
-                ref={bgBox}
-                className="zoom-bg-box"
+                className={styles.zoomBox}
+                style={{
+                    width: zoomActive ? '100%' : '0',
+                    height: zoomActive ? '100%' : '0',
+                    transform: boxTransform,
+                    transition: `width ${transitionTime}s, height ${transitionTime}s`
+                }}
             >
                 <div
-                    ref={bgImage}
-                    className="zoom-bg-image"
+                    className={styles.image}
+                    style={{
+                        width: `${window.innerWidth + (zoomActive ? (zoomFactor * 2 * window.innerWidth / 100) : 0)}px`,
+                        height: `${window.innerHeight + (zoomActive ? (zoomFactor * 2 * window.innerHeight / 100) : 0)}px`,
+                        transition: `width ${transitionTime}s, height ${transitionTime}s`
+                    }}
                 >
                     <Image
                         source="etl/images/etl-bg-2019.jpg"
                     />
                 </div>
             </div>
-            <div className="zoom-bg-headline">
+            <div className={styles.headline}>
                 The Eternal Love
             </div>
         </div>
