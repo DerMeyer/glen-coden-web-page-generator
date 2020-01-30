@@ -1,44 +1,44 @@
-import React, { useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import styles from './ZoomBackground.module.css';
 
 import Image from '../../Image/Image';
 
-const zoomFactor = 2; // side overlap in %
+const backgroundColor = '#b7b7b7';
+const backgroundImage = 'etl/images/etl-bg-2019.jpg';
+const zoomFactor = 4; // growth in %
 const transitionTime = 0.5; // seconds
 
 
-export default function ZoomBackground() {
-    const [zoomActive, setZoomActive] = useState(false);
-    const [boxTransform, setBoxTransform] = useState('');
+export default function ZoomBackground(props) {
+    const zoomBox = useRef(null);
 
-    function calculateBoxTransform(event) {
+    const [zoomActive, setZoomActive] = useState(false);
+
+    const growZoomBg = () => {
+        setZoomActive(true);
+    };
+
+    const shrinkZoomBg = () => {
+        setZoomActive(false);
+    };
+
+    const calculateBoxTransform = event => {
         const xFromCenter = event.clientX - (window.innerWidth / 2);
         const yFromCenter = event.clientY - (window.innerHeight / 2);
-        const transformX = xFromCenter / (window.innerWidth / 2) * zoomFactor;
-        const transformY = yFromCenter / (window.innerHeight / 2) * zoomFactor;
-        setBoxTransform(`translate(-${50 + transformX}%, -${50 + transformY}%)`);
-    }
+        const transformX = xFromCenter / (window.innerWidth / 2) * zoomFactor / 2;
+        const transformY = yFromCenter / (window.innerHeight / 2) * zoomFactor / 2;
+
+        if (zoomBox.current) {
+            zoomBox.current.style.transform = `translate(-${50 + transformX}%, -${50 + transformY}%)`;
+        }
+    };
+
+    const onMousemove = event => {
+        growZoomBg();
+        calculateBoxTransform(event);
+    };
 
     useEffect(() => {
-        function growZoomBg() {
-            if (zoomActive) {
-                return;
-            }
-            setZoomActive(true);
-        }
-
-        function shrinkZoomBg() {
-            if (!zoomActive) {
-                return;
-            }
-            setZoomActive(false);
-        }
-
-        function onMousemove(event) {
-            growZoomBg();
-            calculateBoxTransform(event);
-        }
-
         window.addEventListener('mousemove', onMousemove);
         window.addEventListener('blur', shrinkZoomBg);
         document.addEventListener('mouseleave', shrinkZoomBg);
@@ -48,38 +48,39 @@ export default function ZoomBackground() {
             window.removeEventListener('blur', shrinkZoomBg);
             document.removeEventListener('mouseleave', shrinkZoomBg);
         };
-    }, [zoomActive]);
+    });
 
     return (
         <div
             className={styles.background}
-            style={{ height: `${window.innerHeight}px` }}
+            style={{
+                height: `${window.innerHeight}px`,
+                backgroundColor
+            }}
         >
             <div
+                ref={zoomBox}
                 className={styles.zoomBox}
                 style={{
                     width: zoomActive ? '100%' : '0',
                     height: zoomActive ? '100%' : '0',
-                    transform: boxTransform,
                     transition: `width ${transitionTime}s, height ${transitionTime}s`
                 }}
             >
                 <div
-                    className={styles.image}
+                    className={styles.imageBox}
                     style={{
-                        width: `${window.innerWidth + (zoomActive ? (zoomFactor * 2 * window.innerWidth / 100) : 0)}px`,
-                        height: `${window.innerHeight + (zoomActive ? (zoomFactor * 2 * window.innerHeight / 100) : 0)}px`,
+                        width: zoomActive ? `${window.innerWidth * (1 + zoomFactor / 100)}px` : `${window.innerWidth}px`,
+                        height: zoomActive ? `${window.innerHeight * (1 + zoomFactor / 100)}px` : `${window.innerHeight}px`,
                         transition: `width ${transitionTime}s, height ${transitionTime}s`
                     }}
                 >
                     <Image
-                        source="etl/images/etl-bg-2019.jpg"
+                        source={backgroundImage}
                     />
                 </div>
             </div>
-            <div className={styles.headline}>
-                The Eternal Love
-            </div>
+            {props.children}
         </div>
     );
 }

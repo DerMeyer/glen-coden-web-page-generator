@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import './App.css';
 
 import ZoomBackground from './components/backgrounds/ZoomBackground/ZoomBackground';
+import styles from './components/backgrounds/ZoomBackground/ZoomBackground.module.css';
 
 
 function App() {
-
     useEffect(() => {
         window.addEventListener('devicemotion', () => {
             console.log('DEVICE MOTION EVENT');// TODO remove dev code
@@ -25,7 +25,9 @@ function App() {
 
     return (
         <div className="App">
-            <ZoomBackground />
+            <ZoomBackground>
+                <div className={styles.headline}>The Eternal Love</div>
+            </ZoomBackground>
         </div>
     );
 }
