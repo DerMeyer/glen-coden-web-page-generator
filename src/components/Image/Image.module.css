@@ -1,4 +1,6 @@
-.image {
-    width: 100%;
-    height: 100%;
+.imageBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
 }
