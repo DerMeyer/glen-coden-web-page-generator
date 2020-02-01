@@ -16,14 +16,3 @@
     top: 50%;
     transform: translate(-50%, -50%);
 }
-
-/* headline is a passed child and will need it's own style module */
-.headline {
-    position: fixed;
-    left: 6%;
-    bottom: 55px;
-    font-family: 'Comfortaa', cursive;
-    font-size: 55px;
-    font-weight: bold;
-    color: white;
-}

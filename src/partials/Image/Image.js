@@ -1,6 +1,15 @@
 import React, { useRef, useState, useEffect } from 'react';
 import styles from './Image.module.css';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
+
+Image.propTypes = {
+    className: PropTypes.string,
+    style: PropTypes.object,
+    source: PropTypes.string.isRequired,
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired
+};
 
 
 export default function Image(props) {

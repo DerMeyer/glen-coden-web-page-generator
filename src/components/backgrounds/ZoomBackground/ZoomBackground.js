@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import styles from './ZoomBackground.module.css';
 
-import Image from '../../Image/Image';
+import Image from '../../../partials/Image/Image';
+
+// IDEAS
+// make use of devicemotion and/or deviceorientation events for mobile design, once they are broadly supported
 
 // config
 const backgroundColor = '#b7b7b7';
-const backgroundImage = 'etl/images/etl-bg-2019.jpg';
+const backgroundImage = 'the-eternal-love-jan-2020/images/etl-bg-2019.jpg';
 const zoomFactor = 4; // growth in %
 const transitionTime = 0.5; // seconds
 
