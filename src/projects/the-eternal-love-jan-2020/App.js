@@ -1,4 +1,5 @@
 import React from 'react';
+import Store from '../../Store';
 import projectConfig from './project-config';
 
 import ZoomBackground from '../../components/backgrounds/ZoomBackground/ZoomBackground';
@@ -8,7 +9,7 @@ export default function App() {
     console.log(`=============== ${projectConfig.name} ===============`);
 
     return (
-        <div>
+        <Store.Provider value={projectConfig}>
             <ZoomBackground>
                 <div style={{
                     position: 'fixed',
@@ -22,6 +23,6 @@ export default function App() {
                     The Eternal Love
                 </div>
             </ZoomBackground>
-        </div>
+        </Store.Provider>
     );
 }
