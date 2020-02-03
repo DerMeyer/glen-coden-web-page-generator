@@ -3,11 +3,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 
+import { Provider } from './Store';
+import projectConfig from './projects/the-eternal-love-jan-2020/project-config';
 import App from './projects/the-eternal-love-jan-2020/App';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+    <Provider initialState={projectConfig}>
+        <App />
+    </Provider>,
+    document.getElementById('root')
+);
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();

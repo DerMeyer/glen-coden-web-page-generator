@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
-import Store from '../../../Store';
 import styles from './ZoomBackground.module.css';
+import Store from '../../../Store';
 
 import Image from '../../partials/Image/Image';
 
@@ -9,9 +9,9 @@ import Image from '../../partials/Image/Image';
 
 
 export default function ZoomBackground(props) {
-    const context = useContext(Store);
-    const contextStyles = context.style;
-    const zoomBgContext = context.components.ZoomBackground;
+    const { globalState } = useContext(Store);
+    const contextStyles = globalState.style;
+    const zoomBgContext = globalState.components.ZoomBackground;
 
     const [zoomActive, setZoomActive] = useState(false);
     const [boxTransform, setBoxTransform] = useState({ x: 0, y: 0 });
