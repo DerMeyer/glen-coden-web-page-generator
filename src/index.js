@@ -4,14 +4,12 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 
 import { Provider } from './Store';
-import projectMap from './projects/the-eternal-love-jan-2020/project-map';
-
-import App from './projects/the-eternal-love-jan-2020/App';
-
+import projectImports from './projectImports';
+const { projectMap, App } = projectImports;
 
 // calculate initial state and project config
 
-const { name, style, components } = projectMap;
+const { name, style, global, components } = projectMap;
 
 const initialComponentState = {};
 const componentConfig = {};
@@ -38,6 +36,7 @@ const initialState = {
 export const projectConfig = {
     name,
     style,
+    global,
     components: componentConfig
 };
 

@@ -1,0 +1,69 @@
+.iconBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dot {
+    width: 25%;
+    height: 25%;
+    border-radius: 50%;
+    background-color: orange; /* set dynamically */
+}
+
+.dotOne {
+    animation: dotOne linear 1s infinite;
+}
+
+.dotTwo {
+    animation: dotTwo linear 1s infinite;
+}
+
+.dotThree {
+    animation: dotThree linear 1s infinite;
+}
+
+@keyframes dotOne {
+    0% {
+        width: 25%;
+        height: 25%;
+    }
+    20% {
+        width: 35%;
+        height: 35%;
+    }
+    40% {
+        width: 25%;
+        height: 25%;
+    }
+}
+
+@keyframes dotTwo {
+    20% {
+        width: 25%;
+        height: 25%;
+    }
+    40% {
+        width: 35%;
+        height: 35%;
+    }
+    60% {
+        width: 25%;
+        height: 25%;
+    }
+}
+
+@keyframes dotThree {
+    40% {
+        width: 25%;
+        height: 25%;
+    }
+    60% {
+        width: 35%;
+        height: 35%;
+    }
+    80% {
+        width: 25%;
+        height: 25%;
+    }
+}

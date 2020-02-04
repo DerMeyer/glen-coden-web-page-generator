@@ -3,6 +3,7 @@ import styles from './Image.module.css';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import Store, { actions } from '../../../Store';
+import { projectConfig } from '../../../index';
 
 Image.propTypes = {
     className: PropTypes.string,
@@ -47,7 +48,7 @@ export default function Image(props) {
                 opacity: '1'
             }));
             dispatch(actions.stopLoading());
-        }, 4000); // TODO remove dev code
+        }, 5000); // TODO remove dev code
     };
 
     return (
@@ -61,8 +62,10 @@ export default function Image(props) {
         >
             <img
                 ref={image}
-                className={styles.image}
-                style={imageStyle}
+                style={{
+                    ...imageStyle,
+                    transition: `opacity ${projectConfig.global.loadingFadeTime}s`
+                }}
                 src={props.source}
                 onLoad={onLoad}
                 alt=""

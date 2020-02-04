@@ -11,4 +11,4 @@ if (!availableProjects.includes(activeProject)) {
     activeProject = '_default';
 }
 
-// TODO generate index.js, index.css and index.html, include missingProject for _default case
+// TODO generate projectImports.js and index.html, include missingProject prop in _default case

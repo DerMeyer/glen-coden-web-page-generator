@@ -4,7 +4,3 @@
     align-items: center;
     overflow: hidden;
 }
-
-.image {
-    transition: opacity .2s;
-}

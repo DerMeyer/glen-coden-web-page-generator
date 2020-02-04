@@ -8,6 +8,9 @@
         "mediumFontColor": "#c00312",
         "darkFontColor": "#202020"
     },
+    "global": {
+        "loadingFadeTime": 0.2
+    },
     "components": {
         "ZoomBackground": {
             "image": "the-eternal-love-jan-2020/images/etl-bg-2019.jpg",
