@@ -1,5 +1,31 @@
 import React, { createContext, useReducer } from 'react';
 
+// enums and maps
+
+const BreakPointType = {
+    MOBILE_PORTRAIT: 'mobile-portrait',
+    MOBILE_LANDSCAPE: 'mobile-landscape',
+    TABLET: 'tablet',
+    DESKTOP_MIN: 'desktop-small',
+    DESKTOP: 'desktop',
+    DESKTOP_MAX: 'desktop-max'
+};
+
+const BreakPoints = {
+    [BreakPointType.MOBILE_PORTRAIT]: 450,
+    [BreakPointType.MOBILE_LANDSCAPE]: 850,
+    [BreakPointType.TABLET]: 1050,
+    [BreakPointType.DESKTOP_MIN]: 1250,
+    [BreakPointType.DESKTOP]: 1450,
+    [BreakPointType.DESKTOP_MAX]: 2000
+};
+
+// helpers
+
+function getBreakPointType(viewportWidth) {
+    return Object.keys(BreakPoints).find(type => BreakPoints[type] > viewportWidth);
+}
+
 // actions
 
 const ActionType = {
@@ -40,6 +66,9 @@ const reducer = (state, action) => {
 const init = initialState => {
     return {
         loading: 0,
+        viewportWidth: window.innerWidth,
+        viewportHeight: window.innerHeight,
+        breakPointType: getBreakPointType(window.innerWidth),
         ...initialState
     };
 };

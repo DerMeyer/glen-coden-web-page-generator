@@ -33,7 +33,7 @@ export default function LoadingOverlay() {
             }}
             onTransitionEnd={onTransitionEnd}
         >
-            <ThreeDotsLoadingIcon />
+            <ThreeDotsLoadingIcon size={globalState.viewportWidth / 15} />
         </div>
     );
 }
