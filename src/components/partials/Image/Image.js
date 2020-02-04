@@ -40,12 +40,14 @@ export default function Image(props) {
     }, [props.width, props.height]);
 
     const onLoad = () => {
-        resize();
-        setImageStyle(prevState => ({
-            ...prevState,
-            opacity: '1'
-        }));
-        dispatch(actions.stopLoading());
+        window.setTimeout(() => {
+            resize();
+            setImageStyle(prevState => ({
+                ...prevState,
+                opacity: '1'
+            }));
+            dispatch(actions.stopLoading());
+        }, 4000); // TODO remove dev code
     };
 
     return (

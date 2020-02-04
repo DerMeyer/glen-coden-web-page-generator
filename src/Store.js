@@ -1,11 +1,5 @@
 import React, { createContext, useReducer } from 'react';
 
-// enums
-
-const LoadingFragment = {
-    APP: 'app',
-};
-
 // actions
 
 const ActionType = {

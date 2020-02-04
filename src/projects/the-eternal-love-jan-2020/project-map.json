@@ -1,0 +1,24 @@
+{
+    "name": "The Eternal Love - Jan 2020",
+    "initialState": {},
+    "style": {
+        "backgroundColor": "#b7b7b7",
+        "overlayColor": "#fff",
+        "lightFontColor": "#fff",
+        "mediumFontColor": "#c00312",
+        "darkFontColor": "#202020"
+    },
+    "components": {
+        "ZoomBackground": {
+            "image": "the-eternal-love-jan-2020/images/etl-bg-2019.jpg",
+            "zoomFactor": 4,
+            "transitionTime": 0.5,
+            "initialState": {},
+            "style": {}
+        },
+        "LoadingOverlay": {
+            "initialState": {},
+            "style": {}
+        }
+    }
+}

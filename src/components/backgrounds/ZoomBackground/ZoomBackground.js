@@ -1,6 +1,6 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './ZoomBackground.module.css';
-import Store from '../../../Store';
+import { projectConfig } from '../../../index';
 
 import Image from '../../partials/Image/Image';
 
@@ -9,9 +9,7 @@ import Image from '../../partials/Image/Image';
 
 
 export default function ZoomBackground(props) {
-    const { globalState } = useContext(Store);
-    const contextStyles = globalState.style;
-    const zoomBgContext = globalState.components.ZoomBackground;
+    const config = projectConfig.components.ZoomBackground;
 
     const [zoomActive, setZoomActive] = useState(false);
     const [boxTransform, setBoxTransform] = useState({ x: 0, y: 0 });
@@ -28,8 +26,8 @@ export default function ZoomBackground(props) {
         const xFromCenter = event.clientX - (window.innerWidth / 2);
         const yFromCenter = event.clientY - (window.innerHeight / 2);
         setBoxTransform({
-            x: xFromCenter / (window.innerWidth / 2) * zoomBgContext.zoomFactor / 2,
-            y: yFromCenter / (window.innerHeight / 2) * zoomBgContext.zoomFactor / 2
+            x: xFromCenter / (window.innerWidth / 2) * config.zoomFactor / 2,
+            y: yFromCenter / (window.innerHeight / 2) * config.zoomFactor / 2
         });
     };
 
@@ -55,7 +53,7 @@ export default function ZoomBackground(props) {
             className={styles.background}
             style={{
                 height: `${window.innerHeight}px`,
-                backgroundColor: contextStyles.backgroundColor
+                backgroundColor: config.style.backgroundColor
             }}
         >
             <div
@@ -64,15 +62,15 @@ export default function ZoomBackground(props) {
                     width: zoomActive ? '100%' : '0',
                     height: zoomActive ? '100%' : '0',
                     transform: `translate(-${50 + boxTransform.x}%, -${50 + boxTransform.y}%)`,
-                    transition: `width ${zoomBgContext.transitionTime}s, height ${zoomBgContext.transitionTime}s`
+                    transition: `width ${config.transitionTime}s, height ${config.transitionTime}s`
                 }}
             >
                 <Image
                     className={styles.image}
-                    style={{ transition: `width ${zoomBgContext.transitionTime}s, height ${zoomBgContext.transitionTime}s` }}
-                    source={zoomBgContext.image}
-                    width={zoomActive ? window.innerWidth * (1 + zoomBgContext.zoomFactor / 100) : window.innerWidth}
-                    height={zoomActive ? window.innerHeight * (1 + zoomBgContext.zoomFactor / 100) : window.innerHeight}
+                    style={{ transition: `width ${config.transitionTime}s, height ${config.transitionTime}s` }}
+                    source={config.image}
+                    width={zoomActive ? window.innerWidth * (1 + config.zoomFactor / 100) : window.innerWidth}
+                    height={zoomActive ? window.innerHeight * (1 + config.zoomFactor / 100) : window.innerHeight}
                 />
             </div>
             {props.children}

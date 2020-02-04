@@ -14,7 +14,7 @@
   },
   "scripts": {
     "start": "yarn generate && react-scripts start",
-    "generate": "node ./generateProject.js",
+    "generate": "node generator/generateProject.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
