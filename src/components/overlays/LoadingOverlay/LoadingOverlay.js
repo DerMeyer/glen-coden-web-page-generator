@@ -28,8 +28,8 @@ export default function LoadingOverlay() {
             className={styles.overlay}
             style={{
                 backgroundColor: config.style.overlayColor,
-                opacity: globalState.loading ? 1 : 0,
-                transition: `opacity ${globalState.loading ? 0 : projectConfig.global.loadingFadeTime}s`
+                opacity: globalState.loading ? '1' : '0',
+                transition: `opacity ${globalState.loading ? 0 : projectConfig.global.fadeInTimeOnLoaded}s`
             }}
             onTransitionEnd={onTransitionEnd}
         >

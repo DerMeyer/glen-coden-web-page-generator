@@ -9,7 +9,8 @@
         "darkFontColor": "#202020"
     },
     "global": {
-        "loadingFadeTime": 0.2
+        "fadeInTimeOnLoaded": 0.2,
+        "loadingTimeout": 5
     },
     "components": {
         "ZoomBackground": {

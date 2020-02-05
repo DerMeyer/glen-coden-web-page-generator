@@ -10,45 +10,44 @@ Image.propTypes = {
     style: PropTypes.object,
     source: PropTypes.string.isRequired,
     width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired
+    height: PropTypes.number.isRequired,
+    doNotSubscribeToGlobalLoading: PropTypes.bool
 };
 
 
 export default function Image(props) {
     const { dispatch } = useContext(Store);
-    const image = useRef(null);
-    const [imageStyle, setImageStyle] = useState({ opacity: '0' });
 
-    const resize = () => {
+    const image = useRef(null);
+
+    const [originalSize, setOriginalSize] = useState({ width: 0, height: 0 });
+    const [hasLoaded, setHasLoaded] = useState(false);
+
+    const getImageSize = () => {
+        if (!hasLoaded) {
+            return {};
+        }
         const targetDelta = props.width / props.height;
-        const imageDelta = image.current.offsetWidth / image.current.offsetHeight;
-        setImageStyle(prevState =>  {
-            const sizeByWidth = targetDelta > imageDelta;
-            return {
-                ...prevState,
-                width: sizeByWidth ? '100%' : 'auto',
-                height: sizeByWidth ? 'auto' : '100%'
-            };
-        });
+        const originalDelta = originalSize.width / originalSize.height;
+        return targetDelta > originalDelta
+            ? { width: '100%' }
+            : { height: '100%' };
     };
 
     useEffect(() => {
-        dispatch(actions.startLoading());
+        if (!props.doNotSubscribeToGlobalLoading) {
+            dispatch(actions.startLoading());
+        }
     }, []);
 
-    useEffect(() => {
-        resize();
-    }, [props.width, props.height]);
-
     const onLoad = () => {
+        setOriginalSize({ width: image.current.offsetWidth, height: image.current.offsetHeight });
         window.setTimeout(() => {
-            resize();
-            setImageStyle(prevState => ({
-                ...prevState,
-                opacity: '1'
-            }));
-            dispatch(actions.stopLoading());
-        }, 5000); // TODO remove dev code
+            setHasLoaded(true);
+            if (!props.doNotSubscribeToGlobalLoading) {
+                dispatch(actions.stopLoading());
+            }
+        }, 3000); // TODO remove dev code
     };
 
     return (
@@ -62,9 +61,11 @@ export default function Image(props) {
         >
             <img
                 ref={image}
+                className={styles.image}
                 style={{
-                    ...imageStyle,
-                    transition: `opacity ${projectConfig.global.loadingFadeTime}s`
+                    ...getImageSize(),
+                    opacity: hasLoaded ? '1' : '0',
+                    transition: `opacity ${projectConfig.global.fadeInTimeOnLoaded}s`
                 }}
                 src={props.source}
                 onLoad={onLoad}

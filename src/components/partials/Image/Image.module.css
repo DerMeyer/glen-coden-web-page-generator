@@ -4,3 +4,7 @@
     align-items: center;
     overflow: hidden;
 }
+
+.image {
+    flex-shrink: 0;
+}

@@ -7,7 +7,7 @@ import { Provider } from './Store';
 import projectImports from './projectImports';
 const { projectMap, App } = projectImports;
 
-// calculate initial state and project config
+// config service
 
 const { name, style, global, components } = projectMap;
 
@@ -40,6 +40,7 @@ export const projectConfig = {
     components: componentConfig
 };
 
+// react render
 
 ReactDOM.render(
     <Provider initialState={initialState}>

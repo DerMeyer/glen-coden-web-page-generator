@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import styles from './ZoomBackground.module.css';
+import Store from '../../../Store';
 import { projectConfig } from '../../../index';
 
 import Image from '../../partials/Image/Image';
@@ -9,6 +10,7 @@ import Image from '../../partials/Image/Image';
 
 
 export default function ZoomBackground(props) {
+    const { globalState } = useContext(Store);
     const config = projectConfig.components.ZoomBackground;
 
     const [zoomActive, setZoomActive] = useState(false);
@@ -23,11 +25,11 @@ export default function ZoomBackground(props) {
     };
 
     const calculateBoxTransform = event => {
-        const xFromCenter = event.clientX - (window.innerWidth / 2);
-        const yFromCenter = event.clientY - (window.innerHeight / 2);
+        const xFromCenter = event.clientX - (globalState.viewportWidth / 2);
+        const yFromCenter = event.clientY - (globalState.viewportHeight / 2);
         setBoxTransform({
-            x: xFromCenter / (window.innerWidth / 2) * config.zoomFactor / 2,
-            y: yFromCenter / (window.innerHeight / 2) * config.zoomFactor / 2
+            x: xFromCenter / (globalState.viewportWidth / 2) * config.zoomFactor / 2,
+            y: yFromCenter / (globalState.viewportHeight / 2) * config.zoomFactor / 2
         });
     };
 
@@ -52,7 +54,7 @@ export default function ZoomBackground(props) {
         <div
             className={styles.background}
             style={{
-                height: `${window.innerHeight}px`,
+                height: `${globalState.viewportHeight}px`,
                 backgroundColor: config.style.backgroundColor
             }}
         >
@@ -69,8 +71,8 @@ export default function ZoomBackground(props) {
                     className={styles.image}
                     style={{ transition: `width ${config.transitionTime}s, height ${config.transitionTime}s` }}
                     source={config.image}
-                    width={zoomActive ? window.innerWidth * (1 + config.zoomFactor / 100) : window.innerWidth}
-                    height={zoomActive ? window.innerHeight * (1 + config.zoomFactor / 100) : window.innerHeight}
+                    width={zoomActive ? globalState.viewportWidth * (1 + config.zoomFactor / 100) : globalState.viewportWidth}
+                    height={zoomActive ? globalState.viewportHeight * (1 + config.zoomFactor / 100) : globalState.viewportHeight}
                 />
             </div>
             {props.children}

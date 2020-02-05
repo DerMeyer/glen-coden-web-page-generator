@@ -1,13 +1,15 @@
 import React from 'react';
 import styles from './ThreeDotsLoadingIcon.module.css';
+import PropTypes from 'prop-types';
 import { projectConfig} from '../../../../index';
 
-const defaultSize = 100;
+ThreeDotsLoadingIcon.propTypes = {
+    size: PropTypes.number.isRequired
+};
 
 
 export default function ThreeDotsLoadingIcon(props) {
-    const size = Math.round(props.size || defaultSize);
-    console.log(size);// TODO remove dev code
+    const size = Math.round(props.size);
     return (
         <div
             className={styles.iconBox}

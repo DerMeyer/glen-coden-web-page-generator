@@ -1,8 +1,15 @@
 import React, { createContext, useReducer } from 'react';
 
-// enums and maps
+// enums
 
-const BreakPointType = {
+const ActionType = {
+    RESIZE: 'resize',
+    START_LOADING: 'start-loading',
+    STOP_LOADING: 'stop-loading',
+    LOADING_TIMEOUT: 'loading-timeout'
+};
+
+export const BreakPointType = {
     MOBILE_PORTRAIT: 'mobile-portrait',
     MOBILE_LANDSCAPE: 'mobile-landscape',
     TABLET: 'tablet',
@@ -11,34 +18,61 @@ const BreakPointType = {
     DESKTOP_MAX: 'desktop-max'
 };
 
-const BreakPoints = {
+export const DeviceType = {
+    MOBILE: 'mobile',
+    DESKTOP: 'desktop'
+};
+
+export const OrientationType = {
+    PORTRAIT: 'portrait',
+    LANDSCAPE: 'landscape'
+};
+
+// maps
+
+export const BreakPoints = {
     [BreakPointType.MOBILE_PORTRAIT]: 450,
     [BreakPointType.MOBILE_LANDSCAPE]: 850,
     [BreakPointType.TABLET]: 1050,
     [BreakPointType.DESKTOP_MIN]: 1250,
-    [BreakPointType.DESKTOP]: 1450,
-    [BreakPointType.DESKTOP_MAX]: 2000
+    [BreakPointType.DESKTOP]: 2000,
+    [BreakPointType.DESKTOP_MAX]: Infinity
 };
 
 // helpers
 
-function getBreakPointType(viewportWidth) {
+function getBreakPointType(viewportWidth = window.innerWidth) {
     return Object.keys(BreakPoints).find(type => BreakPoints[type] > viewportWidth);
+}
+
+function getDeviceType() {
+    return typeof window.orientation !== "undefined" || navigator.userAgent.includes('IEMobile')
+        ? DeviceType.MOBILE
+        : DeviceType.DESKTOP;
+}
+
+function getOrientationType() {
+    const orientation = window.screen.orientation;
+    return typeof orientation === 'string' && orientation.includes('portrait')
+        ? OrientationType.PORTRAIT
+        : OrientationType.LANDSCAPE;
 }
 
 // actions
 
-const ActionType = {
-    START_LOADING: 'start-loading',
-    STOP_LOADING: 'stop-loading'
-};
-
 export const actions = {
+    resizeApp: (width, height) => ({
+        type: ActionType.RESIZE,
+        sizeTo: { width, height }
+    }),
     startLoading: () => ({
         type: ActionType.START_LOADING
     }),
     stopLoading: () => ({
         type: ActionType.STOP_LOADING
+    }),
+    loadingTimeout: () => ({
+        type: ActionType.LOADING_TIMEOUT
     })
 };
 
@@ -46,6 +80,15 @@ export const actions = {
 
 const reducer = (state, action) => {
     switch (action.type) {
+        case ActionType.RESIZE:
+            return {
+                ...state,
+                viewportWidth: action.sizeTo.width,
+                viewportHeight: action.sizeTo.height,
+                breakPointType: getBreakPointType(action.sizeTo.width),
+                deviceType: getDeviceType(),
+                orientationType: getOrientationType()
+            };
         case ActionType.START_LOADING:
             return {
                 ...state,
@@ -55,6 +98,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 loading: Math.max(state.loading - 1, 0)
+            };
+        case ActionType.LOADING_TIMEOUT:
+            return {
+                ...state,
+                loading: 0
             };
         default:
             return state;
@@ -68,7 +116,9 @@ const init = initialState => {
         loading: 0,
         viewportWidth: window.innerWidth,
         viewportHeight: window.innerHeight,
-        breakPointType: getBreakPointType(window.innerWidth),
+        breakPointType: getBreakPointType(),
+        deviceType: getDeviceType(),
+        orientationType: getOrientationType(),
         ...initialState
     };
 };
