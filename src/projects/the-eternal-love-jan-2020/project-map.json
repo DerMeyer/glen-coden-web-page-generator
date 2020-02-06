@@ -16,7 +16,9 @@
         "ZoomBackground": {
             "image": "the-eternal-love-jan-2020/images/etl-bg-2019.jpg",
             "zoomFactor": 4,
-            "transitionTime": 0.5,
+            "zoomFactorMobile": 15,
+            "zoomTime": 0.5,
+            "zoomTimeMobile": 7,
             "initialState": {},
             "style": {}
         },

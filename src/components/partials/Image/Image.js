@@ -47,7 +47,7 @@ export default function Image(props) {
             if (!props.doNotSubscribeToGlobalLoading) {
                 dispatch(actions.stopLoading());
             }
-        }, 3000); // TODO remove dev code
+        }, 1000); // TODO remove dev code
     };
 
     return (

@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import styles from './ZoomBackground.module.css';
-import Store from '../../../Store';
+import Store, { DeviceType } from '../../../Store';
 import { projectConfig } from '../../../index';
 
 import Image from '../../partials/Image/Image';
@@ -12,6 +12,9 @@ import Image from '../../partials/Image/Image';
 export default function ZoomBackground(props) {
     const { globalState } = useContext(Store);
     const config = projectConfig.components.ZoomBackground;
+    const deviceIsMobile = globalState.deviceType === DeviceType.MOBILE;
+    const zoomFactor = deviceIsMobile ? config.zoomFactorMobile : config.zoomFactor;
+    const zoomTime = deviceIsMobile ? config.zoomTimeMobile : config.zoomTime;
 
     const [zoomActive, setZoomActive] = useState(false);
     const [boxTransform, setBoxTransform] = useState({ x: 0, y: 0 });
@@ -28,8 +31,8 @@ export default function ZoomBackground(props) {
         const xFromCenter = event.clientX - (globalState.viewportWidth / 2);
         const yFromCenter = event.clientY - (globalState.viewportHeight / 2);
         setBoxTransform({
-            x: xFromCenter / (globalState.viewportWidth / 2) * config.zoomFactor / 2,
-            y: yFromCenter / (globalState.viewportHeight / 2) * config.zoomFactor / 2
+            x: xFromCenter / (globalState.viewportWidth / 2) * zoomFactor / 2,
+            y: yFromCenter / (globalState.viewportHeight / 2) * zoomFactor / 2
         });
     };
 
@@ -39,16 +42,23 @@ export default function ZoomBackground(props) {
     };
 
     useEffect(() => {
+        if (globalState.loading) {
+            shrinkZoomBg();
+            return;
+        }
+        if (deviceIsMobile) {
+            growZoomBg();
+            return;
+        }
         window.addEventListener('mousemove', onMousemove);
         window.addEventListener('blur', shrinkZoomBg);
         document.addEventListener('mouseleave', shrinkZoomBg);
-
         return () => {
             window.removeEventListener('mousemove', onMousemove);
             window.removeEventListener('blur', shrinkZoomBg);
             document.removeEventListener('mouseleave', shrinkZoomBg);
         };
-    }, []);
+    }, [globalState.loading]);
 
     return (
         <div
@@ -64,15 +74,15 @@ export default function ZoomBackground(props) {
                     width: zoomActive ? '100%' : '0',
                     height: zoomActive ? '100%' : '0',
                     transform: `translate(-${50 + boxTransform.x}%, -${50 + boxTransform.y}%)`,
-                    transition: `width ${config.transitionTime}s, height ${config.transitionTime}s`
+                    transition: `width ${zoomTime}s, height ${zoomTime}s`
                 }}
             >
                 <Image
                     className={styles.image}
-                    style={{ transition: `width ${config.transitionTime}s, height ${config.transitionTime}s` }}
+                    style={{ transition: `width ${zoomTime}s, height ${zoomTime}s` }}
                     source={config.image}
-                    width={zoomActive ? globalState.viewportWidth * (1 + config.zoomFactor / 100) : globalState.viewportWidth}
-                    height={zoomActive ? globalState.viewportHeight * (1 + config.zoomFactor / 100) : globalState.viewportHeight}
+                    width={zoomActive ? globalState.viewportWidth * (1 + zoomFactor / 100) : globalState.viewportWidth}
+                    height={zoomActive ? globalState.viewportHeight * (1 + zoomFactor / 100) : globalState.viewportHeight}
                 />
             </div>
             {props.children}
