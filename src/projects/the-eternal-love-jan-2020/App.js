@@ -8,23 +8,26 @@ import { projectConfig } from '../../index';
 
 
 export default function App() {
-    const { dispatch } = useContext(Store);
-
-    const resizeApp = () => dispatch(actions.resizeApp(window.innerWidth, window.innerHeight));
+    const { globalState, dispatch } = useContext(Store);
 
     useEffect(() => {
-        window.setTimeout(() => dispatch(actions.loadingTimeout()), projectConfig.global.loadingTimeout * 1000);
+        window.setTimeout(() => dispatch(actions.showApp()), projectConfig.fadeInTime * 1000);
+        window.setTimeout(() => dispatch(actions.loadingTimeout()), projectConfig.loadingTimeout * 1000);
+
+        const resizeApp = () => dispatch(actions.resizeApp(window.innerWidth, window.innerHeight));
+
         window.addEventListener('resize', resizeApp);
         window.addEventListener('orientationchange', resizeApp);
+
         return () => {
             window.removeEventListener('resize', resizeApp);
             window.removeEventListener('orientationchange', resizeApp);
         };
-    }, []);
+    }, [dispatch]);
 
     return (
-        <div className={styles.app}>
-            <ZoomBackground>
+        <div className={styles.app} style={{ opacity: globalState.showApp ? '1' : '0', transition: `opacity ${projectConfig.fadeInTime}s` }}>
+            <ZoomBackground chain={[]}>
                 <div style={{
                     position: 'fixed',
                     left: '6%',
@@ -37,7 +40,7 @@ export default function App() {
                     The Eternal Love
                 </div>
             </ZoomBackground>
-            <LoadingOverlay />
+            <LoadingOverlay chain={[]} />
         </div>
     );
 }

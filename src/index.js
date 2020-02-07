@@ -11,15 +11,21 @@ const { projectMap, App } = projectImports;
 
 const { name, style, global, components } = projectMap;
 
-const initialComponentState = {};
-const componentConfig = {};
+export const projectConfig = {
+    name,
+    style,
+    ...global
+};
+
+const componentsInitialState = {};
+const componentsConfig = {};
 
 Object.keys(components).forEach(key => {
-    initialComponentState[key] = {
+    componentsInitialState[key] = {
         ...components[key].initialState
     };
     delete components[key].initialState;
-    componentConfig[key] = {
+    componentsConfig[key] = {
         ...components[key],
         style: {
             ...style,
@@ -28,16 +34,17 @@ Object.keys(components).forEach(key => {
     };
 });
 
+export function getComponentConfig(chain, componentName) {
+    return [...chain, componentName].reduce((result, child) => result[child], componentsConfig);
+}
+
+export function getComponentState(chain, componentName, state) {
+    return [...chain, componentName].reduce((result, child) => result[child], state);
+}
+
 const initialState = {
     ...projectMap.initialState,
-    ...initialComponentState
-};
-
-export const projectConfig = {
-    name,
-    style,
-    global,
-    components: componentConfig
+    ...componentsInitialState
 };
 
 // react render

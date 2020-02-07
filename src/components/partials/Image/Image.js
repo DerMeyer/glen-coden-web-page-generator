@@ -38,16 +38,14 @@ export default function Image(props) {
         if (!props.doNotSubscribeToGlobalLoading) {
             dispatch(actions.startLoading());
         }
-    }, []);
+    }, [dispatch, props.doNotSubscribeToGlobalLoading]);
 
     const onLoad = () => {
         setOriginalSize({ width: image.current.offsetWidth, height: image.current.offsetHeight });
-        window.setTimeout(() => {
-            setHasLoaded(true);
-            if (!props.doNotSubscribeToGlobalLoading) {
-                dispatch(actions.stopLoading());
-            }
-        }, 1000); // TODO remove dev code
+        setHasLoaded(true);
+        if (!props.doNotSubscribeToGlobalLoading) {
+            dispatch(actions.stopLoading());
+        }
     };
 
     return (
@@ -65,7 +63,7 @@ export default function Image(props) {
                 style={{
                     ...getImageSize(),
                     opacity: hasLoaded ? '1' : '0',
-                    transition: `opacity ${projectConfig.global.fadeInTimeOnLoaded}s`
+                    transition: `opacity ${projectConfig.fadeInTime}s`
                 }}
                 src={props.source}
                 onLoad={onLoad}

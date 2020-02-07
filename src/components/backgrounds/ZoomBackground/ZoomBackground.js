@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import styles from './ZoomBackground.module.css';
-import Store, { DeviceType } from '../../../Store';
-import { projectConfig } from '../../../index';
+import Store, { DeviceTypes } from '../../../Store';
+import { getComponentConfig } from '../../../index';
 
 import Image from '../../partials/Image/Image';
 
@@ -11,54 +11,63 @@ import Image from '../../partials/Image/Image';
 
 export default function ZoomBackground(props) {
     const { globalState } = useContext(Store);
-    const config = projectConfig.components.ZoomBackground;
-    const deviceIsMobile = globalState.deviceType === DeviceType.MOBILE;
+    const config = getComponentConfig(props.chain, 'ZoomBackground');
+    const deviceIsMobile = globalState.deviceType === DeviceTypes.MOBILE;
     const zoomFactor = deviceIsMobile ? config.zoomFactorMobile : config.zoomFactor;
     const zoomTime = deviceIsMobile ? config.zoomTimeMobile : config.zoomTime;
 
     const [zoomActive, setZoomActive] = useState(false);
     const [boxTransform, setBoxTransform] = useState({ x: 0, y: 0 });
 
-    const growZoomBg = () => {
-        setZoomActive(true);
-    };
-
-    const shrinkZoomBg = () => {
-        setZoomActive(false);
-    };
-
-    const calculateBoxTransform = event => {
-        const xFromCenter = event.clientX - (globalState.viewportWidth / 2);
-        const yFromCenter = event.clientY - (globalState.viewportHeight / 2);
-        setBoxTransform({
-            x: xFromCenter / (globalState.viewportWidth / 2) * zoomFactor / 2,
-            y: yFromCenter / (globalState.viewportHeight / 2) * zoomFactor / 2
-        });
-    };
-
-    const onMousemove = event => {
-        growZoomBg();
-        calculateBoxTransform(event);
-    };
-
     useEffect(() => {
+        const growZoomBg = () => {
+            setZoomActive(true);
+        };
+
+        const shrinkZoomBg = () => {
+            setZoomActive(false);
+        };
+
+        const calculateBoxTransform = event => {
+            const xFromCenter = event.clientX - (globalState.viewportWidth / 2);
+            const yFromCenter = event.clientY - (globalState.viewportHeight / 2);
+            setBoxTransform({
+                x: xFromCenter / (globalState.viewportWidth / 2) * zoomFactor / 2,
+                y: yFromCenter / (globalState.viewportHeight / 2) * zoomFactor / 2
+            });
+        };
+
+        const onMousemove = event => {
+            growZoomBg();
+            calculateBoxTransform(event);
+        };
+
         if (globalState.loading) {
             shrinkZoomBg();
             return;
         }
+
         if (deviceIsMobile) {
             growZoomBg();
             return;
         }
+
         window.addEventListener('mousemove', onMousemove);
         window.addEventListener('blur', shrinkZoomBg);
         document.addEventListener('mouseleave', shrinkZoomBg);
+
         return () => {
             window.removeEventListener('mousemove', onMousemove);
             window.removeEventListener('blur', shrinkZoomBg);
             document.removeEventListener('mouseleave', shrinkZoomBg);
         };
-    }, [globalState.loading]);
+    }, [
+        globalState.viewportWidth,
+        globalState.viewportHeight,
+        zoomFactor,
+        globalState.loading,
+        deviceIsMobile
+    ]);
 
     return (
         <div

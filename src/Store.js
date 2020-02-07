@@ -2,14 +2,15 @@ import React, { createContext, useReducer } from 'react';
 
 // enums
 
-const ActionType = {
+const ActionTypes = {
+    SHOW_APP: 'show-app',
     RESIZE: 'resize',
     START_LOADING: 'start-loading',
     STOP_LOADING: 'stop-loading',
     LOADING_TIMEOUT: 'loading-timeout'
 };
 
-export const BreakPointType = {
+export const BreakPointTypes = {
     MOBILE_PORTRAIT: 'mobile-portrait',
     MOBILE_LANDSCAPE: 'mobile-landscape',
     TABLET: 'tablet',
@@ -18,12 +19,12 @@ export const BreakPointType = {
     DESKTOP_MAX: 'desktop-max'
 };
 
-export const DeviceType = {
+export const DeviceTypes = {
     MOBILE: 'mobile',
     DESKTOP: 'desktop'
 };
 
-export const OrientationType = {
+export const OrientationTypes = {
     PORTRAIT: 'portrait',
     LANDSCAPE: 'landscape'
 };
@@ -31,12 +32,12 @@ export const OrientationType = {
 // maps
 
 export const BreakPoints = {
-    [BreakPointType.MOBILE_PORTRAIT]: 450,
-    [BreakPointType.MOBILE_LANDSCAPE]: 850,
-    [BreakPointType.TABLET]: 1050,
-    [BreakPointType.DESKTOP_MIN]: 1250,
-    [BreakPointType.DESKTOP]: 2000,
-    [BreakPointType.DESKTOP_MAX]: Infinity
+    [BreakPointTypes.MOBILE_PORTRAIT]: 450,
+    [BreakPointTypes.MOBILE_LANDSCAPE]: 850,
+    [BreakPointTypes.TABLET]: 1050,
+    [BreakPointTypes.DESKTOP_MIN]: 1250,
+    [BreakPointTypes.DESKTOP]: 2000,
+    [BreakPointTypes.DESKTOP_MAX]: Infinity
 };
 
 // helpers
@@ -47,32 +48,35 @@ function getBreakPointType(viewportWidth = window.innerWidth) {
 
 function getDeviceType() {
     return typeof window.orientation !== "undefined" || navigator.userAgent.includes('IEMobile')
-        ? DeviceType.MOBILE
-        : DeviceType.DESKTOP;
+        ? DeviceTypes.MOBILE
+        : DeviceTypes.DESKTOP;
 }
 
 function getOrientationType() {
     const orientation = window.screen.orientation;
     return typeof orientation === 'string' && orientation.includes('portrait')
-        ? OrientationType.PORTRAIT
-        : OrientationType.LANDSCAPE;
+        ? OrientationTypes.PORTRAIT
+        : OrientationTypes.LANDSCAPE;
 }
 
-// actions
+// action creators
 
 export const actions = {
+    showApp: () => ({
+        type: ActionTypes.SHOW_APP
+    }),
     resizeApp: (width, height) => ({
-        type: ActionType.RESIZE,
+        type: ActionTypes.RESIZE,
         sizeTo: { width, height }
     }),
     startLoading: () => ({
-        type: ActionType.START_LOADING
+        type: ActionTypes.START_LOADING
     }),
     stopLoading: () => ({
-        type: ActionType.STOP_LOADING
+        type: ActionTypes.STOP_LOADING
     }),
     loadingTimeout: () => ({
-        type: ActionType.LOADING_TIMEOUT
+        type: ActionTypes.LOADING_TIMEOUT
     })
 };
 
@@ -80,7 +84,12 @@ export const actions = {
 
 const reducer = (state, action) => {
     switch (action.type) {
-        case ActionType.RESIZE:
+        case ActionTypes.SHOW_APP:
+            return {
+                ...state,
+                showApp: true
+            };
+        case ActionTypes.RESIZE:
             return {
                 ...state,
                 viewportWidth: action.sizeTo.width,
@@ -89,17 +98,17 @@ const reducer = (state, action) => {
                 deviceType: getDeviceType(),
                 orientationType: getOrientationType()
             };
-        case ActionType.START_LOADING:
+        case ActionTypes.START_LOADING:
             return {
                 ...state,
                 loading: state.loading + 1
             };
-        case ActionType.STOP_LOADING:
+        case ActionTypes.STOP_LOADING:
             return {
                 ...state,
                 loading: Math.max(state.loading - 1, 0)
             };
-        case ActionType.LOADING_TIMEOUT:
+        case ActionTypes.LOADING_TIMEOUT:
             return {
                 ...state,
                 loading: 0
@@ -113,6 +122,7 @@ const reducer = (state, action) => {
 
 const init = initialState => {
     return {
+        showApp: false,
         loading: 0,
         viewportWidth: window.innerWidth,
         viewportHeight: window.innerHeight,
