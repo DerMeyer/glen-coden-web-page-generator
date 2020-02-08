@@ -67,7 +67,10 @@ export const actions = {
     }),
     resizeApp: (width, height) => ({
         type: ActionTypes.RESIZE,
-        sizeTo: { width, height }
+        sizeTo: { width, height },
+        breakPointType: getBreakPointType(width),
+        deviceType: getDeviceType(),
+        orientationType: getOrientationType()
     }),
     startLoading: () => ({
         type: ActionTypes.START_LOADING
@@ -94,9 +97,9 @@ const reducer = (state, action) => {
                 ...state,
                 viewportWidth: action.sizeTo.width,
                 viewportHeight: action.sizeTo.height,
-                breakPointType: getBreakPointType(action.sizeTo.width),
-                deviceType: getDeviceType(),
-                orientationType: getOrientationType()
+                breakPointType: action.breakPointType,
+                deviceType: action.deviceType,
+                orientationType: action.orientationType
             };
         case ActionTypes.START_LOADING:
             return {

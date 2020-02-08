@@ -29,7 +29,7 @@ export default function LoadingOverlay(props) {
             }}
             onTransitionEnd={() => setVisible(false)}
         >
-            {globalState.loading ? <ThreeDotsLoadingIcon size={globalState.viewportWidth / 15} /> : null}
+            {globalState.loading ? <ThreeDotsLoadingIcon size={Math.round(globalState.viewportWidth / 15)} /> : null}
         </div>
     );
 }

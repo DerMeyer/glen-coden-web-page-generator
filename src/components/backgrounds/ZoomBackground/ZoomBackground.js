@@ -72,10 +72,7 @@ export default function ZoomBackground(props) {
     return (
         <div
             className={styles.background}
-            style={{
-                height: `${globalState.viewportHeight}px`,
-                backgroundColor: config.style.backgroundColor
-            }}
+            style={{ height: `${globalState.viewportHeight}px` }}
         >
             <div
                 className={styles.zoomBox}
@@ -90,8 +87,8 @@ export default function ZoomBackground(props) {
                     className={styles.image}
                     style={{ transition: `width ${zoomTime}s, height ${zoomTime}s` }}
                     source={config.image}
-                    width={zoomActive ? globalState.viewportWidth * (1 + zoomFactor / 100) : globalState.viewportWidth}
-                    height={zoomActive ? globalState.viewportHeight * (1 + zoomFactor / 100) : globalState.viewportHeight}
+                    width={zoomActive ? Math.ceil(globalState.viewportWidth * (1 + zoomFactor / 100)) : globalState.viewportWidth}
+                    height={zoomActive ? Math.ceil(globalState.viewportHeight * (1 + zoomFactor / 100)) : globalState.viewportHeight}
                 />
             </div>
             {props.children}

@@ -9,11 +9,10 @@ ThreeDotsLoadingIcon.propTypes = {
 
 
 export default function ThreeDotsLoadingIcon(props) {
-    const size = Math.round(props.size);
     return (
         <div
             className={styles.iconBox}
-            style={{ width: `${size}px`, height: `${size}px` }}
+            style={{ width: `${props.size}px`, height: `${props.size}px` }}
         >
             <div className={`${styles.dot} ${styles.dotOne}`} style={{ backgroundColor: projectConfig.style.darkFontColor }} />
             <div className={`${styles.dot} ${styles.dotTwo}`} style={{ backgroundColor: projectConfig.style.darkFontColor }} />
