@@ -11,7 +11,8 @@ const targetImageSizes = [ 100, 300, 500, 750, 1000, 1500, 2500 ];
 const { activeProject } = require('./generator-config');
 
 const imageDirectory = path.resolve( 'public', activeProject, 'images');
-const targetDirectory = path.join(imageDirectory, 'optimized');
+const targetDirectoryName = 'optimized';
+const targetDirectory = path.join(imageDirectory, targetDirectoryName);
 
 if (!fs.existsSync(targetDirectory)) {
     fs.mkdirSync(targetDirectory);
@@ -52,13 +53,20 @@ Promise.all(
         const imageType = nameParts.pop();
         const imageName = nameParts.join('.');
         if (!supportedImageTypes.includes(imageType)) {
-            return Promise.resolve(`Type of ${fileName} not supported.`);
+            return Promise.resolve()
+                .then(() => {
+                    if (fileName === targetDirectoryName) {
+                        return;
+                    }
+                    console.log(`Type of ${fileName} is not supported.`);
+                });
         }
         return Promise.all(
             targetImageSizes.map(imageSize => {
                 const targetName = `${imageName}_${imageSize}.${imageType}`;
                 if (optimizedImages.includes(targetName)) {
-                    return Promise.resolve(`Optimized image ${targetName} already exists.`);
+                    return Promise.resolve()
+                        .then(() => console.log(`Optimized image ${targetName} already exists.`));
                 }
                 return tinify
                     .fromFile(path.join(imageDirectory, fileName))
