@@ -5,13 +5,9 @@ import ZoomBackground from '../../components/backgrounds/ZoomBackground/ZoomBack
 import LoadingOverlay from '../../components/overlays/LoadingOverlay/LoadingOverlay';
 import { projectConfig } from '../../index';
 
-import {ReactComponent as InstagramIcon} from '../../components/svg/instagram.svg';
-
 
 export default function App() {
     const { globalState, dispatch } = useContext(Store);
-
-    console.log(globalState);// TODO remove dev code
 
     useEffect(() => {
         document.body.style.backgroundColor = projectConfig.style.backgroundColor;
@@ -47,9 +43,6 @@ export default function App() {
                 </div>
             </ZoomBackground>
             <LoadingOverlay chain={[]} />
-            <div style={{ width: '50px', fill: 'white' }}>
-                <InstagramIcon />
-            </div>
         </div>
     );
 }

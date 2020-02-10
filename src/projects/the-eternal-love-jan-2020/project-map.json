@@ -1,5 +1,5 @@
 {
-    "name": "The Eternal Love - Jan 2020",
+    "name": "the-eternal-love-jan-2020",
     "initialState": {},
     "style": {
         "backgroundColor": "#b7b7b7",
@@ -14,7 +14,7 @@
     },
     "components": {
         "ZoomBackground": {
-            "image": "the-eternal-love-jan-2020/images/etl-bg-2019.jpg",
+            "image": "etl-bg-2019.jpg",
             "zoomFactor": 4,
             "zoomFactorMobile": 15,
             "zoomTime": 0.5,

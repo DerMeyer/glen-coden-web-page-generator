@@ -1,8 +1,8 @@
-import React, { useContext, useRef, useState, useEffect } from 'react';
+import React, { useContext, useRef, useState, useCallback, useEffect } from 'react';
 import styles from './Image.module.css';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import Store, { actions } from '../../../Store';
+import Store, { actions, targetImageSizes } from '../../../Store';
 import { projectConfig } from '../../../index';
 
 Image.propTypes = {
@@ -20,19 +20,44 @@ export default function Image(props) {
 
     const image = useRef(null);
 
-    const [originalSize, setOriginalSize] = useState({ width: 0, height: 0 });
     const [hasLoaded, setHasLoaded] = useState(false);
+    const [originalSize, setOriginalSize] = useState({ width: 0, height: 0 });
 
-    const getImageSize = () => {
-        if (!hasLoaded) {
-            return {};
+    const getDisplayToImageRatio = useCallback(
+        () => {
+            const displayDelta = props.width / props.height;
+            const originalDelta = originalSize.width / originalSize.height;
+            return displayDelta / originalDelta;
+        },
+        [props.width, props.height, originalSize]
+    );
+
+    const getSource = useCallback(
+        (width, fallback = false) => {
+            // TODO somehow calculate delta in here, only reload bigger image, maybe debounce width?
+            const targetImageSize = targetImageSizes.find(size => size > width);
+            const sourceParts = props.source.split('.');
+            const sourceType = sourceParts.pop();
+            const sourceName = sourceParts.join('.');
+            let updatedSource = `${projectConfig.name}/images/optimized/${sourceName}_${targetImageSize}.${sourceType}`;
+            if (fallback) {
+                updatedSource = `${projectConfig.name}/images/${props.source}`;
+            }
+            return updatedSource;
+        },
+        [props.source]
+    );
+
+    const [source, setSource] = useState(getSource(props.width));
+
+    useEffect(() => {
+        const updatedSource = getSource(props.width);
+        if (updatedSource === source) {
+            return;
         }
-        const targetDelta = props.width / props.height;
-        const originalDelta = originalSize.width / originalSize.height;
-        return targetDelta > originalDelta
-            ? { width: '100%' }
-            : { height: '100%' };
-    };
+        setSource(updatedSource);
+        setHasLoaded(false);
+    }, [props.width, props.height, source, getSource]);
 
     useEffect(() => {
         if (!props.doNotSubscribeToGlobalLoading) {
@@ -40,12 +65,27 @@ export default function Image(props) {
         }
     }, [dispatch, props.doNotSubscribeToGlobalLoading]);
 
+    const getImageSizing = () => {
+        if (!hasLoaded) {
+            return {};
+        }
+        return getDisplayToImageRatio() >= 1
+            ? { width: '100%' }
+            : { height: '100%' };
+    };
+
     const onLoad = () => {
         setOriginalSize({ width: image.current.offsetWidth, height: image.current.offsetHeight });
         setHasLoaded(true);
         if (!props.doNotSubscribeToGlobalLoading) {
             dispatch(actions.stopLoading());
         }
+    };
+
+    const onError = () => {
+        console.warn(`Missing an optimized image for ${props.source}`);
+        const fallbackSource = getSource(props.width, true);
+        setSource(fallbackSource);
     };
 
     return (
@@ -61,12 +101,13 @@ export default function Image(props) {
                 ref={image}
                 className={styles.image}
                 style={{
-                    ...getImageSize(),
+                    ...getImageSizing(),
                     opacity: hasLoaded ? '1' : '0',
                     transition: `opacity ${projectConfig.fadeInTime}s`
                 }}
-                src={props.source}
+                src={source}
                 onLoad={onLoad}
+                onError={onError}
                 alt=""
             />
         </div>

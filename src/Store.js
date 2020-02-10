@@ -29,6 +29,10 @@ export const OrientationTypes = {
     LANDSCAPE: 'landscape'
 };
 
+// lists
+
+export const targetImageSizes = [ 100, 300, 500, 750, 1000, 1500, 2500 ];
+
 // maps
 
 export const BreakPoints = {
