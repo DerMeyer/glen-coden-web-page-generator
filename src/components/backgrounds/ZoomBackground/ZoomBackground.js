@@ -1,7 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react';
 import styles from './ZoomBackground.module.css';
-import Store, { DeviceTypes } from '../../../Store';
-import { getComponentConfig } from '../../../index';
+import Store from '../../../js/Store';
+import { configService } from '../../../index';
+import { DeviceTypes } from '../../../js/helpers';
 
 import Image from '../../partials/Image/Image';
 
@@ -11,13 +12,14 @@ import Image from '../../partials/Image/Image';
 
 export default function ZoomBackground(props) {
     const { globalState } = useContext(Store);
-    const config = getComponentConfig(props.chain, 'ZoomBackground');
+
+    const [config] = useState(() => configService.getComponentConfig(props.chain, 'ZoomBackground'));
+    const [zoomActive, setZoomActive] = useState(false);
+    const [boxTransform, setBoxTransform] = useState({ x: 0, y: 0 });
+
     const deviceIsMobile = globalState.deviceType === DeviceTypes.MOBILE;
     const zoomFactor = deviceIsMobile ? config.zoomFactorMobile : config.zoomFactor;
     const zoomTime = deviceIsMobile ? config.zoomTimeMobile : config.zoomTime;
-
-    const [zoomActive, setZoomActive] = useState(false);
-    const [boxTransform, setBoxTransform] = useState({ x: 0, y: 0 });
 
     useEffect(() => {
         const growZoomBg = () => {

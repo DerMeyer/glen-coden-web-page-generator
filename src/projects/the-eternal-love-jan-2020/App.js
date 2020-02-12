@@ -1,13 +1,14 @@
-import React, { useContext, useEffect } from 'react';
-import Store, { actions } from '../../Store';
+import React, { useContext, useState, useEffect } from 'react';
+import Store from '../../js/Store';
+import actions from '../../js/actions';
+import { configService } from '../../index';
 
-import ZoomBackground from '../../components/backgrounds/ZoomBackground/ZoomBackground';
-import LoadingOverlay from '../../components/overlays/LoadingOverlay/LoadingOverlay';
-import { projectConfig } from '../../index';
+import ActiveProject from '../../ActiveProject';
 
 
 export default function App() {
     const { globalState, dispatch } = useContext(Store);
+    const [projectConfig] = useState(() => configService.getProjectConfig());
 
     useEffect(() => {
         document.body.style.backgroundColor = projectConfig.style.backgroundColor;
@@ -24,25 +25,14 @@ export default function App() {
             window.removeEventListener('resize', resizeApp);
             window.removeEventListener('orientationchange', resizeApp);
         };
-    }, [dispatch]);
+    }, [dispatch, projectConfig]);
 
     return (
-        <div style={{ opacity: globalState.showApp ? '1' : '0', transition: `opacity ${projectConfig.fadeInTime}s` }}>
-            <ZoomBackground chain={[]}>
-                <div style={{
-                    position: 'fixed',
-                    left: '6%',
-                    bottom: '55px',
-                    fontFamily: 'Comfortaa',
-                    fontSize: '55px',
-                    fontWeight: 'bold',
-                    color: 'white',
-                    whiteSpace: 'nowrap'
-                }}>
-                    The Eternal Love
-                </div>
-            </ZoomBackground>
-            <LoadingOverlay chain={[]} />
+        <div style={{
+            opacity: globalState.showApp ? '1' : '0',
+            transition: `opacity ${projectConfig.fadeInTime}s`
+        }}>
+            <ActiveProject />
         </div>
     );
 }

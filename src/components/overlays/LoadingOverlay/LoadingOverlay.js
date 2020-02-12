@@ -1,15 +1,16 @@
 import React, { useContext, useState } from 'react';
 import styles from './LoadingOverlay.module.css';
-import Store from '../../../Store';
-import { projectConfig, getComponentConfig } from '../../../index';
+import Store from '../../../js/Store';
+import { configService } from '../../../index';
 
 import ThreeDotsLoadingIcon from './ThreeDotsLoadingIcon/ThreeDotsLoadingIcon';
 
 
 export default function LoadingOverlay(props) {
     const { globalState } = useContext(Store);
-    const config = getComponentConfig(props.chain, 'LoadingOverlay');
 
+    const [projectConfig] = useState(() => configService.getProjectConfig());
+    const [config] = useState(() => configService.getComponentConfig(props.chain, 'LoadingOverlay'));
     const [visible, setVisible] = useState(true);
 
     if (!visible) {

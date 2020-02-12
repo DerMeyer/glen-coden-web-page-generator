@@ -6,7 +6,7 @@ const { TINIFY_API_KEY } = require('../confidential');
 tinify.key = TINIFY_API_KEY;
 
 const supportedImageTypes = [ 'jpg', 'jpeg', 'png' ];
-const { targetImageSizes } = require('../src/Store');
+const { targetImageSizes } = require('../src/js/helpers');
 const { activeProject } = require('./generator-config');
 
 const imageDirectory = path.resolve( 'public', activeProject, 'images');

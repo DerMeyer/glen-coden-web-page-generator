@@ -2,8 +2,10 @@ import React, { useContext, useRef, useState, useCallback, useEffect } from 'rea
 import styles from './Image.module.css';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import Store, { actions, targetImageSizes } from '../../../Store';
-import { projectConfig } from '../../../index';
+import Store from '../../../js/Store';
+import actions from '../../../js/actions';
+import { targetImageSizes } from '../../../js/helpers';
+import { configService } from '../../../index';
 
 Image.propTypes = {
     className: PropTypes.string,
@@ -20,6 +22,8 @@ export default function Image(props) {
 
     const image = useRef(null);
 
+    const [projectConfig] = useState(() => configService.getProjectConfig());
+    const [source, setSource] = useState('');
     const [hasLoaded, setHasLoaded] = useState(false);
     const [originalSize, setOriginalSize] = useState({ width: 0, height: 0 });
     const [targetSize, setTargetSize] = useState(0);
@@ -38,32 +42,22 @@ export default function Image(props) {
 
     const getSource = useCallback(
         (width, fallback = false) => {
-            const targetWidth = width * Math.max(1 / getDisplayToImageRatio(), 1);
-            console.log('TARGET WIDTH:', targetWidth);// TODO remove dev code
-            const targetImageSize = targetImageSizes.find(size => size > targetWidth) || targetImageSizes[targetImageSizes.length - 1];
-            const updatedSize = Math.max(targetImageSize, targetSize);
-
-            if (updatedSize !== targetSize) {
-                setTargetSize(updatedSize);
+            if (fallback) {
+                return `${projectConfig.name}/images/${props.source}`;
             }
-
+            const targetWidth = width * Math.max(1 / getDisplayToImageRatio(), 1);
+            const targetImageSize = targetImageSizes.find(size => size > targetWidth) || targetImageSizes[targetImageSizes.length - 1];
+            if (targetImageSize <= targetSize) {
+                return source;
+            }
+            setTargetSize(targetImageSize);
             const sourceParts = props.source.split('.');
             const sourceType = sourceParts.pop();
             const sourceName = sourceParts.join('.');
-            let updatedSource = `${projectConfig.name}/images/optimized/${sourceName}_${updatedSize}.${sourceType}`;
-
-            if (fallback) {
-                updatedSource = `${projectConfig.name}/images/${props.source}`;
-            }
-
-            console.log('INNER WIDTH:', window.innerWidth);// TODO remove dev code
-            console.log('UPDATED SOURCE:', updatedSource);// TODO remove dev code
-            return updatedSource;
+            return `${projectConfig.name}/images/optimized/${sourceName}_${targetImageSize}.${sourceType}`;
         },
-        [props.source, targetSize, getDisplayToImageRatio]
+        [props.source, projectConfig.name, source, targetSize, getDisplayToImageRatio]
     );
-
-    const [source, setSource] = useState(() => getSource(props.width));
 
     useEffect(() => {
         setHasLoaded(false);

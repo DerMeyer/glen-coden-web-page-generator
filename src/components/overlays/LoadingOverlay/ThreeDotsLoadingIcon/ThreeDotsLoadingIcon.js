@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './ThreeDotsLoadingIcon.module.css';
 import PropTypes from 'prop-types';
-import { projectConfig} from '../../../../index';
+import { configService } from '../../../../index';
 
 ThreeDotsLoadingIcon.propTypes = {
     size: PropTypes.number.isRequired
@@ -9,6 +9,7 @@ ThreeDotsLoadingIcon.propTypes = {
 
 
 export default function ThreeDotsLoadingIcon(props) {
+    const [projectConfig] = useState(() => configService.getProjectConfig());
     return (
         <div
             className={styles.iconBox}
