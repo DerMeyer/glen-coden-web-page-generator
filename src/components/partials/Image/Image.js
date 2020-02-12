@@ -23,6 +23,7 @@ export default function Image(props) {
     const image = useRef(null);
 
     const [projectConfig] = useState(() => configService.getProjectConfig());
+
     const [source, setSource] = useState('');
     const [hasLoaded, setHasLoaded] = useState(false);
     const [originalSize, setOriginalSize] = useState({ width: 0, height: 0 });
@@ -59,20 +60,20 @@ export default function Image(props) {
         [props.source, projectConfig.name, source, targetSize, getDisplayToImageRatio]
     );
 
-    useEffect(() => {
-        setHasLoaded(false);
-    }, [source]);
+    useEffect(() => setHasLoaded(false), [source]);
 
     useEffect(() => {
-        const updatedSource = getSource(props.width);
-        setSource(updatedSource);
-    }, [props.width, props.height, getSource]);
+            const updatedSource = getSource(props.width);
+            setSource(updatedSource);
+        },
+        [props.width, props.height, getSource]);
 
     useEffect(() => {
-        if (!props.doNotSubscribeToGlobalLoading) {
-            dispatch(actions.startLoading());
-        }
-    }, [dispatch, props.doNotSubscribeToGlobalLoading]);
+            if (!props.doNotSubscribeToGlobalLoading) {
+                dispatch(actions.startLoading());
+            }
+        },
+        [dispatch, props.doNotSubscribeToGlobalLoading]);
 
     const onLoad = () => {
         setOriginalSize({ width: image.current.offsetWidth, height: image.current.offsetHeight });

@@ -15,10 +15,12 @@
     "components": {
         "ZoomBackground": {
             "image": "etl-bg-2019.jpg",
+            "autoZoom": false,
             "zoomFactor": 4,
-            "zoomFactorMobile": 15,
+            "zoomFactorAuto": 12,
             "zoomTime": 0.5,
-            "zoomTimeMobile": 7,
+            "zoomTimeAuto": 7,
+            "timingFunction": "ease-out",
             "initialState": {},
             "style": {}
         },

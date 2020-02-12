@@ -4,7 +4,7 @@ import ZoomBackground from './components/backgrounds/ZoomBackground/ZoomBackgrou
 import LoadingOverlay from './components/overlays/LoadingOverlay/LoadingOverlay';
 
 
-export default function ActiveProject() {
+export default function Project() {
     return (
         <>
             <ZoomBackground chain={[]}>

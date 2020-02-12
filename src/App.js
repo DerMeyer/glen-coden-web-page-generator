@@ -1,9 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react';
-import Store from '../../js/Store';
-import actions from '../../js/actions';
-import { configService } from '../../index';
+import Store from './js/Store';
+import actions from './js/actions';
+import { configService } from './index';
 
-import ActiveProject from '../../ActiveProject';
+import Project from './Project';
 
 
 export default function App() {
@@ -32,7 +32,7 @@ export default function App() {
             opacity: globalState.showApp ? '1' : '0',
             transition: `opacity ${projectConfig.fadeInTime}s`
         }}>
-            <ActiveProject />
+            <Project />
         </div>
     );
 }
