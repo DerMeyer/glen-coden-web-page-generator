@@ -10,7 +10,8 @@
     },
     "global": {
         "fadeInTime": 0.2,
-        "loadingTimeout": 10
+        "loadingTimeout": 10,
+        "usePortraitImages": true
     },
     "components": {
         "ZoomBackground": {

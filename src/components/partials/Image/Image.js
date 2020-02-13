@@ -5,6 +5,7 @@ import cx from 'classnames';
 import Store from '../../../js/Store';
 import actions from '../../../js/actions';
 import { targetImageSizes } from '../../../js/helpers';
+import { TargetImageRatios } from '../../../js/helpersTest';
 import { configService } from '../../../index';
 
 Image.propTypes = {
@@ -27,6 +28,7 @@ export default function Image(props) {
     const [source, setSource] = useState('');
     const [hasLoaded, setHasLoaded] = useState(false);
     const [originalSize, setOriginalSize] = useState({ width: 0, height: 0 });
+    const [targetRatio, setTargetRatio] = useState(TargetImageRatios.DEFAULT);
     const [targetSize, setTargetSize] = useState(0);
 
     const getDisplayToImageRatio = useCallback(
@@ -46,18 +48,42 @@ export default function Image(props) {
             if (fallback) {
                 return `${projectConfig.name}/images/${props.source}`;
             }
+
+            let targetImageRatio = TargetImageRatios.DEFAULT;
             const targetWidth = width * Math.max(1 / getDisplayToImageRatio(), 1);
-            const targetImageSize = targetImageSizes.find(size => size > targetWidth) || targetImageSizes[targetImageSizes.length - 1];
-            if (targetImageSize <= targetSize) {
+
+            if (props.width / props.height < 0.6 && projectConfig.usePortraitImages) {
+                targetImageRatio = TargetImageRatios.PORTRAIT;
+            }
+
+            const sizesForRatio = targetImageSizes
+                .filter(size => size.ratio === targetImageRatio)
+                .map(size => size.width);
+            const targetImageSize = sizesForRatio.find(size => targetWidth < size) || sizesForRatio.pop();
+            if (targetImageRatio === targetRatio && targetImageSize <= targetSize) {
                 return source;
             }
+
+            setTargetRatio(targetImageRatio);
             setTargetSize(targetImageSize);
+
             const sourceParts = props.source.split('.');
             const sourceType = sourceParts.pop();
             const sourceName = sourceParts.join('.');
-            return `${projectConfig.name}/images/optimized/${sourceName}_${targetImageSize}.${sourceType}`;
+
+            return `${projectConfig.name}/images/optimized/${sourceName}_${targetImageRatio}_${targetImageSize}.${sourceType}`;
         },
-        [props.source, projectConfig.name, source, targetSize, getDisplayToImageRatio]
+        [
+            projectConfig.name,
+            projectConfig.usePortraitImages,
+            props.width,
+            props.height,
+            props.source,
+            getDisplayToImageRatio,
+            targetRatio,
+            targetSize,
+            source
+        ]
     );
 
     useEffect(() => setHasLoaded(false), [source]);

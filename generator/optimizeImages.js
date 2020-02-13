@@ -1,5 +1,3 @@
-import { TargetImageRatios } from '../src/js/helpers';
-
 const path = require('path');
 const fs = require('fs');
 
@@ -8,7 +6,23 @@ const { TINIFY_API_KEY } = require('../confidential');
 tinify.key = TINIFY_API_KEY;
 
 const supportedImageTypes = [ 'jpg', 'jpeg', 'png' ];
-const { targetImageSizes } = require('../src/js/helpers');
+const ignoredImageTypes = [ 'DS_Store' ];
+const { TargetImageRatios, targetImageSizes } = require('../src/js/helpersTest');
+/*const TargetImageRatios = {
+    DEFAULT: 'default',
+    PORTRAIT: 'portrait'
+};
+const targetImageSizes = [
+    { ratio: TargetImageRatios.DEFAULT, width: 100 },
+    { ratio: TargetImageRatios.DEFAULT, width: 300 },
+    { ratio: TargetImageRatios.DEFAULT, width: 500 },
+    { ratio: TargetImageRatios.DEFAULT, width: 750 },
+    { ratio: TargetImageRatios.DEFAULT, width: 1000 },
+    { ratio: TargetImageRatios.DEFAULT, width: 1500 },
+    { ratio: TargetImageRatios.DEFAULT, width: 2500 },
+    { ratio: TargetImageRatios.PORTRAIT, width: 450, height: 800 }
+];*/
+//
 const { activeProject } = require('./generator-config');
 
 const imageDirectory = path.resolve( 'public', activeProject, 'images');
@@ -53,6 +67,9 @@ Promise.all(
         const nameParts = fileName.split('.');
         const imageType = nameParts.pop();
         const imageName = nameParts.join('.');
+        if (ignoredImageTypes.includes(imageType)) {
+            return Promise.resolve();
+        }
         if (!supportedImageTypes.includes(imageType)) {
             return Promise.resolve()
                 .then(() => {
@@ -64,7 +81,7 @@ Promise.all(
         }
         return Promise.all(
             targetImageSizes.map(imageSize => {
-                const targetName = `${imageName}_${imageSize.width}_${imageSize.ratio}.${imageType}`;
+                const targetName = `${imageName}_${imageSize.ratio}_${imageSize.width}.${imageType}`;
                 if (optimizedImages.includes(targetName)) {
                     return Promise.resolve()
                         .then(() => console.log(`Optimized image ${targetName} already exists.`));
@@ -101,7 +118,7 @@ Promise.all(
             START_AT: updatedStartAt,
             COUNT: updatedCount
         };
-        const countStorage = path.resolve('generator', 'statistics', 'optimizationCount.json');
+        const countStorage = path.resolve('generator', 'statistics', 'tinifyApiCallCount.json');
         fs.writeFileSync(countStorage, JSON.stringify(updatedOptimizationCount, null, 4));
         console.log(`\nYou have ${500 - updatedCount} api calls left until ${nextFreeMonthStart}\n`);
     })
