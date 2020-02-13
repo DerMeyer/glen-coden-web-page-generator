@@ -17,7 +17,7 @@
             "image": "etl-bg-2019.jpg",
             "autoZoom": false,
             "zoomFactor": 4,
-            "zoomFactorAuto": 12,
+            "zoomFactorAuto": 15,
             "zoomTime": 0.5,
             "zoomTimeAuto": 7,
             "timingFunction": "ease-out",

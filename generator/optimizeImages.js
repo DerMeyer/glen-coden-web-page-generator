@@ -1,3 +1,5 @@
+import { TargetImageRatios } from '../src/js/helpers';
+
 const path = require('path');
 const fs = require('fs');
 
@@ -62,17 +64,27 @@ Promise.all(
         }
         return Promise.all(
             targetImageSizes.map(imageSize => {
-                const targetName = `${imageName}_${imageSize}.${imageType}`;
+                const targetName = `${imageName}_${imageSize.width}_${imageSize.ratio}.${imageType}`;
                 if (optimizedImages.includes(targetName)) {
                     return Promise.resolve()
                         .then(() => console.log(`Optimized image ${targetName} already exists.`));
                 }
+                const options = {};
+                switch (imageSize.ratio) {
+                    case TargetImageRatios.DEFAULT:
+                        options.method = 'scale';
+                        options.width = imageSize.width;
+                        break;
+                    case TargetImageRatios.PORTRAIT:
+                        options.method = 'cover';
+                        options.width = imageSize.width;
+                        options.height = imageSize.height;
+                        break;
+                    default:
+                }
                 return tinify
                     .fromFile(path.join(imageDirectory, fileName))
-                    .resize({
-                        method: 'scale',
-                        width: imageSize
-                    })
+                    .resize(options)
                     .toFile(path.join(targetDirectory, targetName))
                     .then(() => {
                         apiCalls += 2;
