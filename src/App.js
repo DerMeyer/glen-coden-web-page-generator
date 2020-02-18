@@ -16,7 +16,7 @@ export default function App() {
         window.setTimeout(() => dispatch(actions.showApp()), projectConfig.fadeInTime * 1000);
         window.setTimeout(() => dispatch(actions.loadingTimeout()), projectConfig.loadingTimeout * 1000);
 
-        const resizeApp = () => dispatch(actions.resizeApp(window.innerWidth, window.innerHeight));
+        const resizeApp = event => dispatch(actions.resize(event.target.innerWidth, event.target.innerHeight));
 
         window.addEventListener('resize', resizeApp);
         window.addEventListener('orientationchange', resizeApp);

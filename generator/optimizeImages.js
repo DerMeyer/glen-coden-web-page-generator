@@ -7,23 +7,8 @@ tinify.key = TINIFY_API_KEY;
 
 const supportedImageTypes = [ 'jpg', 'jpeg', 'png' ];
 const ignoredImageTypes = [ 'DS_Store' ];
-const { TargetImageRatios, targetImageSizes } = require('../src/js/helpersTest');
-/*const TargetImageRatios = {
-    DEFAULT: 'default',
-    PORTRAIT: 'portrait'
-};
-const targetImageSizes = [
-    { ratio: TargetImageRatios.DEFAULT, width: 100 },
-    { ratio: TargetImageRatios.DEFAULT, width: 300 },
-    { ratio: TargetImageRatios.DEFAULT, width: 500 },
-    { ratio: TargetImageRatios.DEFAULT, width: 750 },
-    { ratio: TargetImageRatios.DEFAULT, width: 1000 },
-    { ratio: TargetImageRatios.DEFAULT, width: 1500 },
-    { ratio: TargetImageRatios.DEFAULT, width: 2500 },
-    { ratio: TargetImageRatios.PORTRAIT, width: 450, height: 800 }
-];*/
-//
 const { activeProject } = require('./generator-config');
+const { targetImageSizes } = require('../src/js/generated');
 
 const imageDirectory = path.resolve( 'public', activeProject, 'images');
 const targetDirectoryName = 'optimized';
@@ -34,7 +19,7 @@ if (!fs.existsSync(targetDirectory)) {
 }
 
 const images = fs.readdirSync(imageDirectory);
-const optimizedImages = fs.readdirSync(targetDirectory);
+const previousOptimized = fs.readdirSync(targetDirectory);
 
 const { START_AT, COUNT } = require('./statistics/tinifyApiCallCount');
 
@@ -82,17 +67,18 @@ Promise.all(
         return Promise.all(
             targetImageSizes.map(imageSize => {
                 const targetName = `${imageName}_${imageSize.ratio}_${imageSize.width}.${imageType}`;
-                if (optimizedImages.includes(targetName)) {
+                if (previousOptimized.includes(targetName)) {
+                    previousOptimized.splice(previousOptimized.indexOf(targetName), 1);
                     return Promise.resolve()
                         .then(() => console.log(`Optimized image ${targetName} already exists.`));
                 }
                 const options = {};
                 switch (imageSize.ratio) {
-                    case TargetImageRatios.DEFAULT:
+                    case 'default':
                         options.method = 'scale';
                         options.width = imageSize.width;
                         break;
-                    case TargetImageRatios.PORTRAIT:
+                    case 'portrait':
                         options.method = 'cover';
                         options.width = imageSize.width;
                         options.height = imageSize.height;
@@ -112,6 +98,10 @@ Promise.all(
     })
 )
     .then(() => {
+        previousOptimized.forEach(prevFile => {
+            fs.unlinkSync(path.join(targetDirectory, prevFile));
+            console.log(`Deleted previously optimized image ${prevFile}`);
+        });
         console.log('\nDone.');
         updatedCount += apiCalls;
         const updatedOptimizationCount = {

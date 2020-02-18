@@ -64,7 +64,10 @@ export default function ZoomBackground(props) {
     return (
         <div
             className={styles.background}
-            style={{ height: `${globalState.viewportHeight}px` }}
+            style={{
+                width: `${globalState.viewportWidth}px`,
+                height: `${globalState.viewportHeight}px`
+            }}
         >
             <div
                 className={styles.zoomBox}
@@ -84,6 +87,7 @@ export default function ZoomBackground(props) {
                     source={config.image}
                     width={globalState.viewportWidth}
                     height={globalState.viewportHeight}
+                    loadWithCss={config.loadImageWithCss}
                 />
             </div>
             {props.children}

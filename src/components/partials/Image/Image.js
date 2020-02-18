@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import Store from '../../../js/Store';
 import actions from '../../../js/actions';
-import { targetImageSizes } from '../../../js/helpers';
-import { TargetImageRatios } from '../../../js/helpersTest';
+import { targetImageSizes } from '../../../js/generated';
 import { configService } from '../../../index';
 
 Image.propTypes = {
@@ -14,6 +13,7 @@ Image.propTypes = {
     source: PropTypes.string.isRequired,
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
+    loadWithCss: PropTypes.bool,
     doNotSubscribeToGlobalLoading: PropTypes.bool
 };
 
@@ -28,7 +28,6 @@ export default function Image(props) {
     const [source, setSource] = useState('');
     const [hasLoaded, setHasLoaded] = useState(false);
     const [originalSize, setOriginalSize] = useState({ width: 0, height: 0 });
-    const [targetRatio, setTargetRatio] = useState(TargetImageRatios.DEFAULT);
     const [targetSize, setTargetSize] = useState(0);
 
     const getDisplayToImageRatio = useCallback(
@@ -49,22 +48,19 @@ export default function Image(props) {
                 return `${projectConfig.name}/images/${props.source}`;
             }
 
-            let targetImageRatio = TargetImageRatios.DEFAULT;
+            let targetImageRatio = 'default';
             const targetWidth = width * Math.max(1 / getDisplayToImageRatio(), 1);
 
-            if (props.width / props.height < 0.6 && projectConfig.usePortraitImages) {
-                targetImageRatio = TargetImageRatios.PORTRAIT;
+            if (projectConfig.usePortraitImages && (props.width < projectConfig.maxPortraitWidth) && (props.width / props.height < 0.8)) {
+                targetImageRatio = 'portrait';
             }
 
-            const sizesForRatio = targetImageSizes
-                .filter(size => size.ratio === targetImageRatio)
-                .map(size => size.width);
+            const sizesForRatio = targetImageSizes.filter(size => size.ratio === targetImageRatio).map(size => size.width);
             const targetImageSize = sizesForRatio.find(size => targetWidth < size) || sizesForRatio.pop();
-            if (targetImageRatio === targetRatio && targetImageSize <= targetSize) {
+
+            if (targetImageSize <= targetSize && targetImageRatio === 'default') {
                 return source;
             }
-
-            setTargetRatio(targetImageRatio);
             setTargetSize(targetImageSize);
 
             const sourceParts = props.source.split('.');
@@ -76,23 +72,15 @@ export default function Image(props) {
         [
             projectConfig.name,
             projectConfig.usePortraitImages,
+            projectConfig.maxPortraitWidth,
             props.width,
             props.height,
             props.source,
             getDisplayToImageRatio,
-            targetRatio,
             targetSize,
             source
         ]
     );
-
-    useEffect(() => setHasLoaded(false), [source]);
-
-    useEffect(() => {
-            const updatedSource = getSource(props.width);
-            setSource(updatedSource);
-        },
-        [props.width, props.height, getSource]);
 
     useEffect(() => {
             if (!props.doNotSubscribeToGlobalLoading) {
@@ -101,19 +89,33 @@ export default function Image(props) {
         },
         [dispatch, props.doNotSubscribeToGlobalLoading]);
 
-    const onLoad = () => {
-        setOriginalSize({ width: image.current.offsetWidth, height: image.current.offsetHeight });
-        setHasLoaded(true);
-        if (!props.doNotSubscribeToGlobalLoading) {
-            dispatch(actions.stopLoading());
-        }
-    };
+    useEffect(() => {
+            const updatedSource = getSource(props.width);
+            setSource(updatedSource);
+        },
+        [props.width, props.height, getSource]);
 
-    const onError = () => {
-        console.warn(`Missing an optimized image for ${props.source}`);
-        const fallbackSource = getSource(props.width, true);
-        setSource(fallbackSource);
-    };
+    useEffect(() => setHasLoaded(false), [source]);
+
+    const onLoad = useCallback(
+        () => {
+            setOriginalSize({ width: image.current.offsetWidth, height: image.current.offsetHeight });
+            setHasLoaded(true);
+            if (!props.doNotSubscribeToGlobalLoading) {
+                dispatch(actions.stopLoading());
+            }
+        },
+        [dispatch, props.doNotSubscribeToGlobalLoading]
+    );
+
+    const onError = useCallback(
+        () => {
+            console.warn(`Missing an optimized image for ${props.source}`);
+            const fallbackSource = getSource(props.width, true);
+            setSource(fallbackSource);
+        },
+        [props.source, getSource, props.width]
+    );
 
     const getImageSizing = () => {
         if (!hasLoaded) {
@@ -124,28 +126,62 @@ export default function Image(props) {
             : { height: '100%' };
     };
 
-    return (
-        <div
-            className={cx(styles.imageBox, { [props.className]: props.className })}
-            style={{
-                width: props.width,
-                height: props.height,
-                ...props.style
-            }}
-        >
-            <img
-                ref={image}
-                className={styles.image}
-                style={{
-                    ...getImageSizing(),
-                    opacity: hasLoaded ? '1' : '0',
-                    transition: `opacity ${projectConfig.fadeInTime}s`
-                }}
-                src={source}
-                onLoad={onLoad}
-                onError={onError}
-                alt=""
-            />
+    const debugElement = (
+        <div style={{ position: 'fixed', left: '50%', top: '50%', transform: 'translate(-50%, -50%)', color: 'white', backgroundColor: 'rgba(0, 0, 0, .5)' }}>
+            <div>View Size {window.innerWidth} x {window.innerHeight}</div>
+            <div>Prop Size {props.width} x {props.height}</div>
+            <div>Prop Ratio {(props.width / props.height).toFixed(2)}</div>
+            <div>{props.loadWithCss ? 'CSS background-image' : 'HTML img tag'}</div>
+            <div>Source {source}</div>
         </div>
-    );
+    ); // TODO remove dev code
+
+    return props.loadWithCss
+        ? (
+            <div
+                className={cx(styles.imageBoxCss, { [props.className]: props.className })}
+                style={{
+                    ...props.style,
+                    backgroundImage: `url(${source})`,
+                    width: props.width,
+                    height: props.height,
+                    opacity: hasLoaded ? '1' : '0',
+                    transition: `opacity ${projectConfig.fadeInTime}s${props.style.transition ? `, ${props.style.transition}` : ''}`
+                }}
+            >
+                {debugElement /* TODO remove dev code */}
+                <img
+                    ref={image}
+                    className={styles.imageCss}
+                    src={source}
+                    onLoad={onLoad}
+                    onError={onError}
+                    alt=""
+                />
+            </div>
+        ) : (
+            <div
+                className={cx(styles.imageBox, { [props.className]: props.className })}
+                style={{
+                    ...props.style,
+                    width: props.width,
+                    height: props.height
+                }}
+            >
+                {debugElement /* TODO remove dev code */}
+                <img
+                    ref={image}
+                    className={styles.image}
+                    style={{
+                        ...getImageSizing(),
+                        opacity: hasLoaded ? '1' : '0',
+                        transition: `opacity ${projectConfig.fadeInTime}s`
+                    }}
+                    src={source}
+                    onLoad={onLoad}
+                    onError={onError}
+                    alt=""
+                />
+            </div>
+        );
 }

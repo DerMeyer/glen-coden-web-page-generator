@@ -12,7 +12,7 @@ const actions = {
     showApp: () => ({
         type: ActionTypes.SHOW_APP
     }),
-    resizeApp: (width, height) => ({
+    resize: (width, height) => ({
         type: ActionTypes.RESIZE,
         sizeTo: { width, height },
         breakPointType: getBreakPointType(width),
