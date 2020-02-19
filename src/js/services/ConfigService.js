@@ -1,9 +1,9 @@
 class ConfigService {
-    constructor(projectMap) {
-        this.name = projectMap.name;
-        this.style = projectMap.style;
-        this.global = projectMap.global;
-        this.components = projectMap.components;
+    constructor(config) {
+        this.name = config.name;
+        this.style = config.style;
+        this.global = config.global;
+        this.components = config.components;
         this.componentsConfig = {};
         this.init();
     }

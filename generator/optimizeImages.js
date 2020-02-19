@@ -5,12 +5,12 @@ const tinify = require('tinify');
 const { TINIFY_API_KEY } = require('../confidential');
 tinify.key = TINIFY_API_KEY;
 
-const supportedImageTypes = [ 'jpg', 'jpeg', 'png' ];
-const ignoredImageTypes = [ 'DS_Store' ];
-const { activeProject } = require('./generator-config');
+const generatorConfig = require('./generator-config');
+const activeProject = generatorConfig.activeProject;
+const supportedImageTypes = generatorConfig.imageTypesForOptimization;
 const { targetImageSizes } = require('../src/js/generated');
 
-const imageDirectory = path.resolve( 'public', activeProject, 'images');
+const imageDirectory = path.resolve( 'projects', activeProject, 'static', 'images');
 const targetDirectoryName = 'optimized';
 const targetDirectory = path.join(imageDirectory, targetDirectoryName);
 
@@ -18,7 +18,7 @@ if (!fs.existsSync(targetDirectory)) {
     fs.mkdirSync(targetDirectory);
 }
 
-const images = fs.readdirSync(imageDirectory);
+const images = fs.readdirSync(imageDirectory).filter(fileName => !generatorConfig.ignore.includes(fileName));
 const previousOptimized = fs.readdirSync(targetDirectory);
 
 const { START_AT, COUNT } = require('./statistics/tinifyApiCallCount');
@@ -52,9 +52,6 @@ Promise.all(
         const nameParts = fileName.split('.');
         const imageType = nameParts.pop();
         const imageName = nameParts.join('.');
-        if (ignoredImageTypes.includes(imageType)) {
-            return Promise.resolve();
-        }
         if (!supportedImageTypes.includes(imageType)) {
             return Promise.resolve()
                 .then(() => {

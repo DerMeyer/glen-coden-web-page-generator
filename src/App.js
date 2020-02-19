@@ -3,7 +3,7 @@ import Store from './js/Store';
 import actions from './js/actions';
 import { configService } from './index';
 
-import Project from './Project';
+import Project from './_Project';
 
 
 export default function App() {

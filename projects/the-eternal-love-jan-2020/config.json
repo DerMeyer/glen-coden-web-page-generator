@@ -1,0 +1,42 @@
+{
+    "title": "The Eternal Love",
+    "environment": {
+        "fontTypes": [
+            "https://fonts.googleapis.com/css?family=Comfortaa&display=swap"
+        ]
+    },
+    "config": {
+        "initialState": {},
+        "style": {
+            "backgroundColor": "#b7b7b7",
+            "overlayColor": "#fff",
+            "lightFontColor": "#fff",
+            "mediumFontColor": "#c00312",
+            "darkFontColor": "#202020"
+        },
+        "global": {
+            "fadeInTime": 0.2,
+            "loadingTimeout": 10,
+            "usePortraitImages": true,
+            "maxPortraitWidth": 500
+        },
+        "components": {
+            "ZoomBackground": {
+                "image": "etl-bg-2019.jpg",
+                "loadImageWithCss": false,
+                "autoZoom": false,
+                "zoomFactor": 4,
+                "zoomFactorAuto": 15,
+                "zoomTime": 0.5,
+                "zoomTimeAuto": 7,
+                "timingFunction": "ease-out",
+                "initialState": {},
+                "style": {}
+            },
+            "LoadingOverlay": {
+                "initialState": {},
+                "style": {}
+            }
+        }
+    }
+}

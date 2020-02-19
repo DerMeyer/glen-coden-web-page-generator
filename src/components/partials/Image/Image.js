@@ -45,7 +45,7 @@ export default function Image(props) {
     const getSource = useCallback(
         (width, fallback = false) => {
             if (fallback) {
-                return `${projectConfig.name}/images/${props.source}`;
+                return `images/${props.source}`;
             }
 
             let targetImageRatio = 'default';
@@ -67,10 +67,9 @@ export default function Image(props) {
             const sourceType = sourceParts.pop();
             const sourceName = sourceParts.join('.');
 
-            return `${projectConfig.name}/images/optimized/${sourceName}_${targetImageRatio}_${targetImageSize}.${sourceType}`;
+            return `images/optimized/${sourceName}_${targetImageRatio}_${targetImageSize}.${sourceType}`;
         },
         [
-            projectConfig.name,
             projectConfig.usePortraitImages,
             projectConfig.maxPortraitWidth,
             props.width,

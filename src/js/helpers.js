@@ -49,15 +49,15 @@ export function getOrientationType() {
         : OrientationTypes.LANDSCAPE;
 }
 
-export function getInitialState(projectMap) {
+export function getInitialState(config) {
     const componentsInitialState = {};
-    Object.keys(projectMap.components).forEach(key => {
+    Object.keys(config.components).forEach(key => {
         componentsInitialState[key] = {
-            ...projectMap.components[key].initialState
+            ...config.components[key].initialState
         };
     });
     return {
-        ...projectMap.initialState,
+        ...config.initialState,
         ...componentsInitialState
     };
 }
