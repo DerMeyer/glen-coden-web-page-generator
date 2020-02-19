@@ -1,7 +1,8 @@
 const path = require('path');
 const fs = require('fs');
 
-const copyStaticToPublic = require('./generators/copyStaticToPublic');
+const copyStaticToPublic = require('./creators/copyStaticToPublic');
+const createIndexHtml = require('./creators/createIndexHtml');
 
 const { PROJECTS_PATH_SEGMENTS } = require('../confidential');
 
@@ -23,7 +24,9 @@ Promise.resolve()
         console.log(`\nCopy static assets into public directory...\n\nFROM ${path.join(projectDir, 'static')}\nTO ${publicDir}\n`);
         return copyStaticToPublic(path.join(projectDir, 'static'), publicDir);
     })
-    .then(() => console.log('generate public/index.html'))
+    .then(() => {
+        return createIndexHtml(projectDir, publicDir);
+    })
     .then(() => console.log('generate public/manifest.json'))
     .then(() => console.log('generate public/robots.txt'))
     .then(() => console.log('generate src/js/generated.js'))

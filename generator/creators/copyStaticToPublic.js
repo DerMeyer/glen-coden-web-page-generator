@@ -17,11 +17,11 @@ function deepCopyDirectory(dirPath, targetPath) {
     entryList.forEach(entry => {
         const entryPath = path.join(dirPath, entry);
         if (fs.statSync(entryPath).isDirectory()) {
-            const targetDirectory = path.join(targetPath, entry);
-            if (!fs.existsSync(targetDirectory)) {
-                fs.mkdirSync(targetDirectory);
+            const targetDir = path.join(targetPath, entry);
+            if (!fs.existsSync(targetDir)) {
+                fs.mkdirSync(targetDir);
             }
-            deepCopyDirectory(entryPath, targetDirectory);
+            deepCopyDirectory(entryPath, targetDir);
             return;
         }
         const file = fs.readFileSync(entryPath);
