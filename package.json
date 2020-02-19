@@ -20,7 +20,7 @@
     "eject": "react-scripts eject",
     "generate": "node generator/generateProject.js",
     "optimize": "node generator/optimizeImages.js",
-    "glencoden": "yarn optimize && yarn generate"
+    "glencoden": "node generator/glencoden.js"
   },
   "eslintConfig": {
     "extends": "react-app"

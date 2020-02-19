@@ -1,22 +1,28 @@
 const path = require('path');
 const fs = require('fs');
 
-const generatorConfig = require('./generator-config');
+const copyStaticToPublic = require('./generators/copyStaticToPublic');
 
-const copyStaticToPublic = require('./copyStaticToPublic');
+const { PROJECTS_PATH_SEGMENTS } = require('../confidential');
 
-const projectsPath = path.resolve('projects');
-const publicPath = path.resolve('public');
-const sourcePath = path.resolve('src');
+const projectsDir = path.resolve( ...PROJECTS_PATH_SEGMENTS);
+const publicDir = path.resolve('public');
+const sourceDir = path.resolve('src');
 
-const activeProject = generatorConfig.activeProject;
+const activeProject = process.argv[2];
 
-if (!fs.readdirSync(projectsPath).includes(activeProject)) {
-    console.warn(`Couldn't find project with name ${activeProject}`);
+if (!fs.readdirSync(projectsDir).includes(activeProject)) {
+    console.warn(`\nCouldn't find project with name ${activeProject}. Exit process.\n`);
     process.exit();
 }
 
-copyStaticToPublic(path.join(projectsPath, activeProject, 'static'), publicPath)
+const projectDir = path.join(projectsDir, activeProject);
+
+Promise.resolve()
+    .then(() => {
+        console.log(`\nCopy static assets into public directory...\n\nFROM ${path.join(projectDir, 'static')}\nTO ${publicDir}\n`);
+        return copyStaticToPublic(path.join(projectDir, 'static'), publicDir);
+    })
     .then(() => console.log('generate public/index.html'))
     .then(() => console.log('generate public/manifest.json'))
     .then(() => console.log('generate public/robots.txt'))

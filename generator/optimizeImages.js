@@ -2,15 +2,22 @@ const path = require('path');
 const fs = require('fs');
 
 const tinify = require('tinify');
-const { TINIFY_API_KEY } = require('../confidential');
+const { PROJECTS_PATH_SEGMENTS, TINIFY_API_KEY } = require('../confidential');
 tinify.key = TINIFY_API_KEY;
 
 const generatorConfig = require('./generator-config');
-const activeProject = generatorConfig.activeProject;
 const supportedImageTypes = generatorConfig.imageTypesForOptimization;
 const { targetImageSizes } = require('../src/js/generated');
 
-const imageDirectory = path.resolve( 'projects', activeProject, 'static', 'images');
+const projectsDirectory = path.resolve(...PROJECTS_PATH_SEGMENTS);
+const activeProject = process.argv[2];
+
+if (!fs.readdirSync(projectsDirectory).includes(activeProject)) {
+    console.warn(`\nCouldn't find project with name ${activeProject}. Exit process.\n`);
+    process.exit();
+}
+
+const imageDirectory = path.join(projectsDirectory, activeProject, 'static', 'images');
 const targetDirectoryName = 'optimized';
 const targetDirectory = path.join(imageDirectory, targetDirectoryName);
 

@@ -1,21 +1,18 @@
 const path = require('path');
 const fs = require('fs');
 const rimraf = require('rimraf');
-const generatorConfig = require('./generator-config');
+const generatorConfig = require('../generator-config');
 
 function copyStaticToPublic(staticPath, publicPath) {
     return new Promise(resolve => {
-        console.log('\nCopy static assets into public directory...\n');
         rimraf(path.join(publicPath, '*'), () => {
             deepCopyDirectory(staticPath, publicPath);
-            console.log('\nDone.\n');
             resolve();
         });
     });
 }
 
 function deepCopyDirectory(dirPath, targetPath) {
-    console.log(`Copy ${dirPath}\nInto ${targetPath}`);
     const entryList = fs.readdirSync(dirPath).filter(entry => !generatorConfig.ignore.includes(entry));
     entryList.forEach(entry => {
         const entryPath = path.join(dirPath, entry);
