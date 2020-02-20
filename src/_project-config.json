@@ -1,10 +1,10 @@
 {
-    "name": "the-eternal-love-jan-2020",
     "initialState": {},
     "style": {
+        "themeColor": "#000000",
         "backgroundColor": "#b7b7b7",
-        "overlayColor": "#fff",
-        "lightFontColor": "#fff",
+        "overlayColor": "#ffffff",
+        "lightFontColor": "#ffffff",
         "mediumFontColor": "#c00312",
         "darkFontColor": "#202020"
     },

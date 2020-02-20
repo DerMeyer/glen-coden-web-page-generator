@@ -1,11 +1,14 @@
 const path = require('path');
 const fs = require('fs');
+const generatorConfig = require('./generator-config');
 
 const copyStaticToPublic = require('./creators/copyStaticToPublic');
 const createIndexHtml = require('./creators/createIndexHtml');
 const createManifestJson = require('./creators/createManifestJson');
 const createRobotsTxt = require('./creators/createRobotsTxt');
 const createValuesExport = require('./creators/createValuesExport');
+const createProject = require('./creators/createProject');
+const copyProjectConfig = require('./creators/copyProjectConfig');
 
 const { PROJECTS_PATH_SEGMENTS } = require('../confidential');
 
@@ -17,11 +20,18 @@ if (!fs.existsSync(publicDir)) {
     fs.mkdirSync(publicDir);
 }
 
-const activeProject = process.argv[2];
+let activeProject = process.argv[2];
 
-if (!fs.readdirSync(projectsDir).includes(activeProject)) {
-    console.warn(`\nCouldn't find project with name ${activeProject}. Exit process.\n`);
-    process.exit();
+if (!activeProject) {
+    activeProject = generatorConfig.activeProject;
+} else {
+    if (!fs.readdirSync(projectsDir).includes(activeProject)) {
+        console.warn(`\nCouldn't find project with name ${activeProject}. Exit process.\n`);
+        process.exit();
+    } else if (activeProject !== generatorConfig.activeProject) {
+        generatorConfig.activeProject = activeProject;
+        fs.writeFileSync(path.resolve('generator', 'generator-config.json'), JSON.stringify(generatorConfig, null, 4));
+    }
 }
 
 const projectDir = path.join(projectsDir, activeProject);
@@ -49,8 +59,10 @@ Promise.resolve()
     })
     .then(() => {
         console.log('Create _Project.js in /src.\n');
+        return createProject(projectDir, sourceDir);
     })
     .then(() => {
         console.log('Write config into _project-config.json in /src.\n');
+        return copyProjectConfig(projectDir, sourceDir);
     })
     .catch(console.error);
