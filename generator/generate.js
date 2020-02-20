@@ -23,13 +23,18 @@ if (!fs.existsSync(publicDir)) {
 let activeProject = process.argv[2];
 
 if (!activeProject) {
-    activeProject = generatorConfig.activeProject;
+    activeProject = generatorConfig._activeProject;
+    if (!fs.readdirSync(projectsDir).includes(activeProject)) {
+        console.warn(`\nCouldn't find project with name ${activeProject} from generatorConfig._activeProject. Exit process.\n`);
+        process.exit();
+    }
 } else {
     if (!fs.readdirSync(projectsDir).includes(activeProject)) {
         console.warn(`\nCouldn't find project with name ${activeProject}. Exit process.\n`);
         process.exit();
-    } else if (activeProject !== generatorConfig.activeProject) {
-        generatorConfig.activeProject = activeProject;
+    }
+    if (activeProject !== generatorConfig._activeProject) {
+        generatorConfig._activeProject = activeProject;
         fs.writeFileSync(path.resolve('generator', 'generator-config.json'), JSON.stringify(generatorConfig, null, 4));
     }
 }

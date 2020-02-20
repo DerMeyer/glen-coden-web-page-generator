@@ -19,6 +19,14 @@ export const OrientationTypes = {
     LANDSCAPE: 'landscape'
 };
 
+export const SocialNetworkIcons = {
+    FACEBOOK: 'facebook',
+    INSTAGRAM: 'instagram',
+    ITUNES: 'itunes',
+    SPOTIFY: 'spotify',
+    YOUTUBE: 'youtube'
+};
+
 // maps
 
 export const BreakPoints = {
