@@ -19,7 +19,10 @@
             }
         },
         "structure": {
-            "$ref": "#structure"
+            "$ref": "#structure",
+            "default": {
+                "ZoomBackground": {}
+            }
         },
         "project": {
             "initialState": {
