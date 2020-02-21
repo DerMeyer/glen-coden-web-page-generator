@@ -70,6 +70,6 @@ export function getInitialState(config) {
     };
 }
 
-export function getComponentState(chain, componentName, state) {
-    return [...chain, componentName].reduce((result, child) => result[child], state);
+export function getComponentState(level, componentName, state) {
+    return [...level, componentName].reduce((result, child) => result[child], state);
 }

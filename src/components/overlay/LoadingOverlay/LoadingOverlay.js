@@ -10,7 +10,7 @@ export default function LoadingOverlay(props) {
     const { globalState } = useContext(Store);
 
     const [projectConfig] = useState(() => configService.getProjectConfig());
-    const [config] = useState(() => configService.getComponentConfig(props.chain, 'LoadingOverlay'));
+    const [config] = useState(() => configService.getComponentConfig(props.level, 'LoadingOverlay'));
     const [visible, setVisible] = useState(true);
 
     if (!visible) {

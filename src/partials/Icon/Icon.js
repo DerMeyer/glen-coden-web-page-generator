@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import { SocialNetworkIcons } from '../../../js/helpers';
+import { SocialNetworkIcons } from '../../js/helpers';
 
-import {ReactComponent as FacebookIcon} from '../../../svg/facebook.svg';
-import {ReactComponent as InstagramIcon} from '../../../svg/instagram.svg';
-import {ReactComponent as ITunesIcon} from '../../../svg/itunes.svg';
-import {ReactComponent as SpotifyIcon} from '../../../svg/spotify.svg';
-import {ReactComponent as YoutubeIcon} from '../../../svg/youtube.svg';
+import {ReactComponent as FacebookIcon} from '../../svg/facebook.svg';
+import {ReactComponent as InstagramIcon} from '../../svg/instagram.svg';
+import {ReactComponent as ITunesIcon} from '../../svg/itunes.svg';
+import {ReactComponent as SpotifyIcon} from '../../svg/spotify.svg';
+import {ReactComponent as YoutubeIcon} from '../../svg/youtube.svg';
 
 Icon.propTypes = {
     name: PropTypes.string.isRequired,

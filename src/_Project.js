@@ -8,10 +8,10 @@ import Headline from './components/text/Headline/Headline';
 export default function _Project() {
     return (
         <>
-            <ZoomBackground chain={[]}>
-                <Headline />
+            <ZoomBackground level={[]}>
+                <Headline level={['ZoomBackground']} />
             </ZoomBackground>
-            <LoadingOverlay chain={[]} />
+            <LoadingOverlay level={[]} />
         </>
     );
 }

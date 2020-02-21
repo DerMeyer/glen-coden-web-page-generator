@@ -1,0 +1,119 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "#bootstrap",
+    "title": "Bootstrap Schema for Glencoden App",
+    "type": "object",
+    "properties": {
+        "title": {
+            "type": "string",
+            "default": "Glencoden App"
+        },
+        "description": {
+            "type": "string",
+            "default": "This app was created with Glen Coden Web Page Generator."
+        },
+        "fontTypes": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "structure": {
+            "$ref": "#structure"
+        },
+        "project": {
+            "initialState": {
+                "type": "object"
+            },
+            "style": {
+                "$ref": "#/definitions/style"
+            },
+            "global": {
+                "$ref": "#/definitions/global"
+            },
+            "components": {
+                "$ref": "#components"
+            }
+        }
+    },
+    "definitions": {
+        "structure": {
+            "$id": "#structure",
+            "type": "object",
+            "patternProperties": {
+                ".": {
+                    "$ref": "#structure"
+                }
+            }
+        },
+        "style": {
+            "type": "object",
+            "properties": {
+                "themeColor": {
+                    "type": "string",
+                    "default": "#000000"
+                },
+                "backgroundColor": {
+                    "type": "string",
+                    "default": "#000000"
+                },
+                "overlayColor": {
+                    "type": "string",
+                    "default": "#FFFFFF"
+                },
+                "lightFontColor": {
+                    "type": "string",
+                    "default": "#FFFFFF"
+                },
+                "mediumFontColor": {
+                    "type": "string",
+                    "default": "#F9F9F9"
+                },
+                "darkFontColor": {
+                    "type": "string",
+                    "default": "#000000"
+                }
+            }
+        },
+        "global": {
+            "fadeInTime": {
+                "type": "number",
+                "default": 0.2
+            },
+            "loadingTimeout": {
+                "type": "number",
+                "default": 10
+            },
+            "usePortraitImages": {
+                "type": "boolean",
+                "default": true
+            },
+            "maxPortraitWidth": {
+                "type": "number",
+                "default": 500
+            }
+        },
+        "components": {
+            "$id": "#components",
+            "type": "object",
+            "patternProperties": {
+                ".": { "$ref": "#single_component" }
+            }
+        },
+        "single_component": {
+            "$id": "#single_component",
+            "type": "object",
+            "properties": {
+                "initialState": {
+                    "type": "object"
+                },
+                "style": {
+                    "type": "object"
+                },
+                "children": {
+                    "type": "object"
+                }
+            }
+        }
+    }
+}

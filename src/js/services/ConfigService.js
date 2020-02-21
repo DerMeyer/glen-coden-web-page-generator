@@ -27,8 +27,8 @@ class ConfigService {
         };
     }
 
-    getComponentConfig(chain, componentName) {
-        return [...chain, componentName].reduce((result, child) => result[child], this.componentsConfig);
+    getComponentConfig(level, componentName) {
+        return [...level, componentName].reduce((result, child) => result[child], this.componentsConfig);
     }
 }
 

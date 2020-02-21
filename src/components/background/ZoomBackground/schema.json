@@ -1,0 +1,39 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "#ZoomBackground",
+    "title": "Zoom Background",
+    "type": "object",
+    "properties": {
+        "image": {
+            "type": "string"
+        },
+        "loadImageWithCss": {
+            "type": "boolean",
+            "default": false
+        },
+        "autoZoom": {
+            "type": "boolean",
+            "default": false
+        },
+        "zoomFactor": {
+            "type": "number",
+            "default": 4
+        },
+        "zoomFactorAuto": {
+            "type": "number",
+            "default": 12
+        },
+        "zoomTime": {
+            "type": "number",
+            "default": 0.5
+        },
+        "zoomTimeAuto": {
+            "type": "number",
+            "default": 10
+        },
+        "timingFunction": {
+            "type": "string",
+            "default": "ease-out"
+        }
+    }
+}
