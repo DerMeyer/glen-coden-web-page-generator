@@ -25,6 +25,10 @@ function createProjectFile(projectDir, targetDir) {
 
         let file = `import React from 'react';\n\n`;
         listProjectComponents(structure).forEach(component => {
+            if (!importPaths[component]) {
+                console.warn(`Couldn't find component with name ${component}. Exit Process.\n`);
+                process.exit();
+            }
             file += `import ${component} from '${importPaths[component]}';\n`
         });
         file += '\n\nexport default function _Project() {\n\treturn (\n\t\t<>\n';
@@ -39,16 +43,17 @@ function createProjectFile(projectDir, targetDir) {
 function listProjectComponents(structure) {
     const list = [];
     Object.keys(structure).forEach(key => {
-        if (!list[key]) {
-            list.push(key);
-        }
+        list.push(key);
         listProjectComponents(structure[key]).forEach(element => {
-            if (!list[element]) {
-                list.push(element);
-            }
+            list.push(element);
         });
     });
-    return list;
+    return list.reduce((result, element) => {
+        if (!result.includes(element)) {
+            return [...result, element];
+        }
+        return result;
+    }, []);
 }
 
 function createJsx(structure, depth, level = []) {
