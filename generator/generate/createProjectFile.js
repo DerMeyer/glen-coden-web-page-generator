@@ -3,7 +3,7 @@ const fs = require('fs');
 
 function createProjectFile(projectDir, targetDir) {
     const config = require(path.join(projectDir, 'config'));
-    const structure = config.structure;
+    const componentsMap = config.project.components;
 
     return new Promise(resolve => {
         const componentsDir = 'components';
@@ -24,7 +24,14 @@ function createProjectFile(projectDir, targetDir) {
             }, {});
 
         let file = `import React from 'react';\n\n`;
-        listProjectComponents(structure).forEach(component => {
+        listProjectComponents(componentsMap)
+            .reduce((result, component) => {
+                if (!result.includes(component)) {
+                    return [...result, component];
+                }
+                return result;
+            }, [])
+            .forEach(component => {
             if (!importPaths[component]) {
                 console.warn(`Couldn't find component with name ${component}. Exit Process.\n`);
                 process.exit();
@@ -32,7 +39,7 @@ function createProjectFile(projectDir, targetDir) {
             file += `import ${component} from '${importPaths[component]}';\n`
         });
         file += '\n\nexport default function _Project() {\n\treturn (\n\t\t<>\n';
-        file += createJsx(structure, 3);
+        file += createJsx(componentsMap, 3);
         file += '\t\t</>\n\t);\n}\n';
 
         fs.writeFileSync(path.join(targetDir, '_Project.js'), file);
@@ -40,31 +47,26 @@ function createProjectFile(projectDir, targetDir) {
     });
 }
 
-function listProjectComponents(structure) {
+function listProjectComponents(componentsMap) {
     const list = [];
-    Object.keys(structure).forEach(key => {
-        list.push(key);
-        listProjectComponents(structure[key]).forEach(element => {
-            list.push(element);
+    componentsMap.forEach(entry => {
+        list.push(entry.component);
+        listProjectComponents(entry.children).forEach(child => {
+            list.push(child);
         });
     });
-    return list.reduce((result, element) => {
-        if (!result.includes(element)) {
-            return [...result, element];
-        }
-        return result;
-    }, []);
+    return list;
 }
 
-function createJsx(structure, depth, level = []) {
+function createJsx(componentsMap, depth) {
     let jsx = '';
-    Object.keys(structure).forEach(key => {
-        if (Object.keys(structure[key]).length === 0) {
-            jsx += `${'\t'.repeat(depth)}<${key} level={[${level.reduce((result, entry, index) => result + `${index ? ', ' : ''}'${entry}'`, '')}]} />\n`;
+    componentsMap.forEach(entry => {
+        if (entry.children.length === 0) {
+            jsx += `${'\t'.repeat(depth)}<${entry.component} id="${entry.id}" />\n`;
         } else {
-            jsx += `${'\t'.repeat(depth)}<${key} level={[${level.reduce((result, entry, index) => result + `${index ? ', ' : ''}'${entry}'`, '')}]}>\n`;
-            jsx += createJsx(structure[key], depth + 1, [...level, key]);
-            jsx += `${'\t'.repeat(depth)}</${key}>\n`;
+            jsx += `${'\t'.repeat(depth)}<${entry.component} id="${entry.id}">\n`;
+            jsx += createJsx(entry.children, depth + 1);
+            jsx += `${'\t'.repeat(depth)}</${entry.component}>\n`;
         }
     });
     return jsx;

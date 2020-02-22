@@ -2,13 +2,13 @@ const path = require('path');
 const fs = require('fs');
 const generatorConfig = require('./generator-config');
 
-const copyStaticToPublic = require('./creators/copyStaticToPublic');
-const createIndexHtml = require('./creators/createIndexHtml');
-const createManifestJson = require('./creators/createManifestJson');
-const createRobotsTxt = require('./creators/createRobotsTxt');
-const createValuesExport = require('./creators/createValuesExport');
-const createProjectFile = require('./creators/createProjectFile');
-const copyProjectConfig = require('./creators/copyProjectConfig');
+const copyStaticToPublic = require('./generate/copyStaticToPublic');
+const createIndexHtml = require('./generate/createIndexHtml');
+const createManifestJson = require('./generate/createManifestJson');
+const createRobotsTxt = require('./generate/createRobotsTxt');
+const createValuesExport = require('./generate/createValuesExport');
+const createProjectFile = require('./generate/createProjectFile');
+const copyProjectConfig = require('./generate/copyProjectConfig');
 
 const { PROJECTS_PATH_SEGMENTS } = require('../confidential');
 

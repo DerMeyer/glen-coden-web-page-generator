@@ -14,8 +14,10 @@
         "usePortraitImages": true,
         "maxPortraitWidth": 500
     },
-    "components": {
-        "ZoomBackground": {
+    "components": [
+        {
+            "component": "ZoomBackground",
+            "id": "ZoomBackground_1",
             "image": "etl-bg-2019.jpg",
             "loadImageWithCss": false,
             "autoZoom": false,
@@ -26,18 +28,29 @@
             "timingFunction": "ease-out",
             "initialState": {},
             "style": {},
-            "children": {
-                "Headline": {
+            "children": [
+                {
+                    "component": "Headline",
+                    "id": "Headline_1",
                     "initialState": {},
                     "style": {},
-                    "children": {}
+                    "children": []
+                },
+                {
+                    "component": "Headline",
+                    "id": "Headline_2",
+                    "initialState": {},
+                    "style": {},
+                    "children": []
                 }
-            }
+            ]
         },
-        "LoadingOverlay": {
+        {
+            "component": "LoadingOverlay",
+            "id": "LoadingOverlay_1",
             "initialState": {},
             "style": {},
-            "children": {}
+            "children": []
         }
-    }
+    ]
 }

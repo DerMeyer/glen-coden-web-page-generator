@@ -18,9 +18,11 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "bootstrap": "node generator/bootstrap.js",
     "generate": "node generator/generate.js",
     "optimize": "node generator/optimizeImages.js",
-    "go": "yarn generate && yarn start",
+    "update": "node generator/update.js",
+    "go": "yarn update && yarn generate && yarn start",
     "glencoden": "node generator/glencoden.js"
   },
   "eslintConfig": {

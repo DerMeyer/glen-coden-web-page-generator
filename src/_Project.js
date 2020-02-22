@@ -8,10 +8,11 @@ import LoadingOverlay from './components/overlay/LoadingOverlay/LoadingOverlay';
 export default function _Project() {
 	return (
 		<>
-			<ZoomBackground level={[]}>
-				<Headline level={['ZoomBackground']} />
+			<ZoomBackground id="ZoomBackground_1">
+				<Headline id="Headline_1" />
+				<Headline id="Headline_2" />
 			</ZoomBackground>
-			<LoadingOverlay level={[]} />
+			<LoadingOverlay id="LoadingOverlay_1" />
 		</>
 	);
 }

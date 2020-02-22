@@ -20,9 +20,11 @@
         },
         "structure": {
             "$ref": "#structure",
-            "default": {
-                "ZoomBackground": {}
-            }
+            "default": [
+                {
+                    "component": "ZoomBackground"
+                }
+            ]
         },
         "project": {
             "initialState": {
@@ -42,10 +44,23 @@
     "definitions": {
         "structure": {
             "$id": "#structure",
+            "type": "array",
+            "items": {
+                "$ref": "#structure-component"
+            }
+        },
+        "structure-component": {
+            "$id": "#structure-component",
             "type": "object",
-            "patternProperties": {
-                ".": {
-                    "$ref": "#structure"
+            "properties": {
+                "component": {
+                    "type": "string"
+                },
+                "children": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#structure-component"
+                    }
                 }
             }
         },
@@ -98,15 +113,21 @@
         },
         "components": {
             "$id": "#components",
-            "type": "object",
-            "patternProperties": {
-                ".": { "$ref": "#single_component" }
+            "type": "array",
+            "items": {
+                "$ref": "#single_component"
             }
         },
         "single_component": {
             "$id": "#single_component",
             "type": "object",
             "properties": {
+                "component": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
                 "initialState": {
                     "type": "object"
                 },
@@ -114,7 +135,10 @@
                     "type": "object"
                 },
                 "children": {
-                    "type": "object"
+                    "type": "array",
+                    "items": {
+                        "$ref": "#single_component"
+                    }
                 }
             }
         }

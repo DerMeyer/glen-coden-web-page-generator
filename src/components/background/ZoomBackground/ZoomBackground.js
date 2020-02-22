@@ -13,7 +13,7 @@ import Image from '../../../partials/Image/Image';
 export default function ZoomBackground(props) {
     const { globalState } = useContext(Store);
 
-    const [config] = useState(() => configService.getComponentConfig(props.level, 'ZoomBackground'));
+    const [config] = useState(() => configService.getComponentConfig(props.id));
     const [zoomActive, setZoomActive] = useState(false);
     const [boxTransform, setBoxTransform] = useState({ x: 0, y: 0 });
 

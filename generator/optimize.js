@@ -1,0 +1,1 @@
+console.log('Lead project asset optimization here.');// TODO remove dev code

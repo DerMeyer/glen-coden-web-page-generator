@@ -8,13 +8,13 @@ class ConfigService {
     }
 
     init() {
-        Object.keys(this.components).forEach(key => {
-            delete this.components[key].initialState;
-            this.componentsConfig[key] = {
-                ...this.components[key],
+        this.components.forEach(entry => {
+            delete entry.initialState;
+            this.componentsConfig[entry.id] = {
+                ...entry,
                 style: {
                     ...this.style,
-                    ...this.components[key].style
+                    ...entry.style
                 }
             };
         });
@@ -27,8 +27,8 @@ class ConfigService {
         };
     }
 
-    getComponentConfig(level, componentName) {
-        return [...level, componentName].reduce((result, child) => result[child], this.componentsConfig);
+    getComponentConfig(id) {
+        return this.componentsConfig[id];
     }
 }
 

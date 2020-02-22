@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { configService } from '../../../index';
 
 
 export default function Headline(props) {
+    const [config] = useState(() => configService.getComponentConfig(props.id));
     return (
         <div style={{
             position: 'fixed',
