@@ -17,7 +17,9 @@
     "components": [
         {
             "component": "ZoomBackground",
-            "id": "ZoomBackground_1",
+            "id": "aDzF4PTo",
+            "initialState": {},
+            "style": {},
             "image": "etl-bg-2019.jpg",
             "loadImageWithCss": false,
             "autoZoom": false,
@@ -26,19 +28,10 @@
             "zoomTime": 0.5,
             "zoomTimeAuto": 10,
             "timingFunction": "ease-out",
-            "initialState": {},
-            "style": {},
             "children": [
                 {
                     "component": "Headline",
-                    "id": "Headline_1",
-                    "initialState": {},
-                    "style": {},
-                    "children": []
-                },
-                {
-                    "component": "Headline",
-                    "id": "Headline_2",
+                    "id": "q4jPnhhfM",
                     "initialState": {},
                     "style": {},
                     "children": []
@@ -47,7 +40,7 @@
         },
         {
             "component": "LoadingOverlay",
-            "id": "LoadingOverlay_1",
+            "id": "472LILtik",
             "initialState": {},
             "style": {},
             "children": []

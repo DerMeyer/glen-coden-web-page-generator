@@ -8,7 +8,7 @@ const createManifestJson = require('./generate/createManifestJson');
 const createRobotsTxt = require('./generate/createRobotsTxt');
 const createValuesExport = require('./generate/createValuesExport');
 const createProjectFile = require('./generate/createProjectFile');
-const copyProjectConfig = require('./generate/copyProjectConfig');
+const copyAppConfig = require('./generate/copyAppConfig');
 
 const { PROJECTS_PATH_SEGMENTS } = require('../confidential');
 
@@ -20,26 +20,26 @@ if (!fs.existsSync(publicDir)) {
     fs.mkdirSync(publicDir);
 }
 
-let activeProject = process.argv[2];
+let projectName = process.argv[2];
 
-if (!activeProject) {
-    activeProject = generatorConfig._activeProject;
-    if (!fs.readdirSync(projectsDir).includes(activeProject)) {
-        console.warn(`\nCouldn't find project with name ${activeProject} from generatorConfig._activeProject. Exit process.\n`);
+if (!projectName) {
+    projectName = generatorConfig._project;
+    if (!fs.readdirSync(projectsDir).includes(projectName)) {
+        console.warn(`\nCouldn't find project with name ${projectName} from generatorConfig._project. Exit process.\n`);
         process.exit();
     }
 } else {
-    if (!fs.readdirSync(projectsDir).includes(activeProject)) {
-        console.warn(`\nCouldn't find project with name ${activeProject}. Exit process.\n`);
+    if (!fs.readdirSync(projectsDir).includes(projectName)) {
+        console.warn(`\nCouldn't find project with name ${projectName}. Exit process.\n`);
         process.exit();
     }
-    if (activeProject !== generatorConfig._activeProject) {
-        generatorConfig._activeProject = activeProject;
+    if (projectName !== generatorConfig._project) {
+        generatorConfig._project = projectName;
         fs.writeFileSync(path.resolve('generator', 'generator-config.json'), JSON.stringify(generatorConfig, null, 4));
     }
 }
 
-const projectDir = path.join(projectsDir, activeProject);
+const projectDir = path.join(projectsDir, projectName);
 
 Promise.resolve()
     .then(() => {
@@ -67,7 +67,7 @@ Promise.resolve()
         return createProjectFile(projectDir, sourceDir);
     })
     .then(() => {
-        console.log('Write config into _project-config.json in /src.\n');
-        return copyProjectConfig(projectDir, sourceDir);
+        console.log('Write config into _app-config.json in /src.\n');
+        return copyAppConfig(projectDir, sourceDir);
     })
     .catch(console.error);

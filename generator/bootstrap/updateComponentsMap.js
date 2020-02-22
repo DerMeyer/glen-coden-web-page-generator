@@ -1,1 +1,0 @@
-console.log('Update components map here.');// TODO remove dev code

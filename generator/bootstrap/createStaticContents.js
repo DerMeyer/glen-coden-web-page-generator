@@ -1,0 +1,1 @@
+console.log('STATIC CONTENTS');// TODO remove dev code

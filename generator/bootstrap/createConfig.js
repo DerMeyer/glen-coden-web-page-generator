@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-const configSchema = require('./config-schema');
+const configSchema = require('../project-config-schema');
 
 function createConfig(projectDir) {
 

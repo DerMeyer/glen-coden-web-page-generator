@@ -1,7 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const generatorConfig = require('../generator-config');
-const { isObject } = require('../helpers');
+const { isObject } = require('../js/helpers');
 
 function createValuesExport(targetDir) {
     return new Promise(resolve => {

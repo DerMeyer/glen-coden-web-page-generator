@@ -9,24 +9,29 @@ const generatorConfig = require('./generator-config');
 const supportedImageTypes = generatorConfig.imageTypesForOptimization;
 const { targetImageSizes } = require('../src/js/generated');
 
-const projectsDirectory = path.resolve(...PROJECTS_PATH_SEGMENTS);
-const activeProject = process.argv[2];
+const projectsDir = path.resolve(...PROJECTS_PATH_SEGMENTS);
 
-if (!fs.readdirSync(projectsDirectory).includes(activeProject)) {
-    console.warn(`\nCouldn't find project with name ${activeProject}. Exit process.\n`);
+let projectName = process.argv[2];
+
+if (!projectName) {
+    projectName = generatorConfig._project;
+}
+
+if (!fs.readdirSync(projectsDir).includes(projectName)) {
+    console.warn(`\nCouldn't find project with name ${projectName}. Exit process.\n`);
     process.exit();
 }
 
-const imageDirectory = path.join(projectsDirectory, activeProject, 'static', 'images');
-const targetDirectoryName = 'optimized';
-const targetDirectory = path.join(imageDirectory, targetDirectoryName);
+const imageDir = path.join(projectsDir, projectName, 'static', 'images');
+const targetDirName = 'optimized';
+const targetDir = path.join(imageDir, targetDirName);
 
-if (!fs.existsSync(targetDirectory)) {
-    fs.mkdirSync(targetDirectory);
+if (!fs.existsSync(targetDir)) {
+    fs.mkdirSync(targetDir);
 }
 
-const images = fs.readdirSync(imageDirectory).filter(fileName => !generatorConfig.ignore.includes(fileName));
-const previousOptimized = fs.readdirSync(targetDirectory);
+const images = fs.readdirSync(imageDir).filter(fileName => !generatorConfig.ignore.includes(fileName));
+const previousOptimized = fs.readdirSync(targetDir);
 
 const { START_AT, COUNT } = require('./statistics/tinifyApiCallCount');
 
@@ -62,7 +67,7 @@ Promise.all(
         if (!supportedImageTypes.includes(imageType)) {
             return Promise.resolve()
                 .then(() => {
-                    if (fileName === targetDirectoryName) {
+                    if (fileName === targetDirName) {
                         return;
                     }
                     console.log(`Type of ${fileName} is not supported.`);
@@ -90,9 +95,9 @@ Promise.all(
                     default:
                 }
                 return tinify
-                    .fromFile(path.join(imageDirectory, fileName))
+                    .fromFile(path.join(imageDir, fileName))
                     .resize(options)
-                    .toFile(path.join(targetDirectory, targetName))
+                    .toFile(path.join(targetDir, targetName))
                     .then(() => {
                         apiCalls += 2;
                         console.log(`Saved optimized image ${targetName}`);
@@ -103,7 +108,7 @@ Promise.all(
 )
     .then(() => {
         previousOptimized.forEach(prevFile => {
-            fs.unlinkSync(path.join(targetDirectory, prevFile));
+            fs.unlinkSync(path.join(targetDir, prevFile));
             console.log(`Deleted previously optimized image ${prevFile}`);
         });
         console.log('\nDone.');

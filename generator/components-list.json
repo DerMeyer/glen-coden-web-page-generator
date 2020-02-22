@@ -1,0 +1,14 @@
+{
+    "ZoomBackground": {
+        "path": "/Users/Simon/Programmieren/projects/glen-coden-web-page-generator/src/components/background/ZoomBackground",
+        "srcImportPath": "./components/background/ZoomBackground/ZoomBackground"
+    },
+    "LoadingOverlay": {
+        "path": "/Users/Simon/Programmieren/projects/glen-coden-web-page-generator/src/components/overlay/LoadingOverlay",
+        "srcImportPath": "./components/overlay/LoadingOverlay/LoadingOverlay"
+    },
+    "Headline": {
+        "path": "/Users/Simon/Programmieren/projects/glen-coden-web-page-generator/src/components/text/Headline",
+        "srcImportPath": "./components/text/Headline/Headline"
+    }
+}

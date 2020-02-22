@@ -17,8 +17,8 @@ function createManifestJson(projectDir, targetDir) {
             icons,
             start_url: '.',
             display: 'standalone',
-            theme_color: config.project.style.themeColor,
-            background_color: config.project.style.backgroundColor
+            theme_color: config.app.style.themeColor,
+            background_color: config.app.style.backgroundColor
         };
 
         fs.writeFileSync(path.join(targetDir, 'manifest.json'), JSON.stringify(manifest, null, 4));

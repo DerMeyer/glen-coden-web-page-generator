@@ -18,53 +18,31 @@
                 "type": "string"
             }
         },
-        "structure": {
-            "$ref": "#structure",
-            "default": [
-                {
-                    "component": "ZoomBackground"
-                }
-            ]
-        },
-        "project": {
-            "initialState": {
-                "type": "object"
-            },
-            "style": {
-                "$ref": "#/definitions/style"
-            },
-            "global": {
-                "$ref": "#/definitions/global"
-            },
-            "components": {
-                "$ref": "#components"
-            }
+        "app": {
+            "$ref": "#app"
         }
     },
     "definitions": {
-        "structure": {
-            "$id": "#structure",
-            "type": "array",
-            "items": {
-                "$ref": "#structure-component"
-            }
-        },
-        "structure-component": {
-            "$id": "#structure-component",
+        "app": {
+            "$id": "#app",
             "type": "object",
             "properties": {
-                "component": {
-                    "type": "string"
+                "initialState": {
+                    "type": "object"
                 },
-                "children": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#structure-component"
-                    }
+                "style": {
+                    "$ref": "#style"
+                },
+                "global": {
+                    "$ref": "#global"
+                },
+                "components": {
+                    "$ref": "#components"
                 }
             }
         },
         "style": {
+            "$id": "#style",
             "type": "object",
             "properties": {
                 "themeColor": {
@@ -94,21 +72,25 @@
             }
         },
         "global": {
-            "fadeInTime": {
-                "type": "number",
-                "default": 0.2
-            },
-            "loadingTimeout": {
-                "type": "number",
-                "default": 10
-            },
-            "usePortraitImages": {
-                "type": "boolean",
-                "default": true
-            },
-            "maxPortraitWidth": {
-                "type": "number",
-                "default": 500
+            "$id": "#global",
+            "type": "object",
+            "properties": {
+                "fadeInTime": {
+                    "type": "number",
+                    "default": 0.2
+                },
+                "loadingTimeout": {
+                    "type": "number",
+                    "default": 10
+                },
+                "usePortraitImages": {
+                    "type": "boolean",
+                    "default": true
+                },
+                "maxPortraitWidth": {
+                    "type": "number",
+                    "default": 500
+                }
             }
         },
         "components": {
@@ -129,16 +111,19 @@
                     "type": "string"
                 },
                 "initialState": {
-                    "type": "object"
+                    "type": "object",
+                    "default": {}
                 },
                 "style": {
-                    "type": "object"
+                    "type": "object",
+                    "default": {}
                 },
                 "children": {
                     "type": "array",
                     "items": {
                         "$ref": "#single_component"
-                    }
+                    },
+                    "default": []
                 }
             }
         }

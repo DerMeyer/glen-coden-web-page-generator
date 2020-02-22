@@ -1,29 +1,14 @@
 const path = require('path');
 const fs = require('fs');
+const componentsList = require('../components-list');
 
 function createProjectFile(projectDir, targetDir) {
     const config = require(path.join(projectDir, 'config'));
-    const componentsMap = config.project.components;
+    const componentsMap = config.app.components;
 
     return new Promise(resolve => {
-        const componentsDir = 'components';
-        const componentsPath = path.join(targetDir, componentsDir);
-        const importPaths = fs.readdirSync(componentsPath)
-            .reduce((result, entry) => {
-                const entryPath = path.join(componentsPath, entry);
-                if (fs.statSync(entryPath).isDirectory()) {
-                    const resultsForEntry = {};
-                    const components = fs.readdirSync(entryPath);
-                    components.forEach(component => resultsForEntry[component] = `./${componentsDir}/${entry}/${component}/${component}`);
-                    return {
-                        ...result,
-                        ...resultsForEntry
-                    };
-                }
-                return result;
-            }, {});
-
         let file = `import React from 'react';\n\n`;
+
         listProjectComponents(componentsMap)
             .reduce((result, component) => {
                 if (!result.includes(component)) {
@@ -32,11 +17,11 @@ function createProjectFile(projectDir, targetDir) {
                 return result;
             }, [])
             .forEach(component => {
-            if (!importPaths[component]) {
+            if (!componentsList[component]) {
                 console.warn(`Couldn't find component with name ${component}. Exit Process.\n`);
                 process.exit();
             }
-            file += `import ${component} from '${importPaths[component]}';\n`
+            file += `import ${component} from '${componentsList[component].srcImportPath}';\n`
         });
         file += '\n\nexport default function _Project() {\n\treturn (\n\t\t<>\n';
         file += createJsx(componentsMap, 3);

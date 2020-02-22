@@ -20,7 +20,7 @@ if (fs.readdirSync(projectsDir).includes(projectName)) {
     process.exit();
 }
 
-generatorConfig._activeProject = projectName;
+generatorConfig._project = projectName;
 fs.writeFileSync(path.resolve('generator', 'generator-config.json'), JSON.stringify(generatorConfig, null, 4));
 
 const projectDir = path.join(projectsDir, projectName);
@@ -34,9 +34,6 @@ Promise.resolve()
     .then(() => {
         console.log('Create config on root level.\n');
         return createConfig(projectDir);
-    })
-    .then(() => {
-        console.log('Update components map.\n');
     })
     .catch(console.error);
 
