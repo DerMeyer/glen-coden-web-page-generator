@@ -2,13 +2,17 @@ class ConfigService {
     constructor(config) {
         this.style = config.style;
         this.global = config.global;
-        this.components = config.components;
+        this.componentsMap = config.components;
         this.componentsConfig = {};
         this.init();
     }
 
     init() {
-        this.components.forEach(entry => {
+        this.addComponentsConfig(this.componentsMap);
+    }
+
+    addComponentsConfig(list) {
+        list.forEach(entry => {
             delete entry.initialState;
             this.componentsConfig[entry.id] = {
                 ...entry,
@@ -17,6 +21,9 @@ class ConfigService {
                     ...entry.style
                 }
             };
+            if (entry.children.length) {
+                this.addComponentsConfig(entry.children);
+            }
         });
     }
 

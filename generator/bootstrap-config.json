@@ -1,0 +1,44 @@
+{
+    "staticDir": [
+        {
+            "name": "images",
+            "type": "directory",
+            "children": [
+                {
+                    "name": "background-image.jpeg",
+                    "type": "file"
+                }
+            ]
+        },
+        {
+            "name": "favicon.png",
+            "type": "file"
+        },
+        {
+            "name": "logo.png",
+            "type": "file"
+        }
+    ],
+    "projectConfig": {
+        "fontTypes": [
+            "https://fonts.googleapis.com/css?family=Comfortaa&display=swap"
+        ],
+        "app": {
+            "components": [
+                {
+                    "component": "ZoomBackground",
+                    "image": "background-image.jpeg",
+                    "children": [
+                        {
+                            "component": "Headline",
+                            "text": "Welcome to Glen Coden Generator"
+                        }
+                    ]
+                },
+                {
+                    "component": "LoadingOverlay"
+                }
+            ]
+        }
+    }
+}

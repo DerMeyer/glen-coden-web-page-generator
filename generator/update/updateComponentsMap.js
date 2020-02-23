@@ -39,7 +39,7 @@ function createComponent(entry) {
     const { children, ...result } = {
         ...generalSchema,
         ...specificSchema,
-        component: entry.component,
+        ...entry,
         id: shortid.generate()
     };
     const updatedChildren = entry.children

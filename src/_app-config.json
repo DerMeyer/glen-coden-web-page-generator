@@ -2,11 +2,11 @@
     "initialState": {},
     "style": {
         "themeColor": "#000000",
-        "backgroundColor": "#b7b7b7",
-        "overlayColor": "#ffffff",
-        "lightFontColor": "#ffffff",
-        "mediumFontColor": "#c00312",
-        "darkFontColor": "#202020"
+        "backgroundColor": "#000000",
+        "overlayColor": "#FFFFFF",
+        "lightFontColor": "#FFFFFF",
+        "mediumFontColor": "#F9F9F9",
+        "darkFontColor": "#000000"
     },
     "global": {
         "fadeInTime": 0.2,
@@ -17,10 +17,10 @@
     "components": [
         {
             "component": "ZoomBackground",
-            "id": "aDzF4PTo",
+            "id": "C472UNvv",
             "initialState": {},
             "style": {},
-            "image": "etl-bg-2019.jpg",
+            "image": "background-image.jpeg",
             "loadImageWithCss": false,
             "autoZoom": false,
             "zoomFactor": 4,
@@ -31,16 +31,17 @@
             "children": [
                 {
                     "component": "Headline",
-                    "id": "q4jPnhhfM",
+                    "id": "QRQBraJKU",
                     "initialState": {},
                     "style": {},
+                    "text": "Welcome to Glen Coden Generator",
                     "children": []
                 }
             ]
         },
         {
             "component": "LoadingOverlay",
-            "id": "472LILtik",
+            "id": "uICLhV9Mr",
             "initialState": {},
             "style": {},
             "children": []

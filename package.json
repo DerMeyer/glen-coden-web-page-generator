@@ -23,7 +23,7 @@
     "generate": "node generator/generate.js",
     "optimize": "node generator/optimizeImages.js",
     "update": "node generator/update.js",
-    "glencoden": "yarn update && yarn generate && yarn start"
+    "glencoden": "node generator/glencoden.js"
   },
   "eslintConfig": {
     "extends": "react-app"

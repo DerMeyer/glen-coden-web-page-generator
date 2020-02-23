@@ -5,7 +5,8 @@
     "type": "object",
     "properties": {
         "image": {
-            "type": "string"
+            "type": "string",
+            "default": "background-image.jpeg"
         },
         "loadImageWithCss": {
             "type": "boolean",

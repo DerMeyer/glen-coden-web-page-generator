@@ -15,7 +15,7 @@ export default function Headline(props) {
             color: 'white',
             whiteSpace: 'nowrap'
         }}>
-            The Eternal Love
+            {config.text}
         </div>
     );
 }

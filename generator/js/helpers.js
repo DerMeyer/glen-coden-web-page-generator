@@ -26,10 +26,12 @@ function objectFromSchema(schema, defs = null) {
             }
             if (value.$ref) {
                 const refKey = Object.keys(definitions).find(entry => definitions[entry].$id === value.$ref);
+                // TODO see if $ref is a definitions path like eg #/definitions/mySubSchema
                 const ref = definitions[refKey];
                 generated[key] = objectFromSchema(ref, definitions);
                 return;
             }
+            // TODO in case there is neither default nor $ref values, check if this is a regular object structure that can be passed recursively
             generated[key] = emptyJsValues[value.type];
         });
         return generated;
@@ -38,5 +40,19 @@ function objectFromSchema(schema, defs = null) {
     }
 }
 
+function mergeObjectIntoBlueprint(obj, blueprint) {
+    if (!isObject(obj) && !isObject(blueprint)) {
+        return obj;
+    }
+    const merged = { ...blueprint };
+    Object.keys(merged).forEach(key => {
+        if (obj[key]) {
+            merged[key] = mergeObjectIntoBlueprint(obj[key], merged[key]);
+        }
+    });
+    return merged;
+}
+
 exports.isObject = isObject;
 exports.objectFromSchema = objectFromSchema;
+exports.mergeObjectIntoBlueprint = mergeObjectIntoBlueprint;

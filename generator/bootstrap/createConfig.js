@@ -1,9 +1,16 @@
 const path = require('path');
 const fs = require('fs');
-const configSchema = require('../project-config-schema');
+const { objectFromSchema, mergeObjectIntoBlueprint } = require('../js/helpers');
+
+const projectConfigSchema = require('../project-config-schema');
+const bootstrapConfig = require('../bootstrap-config');
 
 function createConfig(projectDir) {
-
+    return new Promise(resolve => {
+        const projectConfig = mergeObjectIntoBlueprint(bootstrapConfig.projectConfig, objectFromSchema(projectConfigSchema));
+        fs.writeFileSync(path.join(projectDir, 'config.json'), JSON.stringify(projectConfig, null, 4));
+        resolve();
+    });
 }
 
 module.exports = createConfig;

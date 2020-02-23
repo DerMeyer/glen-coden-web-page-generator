@@ -8,10 +8,10 @@ import LoadingOverlay from './components/overlay/LoadingOverlay/LoadingOverlay';
 export default function _Project() {
 	return (
 		<>
-			<ZoomBackground id="aDzF4PTo">
-				<Headline id="q4jPnhhfM" />
+			<ZoomBackground id="C472UNvv">
+				<Headline id="QRQBraJKU" />
 			</ZoomBackground>
-			<LoadingOverlay id="472LILtik" />
+			<LoadingOverlay id="uICLhV9Mr" />
 		</>
 	);
 }
