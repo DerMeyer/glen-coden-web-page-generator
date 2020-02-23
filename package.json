@@ -20,9 +20,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "bootstrap": "node generator/bootstrap.js",
+    "update": "node generator/update.js",
     "generate": "node generator/generate.js",
     "optimize": "node generator/optimizeImages.js",
-    "update": "node generator/update.js",
     "glencoden": "node generator/glencoden.js"
   },
   "eslintConfig": {

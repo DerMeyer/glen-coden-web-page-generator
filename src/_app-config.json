@@ -17,7 +17,7 @@
     "components": [
         {
             "component": "ZoomBackground",
-            "id": "C472UNvv",
+            "id": "YeXxF8Lh",
             "initialState": {},
             "style": {},
             "image": "background-image.jpeg",
@@ -31,7 +31,7 @@
             "children": [
                 {
                     "component": "Headline",
-                    "id": "QRQBraJKU",
+                    "id": "r93yHG6jb",
                     "initialState": {},
                     "style": {},
                     "text": "Welcome to Glen Coden Generator",
@@ -41,7 +41,7 @@
         },
         {
             "component": "LoadingOverlay",
-            "id": "uICLhV9Mr",
+            "id": "f3oxhAska",
             "initialState": {},
             "style": {},
             "children": []
