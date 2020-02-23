@@ -9,24 +9,21 @@ const componentsList = require('../components-list');
 
 function updateAppConfig(sourceDir, projectDir) {
     return new Promise(resolve => {
-        const appConfig = require(path.join(sourceDir, 'app-config'));
         const projectConfig = require(path.join(projectDir, 'config'));
-        const appConfigIsTruth = appConfig && generatorConfig._project === generatorConfig._lastGenerated;
-        const componentsMap = appConfigIsTruth
-            ? appConfig.components
-            : projectConfig.app.components;
-        const updatedComponentsMap = updateMap(componentsMap);
+        const appConfigPath = path.join(sourceDir, 'app-config');
+        const appConfigIsTruth = fs.existsSync(path.join(sourceDir, 'app-config.json')) && generatorConfig._project === generatorConfig._lastGenerated;
+
         if (appConfigIsTruth) {
-            console.log('APP IS TRUTH');// TODO remove dev code
-            appConfig.components = updatedComponentsMap;
+            const appConfig = require(appConfigPath);
+            appConfig.components = updateMap(appConfig.components);
             projectConfig.app = appConfig;
             fs.writeFileSync(path.join(sourceDir, 'app-config.json'), JSON.stringify(appConfig, null, 4));
             fs.writeFileSync(path.join(projectDir, 'config.json'), JSON.stringify(projectConfig, null, 4));
             resolve();
             return;
         }
-        console.log('NOW WE NEVER GET HERE');// TODO remove dev code
-        projectConfig.app.components = updatedComponentsMap;
+
+        projectConfig.app.components = updateMap(projectConfig.app.components);
         fs.writeFileSync(path.join(projectDir, 'config.json'), JSON.stringify(projectConfig, null, 4));
         resolve();
     });
