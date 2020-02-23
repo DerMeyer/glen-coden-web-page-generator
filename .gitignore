@@ -8,11 +8,13 @@
 # testing
 /coverage
 
-# development
-/public
-
 # production
 /build
+
+# generator
+/public
+_Project.js
+app-config.json
 
 # misc
 .DS_Store

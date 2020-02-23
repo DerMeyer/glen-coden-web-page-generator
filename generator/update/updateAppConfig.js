@@ -2,15 +2,32 @@ const path = require('path');
 const fs = require('fs');
 const shortid = require('shortid');
 const { objectFromSchema } = require('../js/helpers');
+const generatorConfig = require('../generator-config');
 
 const configSchema = require('../project-config-schema');
 const componentsList = require('../components-list');
 
-function updateComponentsMap(projectDir) {
+function updateAppConfig(sourceDir, projectDir) {
     return new Promise(resolve => {
-        const config = require(path.join(projectDir, 'config'));
-        config.app.components = updateMap(config.app.components);
-        fs.writeFileSync(path.join(projectDir, 'config.json'), JSON.stringify(config, null, 4));
+        const appConfig = require(path.join(sourceDir, 'app-config'));
+        const projectConfig = require(path.join(projectDir, 'config'));
+        const appConfigIsTruth = appConfig && generatorConfig._project === generatorConfig._lastGenerated;
+        const componentsMap = appConfigIsTruth
+            ? appConfig.components
+            : projectConfig.app.components;
+        const updatedComponentsMap = updateMap(componentsMap);
+        if (appConfigIsTruth) {
+            console.log('APP IS TRUTH');// TODO remove dev code
+            appConfig.components = updatedComponentsMap;
+            projectConfig.app = appConfig;
+            fs.writeFileSync(path.join(sourceDir, 'app-config.json'), JSON.stringify(appConfig, null, 4));
+            fs.writeFileSync(path.join(projectDir, 'config.json'), JSON.stringify(projectConfig, null, 4));
+            resolve();
+            return;
+        }
+        console.log('NOW WE NEVER GET HERE');// TODO remove dev code
+        projectConfig.app.components = updatedComponentsMap;
+        fs.writeFileSync(path.join(projectDir, 'config.json'), JSON.stringify(projectConfig, null, 4));
         resolve();
     });
 }
@@ -51,4 +68,4 @@ function createComponent(entry) {
     };
 }
 
-module.exports = updateComponentsMap;
+module.exports = updateAppConfig;

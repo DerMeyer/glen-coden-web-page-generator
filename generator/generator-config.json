@@ -1,5 +1,6 @@
 {
     "_project": "default-project",
+    "_lastGenerated": "default-project",
     "version": "1.0",
     "ignore": [
         ".DS_Store"

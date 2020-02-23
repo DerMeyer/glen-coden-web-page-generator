@@ -3,7 +3,7 @@ const fs = require('fs');
 const generatorConfig = require('./generator-config');
 
 const updateComponentsList = require('./update/updateComponentsList');
-const updateComponentsMap = require('./update/updateComponentsMap');
+const updateAppConfig = require('./update/updateAppConfig');
 
 const { PROJECTS_PATH_SEGMENTS } = require('../confidential');
 
@@ -28,10 +28,10 @@ const projectDir = path.join(projectsDir, projectName);
 Promise.resolve()
     .then(() => {
         console.log('\nUpdate components list.\n');
-        return updateComponentsList(sourceDir, componentsDirName, [projectDir, generatorDir]);
+        return updateComponentsList(sourceDir, componentsDirName, [generatorDir]);
     })
     .then(() => {
         console.log('Update components map.\n');
-        return updateComponentsMap(projectDir)
+        return updateAppConfig(sourceDir, projectDir);
     })
     .catch(console.error);

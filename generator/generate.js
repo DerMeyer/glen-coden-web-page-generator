@@ -35,9 +35,11 @@ if (!projectName) {
     }
     if (projectName !== generatorConfig._project) {
         generatorConfig._project = projectName;
-        fs.writeFileSync(path.resolve('generator', 'generator-config.json'), JSON.stringify(generatorConfig, null, 4));
     }
 }
+
+generatorConfig._lastGenerated = projectName;
+fs.writeFileSync(path.resolve('generator', 'generator-config.json'), JSON.stringify(generatorConfig, null, 4));
 
 const projectDir = path.join(projectsDir, projectName);
 
@@ -67,7 +69,7 @@ Promise.resolve()
         return createProjectFile(projectDir, sourceDir);
     })
     .then(() => {
-        console.log('Write config into _app-config.json in /src.\n');
+        console.log('Write config into app-config.json in /src.\n');
         return copyAppConfig(projectDir, sourceDir);
     })
     .catch(console.error);

@@ -23,6 +23,9 @@ if (fs.readdirSync(projectsDir).includes(projectName)) {
 }
 
 generatorConfig._project = projectName;
+if (generatorConfig._lastGenerated === projectName) {
+    generatorConfig._lastGenerated = '';
+}
 fs.writeFileSync(path.resolve('generator', 'generator-config.json'), JSON.stringify(generatorConfig, null, 4));
 
 const projectDir = path.join(projectsDir, projectName);

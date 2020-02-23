@@ -19,7 +19,7 @@ if (argv.length !== 2 && argv.length !== 3) {
 }
 
 const projectsDir = path.resolve( ...PROJECTS_PATH_SEGMENTS);
-const projectName = argv[2];
+const projectName = argv[2] || '';
 
 if (userCmds.length === 0) {
     if (projectName && !fs.existsSync(path.resolve(projectsDir, projectName))) {
