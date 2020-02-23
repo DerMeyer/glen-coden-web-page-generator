@@ -2,12 +2,12 @@ const path = require('path');
 const fs = require('fs');
 
 const tinify = require('tinify');
-const { PROJECTS_PATH_SEGMENTS, TINIFY_API_KEY } = require('../confidential');
+const { PROJECTS_PATH_SEGMENTS, TINIFY_API_KEY } = require('../../confidential');
 tinify.key = TINIFY_API_KEY;
 
-const generatorConfig = require('./generator-config');
+const generatorConfig = require('../generator-config');
 const supportedImageTypes = generatorConfig.imageTypesForOptimization;
-const { targetImageSizes } = require('../src/js/generated');
+const { targetImageSizes } = require('../../src/js/generated');
 
 const projectsDir = path.resolve(...PROJECTS_PATH_SEGMENTS);
 
@@ -33,7 +33,7 @@ if (!fs.existsSync(targetDir)) {
 const images = fs.readdirSync(imageDir).filter(fileName => !generatorConfig.ignore.includes(fileName));
 const previousOptimized = fs.readdirSync(targetDir);
 
-const { START_AT, COUNT } = require('./statistics/tinifyApiCallCount');
+const { START_AT, COUNT } = require('../statistics/tinifyApiCallCount');
 
 const timeSinceCounterStart = Date.now() - START_AT;
 const monthInMilliseconds = 1000 * 60 * 60 * 24 * 28;

@@ -21,7 +21,7 @@ function createFileTree(config, targetDir, bootstrapDir) {
                 createFileTree(entry.children, targetPath, bootstrapDir);
             }
         } else if (entry.type === 'file') {
-            const file = fs.readFileSync(path.join(bootstrapDir, 'files', entry.name), 'utf-8');
+            const file = fs.readFileSync(path.join(bootstrapDir, 'files', entry.name));
             fs.writeFileSync(targetPath, file);
         }
     });

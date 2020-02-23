@@ -125,16 +125,6 @@ export default function Image(props) {
             : { height: '100%' };
     };
 
-    const debugElement = (
-        <div style={{ position: 'fixed', left: '50%', top: '50%', transform: 'translate(-50%, -50%)', color: 'white', backgroundColor: 'rgba(0, 0, 0, .5)' }}>
-            <div>View Size {window.innerWidth} x {window.innerHeight}</div>
-            <div>Prop Size {props.width} x {props.height}</div>
-            <div>Prop Ratio {(props.width / props.height).toFixed(2)}</div>
-            <div>{props.loadWithCss ? 'CSS background-image' : 'HTML img tag'}</div>
-            <div>Source {source}</div>
-        </div>
-    ); // TODO remove dev code
-
     return props.loadWithCss
         ? (
             <div
@@ -148,7 +138,6 @@ export default function Image(props) {
                     transition: `opacity ${projectConfig.fadeInTime}s${props.style.transition ? `, ${props.style.transition}` : ''}`
                 }}
             >
-                {debugElement /* TODO remove dev code */}
                 <img
                     ref={image}
                     className={styles.imageCss}
@@ -167,7 +156,6 @@ export default function Image(props) {
                     height: props.height
                 }}
             >
-                {debugElement /* TODO remove dev code */}
                 <img
                     ref={image}
                     className={styles.image}

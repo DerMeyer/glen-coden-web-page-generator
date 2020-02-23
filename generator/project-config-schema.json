@@ -5,12 +5,10 @@
     "type": "object",
     "properties": {
         "title": {
-            "type": "string",
-            "default": "Glencoden App"
+            "type": "string"
         },
         "description": {
-            "type": "string",
-            "default": "This app was created with Glen Coden Web Page Generator."
+            "type": "string"
         },
         "fontTypes": {
             "type": "array",

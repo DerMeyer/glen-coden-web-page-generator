@@ -5,7 +5,7 @@
             "type": "directory",
             "children": [
                 {
-                    "name": "background-image.jpeg",
+                    "name": "background-image.jpg",
                     "type": "file"
                 }
             ]
@@ -20,6 +20,8 @@
         }
     ],
     "projectConfig": {
+        "title": "Glen Coden App",
+        "description": "This app was created with Glen Coden Web Page Generator.",
         "fontTypes": [
             "https://fonts.googleapis.com/css?family=Comfortaa&display=swap"
         ],
@@ -27,7 +29,7 @@
             "components": [
                 {
                     "component": "ZoomBackground",
-                    "image": "background-image.jpeg",
+                    "image": "background-image.jpg",
                     "children": [
                         {
                             "component": "Headline",

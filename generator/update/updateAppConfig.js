@@ -1,7 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const shortid = require('shortid');
-const { objectFromSchema } = require('../js/helpers');
+const { objectFromSchema, mergeObjectIntoBlueprint } = require('../js/helpers');
 const generatorConfig = require('../generator-config');
 
 const configSchema = require('../project-config-schema');
@@ -14,7 +14,7 @@ function updateAppConfig(sourceDir, projectDir) {
         const appConfigIsTruth = fs.existsSync(path.join(sourceDir, 'app-config.json')) && generatorConfig._project === generatorConfig._lastGenerated;
 
         if (appConfigIsTruth) {
-            const appConfig = require(appConfigPath);
+            const appConfig = mergeObjectIntoBlueprint(require(appConfigPath), objectFromSchema(configSchema).app);
             appConfig.components = updateMap(appConfig.components);
             projectConfig.app = appConfig;
             fs.writeFileSync(path.join(sourceDir, 'app-config.json'), JSON.stringify(appConfig, null, 4));

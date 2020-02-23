@@ -6,7 +6,7 @@ import { Provider } from './js/Store';
 import App from './App';
 import ConfigService from './js/services/ConfigService';
 import { getInitialState } from './js/helpers';
-import config from './_app-config';
+import config from './app-config';
 
 export const configService = new ConfigService(config);
 

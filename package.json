@@ -22,7 +22,7 @@
     "bootstrap": "node generator/bootstrap.js",
     "update": "node generator/update.js",
     "generate": "node generator/generate.js",
-    "optimize": "node generator/optimizeImages.js",
+    "optimize": "node generator/optimize/optimizeImages.js",
     "glencoden": "node generator/glencoden.js"
   },
   "eslintConfig": {
