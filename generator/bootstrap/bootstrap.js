@@ -1,11 +1,11 @@
 const path = require('path');
 const fs = require('fs');
-const getPath = require('./js/getters/getPath');
-const setConfig = require('./js/setters/setConfig');
-const config = require('./generator-config');
+const getPath = require('../js/getters/getPath');
+const setConfig = require('../js/setters/setConfig');
+const CONFIG = require('../generator-config');
 
-const createFileTree = require('./bootstrap/createFileTree');
-const createConfig = require('./bootstrap/createConfig');
+const bootstrapFileTree = require('./bootstrap.fileTree');
+const bootstrapConfig = require('./bootstrap.config');
 
 const projectName = process.argv[2];
 
@@ -21,7 +21,7 @@ if (fs.readdirSync(getPath.projectsDir).includes(projectName)) {
 
 const configUpdate = {
     _project: projectName,
-    _lastGenerated: config._lastGenerated !== projectName ? config._lastGenerated : ''
+    _lastGenerated: CONFIG._lastGenerated !== projectName ? CONFIG._lastGenerated : ''
 };
 
 setConfig(configUpdate);
@@ -34,10 +34,10 @@ fs.mkdirSync(projectDir);
 Promise.resolve()
     .then(() => {
         console.log(`\nBootstrap static contents in ${projectDir}.\n`);
-        return createFileTree(projectDir, bootstrapDir);
+        return bootstrapFileTree(projectDir, bootstrapDir);
     })
     .then(() => {
         console.log('Create config on root level.\n');
-        return createConfig(projectDir);
+        return bootstrapConfig(projectDir);
     })
     .catch(console.error);

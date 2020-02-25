@@ -1,15 +1,15 @@
 const path = require('path');
 const fs = require('fs');
-const getPath = require('./js/getters/getPath');
-const config = require('./generator-config');
+const getPath = require('../js/getters/getPath');
+const CONFIG = require('../generator-config');
 
-const updateComponentsList = require('./update/updateComponentsList');
-const updateAppConfig = require('./update/updateAppConfig');
+const updateComponentsList = require('./update.componentsList');
+const updateAppConfig = require('./update.appConfig');
 
 let projectName = process.argv[2];
 
 if (!projectName) {
-    projectName = config._project;
+    projectName = CONFIG._project;
 }
 
 if (!fs.readdirSync(getPath.projectsDir).includes(projectName)) {

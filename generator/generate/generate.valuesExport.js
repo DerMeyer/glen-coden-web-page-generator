@@ -1,11 +1,11 @@
 const path = require('path');
 const fs = require('fs');
-const generatorConfig = require('../generator-config');
+const CONFIG = require('../generator-config');
 const { isObject } = require('../js/helpers');
 
-function createValuesExport(targetDir) {
+function generateValuesExport(targetDir) {
     return new Promise(resolve => {
-        const { values } = generatorConfig;
+        const { values } = CONFIG;
         let file = '';
 
         Object.keys(values).forEach((key, index) => {
@@ -59,4 +59,4 @@ function stringifyJS(value, depth = 0, last = false) {
     return result;
 }
 
-module.exports = createValuesExport;
+module.exports = generateValuesExport;

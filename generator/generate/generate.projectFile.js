@@ -2,9 +2,9 @@ const path = require('path');
 const fs = require('fs');
 const componentsList = require('../components-list');
 
-function createProjectFile(projectDir, targetDir) {
-    const config = require(path.join(projectDir, 'config'));
-    const componentsMap = config.app.components;
+function generateProjectFile(projectDir, targetDir) {
+    const PROJECT_CONFIG = require(path.join(projectDir, 'config'));
+    const componentsMap = PROJECT_CONFIG.app.components;
 
     return new Promise(resolve => {
         let file = `import React from 'react';\n\n`;
@@ -57,4 +57,4 @@ function createJsx(componentsMap, depth) {
     return jsx;
 }
 
-module.exports = createProjectFile;
+module.exports = generateProjectFile;

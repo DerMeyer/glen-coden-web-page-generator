@@ -1,11 +1,11 @@
 const path = require('path');
 const fs = require('fs');
 
-const bootstrapConfig = require('../bootstrap-config');
+const CONFIG = require('../bootstrap-config');
 
-function createFileTree(projectDir, bootstrapDir) {
+function bootstrapFileTree(projectDir, bootstrapDir) {
     return new Promise(resolve => {
-        createFromConfig(bootstrapConfig.fileTree, projectDir, bootstrapDir);
+        createFromConfig(CONFIG.fileTree, projectDir, bootstrapDir);
         resolve();
     });
 }
@@ -25,4 +25,4 @@ function createFromConfig(config, targetDir, bootstrapDir) {
     });
 }
 
-module.exports = createFileTree;
+module.exports = bootstrapFileTree;
