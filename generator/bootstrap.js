@@ -1,14 +1,11 @@
 const path = require('path');
 const fs = require('fs');
-const generatorConfig = require('./generator-config');
+const getPath = require('./js/getters/getPath');
+const setConfig = require('./js/setters/setConfig');
+const config = require('./generator-config');
 
-const createStaticContents = require('./bootstrap/createStaticContents');
+const createFileTree = require('./bootstrap/createFileTree');
 const createConfig = require('./bootstrap/createConfig');
-
-const { PROJECTS_PATH_SEGMENTS } = require('../confidential');
-
-const projectsDir = path.resolve( ...PROJECTS_PATH_SEGMENTS);
-const bootstrapDir = path.resolve('generator', 'bootstrap');
 
 const projectName = process.argv[2];
 
@@ -17,25 +14,27 @@ if (!projectName) {
     process.exit();
 }
 
-if (fs.readdirSync(projectsDir).includes(projectName)) {
+if (fs.readdirSync(getPath.projectsDir).includes(projectName)) {
     console.warn(`\nCouldn't bootstrap project. The project name already exists.\n`);
     process.exit();
 }
 
-generatorConfig._project = projectName;
-if (generatorConfig._lastGenerated === projectName) {
-    generatorConfig._lastGenerated = '';
-}
-fs.writeFileSync(path.resolve('generator', 'generator-config.json'), JSON.stringify(generatorConfig, null, 4));
+const configUpdate = {
+    _project: projectName,
+    _lastGenerated: config._lastGenerated !== projectName ? config._lastGenerated : ''
+};
 
-const projectDir = path.join(projectsDir, projectName);
+setConfig(configUpdate);
+
+const bootstrapDir = path.join(getPath.generatorDir, 'bootstrap');
+const projectDir = path.join(getPath.projectsDir, projectName);
 
 fs.mkdirSync(projectDir);
 
 Promise.resolve()
     .then(() => {
         console.log(`\nBootstrap static contents in ${projectDir}.\n`);
-        return createStaticContents(projectDir, bootstrapDir);
+        return createFileTree(projectDir, bootstrapDir);
     })
     .then(() => {
         console.log('Create config on root level.\n');

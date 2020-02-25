@@ -1,7 +1,8 @@
 const path = require('path');
 const fs = require('fs');
 
-function updateComponentsList(sourceDir, componentsDirName, targetDirectories) {
+function updateComponentsList(sourceDir, targetDir) {
+    const componentsDirName = 'components';
     return new Promise(resolve => {
         const componentsPath = path.join(sourceDir, componentsDirName);
         const componentsList = fs.readdirSync(componentsPath)
@@ -21,9 +22,7 @@ function updateComponentsList(sourceDir, componentsDirName, targetDirectories) {
                 }
                 return result;
             }, {});
-        targetDirectories.forEach(targetDir => {
-            fs.writeFileSync(path.join(targetDir, 'components-list.json'), JSON.stringify(componentsList, null, 4));
-        });
+        fs.writeFileSync(path.join(targetDir, 'components-list.json'), JSON.stringify(componentsList, null, 4));
         resolve();
     });
 }

@@ -3,22 +3,20 @@ const fs = require('fs');
 
 const bootstrapConfig = require('../bootstrap-config');
 
-function createStaticContents(projectDir, bootstrapDir) {
+function createFileTree(projectDir, bootstrapDir) {
     return new Promise(resolve => {
-        const staticDir = path.join(projectDir, 'static');
-        fs.mkdirSync(staticDir);
-        createFileTree(bootstrapConfig.staticDir, staticDir, bootstrapDir);
+        createFromConfig(bootstrapConfig.fileTree, projectDir, bootstrapDir);
         resolve();
     });
 }
 
-function createFileTree(config, targetDir, bootstrapDir) {
+function createFromConfig(config, targetDir, bootstrapDir) {
     config.forEach(entry => {
         const targetPath = path.join(targetDir, entry.name);
         if (entry.type === 'directory') {
             fs.mkdirSync(targetPath);
             if (entry.children) {
-                createFileTree(entry.children, targetPath, bootstrapDir);
+                createFromConfig(entry.children, targetPath, bootstrapDir);
             }
         } else if (entry.type === 'file') {
             const file = fs.readFileSync(path.join(bootstrapDir, 'files', entry.name));
@@ -27,4 +25,4 @@ function createFileTree(config, targetDir, bootstrapDir) {
     });
 }
 
-module.exports = createStaticContents;
+module.exports = createFileTree;

@@ -3,10 +3,10 @@ const fs = require('fs');
 const rimraf = require('rimraf');
 const generatorConfig = require('../generator-config');
 
-function copyStaticToPublic(staticPath, publicPath) {
+function copyStaticToPublic(projectDir, publicDir) {
     return new Promise(resolve => {
-        rimraf(path.join(publicPath, '*'), () => {
-            deepCopyDirectory(staticPath, publicPath);
+        rimraf(path.join(publicDir, '*'), () => {
+            deepCopyDirectory(path.join(projectDir, 'static'), publicDir);
             resolve();
         });
     });

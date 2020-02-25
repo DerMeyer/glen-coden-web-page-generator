@@ -1,7 +1,6 @@
 {
-    "_project": "default-project",
-    "_lastGenerated": "default-project",
-    "version": "1.0",
+    "_project": "kalamazoo",
+    "_lastGenerated": "kalamazoo",
     "ignore": [
         ".DS_Store"
     ],

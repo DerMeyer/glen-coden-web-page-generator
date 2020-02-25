@@ -1,22 +1,39 @@
 {
-    "staticDir": [
+    "paths": {
+        "images": ["static", "images"],
+        "optimizedImages": ["static", "images", "optimized"],
+        "logos": [],
+        "optimizedLogos": [],
+        "json": ["json"]
+    },
+    "fileTree": [
         {
-            "name": "images",
+            "name": "static",
             "type": "directory",
             "children": [
                 {
-                    "name": "background-image.jpg",
+                    "name": "images",
+                    "type": "directory",
+                    "children": [
+                        {
+                            "name": "background-image.jpg",
+                            "type": "file"
+                        }
+                    ]
+                },
+                {
+                    "name": "favicon.png",
+                    "type": "file"
+                },
+                {
+                    "name": "logo.png",
                     "type": "file"
                 }
             ]
         },
         {
-            "name": "favicon.png",
-            "type": "file"
-        },
-        {
-            "name": "logo.png",
-            "type": "file"
+            "name": "json",
+            "type": "directory"
         }
     ],
     "projectConfig": {

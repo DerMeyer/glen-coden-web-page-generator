@@ -2,8 +2,8 @@ const path = require('path');
 const fs = require('fs');
 const { objectFromSchema, mergeObjectIntoBlueprint } = require('../js/helpers');
 
-const projectConfigSchema = require('../project-config-schema');
 const bootstrapConfig = require('../bootstrap-config');
+const projectConfigSchema = require('../project-config-schema');
 
 function createConfig(projectDir) {
     return new Promise(resolve => {
