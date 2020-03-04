@@ -2,8 +2,10 @@ const path = require('path');
 const fs = require('fs');
 const { exec } = require('child_process');
 const getPath = require('./js/getters/getPath');
+const CONFIG = require('./generator-config');
 
 const SupportedCmds = {
+    __PROJECT: '-p',
     __BOOTSTRAP: '--bootstrap',
     __UPDATE: '--update',
     __OPTIMIZE: '--optimize',
@@ -16,6 +18,10 @@ const argv = process.argv.filter(cmd => !Object.values(SupportedCmds).includes(c
 if (argv.length !== 2 && argv.length !== 3) {
     console.warn(`\nCouldn't understand arguments passed to glencoden command. Please read the documentation.\n`);
     process.exit();
+}
+
+if (userCmds.includes(SupportedCmds.__PROJECT)) {
+    console.log(`\nProject name: ${CONFIG._project}\n`);
 }
 
 const projectName = argv[2] || '';

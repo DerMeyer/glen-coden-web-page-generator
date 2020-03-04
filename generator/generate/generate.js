@@ -17,6 +17,7 @@ if (!fs.existsSync(getPath.publicDir)) {
 }
 
 const configUpdate = {};
+
 let projectName = process.argv[2];
 
 if (!projectName) {
@@ -36,6 +37,7 @@ if (!projectName) {
 }
 
 configUpdate._lastGenerated = projectName;
+
 setConfig(configUpdate);
 
 const projectDir = path.join(getPath.projectsDir, projectName);
