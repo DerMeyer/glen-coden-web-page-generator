@@ -44,8 +44,9 @@ export default function Image(props) {
 
     const getSource = useCallback(
         (width, fallback = false) => {
+            const fallbackSource = `images/${props.source}`;
             if (fallback) {
-                return `images/${props.source}`;
+                return fallbackSource;
             }
 
             let targetImageRatio = 'default';
@@ -57,8 +58,9 @@ export default function Image(props) {
 
             const sizesForRatio = targetImageSizes.filter(size => size.ratio === targetImageRatio).map(size => size.width);
             const targetImageSize = sizesForRatio.find(size => targetWidth < size) || sizesForRatio.pop();
+            const ratioChanged = !source.includes(targetImageRatio) && source !==  fallbackSource;
 
-            if (targetImageSize <= targetSize && targetImageRatio === 'default') {
+            if (targetImageSize <= targetSize && !ratioChanged) {
                 return source;
             }
             setTargetSize(targetImageSize);

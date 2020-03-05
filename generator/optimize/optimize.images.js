@@ -1,15 +1,11 @@
 const path = require('path');
 const fs = require('fs');
 
-const tinify = require('tinify');
-const { TINIFY_API_KEY } = require('../../confidential');
-tinify.key = TINIFY_API_KEY;
-
 const CONFIG = require('../generator-config');
 const supportedImageTypes = CONFIG.imageTypesForOptimization;
 const { targetImageSizes } = require('../../src/js/generated');
-
 const { hasFreeApiCalls, addCallCount } = require('../statistics/tinifyApi/manageCallCount');
+const optimizeTinify = require('./optimize.tinify');
 
 function optimizeImages(projectDir) {
     return new Promise(resolve => {
@@ -23,7 +19,7 @@ function optimizeImages(projectDir) {
 
         const images = fs.readdirSync(imageDir).filter(fileName => !CONFIG.ignore.includes(fileName));
         const previousOptimized = fs.readdirSync(targetDir);
-        const maxEstimatedApiCalls = (images.length - 1) * targetImageSizes.length;
+        const maxEstimatedApiCalls = (images.length - 1) * targetImageSizes.length * 2;
 
         console.log('\nOptimizing images...\n');
 
@@ -68,10 +64,7 @@ function optimizeImages(projectDir) {
                                 break;
                             default:
                         }
-                        return tinify
-                            .fromFile(path.join(imageDir, fileName))
-                            .resize(options)
-                            .toFile(path.join(targetDir, targetName))
+                        return optimizeTinify(path.join(imageDir, fileName), path.join(targetDir, targetName), options)
                             .then(() => {
                                 apiCalls += 2;
                                 console.log(`Saved optimized image ${targetName}`);

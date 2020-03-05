@@ -39,7 +39,7 @@ function addCallCount(numCalls) {
 }
 
 function writeCallCount(callCount) {
-    fs.writeFileSync(path.resolve('callCount.json'), JSON.stringify(callCount, null, 4));
+    fs.writeFileSync(path.resolve('generator', 'statistics', 'tinifyApi', 'callCount.json'), JSON.stringify(callCount, null, 4));
 }
 
 exports.hasFreeApiCalls = hasFreeApiCalls;

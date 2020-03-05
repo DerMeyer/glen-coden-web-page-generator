@@ -1,9 +1,8 @@
 const path = require('path');
-const fs = require('fs');
 const getPath = require('../js/getters/getPath');
-const CONFIG = require('../generator-config');
 
 const optimizeImages = require('./optimize.images');
+const optimizeIcons = require('./optimize.icons');
 
 const projectName = process.argv[2];
 
@@ -18,5 +17,9 @@ Promise.resolve()
     .then(() => {
         console.log(`\nOptimize images in ${projectDir}.\n`);
         return optimizeImages(projectDir);
+    })
+    .then(() => {
+        console.log(`\nOptimize icons in ${projectDir}.\n`);
+        return optimizeIcons(projectDir);
     })
     .catch(console.error);
