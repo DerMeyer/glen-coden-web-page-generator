@@ -26,14 +26,20 @@
                     "type": "file"
                 },
                 {
-                    "name": "logo.png",
+                    "name": "icon.png",
                     "type": "file"
                 }
             ]
         },
         {
             "name": "json",
-            "type": "directory"
+            "type": "directory",
+            "children": [
+                {
+                    "name": "config-history",
+                    "type": "directory"
+                }
+            ]
         }
     ],
     "projectConfig": {

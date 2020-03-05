@@ -18,15 +18,27 @@ function updateAppConfig(sourceDir, projectDir) {
             appConfig.components = updateMap(appConfig.components);
             projectConfig.app = appConfig;
             fs.writeFileSync(path.join(sourceDir, 'app-config.json'), JSON.stringify(appConfig, null, 4));
-            fs.writeFileSync(path.join(projectDir, 'config.json'), JSON.stringify(projectConfig, null, 4));
+            writeProjectConfig(projectDir, projectConfig);
             resolve();
             return;
         }
 
         projectConfig.app.components = updateMap(projectConfig.app.components);
-        fs.writeFileSync(path.join(projectDir, 'config.json'), JSON.stringify(projectConfig, null, 4));
+        writeProjectConfig(projectDir, projectConfig);
         resolve();
     });
+}
+
+function writeProjectConfig(projectDir, config) {
+    const historyDir = path.join(projectDir, 'json', 'config-history');
+    const currentEntry = `${new Date()}.json`.split(' ').join('_');
+    const historyEntries = fs.readdirSync(historyDir);
+    while (historyEntries.length > 50) {
+        const obsoleteEntry = historyEntries.reverse().pop();
+        fs.unlinkSync(path.join(historyDir, obsoleteEntry));
+    }
+    fs.writeFileSync(path.join(historyDir, currentEntry), JSON.stringify(config, null, 4));
+    fs.writeFileSync(path.join(projectDir, 'config.json'), JSON.stringify(config, null, 4));
 }
 
 function updateMap(componentsMap) {

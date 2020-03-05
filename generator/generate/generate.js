@@ -44,7 +44,7 @@ const projectDir = path.join(getPath.projectsDir, projectName);
 
 Promise.resolve()
     .then(() => {
-        console.log(`\nCopy static assets into public directory.\n\tFROM ${path.join(projectDir, 'static')}\n\tTO ${getPath.publicDir}\n`);
+        console.log(`\nCopy static assets into public directory.\nFROM ${path.join(projectDir, 'static')}\nTO ${getPath.publicDir}\n`);
         return generatePublicAssets(projectDir, getPath.publicDir);
     })
     .then(() => {
