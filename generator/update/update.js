@@ -4,7 +4,7 @@ const getPath = require('../js/getters/getPath');
 const CONFIG = require('../generator-config');
 
 const updateComponentsList = require('./update.componentsList');
-const updateAppConfig = require('./update.appConfig');
+const updateProjectConfig = require('./update.projectConfig');
 
 let projectName = process.argv[2];
 
@@ -25,7 +25,7 @@ Promise.resolve()
         return updateComponentsList(getPath.sourceDir, getPath.generatorDir);
     })
     .then(() => {
-        console.log('Update components map.\n');
-        return updateAppConfig(getPath.sourceDir, projectDir);
+        console.log('Update project config.\n');
+        return updateProjectConfig(getPath.sourceDir, projectDir);
     })
     .catch(console.error);

@@ -7,29 +7,26 @@ const CONFIG = require('../generator-config');
 const CONFIG_SCHEMA = require('../project-config-schema');
 const componentsList = require('../components-list');
 
-function updateAppConfig(sourceDir, projectDir) {
+function updateProjectConfig(sourceDir, projectDir) {
     return new Promise(resolve => {
-        const projectConfig = require(path.join(projectDir, 'config'));
-        const appConfigPath = path.join(sourceDir, 'app-config');
-        const appConfigIsTruth = fs.existsSync(path.join(sourceDir, 'app-config.json')) && CONFIG._project === CONFIG._lastGenerated;
+        const sourceConfigPath = path.join(sourceDir, 'project-config.json');
+        const sourceConfigIsTruth = fs.existsSync(sourceConfigPath) && CONFIG._project === CONFIG._lastGenerated;
 
-        if (appConfigIsTruth) {
-            const appConfig = mergeObjectIntoBlueprint(require(appConfigPath), objectFromSchema(CONFIG_SCHEMA).app);
-            appConfig.components = updateMap(appConfig.components);
-            projectConfig.app = appConfig;
-            fs.writeFileSync(path.join(sourceDir, 'app-config.json'), JSON.stringify(appConfig, null, 4));
-            writeProjectConfig(projectDir, projectConfig);
-            resolve();
-            return;
+        let projectConfig;
+
+        if (sourceConfigIsTruth) {
+            projectConfig = mergeObjectIntoBlueprint(require(sourceConfigPath), objectFromSchema(CONFIG_SCHEMA));
+        } else {
+            projectConfig = require(path.join(projectDir, 'config'));
         }
 
-        projectConfig.app.components = updateMap(projectConfig.app.components);
-        writeProjectConfig(projectDir, projectConfig);
+        projectConfig.app.components = updateComponentsMap(projectConfig.app.components);
+        writeProjectConfig(sourceDir, projectDir, projectConfig);
         resolve();
     });
 }
 
-function writeProjectConfig(projectDir, config) {
+function writeProjectConfig(sourceDir, projectDir, config) {
     const historyDir = path.join(projectDir, 'json', 'config-history');
     const currentEntry = `${new Date()}.json`.split(' ').join('_');
     const historyEntries = fs.readdirSync(historyDir);
@@ -37,18 +34,19 @@ function writeProjectConfig(projectDir, config) {
         const obsoleteEntry = historyEntries.reverse().pop();
         fs.unlinkSync(path.join(historyDir, obsoleteEntry));
     }
+    fs.writeFileSync(path.join(sourceDir, 'project-config.json'), JSON.stringify(config, null, 4));
     fs.writeFileSync(path.join(historyDir, currentEntry), JSON.stringify(config, null, 4));
     fs.writeFileSync(path.join(projectDir, 'config.json'), JSON.stringify(config, null, 4));
 }
 
-function updateMap(componentsMap) {
+function updateComponentsMap(componentsMap) {
     return [ ...componentsMap ].map(entry => {
         if (!entry.id) {
             return createComponent(entry);
         }
         return {
             ...entry,
-            children: updateMap(entry.children)
+            children: updateComponentsMap(entry.children)
         };
     });
 }
@@ -77,4 +75,4 @@ function createComponent(entry) {
     };
 }
 
-module.exports = updateAppConfig;
+module.exports = updateProjectConfig;

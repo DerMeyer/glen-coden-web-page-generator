@@ -6,11 +6,11 @@ import { Provider } from './js/Store';
 import App from './App';
 import ConfigService from './js/services/ConfigService';
 import { getInitialState } from './js/helpers';
-import config from './app-config';
+import CONFIG from './project-config';
 
-export const configService = new ConfigService(config);
+export const configService = new ConfigService(CONFIG.app);
 
-const initialState = getInitialState(config);
+const initialState = getInitialState(CONFIG.app);
 
 ReactDOM.render(
     <Provider initialState={initialState}>

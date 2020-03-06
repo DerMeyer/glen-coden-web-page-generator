@@ -10,7 +10,6 @@ const generateManifestJson = require('./generate.manifestJson');
 const generateRobotsTxt = require('./generate.robotsTxt');
 const generateValuesExport = require('./generate.valuesExport');
 const generateProjectFile = require('./generate.projectFile');
-const generateAppConfig = require('./generate.appConfig');
 
 if (!fs.existsSync(getPath.publicDir)) {
     fs.mkdirSync(getPath.publicDir);
@@ -66,9 +65,5 @@ Promise.resolve()
     .then(() => {
         console.log('Generate _Project.js in /src.\n');
         return generateProjectFile(projectDir, getPath.sourceDir);
-    })
-    .then(() => {
-        console.log('Write config into app-config.json in /src.\n');
-        return generateAppConfig(projectDir, getPath.sourceDir);
     })
     .catch(console.error);

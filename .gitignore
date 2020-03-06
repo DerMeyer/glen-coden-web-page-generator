@@ -14,7 +14,7 @@
 # generator
 /public
 _Project.js
-app-config.json
+project-config.json
 
 # misc
 .DS_Store
