@@ -3,6 +3,10 @@
         "path": "/Users/Simon/Programmieren/projects/glen-coden-web-page-generator/src/components/background/ZoomBackground",
         "srcImportPath": "./components/background/ZoomBackground/ZoomBackground"
     },
+    "Page": {
+        "path": "/Users/Simon/Programmieren/projects/glen-coden-web-page-generator/src/components/container/Page",
+        "srcImportPath": "./components/container/Page/Page"
+    },
     "LoadingOverlay": {
         "path": "/Users/Simon/Programmieren/projects/glen-coden-web-page-generator/src/components/overlay/LoadingOverlay",
         "srcImportPath": "./components/overlay/LoadingOverlay/LoadingOverlay"

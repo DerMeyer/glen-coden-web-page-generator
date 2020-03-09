@@ -15,8 +15,6 @@ if (!fs.existsSync(getPath.publicDir)) {
     fs.mkdirSync(getPath.publicDir);
 }
 
-const configUpdate = {};
-
 let projectName = process.argv[2];
 
 if (!projectName) {
@@ -31,13 +29,11 @@ if (!projectName) {
         process.exit();
     }
     if (projectName !== CONFIG._project) {
-        configUpdate._project = projectName;
+        setConfig({
+            _project: projectName
+        });
     }
 }
-
-configUpdate._lastGenerated = projectName;
-
-setConfig(configUpdate);
 
 const projectDir = path.join(getPath.projectsDir, projectName);
 

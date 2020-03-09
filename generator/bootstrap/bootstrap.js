@@ -2,7 +2,6 @@ const path = require('path');
 const fs = require('fs');
 const getPath = require('../js/getters/getPath');
 const setConfig = require('../js/setters/setConfig');
-const CONFIG = require('../generator-config');
 
 const bootstrapFileTree = require('./bootstrap.fileTree');
 const bootstrapConfig = require('./bootstrap.config');
@@ -20,8 +19,7 @@ if (fs.readdirSync(getPath.projectsDir).includes(projectName)) {
 }
 
 const configUpdate = {
-    _project: projectName,
-    _lastGenerated: CONFIG._lastGenerated !== projectName ? CONFIG._lastGenerated : ''
+    _project: projectName
 };
 
 setConfig(configUpdate);

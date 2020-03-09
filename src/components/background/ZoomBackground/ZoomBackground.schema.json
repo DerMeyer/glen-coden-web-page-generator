@@ -6,7 +6,7 @@
     "properties": {
         "image": {
             "type": "string",
-            "default": "background-image.jpeg"
+            "default": "background-image.jpg"
         },
         "loadImageWithCss": {
             "type": "boolean",

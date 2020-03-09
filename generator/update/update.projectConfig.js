@@ -5,12 +5,11 @@ const { objectFromSchema, mergeObjectIntoBlueprint } = require('../js/helpers');
 
 const CONFIG = require('../generator-config');
 const CONFIG_SCHEMA = require('../project-config-schema');
-const componentsList = require('../components-list');
 
-function updateProjectConfig(sourceDir, projectDir) {
+function updateProjectConfig(sourceDir, projectDir, projectName) {
     return new Promise(resolve => {
         const sourceConfigPath = path.join(sourceDir, 'project-config.json');
-        const sourceConfigIsTruth = fs.existsSync(sourceConfigPath) && CONFIG._project === CONFIG._lastGenerated;
+        const sourceConfigIsTruth = fs.existsSync(sourceConfigPath) && projectName === CONFIG._project;
 
         let projectConfig;
 
@@ -55,6 +54,7 @@ function createComponent(entry) {
     if (entry.id) {
         return entry;
     }
+    const componentsList = require('../components-list');
     const generalSchema = objectFromSchema(CONFIG_SCHEMA.definitions.single_component);
     const specificSchemaPath = path.join(componentsList[entry.component].path, `${entry.component}.schema.json`);
     const specificSchema = fs.existsSync(specificSchemaPath)
