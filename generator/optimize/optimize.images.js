@@ -1,8 +1,8 @@
 const path = require('path');
 const fs = require('fs');
 
-const CONFIG = require('../generator-config');
-const supportedImageTypes = CONFIG.imageTypesForOptimization;
+const GEN_CONFIG = require('../generator-config');
+const supportedImageTypes = GEN_CONFIG.imageTypesForOptimization;
 const { targetImageSizes } = require('../../src/js/generated');
 const { hasFreeApiCalls, addCallCount } = require('../statistics/tinifyApi/manageCallCount');
 const optimizeTinify = require('./optimize.tinify');
@@ -17,7 +17,7 @@ function optimizeImages(projectDir) {
             fs.mkdirSync(targetDir);
         }
 
-        const images = fs.readdirSync(imageDir).filter(fileName => !CONFIG.ignore.includes(fileName));
+        const images = fs.readdirSync(imageDir).filter(fileName => !GEN_CONFIG.ignore.includes(fileName));
         const previousOptimized = fs.readdirSync(targetDir);
         const maxEstimatedApiCalls = (images.length - 1) * targetImageSizes.length * 2;
 

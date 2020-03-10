@@ -1,8 +1,8 @@
 const path = require('path');
 const fs = require('fs');
 const getPath = require('../js/getters/getPath');
-const setConfig = require('../js/setters/setConfig');
-const CONFIG = require('../generator-config');
+const setGeneratorConfig = require('../js/setters/setGeneratorConfig');
+const GEN_CONFIG = require('../generator-config');
 
 const generatePublicAssets = require('./generate.publicAssets');
 const generateIndexHtml = require('./generate.indexHtml');
@@ -18,7 +18,7 @@ if (!fs.existsSync(getPath.publicDir)) {
 let projectName = process.argv[2];
 
 if (!projectName) {
-    projectName = CONFIG._project;
+    projectName = GEN_CONFIG._project;
     if (!fs.readdirSync(getPath.projectsDir).includes(projectName)) {
         console.warn(`\nCouldn't find project with name ${projectName}. Exit process.\n`);
         process.exit();
@@ -28,8 +28,8 @@ if (!projectName) {
         console.warn(`\nCouldn't find project with name ${projectName}. Exit process.\n`);
         process.exit();
     }
-    if (projectName !== CONFIG._project) {
-        setConfig({
+    if (projectName !== GEN_CONFIG._project) {
+        setGeneratorConfig({
             _project: projectName
         });
     }

@@ -1,7 +1,7 @@
 class ConfigService {
     constructor(config) {
-        this.style = config.style;
-        this.global = config.global;
+        this.style = config.global.style;
+        this.props = config.global.props;
         this.componentsMap = config.components;
         this.componentsConfig = {};
         this.init();
@@ -30,7 +30,7 @@ class ConfigService {
     getProjectConfig() {
         return {
             style: this.style,
-            ...this.global
+            ...this.props
         };
     }
 

@@ -1,7 +1,6 @@
 const path = require('path');
 const fs = require('fs');
 const getPath = require('../js/getters/getPath');
-const setConfig = require('../js/setters/setConfig');
 
 const bootstrapFileTree = require('./bootstrap.fileTree');
 const bootstrapConfig = require('./bootstrap.config');
@@ -18,12 +17,6 @@ if (fs.readdirSync(getPath.projectsDir).includes(projectName)) {
     process.exit();
 }
 
-const configUpdate = {
-    _project: projectName
-};
-
-setConfig(configUpdate);
-
 const bootstrapDir = path.join(getPath.generatorDir, 'bootstrap');
 const projectDir = path.join(getPath.projectsDir, projectName);
 
@@ -35,7 +28,7 @@ Promise.resolve()
         return bootstrapFileTree(projectDir, bootstrapDir);
     })
     .then(() => {
-        console.log('Create config on root level.\n');
+        console.log('Create config at root level.\n');
         return bootstrapConfig(projectDir);
     })
     .catch(console.error);

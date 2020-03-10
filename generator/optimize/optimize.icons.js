@@ -1,8 +1,8 @@
 const path = require('path');
 const fs = require('fs');
 
-const CONFIG = require('../generator-config');
-const targetIconList = CONFIG.icons;
+const GEN_CONFIG = require('../generator-config');
+const targetIconList = GEN_CONFIG.icons;
 const { hasFreeApiCalls, addCallCount } = require('../statistics/tinifyApi/manageCallCount');
 const optimizeTinify = require('./optimize.tinify');
 

@@ -16,26 +16,26 @@
                 "type": "string"
             }
         },
-        "app": {
-            "$ref": "#app"
+        "initialState": {
+            "type": "object"
+        },
+        "global": {
+            "$ref": "#global"
+        },
+        "components": {
+            "$ref": "#components"
         }
     },
     "definitions": {
-        "app": {
-            "$id": "#app",
+        "global": {
+            "$id": "#global",
             "type": "object",
             "properties": {
-                "initialState": {
-                    "type": "object"
-                },
                 "style": {
                     "$ref": "#style"
                 },
-                "global": {
-                    "$ref": "#global"
-                },
-                "components": {
-                    "$ref": "#components"
+                "props": {
+                    "$ref": "#props"
                 }
             }
         },
@@ -69,8 +69,8 @@
                 }
             }
         },
-        "global": {
-            "$id": "#global",
+        "props": {
+            "$id": "#props",
             "type": "object",
             "properties": {
                 "fadeInTime": {

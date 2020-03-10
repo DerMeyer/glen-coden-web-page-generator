@@ -1,10 +1,19 @@
 {
     "paths": {
-        "images": ["static", "images"],
-        "optimizedImages": ["static", "images", "optimized"],
+        "images": [
+            "static",
+            "images"
+        ],
+        "optimizedImages": [
+            "static",
+            "images",
+            "optimized"
+        ],
         "logos": [],
         "optimizedLogos": [],
-        "json": ["json"]
+        "json": [
+            "json"
+        ]
     },
     "fileTree": [
         {
@@ -48,22 +57,20 @@
         "fontTypes": [
             "https://fonts.googleapis.com/css?family=Comfortaa&display=swap"
         ],
-        "app": {
-            "components": [
-                {
-                    "component": "ZoomBackground",
-                    "image": "background-image.jpg",
-                    "children": [
-                        {
-                            "component": "Headline",
-                            "text": "Welcome to Glen Coden Generator"
-                        }
-                    ]
-                },
-                {
-                    "component": "LoadingOverlay"
-                }
-            ]
-        }
+        "components": [
+            {
+                "component": "ZoomBackground",
+                "image": "background-image.jpg",
+                "children": [
+                    {
+                        "component": "Headline",
+                        "text": "Welcome to Glen Coden Generator"
+                    }
+                ]
+            },
+            {
+                "component": "LoadingOverlay"
+            }
+        ]
     }
 }

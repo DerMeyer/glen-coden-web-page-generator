@@ -3,23 +3,23 @@ const fs = require('fs');
 const shortid = require('shortid');
 const { objectFromSchema, mergeObjectIntoBlueprint } = require('../js/helpers');
 
-const CONFIG = require('../generator-config');
-const CONFIG_SCHEMA = require('../project-config-schema');
+const GEN_CONFIG = require('../generator-config');
+const PROJ_CONFIG_SCHEMA = require('../project-config-schema');
 
 function updateProjectConfig(sourceDir, projectDir, projectName) {
     return new Promise(resolve => {
         const sourceConfigPath = path.join(sourceDir, 'project-config.json');
-        const sourceConfigIsTruth = fs.existsSync(sourceConfigPath) && projectName === CONFIG._project;
+        const sourceConfigIsTruth = fs.existsSync(sourceConfigPath) && projectName === GEN_CONFIG._project;
 
         let projectConfig;
 
         if (sourceConfigIsTruth) {
-            projectConfig = mergeObjectIntoBlueprint(require(sourceConfigPath), objectFromSchema(CONFIG_SCHEMA));
+            projectConfig = mergeObjectIntoBlueprint(require(sourceConfigPath), objectFromSchema(PROJ_CONFIG_SCHEMA));
         } else {
             projectConfig = require(path.join(projectDir, 'config'));
         }
 
-        projectConfig.app.components = updateComponentsMap(projectConfig.app.components);
+        projectConfig.components = updateComponentsMap(projectConfig.components);
         writeProjectConfig(sourceDir, projectDir, projectConfig);
         resolve();
     });
@@ -55,7 +55,7 @@ function createComponent(entry) {
         return entry;
     }
     const componentsList = require('../components-list');
-    const generalSchema = objectFromSchema(CONFIG_SCHEMA.definitions.single_component);
+    const generalSchema = objectFromSchema(PROJ_CONFIG_SCHEMA.definitions.single_component);
     const specificSchemaPath = path.join(componentsList[entry.component].path, `${entry.component}.schema.json`);
     const specificSchema = fs.existsSync(specificSchemaPath)
         ? objectFromSchema(JSON.parse(fs.readFileSync(specificSchemaPath, 'utf-8')))

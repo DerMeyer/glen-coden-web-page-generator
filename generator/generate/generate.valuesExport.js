@@ -1,11 +1,11 @@
 const path = require('path');
 const fs = require('fs');
-const CONFIG = require('../generator-config');
+const GEN_CONFIG = require('../generator-config');
 const { isObject } = require('../js/helpers');
 
 function generateValuesExport(targetDir) {
     return new Promise(resolve => {
-        const { values } = CONFIG;
+        const { values } = GEN_CONFIG;
         let file = '';
 
         Object.keys(values).forEach((key, index) => {

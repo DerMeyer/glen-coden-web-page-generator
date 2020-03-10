@@ -1,7 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const rimraf = require('rimraf');
-const CONFIG = require('../generator-config');
+const GEN_CONFIG = require('../generator-config');
 
 function generatePublicAssets(projectDir, publicDir) {
     return new Promise(resolve => {
@@ -13,7 +13,7 @@ function generatePublicAssets(projectDir, publicDir) {
 }
 
 function deepCopyDirectory(dirPath, targetPath) {
-    const entryList = fs.readdirSync(dirPath).filter(entry => !CONFIG.ignore.includes(entry));
+    const entryList = fs.readdirSync(dirPath).filter(entry => !GEN_CONFIG.ignore.includes(entry));
     entryList.forEach(entry => {
         const entryPath = path.join(dirPath, entry);
         if (fs.statSync(entryPath).isDirectory()) {
