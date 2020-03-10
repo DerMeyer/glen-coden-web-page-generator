@@ -7,6 +7,10 @@
         "path": "/Users/Simon/Programmieren/projects/glen-coden-web-page-generator/src/components/container/Page",
         "srcImportPath": "./components/container/Page/Page"
     },
+    "Section": {
+        "path": "/Users/Simon/Programmieren/projects/glen-coden-web-page-generator/src/components/container/Section",
+        "srcImportPath": "./components/container/Section/Section"
+    },
     "LoadingOverlay": {
         "path": "/Users/Simon/Programmieren/projects/glen-coden-web-page-generator/src/components/overlay/LoadingOverlay",
         "srcImportPath": "./components/overlay/LoadingOverlay/LoadingOverlay"

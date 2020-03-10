@@ -66,6 +66,31 @@
                 "darkFontColor": {
                     "type": "string",
                     "default": "#000000"
+                },
+                "pageContentSize": {
+                    "$ref": "#pageContentSize"
+                }
+            }
+        },
+        "pageContentSize": {
+            "$id": "#pageContentSize",
+            "type": "object",
+            "properties": {
+                "width": {
+                    "type": "number",
+                    "default": 80
+                },
+                "widthMobile": {
+                    "type": "number",
+                    "default": 90
+                },
+                "height": {
+                    "type": "number",
+                    "default": 85
+                },
+                "heightMobile": {
+                    "type": "number",
+                    "default": 90
                 }
             }
         },

@@ -90,7 +90,6 @@ export default function ZoomBackground(props) {
                     loadWithCss={config.loadImageWithCss}
                 />
             </div>
-            {props.children}
         </div>
     );
 }

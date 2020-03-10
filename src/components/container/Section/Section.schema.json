@@ -1,0 +1,28 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "#Section",
+    "title": "Section",
+    "type": "object",
+    "properties": {
+        "verticalPosition": {
+            "type": "string",
+            "default": "center"
+        },
+        "addTopOffset": {
+            "type": "number",
+            "default": 0
+        },
+        "justifyContent": {
+            "type": "string",
+            "default": "space-between"
+        },
+        "alignItems": {
+            "type": "string",
+            "default": "center"
+        },
+        "css": {
+            "type": "object",
+            "default": {}
+        }
+    }
+}
