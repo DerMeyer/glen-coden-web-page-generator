@@ -11,6 +11,18 @@
         "path": "/Users/Simon/Programmieren/projects/glen-coden-web-page-generator/src/components/container/Section",
         "srcImportPath": "./components/container/Section/Section"
     },
+    "StickyBar": {
+        "path": "/Users/Simon/Programmieren/projects/glen-coden-web-page-generator/src/components/header/StickyBar",
+        "srcImportPath": "./components/header/StickyBar/StickyBar"
+    },
+    "Link": {
+        "path": "/Users/Simon/Programmieren/projects/glen-coden-web-page-generator/src/components/navigation/Link",
+        "srcImportPath": "./components/navigation/Link/Link"
+    },
+    "NavigationBar": {
+        "path": "/Users/Simon/Programmieren/projects/glen-coden-web-page-generator/src/components/navigation/NavigationBar",
+        "srcImportPath": "./components/navigation/NavigationBar/NavigationBar"
+    },
     "LoadingOverlay": {
         "path": "/Users/Simon/Programmieren/projects/glen-coden-web-page-generator/src/components/overlay/LoadingOverlay",
         "srcImportPath": "./components/overlay/LoadingOverlay/LoadingOverlay"

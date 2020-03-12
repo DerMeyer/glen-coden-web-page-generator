@@ -1,0 +1,24 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "#NavigationBar",
+    "title": "NavigationBar",
+    "type": "object",
+    "properties": {
+        "stretchFactor": {
+            "type": "number",
+            "default": 1
+        },
+        "justifyContent": {
+            "type": "string",
+            "default": "space-between"
+        },
+        "alignItems": {
+            "type": "string",
+            "default": "center"
+        },
+        "color": {
+            "type": "string",
+            "default": "lightFontColor"
+        }
+    }
+}

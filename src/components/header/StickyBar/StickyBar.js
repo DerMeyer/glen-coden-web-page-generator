@@ -1,42 +1,44 @@
-import React, { useContext, useState } from 'react';
-import styles from './Section.module.css';
+import React, { useContext, useState, useCallback, useEffect } from 'react';
+import styles from './StickyBar.module.css';
 import Store from '../../../js/Store';
 import { configService } from '../../../index';
 import { DeviceTypes } from '../../../js/helpers';
 
 
-export default function Section(props) {
+export default function StickyBar(props) {
     const { globalState } = useContext(Store);
     const [config] = useState(() => configService.getComponentConfig(props.id));
+
+    const pollScroll = useCallback(
+        event => {
+            console.log('POLL SCROLL IS BEING CALLED', event);// TODO remove dev code
+        },
+        []
+    );
+
+    useEffect(() => {
+        window.addEventListener('scroll', (event) => {
+            console.log('scroll');
+            pollScroll(event);
+        });
+        return () => {
+            window.removeEventListener('scroll', pollScroll);
+        };
+    }, [pollScroll]);
 
     const contentWidth = globalState.deviceType === DeviceTypes.MOBILE ? config.style.pageContentSize.widthMobile : config.style.pageContentSize.width;
     const contentHeight = globalState.deviceType === DeviceTypes.MOBILE ? config.style.pageContentSize.heightMobile : config.style.pageContentSize.height;
 
     const style = {
-        left: '50%',
-        transform: 'translateX(-50%)',
+        top: `${(100 - contentHeight) / 2}%`,
         width: `${contentWidth}%`,
         justifyContent: config.justifyContent,
         alignItems: config.alignItems
     };
 
-    switch (config.verticalPosition) {
-        case 'top':
-            style.top = `${(100 - contentHeight) / 2 + config.addTopOffset}%`;
-            break;
-        case 'center':
-            style.top = `${50 + config.addTopOffset}%`;
-            style.transform = 'translate(-50%, -50%)';
-            break;
-        case 'bottom':
-            style.bottom = `${(100 - contentHeight) / 2 - config.addTopOffset}%`;
-            break;
-        default:
-    }
-
     return (
         <div
-            className={styles.section}
+            className={styles.stickyBar}
             style={{
                 ...style,
                 ...config.css

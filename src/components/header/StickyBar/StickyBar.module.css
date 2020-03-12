@@ -1,0 +1,9 @@
+.stickyBar {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+
+    background-color: blue; /* TODO remove dev code */
+    height: 100px; /* TODO remove dev code */
+}

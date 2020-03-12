@@ -67,6 +67,10 @@
                     "type": "string",
                     "default": "#000000"
                 },
+                "fontSize": {
+                    "type": "number",
+                    "default": 100
+                },
                 "pageContentSize": {
                     "$ref": "#pageContentSize"
                 }
@@ -76,6 +80,10 @@
             "$id": "#pageContentSize",
             "type": "object",
             "properties": {
+                "maxWidth": {
+                    "type": "number",
+                    "default": 2500
+                },
                 "width": {
                     "type": "number",
                     "default": 80

@@ -1,0 +1,16 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "#Link",
+    "title": "Link",
+    "type": "object",
+    "properties": {
+        "external": {
+            "type": "boolean",
+            "default": false
+        },
+        "target": {
+            "type": "string",
+            "default": "/"
+        }
+    }
+}

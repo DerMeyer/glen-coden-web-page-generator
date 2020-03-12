@@ -9,6 +9,7 @@ const generateIndexHtml = require('./generate.indexHtml');
 const generateManifestJson = require('./generate.manifestJson');
 const generateRobotsTxt = require('./generate.robotsTxt');
 const generateValuesExport = require('./generate.valuesExport');
+const generateSvgExport = require('./generate.svgExport');
 const generateProjectFile = require('./generate.projectFile');
 
 if (!fs.existsSync(getPath.publicDir)) {
@@ -57,6 +58,10 @@ Promise.resolve()
     .then(() => {
         console.log('Export generator-config values from generated.js in /src/js.\n');
         return generateValuesExport(getPath.sourceDir);
+    })
+    .then(() => {
+        console.log('Export svg as ReactComponent in /src/js.\n');
+        return generateSvgExport(getPath.sourceDir);
     })
     .then(() => {
         console.log('Generate _Project.js in /src.\n');
