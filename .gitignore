@@ -12,6 +12,7 @@
 /build
 
 # generator
+components-list.json
 /public
 _Project.js
 project-config.json
