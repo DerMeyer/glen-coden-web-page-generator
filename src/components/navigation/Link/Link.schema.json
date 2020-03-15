@@ -11,6 +11,18 @@
         "target": {
             "type": "string",
             "default": "/"
+        },
+        "icon": {
+            "type": "string",
+            "default": ""
+        },
+        "iconSize": {
+            "type": "number",
+            "default": 40
+        },
+        "css": {
+            "type": "object",
+            "default": {}
         }
     }
 }

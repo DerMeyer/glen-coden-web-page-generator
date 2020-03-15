@@ -10,7 +10,7 @@ function generateSvgExport(sourceDir) {
         svgList.forEach((fileName, index) => {
             const svgName = fileName.split('.')[0];
             const [firstLetter, ...restOfWord] = svgName;
-            file += `${index ? '\n' : ''}export {ReactComponent as ${firstLetter.toUpperCase()}${restOfWord.join('')}Svg} from '../svg/${fileName}';`;
+            file += `${index ? '\n' : ''}export {ReactComponent as ${firstLetter.toUpperCase()}${restOfWord.join('')}} from '../svg/${fileName}';`;
         });
 
         fs.writeFileSync(path.join(sourceDir, 'js', 'svgExports.js'), file);

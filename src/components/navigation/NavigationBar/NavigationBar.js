@@ -2,7 +2,6 @@ import React, { useContext, useState, useRef, useEffect } from 'react';
 import styles from './NavigationBar.module.css';
 import Store from '../../../js/Store';
 import { configService } from '../../../index';
-import { InstagramSvg } from '../../../js/svgExports';
 
 
 export default function NavigationBar(props) {
@@ -14,9 +13,15 @@ export default function NavigationBar(props) {
     const navBarRef = useRef(null);
 
     useEffect(() => {
-        const widthByContent = navBarRef.current.offsetWidth;
-        setCalcWidth(widthByContent * 1.5 * config.stretchFactor);
-    }, [globalState.viewportWidth, config.stretchFactor]);
+        setCalcWidth(0);
+    }, [globalState.viewportWidth]);
+
+    useEffect(() => {
+        if (calcWidth === 0) {
+            const widthByContent = navBarRef.current.offsetWidth;
+            setCalcWidth(widthByContent * 1.5 * config.stretchFactor);
+        }
+    }, [calcWidth, config.stretchFactor]);
 
     const style = {
         justifyContent: config.justifyContent,
@@ -34,9 +39,7 @@ export default function NavigationBar(props) {
             className={styles.navigationBar}
             style={style}
         >
-            <InstagramSvg style={{ width: '40px', height: '40px' }} />
-            <InstagramSvg style={{ width: '40px', height: '40px' }} />
-            <InstagramSvg style={{ width: '40px', height: '40px' }} />
+            {props.children}
         </div>
     );
 }

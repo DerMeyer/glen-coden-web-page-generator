@@ -8,6 +8,10 @@
             "type": "boolean",
             "default": false
         },
+        "transitionTime": {
+            "type": "number",
+            "default": 0.5
+        },
         "justifyContent": {
             "type": "string",
             "default": "space-between"

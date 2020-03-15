@@ -19,14 +19,6 @@ export const OrientationTypes = {
     LANDSCAPE: 'landscape'
 };
 
-export const SocialNetworkIcons = {
-    FACEBOOK: 'facebook',
-    INSTAGRAM: 'instagram',
-    ITUNES: 'itunes',
-    SPOTIFY: 'spotify',
-    YOUTUBE: 'youtube'
-};
-
 // maps
 
 export const BreakPoints = {
@@ -55,6 +47,19 @@ export function getOrientationType() {
     return typeof orientation === 'string' && orientation.includes('portrait')
         ? OrientationTypes.PORTRAIT
         : OrientationTypes.LANDSCAPE;
+}
+
+export function getContentSize(deviceType, config) {
+    const width = deviceType === DeviceTypes.MOBILE
+        ? config.style.pageContentSize.widthMobile
+        : config.style.pageContentSize.width;
+    const height = deviceType === DeviceTypes.MOBILE
+        ? config.style.pageContentSize.heightMobile
+        : config.style.pageContentSize.height;
+    return {
+        width: Math.min(width, config.style.pageContentSize.maxWidth),
+        height
+    };
 }
 
 export function getInitialState(config) {
