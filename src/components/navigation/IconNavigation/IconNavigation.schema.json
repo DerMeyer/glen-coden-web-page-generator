@@ -1,0 +1,38 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "#SocialIconBar",
+    "title": "SocialIconBar",
+    "type": "object",
+    "properties": {
+        "icons": {
+            "type": "array",
+            "items": {
+                "$ref": "#icon"
+            },
+            "default": [
+                {
+                    "svg": "",
+                    "url": "",
+                    "internal": false
+                }
+            ]
+        }
+    },
+    "definitions": {
+        "icon": {
+            "$id": "#icon",
+            "type": "object",
+            "properties": {
+                "svg": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                },
+                "internal": {
+                    "type": "boolean"
+                }
+            }
+        }
+    }
+}

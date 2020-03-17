@@ -5,6 +5,7 @@ import cx from 'classnames';
 import * as SvgList from '../../js/svgExports';
 
 Svg.propTypes = {
+    className: PropTypes.string,
     name: PropTypes.string.isRequired,
     width: PropTypes.number.isRequired,
     height: PropTypes.number,

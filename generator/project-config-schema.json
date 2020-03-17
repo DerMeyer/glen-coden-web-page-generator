@@ -69,7 +69,7 @@
                 },
                 "fontSize": {
                     "type": "number",
-                    "default": 100
+                    "default": 16
                 },
                 "pageContentSize": {
                     "$ref": "#pageContentSize"

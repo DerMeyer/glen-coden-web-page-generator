@@ -32,6 +32,10 @@ export const BreakPoints = {
 
 // functions
 
+export function isObject(value) {
+    return value !== null && typeof value !== 'function' && typeof value === 'object' && !Array.isArray(value);
+}
+
 export function getBreakPointType(viewportWidth = window.innerWidth) {
     return Object.keys(BreakPoints).find(type => BreakPoints[type] > viewportWidth);
 }
@@ -43,10 +47,12 @@ export function getDeviceType() {
 }
 
 export function getOrientationType() {
-    const orientation = window.screen.orientation;
-    return typeof orientation === 'string' && orientation.includes('portrait')
-        ? OrientationTypes.PORTRAIT
-        : OrientationTypes.LANDSCAPE;
+    let isPortrait = window.innerWidth < window.innerHeight;
+    if (isObject(window.screen.orientation)) {
+        const { type } = window.screen.orientation;
+        isPortrait = typeof type === 'string' && type.includes('portrait');
+    }
+    return isPortrait ? OrientationTypes.PORTRAIT : OrientationTypes.LANDSCAPE;
 }
 
 export function getContentSize(deviceType, config) {
