@@ -84,3 +84,15 @@ export function getInitialState(config) {
 export function getComponentState(level, componentName, state) {
     return [...level, componentName].reduce((result, child) => result[child], state);
 }
+
+export function i18n(translations) {
+    const trans = translations[navigator.language.slice(0, 2)];
+    if (!trans) {
+        const fallbackTrans = translations.en;
+        if (!fallbackTrans) {
+            return 'No text';
+        }
+        return fallbackTrans;
+    }
+    return trans;
+}

@@ -55,7 +55,10 @@
         "title": "Glen Coden App",
         "description": "This app was created with Glen Coden Web Page Generator.",
         "fontTypes": [
-            "https://fonts.googleapis.com/css?family=Comfortaa&display=swap"
+            {
+                "name": "Comfortaa",
+                "url": "https://fonts.googleapis.com/css?family=Comfortaa&display=swap"
+            }
         ],
         "components": [
             {

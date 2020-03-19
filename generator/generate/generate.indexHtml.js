@@ -15,7 +15,12 @@ function generateIndexHtml(projectDir, targetDir) {
         file += `\n\t<meta name="description" content="${PROJ_CONFIG.description}"/>`;
         file += '\n\t<link rel="icon" href="%PUBLIC_URL%/favicon.png" />';
         file += '\n\t<link rel="manifest" href="%PUBLIC_URL%/manifest.json" />';
-        PROJ_CONFIG.fontTypes.forEach(fontType => file += `\n\t<link href="${fontType}" rel="stylesheet">`);
+        PROJ_CONFIG.fontTypes.forEach(fontType => {
+            if (!fontType.url) {
+                return;
+            }
+            file += `\n\t<link href="${fontType.url}" rel="stylesheet">`
+        });
         file += `\n\t<title>${PROJ_CONFIG.title}</title>`;
         file += '\n</head>';
         file += '\n<body>';

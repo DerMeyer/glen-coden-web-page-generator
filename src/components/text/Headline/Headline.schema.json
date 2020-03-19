@@ -4,9 +4,23 @@
     "title": "Headline",
     "type": "object",
     "properties": {
-        "text": {
+        "size": {
             "type": "string",
-            "default": "Your Headline"
+            "default": "big"
+        },
+        "fontType": {
+            "type": "number",
+            "default": 0
+        },
+        "color": {
+            "type": "string",
+            "default": "lightFontColor"
+        },
+        "text": {
+            "type": "object",
+            "default": {
+                "en": "Your Headline"
+            }
         }
     }
 }
