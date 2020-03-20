@@ -11,7 +11,7 @@ export default function App() {
     const [projectConfig] = useState(() => configService.getProjectConfig());
 
     useEffect(() => {
-        document.body.style.fontSize = projectConfig.style.fontSizes.body;
+        document.body.style.fontSize = `${projectConfig.style.fontSizes.body}px`;
         document.body.style.backgroundColor = projectConfig.style.backgroundColor;
 
         window.setTimeout(() => dispatch(actions.showApp()), projectConfig.fadeInTime * 1000);

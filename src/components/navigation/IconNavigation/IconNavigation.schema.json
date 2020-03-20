@@ -4,6 +4,14 @@
     "title": "SocialIconBar",
     "type": "object",
     "properties": {
+        "size": {
+            "type": "number",
+            "default": 1
+        },
+        "stretch": {
+            "type": "number",
+            "default": 1
+        },
         "icons": {
             "type": "array",
             "items": {

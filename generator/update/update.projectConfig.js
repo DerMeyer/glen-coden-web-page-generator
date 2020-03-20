@@ -21,6 +21,7 @@ function updateProjectConfig(sourceDir, projectDir, projectName) {
 
         projectConfig.global.style.fontTypes = projectConfig.fontTypes.map(entry => entry.name);
         projectConfig.components = updateComponentsMap(projectConfig.components);
+
         writeProjectConfig(sourceDir, projectDir, projectConfig);
         resolve();
     });
@@ -57,6 +58,8 @@ function createComponent(entry) {
     }
     const componentsList = require('../components-list');
     const generalSchema = objectFromSchema(PROJ_CONFIG_SCHEMA.definitions.single_component);
+    delete generalSchema.initialState;
+    delete generalSchema.style;
     const specificSchemaPath = path.join(componentsList[entry.component].path, `${entry.component}.schema.json`);
     const specificSchema = fs.existsSync(specificSchemaPath)
         ? objectFromSchema(JSON.parse(fs.readFileSync(specificSchemaPath, 'utf-8')))

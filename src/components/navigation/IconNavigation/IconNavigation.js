@@ -1,10 +1,9 @@
 import React, { useContext, useState } from 'react';
-import styles from './IconNavigation.module.css';
 import Store from '../../../js/Store';
 import { configService } from '../../../index';
 import { DeviceTypes, OrientationTypes } from '../../../js/helpers';
 
-import NavigationBar from '../../../partials/NavigationBar/NavigationBar';
+import ItemBar from '../../../partials/ItemBar/ItemBar';
 import Link from '../../../partials/Link/Link';
 import Svg from '../../../partials/Svg/Svg';
 
@@ -16,8 +15,9 @@ export default function IconNavigation(props) {
     const navigationBarVertical = globalState.deviceType === DeviceTypes.MOBILE && globalState.orientationType === OrientationTypes.PORTRAIT;
 
     return (
-        <NavigationBar
-            className={navigationBarVertical ? styles.navigationBarVertical : ''}
+        <ItemBar
+            stretchFactor={config.stretch}
+            vertical={navigationBarVertical}
         >
             {config.icons.map(icon => (
                 <Link
@@ -25,9 +25,13 @@ export default function IconNavigation(props) {
                     url={icon.url}
                     internal={icon.internal}
                 >
-                    <Svg name={icon.svg} width={40} color={config.style.lightFontColor} />
+                    <Svg
+                        name={icon.svg}
+                        width={config.style.fontSizes.body * 2.5 * config.size}
+                        color={config.style.lightFontColor}
+                    />
                 </Link>
             ))}
-        </NavigationBar>
+        </ItemBar>
     );
 }

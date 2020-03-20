@@ -25,13 +25,15 @@ function objectFromSchema(schema, defs = null) {
                 return;
             }
             if (value.$ref) {
-                const refKey = Object.keys(definitions).find(entry => definitions[entry].$id === value.$ref);
-                // TODO see if $ref is a definitions path like eg #/definitions/mySubSchema
+                const refKey = Object.keys(definitions).find(entry => definitions[entry].$id === value.$ref || `#/definitions/${definitions[entry]}` === value.$ref);
                 const ref = definitions[refKey];
                 generated[key] = objectFromSchema(ref, definitions);
                 return;
             }
-            // TODO in case there is neither default nor $ref values, check if this is a regular object structure that can be passed recursively
+            if (value.type === 'object' && isObject(value.properties)) {
+                generated[key] = objectFromSchema(value, definitions);
+                return;
+            }
             generated[key] = emptyJsValues[value.type];
         });
         return generated;
