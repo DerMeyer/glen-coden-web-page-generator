@@ -11,6 +11,14 @@ Link.propTypes = {
 
 
 export default function Link(props) {
+    if (!props.url) {
+        return (
+            <div className={cx(styles.link, { [props.className]: props.className })}>
+                {props.children}
+            </div>
+        );
+    }
+
     if (props.internal) {
         return <div>Internal Links are WIP</div>;
     }

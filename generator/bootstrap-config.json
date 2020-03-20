@@ -62,12 +62,23 @@
         ],
         "components": [
             {
-                "component": "ZoomBackground",
-                "image": "background-image.jpg",
+                "component": "Page",
                 "children": [
                     {
-                        "component": "Headline",
-                        "text": "Welcome to Glen Coden Generator"
+                        "component": "ZoomBackground",
+                        "image": "background-image.jpg"
+                    },
+                    {
+                        "component": "Section",
+                        "verticalPosition": "bottom",
+                        "children": [
+                            {
+                                "component": "Headline",
+                                "text": {
+                                    "en": "Welcome to Glen Coden Generator"
+                                }
+                            }
+                        ]
                     }
                 ]
             },

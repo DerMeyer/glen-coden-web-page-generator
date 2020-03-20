@@ -55,17 +55,14 @@ export function getOrientationType() {
     return isPortrait ? OrientationTypes.PORTRAIT : OrientationTypes.LANDSCAPE;
 }
 
-export function getContentSize(deviceType, config) {
+export function getContentSize(deviceType, pageContentSize) {
     const width = deviceType === DeviceTypes.MOBILE
-        ? config.style.pageContentSize.widthMobile
-        : config.style.pageContentSize.width;
+        ? pageContentSize.widthMobile
+        : pageContentSize.width;
     const height = deviceType === DeviceTypes.MOBILE
-        ? config.style.pageContentSize.heightMobile
-        : config.style.pageContentSize.height;
-    return {
-        width: Math.min(width, config.style.pageContentSize.maxWidth),
-        height
-    };
+        ? pageContentSize.heightMobile
+        : pageContentSize.height;
+    return { width, height };
 }
 
 export function getInitialState(config) {

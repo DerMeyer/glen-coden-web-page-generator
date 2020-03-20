@@ -93,6 +93,10 @@
                 },
                 "pageContentSize": {
                     "$ref": "#pageContentSize"
+                },
+                "maxPageWidth": {
+                    "type": "number",
+                    "default": 2500
                 }
             }
         },
@@ -122,10 +126,6 @@
             "$id": "#pageContentSize",
             "type": "object",
             "properties": {
-                "maxWidth": {
-                    "type": "number",
-                    "default": 2500
-                },
                 "width": {
                     "type": "number",
                     "default": 80

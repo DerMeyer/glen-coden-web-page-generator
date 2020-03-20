@@ -32,6 +32,12 @@ const reducer = (state, action) => {
                 ...state,
                 loading: 0
             };
+        case ActionTypes.SET_CONTENT_WIDTH:
+            return {
+                ...state,
+                contentWidth: action.contentSize.width,
+                contentHeight: action.contentSize.height
+            };
         default:
             return state;
     }

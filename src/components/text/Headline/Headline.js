@@ -1,7 +1,7 @@
 import React, { useContext, useState, useRef, useEffect } from 'react';
 import Store from '../../../js/Store';
 import { configService } from '../../../index';
-import { getContentSize, i18n } from '../../../js/helpers';
+import { i18n } from '../../../js/helpers';
 
 
 export default function Headline(props) {
@@ -10,14 +10,8 @@ export default function Headline(props) {
 
     const ref = useRef(null);
 
-    const [contentSize, setContentSize] = useState({});
     const [style, setStyle] = useState({});
     const [scale, setScale] = useState(1);
-
-    useEffect(() => {
-        const size = getContentSize(globalState.deviceType, config);
-        setContentSize(size);
-    }, [globalState.deviceType, config]);
 
     let element;
     switch (config.size) {
@@ -46,13 +40,13 @@ export default function Headline(props) {
     }, [config, element, scale]);
 
     useEffect(() => {
-        const sizeFactor = (globalState.viewportWidth * contentSize.width / 100) / ref.current.offsetWidth;
+        const sizeFactor = (globalState.viewportWidth * globalState.contentWidth / 100) / ref.current.offsetWidth;
         if (sizeFactor < 1) {
             setScale(sizeFactor);
             return;
         }
         setScale(1);
-    }, [globalState.viewportWidth, contentSize]);
+    }, [globalState.viewportWidth, globalState.contentWidth]);
 
     const text = i18n(config.text);
 

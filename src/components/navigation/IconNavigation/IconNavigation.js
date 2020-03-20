@@ -28,7 +28,7 @@ export default function IconNavigation(props) {
                     <Svg
                         name={icon.svg}
                         width={config.style.fontSizes.body * 2.5 * config.size}
-                        color={config.style.lightFontColor}
+                        color={config.style[config.color]}
                     />
                 </Link>
             ))}

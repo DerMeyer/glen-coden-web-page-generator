@@ -12,6 +12,10 @@
             "type": "number",
             "default": 1
         },
+        "color": {
+            "type": "string",
+            "default": "lightFontColor"
+        },
         "icons": {
             "type": "array",
             "items": {

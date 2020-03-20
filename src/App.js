@@ -28,6 +28,10 @@ export default function App() {
         };
     }, [dispatch, projectConfig]);
 
+    useEffect(() => {
+        dispatch(actions.setContentSize(globalState.deviceType, projectConfig.style.pageContentSize));
+    }, [dispatch, projectConfig, globalState.deviceType]);
+
     return (
         <div style={{
             opacity: globalState.showApp ? '1' : '0',

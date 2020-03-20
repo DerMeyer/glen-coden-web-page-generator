@@ -8,6 +8,8 @@ const initStore = initialState => {
         loading: 0,
         viewportWidth: window.innerWidth,
         viewportHeight: window.innerHeight,
+        contentWidth: 0,
+        contentHeight: 0,
         breakPointType: getBreakPointType(),
         deviceType: getDeviceType(),
         orientationType: getOrientationType(),
