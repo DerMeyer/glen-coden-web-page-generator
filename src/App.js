@@ -12,7 +12,7 @@ export default function App() {
 
     useEffect(() => {
         document.body.style.fontSize = `${projectConfig.style.fontSizes.body}px`;
-        document.body.style.backgroundColor = projectConfig.style.backgroundColor;
+        document.body.style.backgroundColor = projectConfig.style.colors.background;
 
         window.setTimeout(() => dispatch(actions.showApp()), projectConfig.fadeInTime * 1000);
         window.setTimeout(() => dispatch(actions.loadingTimeout()), projectConfig.loadingTimeout * 1000);

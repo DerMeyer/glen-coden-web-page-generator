@@ -14,7 +14,7 @@
         },
         "color": {
             "type": "string",
-            "default": "lightFontColor"
+            "default": "light"
         },
         "icons": {
             "type": "array",

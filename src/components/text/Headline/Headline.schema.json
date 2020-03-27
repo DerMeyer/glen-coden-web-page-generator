@@ -8,13 +8,13 @@
             "type": "string",
             "default": "big"
         },
-        "fontType": {
+        "fontTypeIndex": {
             "type": "number",
             "default": 0
         },
         "color": {
             "type": "string",
-            "default": "lightFontColor"
+            "default": "light"
         },
         "text": {
             "type": "object",
