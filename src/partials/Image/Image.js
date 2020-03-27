@@ -120,14 +120,16 @@ export default function Image(props) {
                     transition: `opacity ${config.fadeInTime}s${props.style.transition ? `, ${props.style.transition}` : ''}`
                 }}
             >
-                <img
-                    ref={image}
-                    className={styles.imageCss}
-                    src={source}
-                    onLoad={onLoad}
-                    onError={onError}
-                    alt=""
-                />
+                {source && (
+                    <img
+                        ref={image}
+                        className={styles.imageCss}
+                        src={source}
+                        onLoad={onLoad}
+                        onError={onError}
+                        alt=""
+                    />
+                )}
             </div>
         );
     }
@@ -141,19 +143,21 @@ export default function Image(props) {
                 height: props.height
             }}
         >
-            <img
-                ref={image}
-                className={styles.image}
-                style={{
-                    ...getImageSizing(),
-                    opacity: hasLoaded ? '1' : '0',
-                    transition: `opacity ${config.fadeInTime}s`
-                }}
-                src={source}
-                onLoad={onLoad}
-                onError={onError}
-                alt="partials/"
-            />
+            {source && (
+                <img
+                    ref={image}
+                    className={styles.image}
+                    style={{
+                        ...getImageSizing(),
+                        opacity: hasLoaded ? '1' : '0',
+                        transition: `opacity ${config.fadeInTime}s`
+                    }}
+                    src={source}
+                    onLoad={onLoad}
+                    onError={onError}
+                    alt="partials/"
+                />
+            )}
         </div>
     );
 }

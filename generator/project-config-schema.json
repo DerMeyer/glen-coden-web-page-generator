@@ -58,7 +58,7 @@
             "type": "object",
             "properties": {
                 "colors": {
-                    "ref": "#colors"
+                    "$ref": "#colors"
                 },
                 "fontTypes": {
                     "type": "array",
