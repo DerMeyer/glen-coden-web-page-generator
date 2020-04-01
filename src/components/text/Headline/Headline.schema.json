@@ -8,13 +8,20 @@
             "type": "string",
             "default": "big"
         },
-        "fontType": {
+        "mobileSizeBy": {
+            "type": "object",
+            "default": {
+                "portrait": 0.8,
+                "landscape": 1
+            }
+        },
+        "fontTypeIndex": {
             "type": "number",
             "default": 0
         },
         "color": {
             "type": "string",
-            "default": "lightFontColor"
+            "default": "light"
         },
         "text": {
             "type": "object",

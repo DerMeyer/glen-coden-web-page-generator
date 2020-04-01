@@ -13,6 +13,7 @@ export default function IconNavigation(props) {
     const [config] = useState(() => configService.getComponentConfig(props.id));
 
     const navigationBarVertical = globalState.deviceType === DeviceTypes.MOBILE && globalState.orientationType === OrientationTypes.PORTRAIT;
+    const size = globalState.deviceType === DeviceTypes.MOBILE ? config.size.mobile : config.size.desktop;
 
     return (
         <ItemBar
@@ -27,8 +28,8 @@ export default function IconNavigation(props) {
                 >
                     <Svg
                         name={icon.svg}
-                        width={config.style.fontSizes.body * 2.5 * config.size}
-                        color={config.style[config.color]}
+                        width={config.style.fontSizes.body * 2.5 * size}
+                        color={config.style.colors[config.color]}
                     />
                 </Link>
             ))}

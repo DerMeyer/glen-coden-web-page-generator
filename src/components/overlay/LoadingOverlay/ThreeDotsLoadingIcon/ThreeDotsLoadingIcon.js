@@ -15,9 +15,9 @@ export default function ThreeDotsLoadingIcon(props) {
             className={styles.iconBox}
             style={{ width: `${props.size}px`, height: `${props.size}px` }}
         >
-            <div className={`${styles.dot} ${styles.dotOne}`} style={{ backgroundColor: projectConfig.style.darkFontColor }} />
-            <div className={`${styles.dot} ${styles.dotTwo}`} style={{ backgroundColor: projectConfig.style.darkFontColor }} />
-            <div className={`${styles.dot} ${styles.dotThree}`} style={{ backgroundColor: projectConfig.style.darkFontColor }} />
+            <div className={`${styles.dot} ${styles.dotOne}`} style={{ backgroundColor: projectConfig.style.colors.dark }} />
+            <div className={`${styles.dot} ${styles.dotTwo}`} style={{ backgroundColor: projectConfig.style.colors.dark }} />
+            <div className={`${styles.dot} ${styles.dotThree}`} style={{ backgroundColor: projectConfig.style.colors.dark }} />
         </div>
     );
 }

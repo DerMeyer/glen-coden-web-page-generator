@@ -12,20 +12,20 @@ ItemBar.propTypes = {
     vertical: PropTypes.bool
 };
 
-const widthStretchFactor = 1.5;
-const heightStrechFactor = 1.3;
+const widthStretch = 1.5;
+const heightStretch = 1.3;
 
 
 export default function ItemBar(props) {
     const { globalState } = useContext(Store);
 
-    const stretchWidthBy = widthStretchFactor * (props.stretchFactor || 1);
-    const stretchHeightBy = heightStrechFactor * (props.stretchFactor || 1);
+    const stretchWidthBy = widthStretch * (props.stretchFactor || 1);
+    const stretchHeightBy = heightStretch * (props.stretchFactor || 1);
 
     const [calcWidth, setCalcWidth] = useState(0);
     const [calcHeight, setCalcHeight] = useState(0);
 
-    const navBarRef = useRef(null);
+    const itemBar = useRef(null);
 
     useEffect(() => {
         setCalcWidth(0);
@@ -35,14 +35,14 @@ export default function ItemBar(props) {
     useEffect(() => {
         if (calcWidth === 0) {
             const updatedWidth = props.vertical
-                ? navBarRef.current.offsetWidth
-                : navBarRef.current.offsetWidth * stretchWidthBy;
+                ? itemBar.current.offsetWidth
+                : itemBar.current.offsetWidth * stretchWidthBy;
             setCalcWidth(updatedWidth);
         }
         if (calcHeight === 0) {
             const updatedHeight = props.vertical
-                ? navBarRef.current.offsetHeight * stretchHeightBy
-                : navBarRef.current.offsetHeight;
+                ? itemBar.current.offsetHeight * stretchHeightBy
+                : itemBar.current.offsetHeight;
             setCalcHeight(updatedHeight);
         }
     }, [calcWidth, calcHeight, stretchWidthBy, stretchHeightBy, props.vertical]);
@@ -75,7 +75,7 @@ export default function ItemBar(props) {
             style={{ height: `${boxHeight}px` }}
         >
             <div
-                ref={navBarRef}
+                ref={itemBar}
                 className={cx(styles.itemBar, {
                     [props.className]: props.className,
                     [styles.vertical]: props.vertical

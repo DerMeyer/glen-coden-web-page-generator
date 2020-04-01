@@ -13,6 +13,7 @@ Image.propTypes = {
     source: PropTypes.string.isRequired,
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
+    onLoaded: PropTypes.func,
     loadWithCss: PropTypes.bool,
     doNotSubscribeToGlobalLoading: PropTypes.bool
 };
@@ -20,66 +21,38 @@ Image.propTypes = {
 
 export default function Image(props) {
     const { dispatch } = useContext(Store);
+    const [config] = useState(() => configService.getProjectConfig());
 
     const image = useRef(null);
 
-    const [projectConfig] = useState(() => configService.getProjectConfig());
-
     const [source, setSource] = useState('');
     const [hasLoaded, setHasLoaded] = useState(false);
+    const [isFallback, setIsFallback] = useState(false);
     const [originalSize, setOriginalSize] = useState({ width: 0, height: 0 });
-    const [targetSize, setTargetSize] = useState(0);
-
-    const getDisplayToImageRatio = useCallback(
-        () => {
-            const displayDelta = props.width / props.height;
-            const originalDelta = originalSize.width / originalSize.height;
-            if (Number.isNaN(displayDelta) || Number.isNaN(originalDelta)) {
-                return 1;
-            }
-            return displayDelta / originalDelta;
-        },
-        [props.width, props.height, originalSize]
-    );
 
     const getSource = useCallback(
-        (width, fallback = false) => {
+        (width, height) => {
             const fallbackSource = `images/${props.source}`;
-            if (fallback) {
+            if (isFallback) {
                 return fallbackSource;
             }
-
             let targetImageRatio = 'default';
-            const targetWidth = width * Math.max(1 / getDisplayToImageRatio(), 1);
-
-            if (projectConfig.usePortraitImages && (props.width < projectConfig.maxPortraitWidth) && (props.width / props.height < 0.8)) {
+            if (config.usePortraitImages && (width < config.maxPortraitWidth) && (width / height < 0.8)) {
                 targetImageRatio = 'portrait';
             }
-
             const sizesForRatio = targetImageSizes.filter(size => size.ratio === targetImageRatio).map(size => size.width);
-            const targetImageSize = sizesForRatio.find(size => targetWidth < size) || sizesForRatio.pop();
-            const ratioChanged = !source.includes(targetImageRatio) && source !==  fallbackSource;
-
-            if (targetImageSize <= targetSize && !ratioChanged) {
-                return source;
-            }
-            setTargetSize(targetImageSize);
-
+            const targetImageWidth = sizesForRatio.find(size => width < size) || sizesForRatio.pop();
             const sourceParts = props.source.split('.');
             const sourceType = sourceParts.pop();
             const sourceName = sourceParts.join('.');
 
-            return `images/optimized/${sourceName}_${targetImageRatio}_${targetImageSize}.${sourceType}`;
+            return `images/optimized/${sourceName}_${targetImageRatio}_${targetImageWidth}.${sourceType}`;
         },
         [
-            projectConfig.usePortraitImages,
-            projectConfig.maxPortraitWidth,
-            props.width,
-            props.height,
             props.source,
-            getDisplayToImageRatio,
-            targetSize,
-            source
+            config.usePortraitImages,
+            config.maxPortraitWidth,
+            isFallback
         ]
     );
 
@@ -91,44 +64,51 @@ export default function Image(props) {
         [dispatch, props.doNotSubscribeToGlobalLoading]);
 
     useEffect(() => {
-            const updatedSource = getSource(props.width);
+            setHasLoaded(false);
+            const updatedSource = getSource(props.width, props.height);
             setSource(updatedSource);
         },
         [props.width, props.height, getSource]);
-
-    useEffect(() => setHasLoaded(false), [source]);
 
     const onLoad = useCallback(
         () => {
             setOriginalSize({ width: image.current.offsetWidth, height: image.current.offsetHeight });
             setHasLoaded(true);
+            const callback = props.onLoaded;
+            if (typeof callback === 'function') {
+                callback();
+            }
             if (!props.doNotSubscribeToGlobalLoading) {
                 dispatch(actions.stopLoading());
             }
         },
-        [dispatch, props.doNotSubscribeToGlobalLoading]
+        [dispatch, props.onLoaded, props.doNotSubscribeToGlobalLoading]
     );
 
     const onError = useCallback(
         () => {
             console.warn(`Missing an optimized image for ${props.source}`);
-            const fallbackSource = getSource(props.width, true);
-            setSource(fallbackSource);
+            setIsFallback(true);
         },
-        [props.source, getSource, props.width]
+        [props.source]
     );
 
     const getImageSizing = () => {
         if (!hasLoaded) {
             return {};
         }
-        return getDisplayToImageRatio() >= 1
+        const displayDelta = props.width / props.height;
+        const originalDelta = originalSize.width / originalSize.height;
+        if (Number.isNaN(displayDelta) || Number.isNaN(originalDelta)) {
+            return {};
+        }
+        return displayDelta / originalDelta >= 1
             ? { width: '100%' }
             : { height: '100%' };
     };
 
-    return props.loadWithCss
-        ? (
+    if (props.loadWithCss) {
+        return (
             <div
                 className={cx(styles.imageBoxCss, { [props.className]: props.className })}
                 style={{
@@ -137,40 +117,47 @@ export default function Image(props) {
                     width: props.width,
                     height: props.height,
                     opacity: hasLoaded ? '1' : '0',
-                    transition: `opacity ${projectConfig.fadeInTime}s${props.style.transition ? `, ${props.style.transition}` : ''}`
+                    transition: `opacity ${config.fadeInTime}s${props.style.transition ? `, ${props.style.transition}` : ''}`
                 }}
             >
-                <img
-                    ref={image}
-                    className={styles.imageCss}
-                    src={source}
-                    onLoad={onLoad}
-                    onError={onError}
-                    alt=""
-                />
+                {source && (
+                    <img
+                        ref={image}
+                        className={styles.imageCss}
+                        src={source}
+                        onLoad={onLoad}
+                        onError={onError}
+                        alt=""
+                    />
+                )}
             </div>
-        ) : (
-            <div
-                className={cx(styles.imageBox, { [props.className]: props.className })}
-                style={{
-                    ...props.style,
-                    width: props.width,
-                    height: props.height
-                }}
-            >
+        );
+    }
+
+    return (
+        <div
+            className={cx(styles.imageBox, { [props.className]: props.className })}
+            style={{
+                ...props.style,
+                width: props.width,
+                height: props.height
+            }}
+        >
+            {source && (
                 <img
                     ref={image}
                     className={styles.image}
                     style={{
                         ...getImageSizing(),
                         opacity: hasLoaded ? '1' : '0',
-                        transition: `opacity ${projectConfig.fadeInTime}s`
+                        transition: `opacity ${config.fadeInTime}s`
                     }}
                     src={source}
                     onLoad={onLoad}
                     onError={onError}
-                    alt=""
+                    alt="partials/"
                 />
-            </div>
-        );
+            )}
+        </div>
+    );
 }

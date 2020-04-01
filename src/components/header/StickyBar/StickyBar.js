@@ -35,7 +35,7 @@ export default function StickyBar(props) {
         transition: `top ${config.transitionTime}s, padding ${config.transitionTime}s`,
         justifyContent: config.justifyContent,
         alignItems: config.alignItems,
-        backgroundColor: config.style.overlayColor
+        backgroundColor: config.style.colors.light
     };
 
     return (

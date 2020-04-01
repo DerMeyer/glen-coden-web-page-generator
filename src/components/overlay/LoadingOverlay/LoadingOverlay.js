@@ -24,7 +24,7 @@ export default function LoadingOverlay(props) {
         <div
             className={styles.overlay}
             style={{
-                backgroundColor: config.style.overlayColor,
+                backgroundColor: config.style.colors.overlay,
                 opacity: globalState.loading ? '1' : '0',
                 transition: `opacity ${globalState.loading ? 0 : projectConfig.fadeInTime}s`
             }}
