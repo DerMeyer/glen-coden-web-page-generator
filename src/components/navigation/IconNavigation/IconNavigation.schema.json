@@ -5,8 +5,11 @@
     "type": "object",
     "properties": {
         "size": {
-            "type": "number",
-            "default": 1
+            "type": "object",
+            "default": {
+                "desktop": 1,
+                "mobile": 1
+            }
         },
         "stretch": {
             "type": "number",
