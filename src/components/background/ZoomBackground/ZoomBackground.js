@@ -12,18 +12,17 @@ import Image from '../../../partials/Image/Image';
 
 export default function ZoomBackground(props) {
     const { state } = useContext(Store);
+    const [ config ] = useState(() => configService.getComponentConfig(props.id));
+    const [ zoomActive, setZoomActive ] = useState(false);
+    const [ boxTransform, setBoxTransform ] = useState({ x: 0, y: 0 });
 
-    const [config] = useState(() => configService.getComponentConfig(props.id));
-    const [zoomActive, setZoomActive] = useState(false);
-    const [boxTransform, setBoxTransform] = useState({ x: 0, y: 0 });
+    const autoZoom = config.autoZoom || state.deviceType === DeviceTypes.MOBILE;
 
-    const deviceIsMobile = state.deviceType === DeviceTypes.MOBILE;
-    const autoZoom = config.autoZoom || deviceIsMobile;
-    const zoomFactor = autoZoom ? config.zoomFactorAuto : config.zoomFactor;
-    const zoomTime = autoZoom ? config.zoomTimeAuto : config.zoomTime;
+    const zoomMode = autoZoom ? 'auto' : 'manual';
+    const zoomFactor = config.zoomFactor[zoomMode];
+    const zoomTime = config.zoomTime[zoomMode];
 
     const growZoomBg = useCallback(() => setZoomActive(true), []);
-
     const shrinkZoomBg = useCallback(() => setZoomActive(false), []);
 
     const calculateBoxTransform = useCallback(
@@ -35,7 +34,7 @@ export default function ZoomBackground(props) {
                 y: yFromCenter / (state.viewportHeight / 2) * zoomFactor / 2
             });
         },
-        [state.viewportWidth, state.viewportHeight, zoomFactor]
+        [ state.viewportWidth, state.viewportHeight, zoomFactor ]
     );
 
     useEffect(() => {
@@ -59,14 +58,15 @@ export default function ZoomBackground(props) {
             window.removeEventListener('blur', shrinkZoomBg);
             document.removeEventListener('mouseleave', shrinkZoomBg);
         };
-    }, [growZoomBg, shrinkZoomBg, calculateBoxTransform, state.loading, autoZoom]);
+    }, [ growZoomBg, shrinkZoomBg, calculateBoxTransform, state.loading, autoZoom ]);
 
     return (
         <div
             className={styles.background}
             style={{
                 width: `${state.viewportWidth}px`,
-                height: `${state.viewportHeight}px`
+                height: `${state.viewportHeight}px`,
+                ...(config.css || {})
             }}
         >
             <div
@@ -75,19 +75,18 @@ export default function ZoomBackground(props) {
                     width: zoomActive || autoZoom ? '100%' : '0',
                     height: zoomActive || autoZoom ? '100%' : '0',
                     transform: `translate(-${50 + boxTransform.x}%, -${50 + boxTransform.y}%)`,
-                    transition: `width ${zoomTime}s ${config.timingFunction}, height ${zoomTime}s ${config.timingFunction}`
+                    transition: `width ${zoomTime}s ease-out, height ${zoomTime}s ease-out`
                 }}
             >
                 <Image
                     className={styles.image}
                     style={{
                         transform: `scale(${zoomActive ? (1 + zoomFactor / 100) : 1})`,
-                        transition: `transform ${zoomTime}s ${config.timingFunction}`
+                        transition: `transform ${zoomTime}s ease-out`
                     }}
                     source={config.image}
                     width={state.viewportWidth}
                     height={state.viewportHeight}
-                    loadWithCss={config.loadImageWithCss}
                 />
             </div>
         </div>

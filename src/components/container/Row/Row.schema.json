@@ -1,15 +1,12 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "$id": "#Section",
-    "title": "Section",
+    "$id": "#Row",
+    "title": "Row",
     "type": "object",
     "properties": {
-        "verticalPosition": {
+        "alignSelf": {
             "type": "string",
             "default": "center"
-        },
-        "addTopOffset": {
-            "type": "number"
         },
         "justifyContent": {
             "type": "string",

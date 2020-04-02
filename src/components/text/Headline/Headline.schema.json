@@ -17,10 +17,8 @@
             "default": "light"
         },
         "text": {
-            "type": "object",
-            "default": {
-                "en": "Your Headline"
-            }
+            "type": ["string", "object"],
+            "default": "Your*Headline"
         }
     }
 }

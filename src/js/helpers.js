@@ -82,7 +82,10 @@ export function getComponentState(level, componentName, state) {
     return [...level, componentName].reduce((result, child) => result[child], state);
 }
 
-export function i18n(translations, language) {
+export function i18n(translations, language = navigator.language.slice(0, 2)) {
+    if (!isObject(translations)) {
+        return translations;
+    }
     const trans = translations[language];
     if (!trans) {
         const fallbackTrans = translations.en;

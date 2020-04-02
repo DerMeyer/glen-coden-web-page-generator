@@ -19,10 +19,6 @@
         "alignItems": {
             "type": "string",
             "default": "center"
-        },
-        "css": {
-            "type": "object",
-            "default": {}
         }
     }
 }

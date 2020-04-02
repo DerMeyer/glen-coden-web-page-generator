@@ -6,9 +6,8 @@ import { configService } from '../../../index';
 
 export default function StickyBar(props) {
     const { state } = useContext(Store);
-    const [config] = useState(() => configService.getComponentConfig(props.id));
-
-    const [doStick, setDoStick] = useState(false);
+    const [ config ] = useState(() => configService.getComponentConfig(props.id));
+    const [ doStick, setDoStick ] = useState(false);
 
     const checkScroll = useCallback(
         () => {
@@ -18,7 +17,7 @@ export default function StickyBar(props) {
             }
             setDoStick(false);
         },
-        [state.viewportHeight]
+        [ state.viewportHeight ]
     );
 
     useEffect(() => {
@@ -26,7 +25,7 @@ export default function StickyBar(props) {
         return () => {
             window.removeEventListener('scroll', checkScroll);
         };
-    }, [checkScroll]);
+    }, [ checkScroll ]);
 
     const style = {
         top: doStick ? '0' : `${(100 - state.contentHeight) / 2}%`,

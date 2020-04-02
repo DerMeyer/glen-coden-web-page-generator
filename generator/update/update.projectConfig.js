@@ -1,7 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const shortid = require('shortid');
-const { objectFromSchema, mergeObjectIntoBlueprint } = require('../js/helpers');
+const { objectFromSchema, mergeObjects } = require('../js/helpers');
 
 const GEN_CONFIG = require('../generator-config');
 const PROJ_CONFIG_SCHEMA = require('../project-config-schema');
@@ -14,7 +14,7 @@ function updateProjectConfig(sourceDir, projectDir, projectName) {
         let projectConfig;
 
         if (sourceConfigIsTruth) {
-            projectConfig = mergeObjectIntoBlueprint(require(sourceConfigPath), objectFromSchema(PROJ_CONFIG_SCHEMA));
+            projectConfig = mergeObjects(require(sourceConfigPath), objectFromSchema(PROJ_CONFIG_SCHEMA));
         } else {
             projectConfig = require(path.join(projectDir, 'config'));
         }
@@ -62,13 +62,15 @@ function createComponent(entry) {
         ? objectFromSchema(JSON.parse(fs.readFileSync(schemaPath, 'utf-8')))
         : {};
     const component = {
+        component: entry.component,
         id: shortid.generate(),
-        ...schema,
-        ...entry
+        ...mergeObjects(entry, schema)
     };
-    component.children = entry.children
-        ? entry.children.map(child => createComponent(child))
-        : [];
+    if (component.children) {
+        component.children = component.children.map(child => createComponent(child));
+    } else {
+        component.children = [];
+    }
     return component;
 }
 

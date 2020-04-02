@@ -8,33 +8,35 @@
             "type": "string",
             "default": "background-image.jpg"
         },
-        "loadImageWithCss": {
-            "type": "boolean",
-            "default": false
-        },
         "autoZoom": {
             "type": "boolean",
             "default": false
         },
         "zoomFactor": {
-            "type": "number",
-            "default": 4
-        },
-        "zoomFactorAuto": {
-            "type": "number",
-            "default": 12
+            "type": "object",
+            "properties": {
+                "manual": {
+                    "type": "number",
+                    "default": 4
+                },
+                "auto": {
+                    "type": "number",
+                    "default": 12
+                }
+            }
         },
         "zoomTime": {
-            "type": "number",
-            "default": 0.5
-        },
-        "zoomTimeAuto": {
-            "type": "number",
-            "default": 10
-        },
-        "timingFunction": {
-            "type": "string",
-            "default": "ease-out"
+            "type": "object",
+            "properties": {
+                "manual": {
+                    "type": "number",
+                    "default": 0.5
+                },
+                "auto": {
+                    "type": "number",
+                    "default": 10
+                }
+            }
         }
     }
 }

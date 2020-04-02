@@ -21,14 +21,14 @@ Image.propTypes = {
 
 export default function Image(props) {
     const { dispatch } = useContext(Store);
-    const [config] = useState(() => configService.getProjectConfig());
+    const [ config ] = useState(() => configService.getProjectConfig());
 
     const image = useRef(null);
 
-    const [source, setSource] = useState('');
-    const [hasLoaded, setHasLoaded] = useState(false);
-    const [isFallback, setIsFallback] = useState(false);
-    const [originalSize, setOriginalSize] = useState({ width: 0, height: 0 });
+    const [ source, setSource ] = useState('');
+    const [ hasLoaded, setHasLoaded ] = useState(false);
+    const [ isFallback, setIsFallback ] = useState(false);
+    const [ originalSize, setOriginalSize ] = useState({ width: 0, height: 0 });
 
     const getSource = useCallback(
         (width, height) => {
@@ -61,14 +61,14 @@ export default function Image(props) {
                 dispatch(actions.startLoading());
             }
         },
-        [dispatch, props.doNotSubscribeToGlobalLoading]);
+        [ dispatch, props.doNotSubscribeToGlobalLoading ]);
 
     useEffect(() => {
             setHasLoaded(false);
             const updatedSource = getSource(props.width, props.height);
             setSource(updatedSource);
         },
-        [props.width, props.height, getSource]);
+        [ props.width, props.height, getSource ]);
 
     const onLoad = useCallback(
         () => {
@@ -82,7 +82,7 @@ export default function Image(props) {
             }
             setHasLoaded(true);
         },
-        [dispatch, props.onLoaded, props.doNotSubscribeToGlobalLoading]
+        [ dispatch, props.onLoaded, props.doNotSubscribeToGlobalLoading ]
     );
 
     const onError = useCallback(
@@ -90,7 +90,7 @@ export default function Image(props) {
             console.warn(`Missing an optimized image for ${props.source}`);
             setIsFallback(true);
         },
-        [props.source]
+        [ props.source ]
     );
 
     const getImageSizing = () => {

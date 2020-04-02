@@ -35,7 +35,7 @@ export default function Headline(props) {
         });
     }, [ state, config, element ]);
 
-    const raw = i18n(config.text);
+    const raw = i18n(config.text, state.language);
     const __html = raw
         .split('*')
         .map((partial, index) => `${index ? ' ' : ''}<span style="white-space: nowrap">${partial}</span>`)

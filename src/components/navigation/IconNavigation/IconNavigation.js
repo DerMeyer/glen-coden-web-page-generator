@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import Store from '../../../js/Store';
 import { configService } from '../../../index';
-import { DeviceTypes, OrientationTypes } from '../../../js/helpers';
+import { DeviceTypes, OrientationTypes, getSizeFactor } from '../../../js/helpers';
 
 import ItemBar from '../../../partials/ItemBar/ItemBar';
 import Link from '../../../partials/Link/Link';
@@ -10,15 +10,15 @@ import Svg from '../../../partials/Svg/Svg';
 
 export default function IconNavigation(props) {
     const { state } = useContext(Store);
-    const [config] = useState(() => configService.getComponentConfig(props.id));
+    const [ config ] = useState(() => configService.getComponentConfig(props.id));
 
     const navigationBarVertical = state.deviceType === DeviceTypes.MOBILE && state.orientationType === OrientationTypes.PORTRAIT;
-    const size = state.deviceType === DeviceTypes.MOBILE ? config.size.mobile : config.size.desktop;
 
     return (
         <ItemBar
             stretchFactor={config.stretch}
             vertical={navigationBarVertical}
+            style={{ ...(config.css || {}) }}
         >
             {config.icons.map(icon => (
                 <Link
@@ -28,7 +28,7 @@ export default function IconNavigation(props) {
                 >
                     <Svg
                         name={icon.svg}
-                        width={config.style.fontSizes.body * 2.5 * size}
+                        width={config.style.fontSizes.body * 2.5 * getSizeFactor(state, config)}
                         color={config.style.colors[config.color]}
                     />
                 </Link>

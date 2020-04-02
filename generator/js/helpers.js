@@ -42,19 +42,27 @@ function objectFromSchema(schema, defs = null) {
     }
 }
 
-function mergeObjectIntoBlueprint(obj, blueprint) {
-    if (!isObject(obj) && !isObject(blueprint)) {
-        return obj;
-    }
-    const merged = { ...blueprint };
-    Object.keys(merged).forEach(key => {
-        if (obj[key]) {
-            merged[key] = mergeObjectIntoBlueprint(obj[key], merged[key]);
+function mergeObjects(value1, value2) {
+    if (!isObject(value1) && !isObject(value2)) {
+        if (Array.isArray(value1) && Array.isArray(value2)) {
+            return [
+                ...value1,
+                ...value2
+            ];
         }
+        return value1;
+    }
+    const merged = { ...value1 };
+    Object.keys(value2).forEach(key => {
+        if (value1[key]) {
+            merged[key] = mergeObjects(value1[key], value2[key]);
+            return;
+        }
+        merged[key] = value2[key];
     });
     return merged;
 }
 
 exports.isObject = isObject;
 exports.objectFromSchema = objectFromSchema;
-exports.mergeObjectIntoBlueprint = mergeObjectIntoBlueprint;
+exports.mergeObjects = mergeObjects;

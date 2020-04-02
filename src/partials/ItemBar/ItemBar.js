@@ -72,7 +72,10 @@ export default function ItemBar(props) {
     return (
         <div
             className={styles.itemBarBox}
-            style={{ height: `${boxHeight}px` }}
+            style={{
+                height: `${boxHeight}px`,
+                ...(props.style || {})
+            }}
         >
             <div
                 ref={itemBar}

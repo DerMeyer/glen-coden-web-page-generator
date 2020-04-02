@@ -4,9 +4,33 @@
     "title": "Page",
     "type": "object",
     "properties": {
-        "overflowHidden": {
-            "type": "boolean",
-            "default": false
+        "rows": {
+            "type": "number",
+            "default": 3
+        },
+        "minHeight": {
+            "type": "number",
+            "default": 0
+        },
+        "children": {
+            "type": "array",
+            "items": {
+                "type": "object"
+            },
+            "default": [
+                {
+                    "component": "Row",
+                    "alignSelf": "start"
+                },
+                {
+                    "component": "Row",
+                    "alignSelf": "center"
+                },
+                {
+                    "component": "Row",
+                    "alignSelf": "end"
+                }
+            ]
         }
     }
 }
