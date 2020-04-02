@@ -1,8 +1,13 @@
 const path = require('path');
 const fs = require('fs');
 
+function getCallCount() {
+    const callCount = fs.readFileSync(path.resolve(__dirname, 'callCount.json'), 'utf-8');
+    return JSON.parse(callCount);
+}
+
 function hasFreeApiCalls(numRequests) {
-    const { STARTED_COUNT_AT, COUNT, CYCLE_LENGTH, MAX_FREE_CALLS } = require('./callCount');
+    const { STARTED_COUNT_AT, COUNT, CYCLE_LENGTH, MAX_FREE_CALLS } = getCallCount();
     let updatedStart = STARTED_COUNT_AT;
     let updatedCount = COUNT;
     const timeSinceCountStart = Date.now() - STARTED_COUNT_AT;
@@ -26,7 +31,7 @@ function hasFreeApiCalls(numRequests) {
 }
 
 function addCallCount(numCalls) {
-    const { STARTED_COUNT_AT, COUNT, CYCLE_LENGTH, MAX_FREE_CALLS } = require('./callCount');
+    const { STARTED_COUNT_AT, COUNT, CYCLE_LENGTH, MAX_FREE_CALLS } = getCallCount();
     const updatedCount = COUNT + numCalls;
     const nextFreeMonthStart = new Date(STARTED_COUNT_AT + CYCLE_LENGTH);
     console.log(`\nYou have ${MAX_FREE_CALLS - updatedCount} api calls left until ${nextFreeMonthStart}\n`);
