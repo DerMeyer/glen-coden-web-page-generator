@@ -25,64 +25,71 @@ export default function Image(props) {
 
     const image = useRef(null);
 
-    const [ source, setSource ] = useState('');
-    const [ hasLoaded, setHasLoaded ] = useState(false);
+    const [ sourceType, setSourceType ] = useState('');
+    const [ sourceName, setSourceName ] = useState('');
+
+    useEffect(() => {
+        const sourceParts = props.source.split('.');
+        const sourceType = sourceParts.pop();
+        const sourceName = sourceParts.join('.');
+        setSourceType(sourceType);
+        setSourceName(sourceName);
+    }, [ props.source ]);
+
+    const [ maxPortraitWidth, setMaxPortraitWidth ] = useState(0);
+
+    useEffect(() => {
+        const maxPortraitWidth = targetImageSizes
+            .filter(entry => entry.ratio === 'portrait')
+            .reduce((result, entry) => Math.max(result, entry.width), 0);
+        setMaxPortraitWidth(maxPortraitWidth);
+    }, []);
+
+    const imageRatio = config.usePortraitImages && (props.width < maxPortraitWidth) && (props.width / props.height < 0.8)
+        ? 'portrait'
+        : 'default';
+
+    const [ targetWidth, setTargetWidth ] = useState(0);
+
+    useEffect(() => {
+        const sizesForRatio = targetImageSizes.filter(entry => entry.ratio === imageRatio);
+        const targetImageSize = sizesForRatio.find(entry => props.width < entry.width) || sizesForRatio.pop();
+        setTargetWidth(targetImageSize.width);
+    }, [ props.width, imageRatio ]);
+
     const [ isFallback, setIsFallback ] = useState(false);
-    const [ originalSize, setOriginalSize ] = useState({ width: 0, height: 0 });
 
-    const getSource = useCallback(
-        (width, height) => {
-            const fallbackSource = `images/${props.source}`;
-            if (isFallback) {
-                return fallbackSource;
-            }
-            let targetImageRatio = 'default';
-            if (config.usePortraitImages && (width < config.maxPortraitWidth) && (width / height < 0.8)) {
-                targetImageRatio = 'portrait';
-            }
-            const sizesForRatio = targetImageSizes.filter(size => size.ratio === targetImageRatio).map(size => size.width);
-            const targetImageWidth = sizesForRatio.find(size => width < size) || sizesForRatio.pop();
-            const sourceParts = props.source.split('.');
-            const sourceType = sourceParts.pop();
-            const sourceName = sourceParts.join('.');
+    const source = isFallback
+        ? `images/${props.source}`
+        : `images/optimized/${sourceName}_${imageRatio}_${targetWidth}.${sourceType}`;
 
-            return `images/optimized/${sourceName}_${targetImageRatio}_${targetImageWidth}.${sourceType}`;
-        },
-        [
-            props.source,
-            config.usePortraitImages,
-            config.maxPortraitWidth,
-            isFallback
-        ]
-    );
+    const [ hasLoaded, setHasLoaded ] = useState(false);
+
+    useEffect(() => {
+        setHasLoaded(false);
+    }, [ source ]);
 
     useEffect(() => {
             if (!props.doNotSubscribeToGlobalLoading) {
                 dispatch(actions.startLoading());
             }
         },
-        [ dispatch, props.doNotSubscribeToGlobalLoading ]);
+        [ props.doNotSubscribeToGlobalLoading, dispatch ]);
 
-    useEffect(() => {
-            setHasLoaded(false);
-            const updatedSource = getSource(props.width, props.height);
-            setSource(updatedSource);
-        },
-        [ props.width, props.height, getSource ]);
+    const [ originalSize, setOriginalSize ] = useState({ width: 0, height: 0 });
 
     const onLoad = useCallback(
         () => {
             setOriginalSize({ width: image.current.offsetWidth, height: image.current.offsetHeight });
-            const callback = props.onLoaded;
-            if (typeof callback === 'function') {
-                callback();
+            if (typeof props.onLoaded === 'function') {
+                props.onLoaded();
             }
             if (!props.doNotSubscribeToGlobalLoading) {
                 dispatch(actions.stopLoading());
             }
             setHasLoaded(true);
         },
-        [ dispatch, props.onLoaded, props.doNotSubscribeToGlobalLoading ]
+        [ props, dispatch ]
     );
 
     const onError = useCallback(
@@ -99,13 +106,13 @@ export default function Image(props) {
         }
         const displayDelta = props.width / props.height;
         const originalDelta = originalSize.width / originalSize.height;
-        if (Number.isNaN(displayDelta) || Number.isNaN(originalDelta)) {
-            return {};
-        }
-        return displayDelta / originalDelta >= 1
+        const delta = (Number.isNaN(displayDelta) || Number.isNaN(originalDelta)) ? 1 : (displayDelta / originalDelta);
+        return delta >= 1
             ? { width: '100%' }
             : { height: '100%' };
     };
+
+    const hasSource = isFallback || (sourceName && imageRatio && targetWidth && sourceType);
 
     if (props.loadWithCss) {
         return (
@@ -120,7 +127,7 @@ export default function Image(props) {
                     transition: `opacity ${config.fadeInTime}s${props.style.transition ? `, ${props.style.transition}` : ''}`
                 }}
             >
-                {source && (
+                {hasSource && (
                     <img
                         ref={image}
                         className={styles.imageCss}
@@ -143,7 +150,7 @@ export default function Image(props) {
                 height: props.height
             }}
         >
-            {source && (
+            {hasSource && (
                 <img
                     ref={image}
                     className={styles.image}
