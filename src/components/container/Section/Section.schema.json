@@ -9,8 +9,7 @@
             "default": "center"
         },
         "addTopOffset": {
-            "type": "number",
-            "default": 0
+            "type": "number"
         },
         "justifyContent": {
             "type": "string",
@@ -19,10 +18,6 @@
         "alignItems": {
             "type": "string",
             "default": "center"
-        },
-        "css": {
-            "type": "object",
-            "default": {}
         }
     }
 }

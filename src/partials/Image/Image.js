@@ -73,7 +73,6 @@ export default function Image(props) {
     const onLoad = useCallback(
         () => {
             setOriginalSize({ width: image.current.offsetWidth, height: image.current.offsetHeight });
-            setHasLoaded(true);
             const callback = props.onLoaded;
             if (typeof callback === 'function') {
                 callback();
@@ -81,6 +80,7 @@ export default function Image(props) {
             if (!props.doNotSubscribeToGlobalLoading) {
                 dispatch(actions.stopLoading());
             }
+            setHasLoaded(true);
         },
         [dispatch, props.onLoaded, props.doNotSubscribeToGlobalLoading]
     );

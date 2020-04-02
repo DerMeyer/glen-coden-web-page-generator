@@ -7,7 +7,7 @@ import Project from './_Project';
 
 
 export default function App() {
-    const { globalState, dispatch } = useContext(Store);
+    const { state, dispatch } = useContext(Store);
     const [projectConfig] = useState(() => configService.getProjectConfig());
 
     useEffect(() => {
@@ -29,12 +29,12 @@ export default function App() {
     }, [dispatch, projectConfig]);
 
     useEffect(() => {
-        dispatch(actions.setContentSize(globalState.deviceType, projectConfig.style.pageContentSize));
-    }, [dispatch, projectConfig, globalState.deviceType]);
+        dispatch(actions.setContentSize(state.deviceType, projectConfig.style.pageContentSize));
+    }, [dispatch, projectConfig, state.deviceType]);
 
     return (
         <div style={{
-            opacity: globalState.showApp ? '1' : '0',
+            opacity: state.showApp ? '1' : '0',
             transition: `opacity ${projectConfig.fadeInTime}s`
         }}>
             <Project />

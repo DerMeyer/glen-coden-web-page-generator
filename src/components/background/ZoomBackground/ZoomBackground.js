@@ -11,13 +11,13 @@ import Image from '../../../partials/Image/Image';
 
 
 export default function ZoomBackground(props) {
-    const { globalState } = useContext(Store);
+    const { state } = useContext(Store);
 
     const [config] = useState(() => configService.getComponentConfig(props.id));
     const [zoomActive, setZoomActive] = useState(false);
     const [boxTransform, setBoxTransform] = useState({ x: 0, y: 0 });
 
-    const deviceIsMobile = globalState.deviceType === DeviceTypes.MOBILE;
+    const deviceIsMobile = state.deviceType === DeviceTypes.MOBILE;
     const autoZoom = config.autoZoom || deviceIsMobile;
     const zoomFactor = autoZoom ? config.zoomFactorAuto : config.zoomFactor;
     const zoomTime = autoZoom ? config.zoomTimeAuto : config.zoomTime;
@@ -28,18 +28,18 @@ export default function ZoomBackground(props) {
 
     const calculateBoxTransform = useCallback(
         event => {
-            const xFromCenter = event.clientX - (globalState.viewportWidth / 2);
-            const yFromCenter = event.clientY - (globalState.viewportHeight / 2);
+            const xFromCenter = event.clientX - (state.viewportWidth / 2);
+            const yFromCenter = event.clientY - (state.viewportHeight / 2);
             setBoxTransform({
-                x: xFromCenter / (globalState.viewportWidth / 2) * zoomFactor / 2,
-                y: yFromCenter / (globalState.viewportHeight / 2) * zoomFactor / 2
+                x: xFromCenter / (state.viewportWidth / 2) * zoomFactor / 2,
+                y: yFromCenter / (state.viewportHeight / 2) * zoomFactor / 2
             });
         },
-        [globalState.viewportWidth, globalState.viewportHeight, zoomFactor]
+        [state.viewportWidth, state.viewportHeight, zoomFactor]
     );
 
     useEffect(() => {
-        if (globalState.loading) {
+        if (state.loading) {
             shrinkZoomBg();
             return;
         }
@@ -59,14 +59,14 @@ export default function ZoomBackground(props) {
             window.removeEventListener('blur', shrinkZoomBg);
             document.removeEventListener('mouseleave', shrinkZoomBg);
         };
-    }, [growZoomBg, shrinkZoomBg, calculateBoxTransform, globalState.loading, autoZoom]);
+    }, [growZoomBg, shrinkZoomBg, calculateBoxTransform, state.loading, autoZoom]);
 
     return (
         <div
             className={styles.background}
             style={{
-                width: `${globalState.viewportWidth}px`,
-                height: `${globalState.viewportHeight}px`
+                width: `${state.viewportWidth}px`,
+                height: `${state.viewportHeight}px`
             }}
         >
             <div
@@ -85,8 +85,8 @@ export default function ZoomBackground(props) {
                         transition: `transform ${zoomTime}s ${config.timingFunction}`
                     }}
                     source={config.image}
-                    width={globalState.viewportWidth}
-                    height={globalState.viewportHeight}
+                    width={state.viewportWidth}
+                    height={state.viewportHeight}
                     loadWithCss={config.loadImageWithCss}
                 />
             </div>

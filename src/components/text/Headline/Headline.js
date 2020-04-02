@@ -1,17 +1,14 @@
-import React, { useContext, useState, useRef, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import Store from '../../../js/Store';
 import { configService } from '../../../index';
-import { DeviceTypes, OrientationTypes, i18n } from '../../../js/helpers';
+import { getSizeFactor, i18n } from '../../../js/helpers';
 
 
 export default function Headline(props) {
-    const { globalState } = useContext(Store);
-    const [config] = useState(() => configService.getComponentConfig(props.id));
-
-    const ref = useRef(null);
-
-    const [element, setElement] = useState('h1');
-    const [style, setStyle] = useState({});
+    const { state } = useContext(Store);
+    const [ config ] = useState(() => configService.getComponentConfig(props.id));
+    const [ element, setElement ] = useState('h1');
+    const [ style, setStyle ] = useState({});
 
     useEffect(() => {
         switch (config.size) {
@@ -26,23 +23,23 @@ export default function Headline(props) {
                 break;
             default:
         }
-    }, [config.size]);
+    }, [ config.size ]);
 
     useEffect(() => {
-        const sizeFactor = globalState.deviceType === DeviceTypes.MOBILE
-            ? (globalState.orientationType === OrientationTypes.PORTRAIT ? config.mobileSizeBy.portrait : config.mobileSizeBy.landscape)
-            : 1;
         setStyle({
             margin: 0,
             fontWeight: 'bold',
-            whiteSpace: 'nowrap',
-            fontSize: config.style.fontSizes[element] * sizeFactor,
+            fontSize: config.style.fontSizes[element] * getSizeFactor(state, config),
             fontFamily: config.style.fontTypes[config.fontTypeIndex] || config.style.fontTypes[0],
             color: config.style.colors[config.color]
         });
-    }, [config, globalState.deviceType, globalState.orientationType, element]);
+    }, [ state, config, element ]);
 
-    const text = i18n(config.text);
+    const raw = i18n(config.text);
+    const __html = raw
+        .split('*')
+        .map((partial, index) => `${index ? ' ' : ''}<span style="white-space: nowrap">${partial}</span>`)
+        .join('');
 
-    return React.createElement(element, { ref, style }, [ text ]);
+    return React.createElement(element, { style, dangerouslySetInnerHTML: { __html } });
 }

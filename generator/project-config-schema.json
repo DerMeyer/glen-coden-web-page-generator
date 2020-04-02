@@ -36,8 +36,7 @@
                     "default": "Arial"
                 },
                 "url": {
-                    "type": "string",
-                    "default": ""
+                    "type": "string"
                 }
             }
         },
@@ -193,19 +192,22 @@
                     "type": "string"
                 },
                 "initialState": {
-                    "type": "object",
-                    "default": {}
+                    "type": "object"
                 },
                 "style": {
-                    "type": "object",
-                    "default": {}
+                    "type": "object"
+                },
+                "sizing": {
+                    "type": "object"
+                },
+                "css": {
+                    "type": "object"
                 },
                 "children": {
                     "type": "array",
                     "items": {
                         "$ref": "#single_component"
-                    },
-                    "default": []
+                    }
                 }
             }
         }

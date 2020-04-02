@@ -17,7 +17,7 @@ const heightStretch = 1.3;
 
 
 export default function ItemBar(props) {
-    const { globalState } = useContext(Store);
+    const { state } = useContext(Store);
 
     const stretchWidthBy = widthStretch * (props.stretchFactor || 1);
     const stretchHeightBy = heightStretch * (props.stretchFactor || 1);
@@ -30,7 +30,7 @@ export default function ItemBar(props) {
     useEffect(() => {
         setCalcWidth(0);
         setCalcHeight(0);
-    }, [globalState.viewportWidth, globalState.viewportHeight]);
+    }, [state.viewportWidth, state.viewportHeight]);
 
     useEffect(() => {
         if (calcWidth === 0) {

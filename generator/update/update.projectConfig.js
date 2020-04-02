@@ -57,26 +57,19 @@ function createComponent(entry) {
         return entry;
     }
     const componentsList = require('../components-list');
-    const generalSchema = objectFromSchema(PROJ_CONFIG_SCHEMA.definitions.single_component);
-    delete generalSchema.initialState;
-    delete generalSchema.style;
-    const specificSchemaPath = path.join(componentsList[entry.component].path, `${entry.component}.schema.json`);
-    const specificSchema = fs.existsSync(specificSchemaPath)
-        ? objectFromSchema(JSON.parse(fs.readFileSync(specificSchemaPath, 'utf-8')))
+    const schemaPath = path.join(componentsList[entry.component].path, `${entry.component}.schema.json`);
+    const schema = fs.existsSync(schemaPath)
+        ? objectFromSchema(JSON.parse(fs.readFileSync(schemaPath, 'utf-8')))
         : {};
-    const { children, ...result } = {
-        ...generalSchema,
-        ...specificSchema,
-        ...entry,
-        id: shortid.generate()
+    const component = {
+        id: shortid.generate(),
+        ...schema,
+        ...entry
     };
-    const updatedChildren = entry.children
+    component.children = entry.children
         ? entry.children.map(child => createComponent(child))
-        : children;
-    return {
-        ...result,
-        children: updatedChildren
-    };
+        : [];
+    return component;
 }
 
 module.exports = updateProjectConfig;

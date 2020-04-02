@@ -5,7 +5,7 @@ import { configService } from '../../../index';
 
 
 export default function Section(props) {
-    const { globalState } = useContext(Store);
+    const { state } = useContext(Store);
     const [config] = useState(() => configService.getComponentConfig(props.id));
 
     const [style, setStyle] = useState({});
@@ -38,9 +38,9 @@ export default function Section(props) {
     );
 
     useEffect(() => {
-        const updatedStyle = getStyle(globalState.contentWidth, globalState.contentHeight);
+        const updatedStyle = getStyle(state.contentWidth, state.contentHeight);
         setStyle(updatedStyle);
-    }, [getStyle, globalState.contentWidth, globalState.contentHeight]);
+    }, [getStyle, state.contentWidth, state.contentHeight]);
 
     return (
         <div

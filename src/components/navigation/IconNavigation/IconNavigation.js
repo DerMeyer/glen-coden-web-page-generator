@@ -9,11 +9,11 @@ import Svg from '../../../partials/Svg/Svg';
 
 
 export default function IconNavigation(props) {
-    const { globalState } = useContext(Store);
+    const { state } = useContext(Store);
     const [config] = useState(() => configService.getComponentConfig(props.id));
 
-    const navigationBarVertical = globalState.deviceType === DeviceTypes.MOBILE && globalState.orientationType === OrientationTypes.PORTRAIT;
-    const size = globalState.deviceType === DeviceTypes.MOBILE ? config.size.mobile : config.size.desktop;
+    const navigationBarVertical = state.deviceType === DeviceTypes.MOBILE && state.orientationType === OrientationTypes.PORTRAIT;
+    const size = state.deviceType === DeviceTypes.MOBILE ? config.size.mobile : config.size.desktop;
 
     return (
         <ItemBar

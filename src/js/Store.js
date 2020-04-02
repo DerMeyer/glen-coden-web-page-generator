@@ -13,6 +13,7 @@ const initStore = initialState => {
         breakPointType: getBreakPointType(),
         deviceType: getDeviceType(),
         orientationType: getOrientationType(),
+        language: navigator.language.slice(0, 2),
         ...initialState
     };
 };
@@ -20,9 +21,9 @@ const initStore = initialState => {
 const Store = createContext({});
 
 export function Provider({ initialState, children }) {
-    const [globalState, dispatch] = useReducer(reducer, initialState, initStore);
+    const [state, dispatch] = useReducer(reducer, initialState, initStore);
     return (
-        <Store.Provider value={{ globalState, dispatch }}>
+        <Store.Provider value={{ state, dispatch }}>
             {children}
         </Store.Provider>
     );
