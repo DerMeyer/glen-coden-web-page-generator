@@ -61,17 +61,13 @@ function createComponent(entry) {
     const schema = fs.existsSync(schemaPath)
         ? objectFromSchema(JSON.parse(fs.readFileSync(schemaPath, 'utf-8')))
         : {};
-    const component = {
+    const { children, ...props} = mergeObjects(entry, schema);
+    return {
         component: entry.component,
         id: shortid.generate(),
-        ...mergeObjects(entry, schema)
+        ...props,
+        children: (children || []).map(child => createComponent(child))
     };
-    if (component.children) {
-        component.children = component.children.map(child => createComponent(child));
-    } else {
-        component.children = [];
-    }
-    return component;
 }
 
 module.exports = updateProjectConfig;

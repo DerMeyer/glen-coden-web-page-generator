@@ -12,6 +12,10 @@
             "type": "number",
             "default": 0
         },
+        "color": {
+            "type": "string",
+            "default": "background"
+        },
         "children": {
             "type": "array",
             "items": {

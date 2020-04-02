@@ -19,6 +19,7 @@ export default function Page(props) {
                 width: `${Math.min(viewportWidth, config.style.maxPageWidth)}px`,
                 minHeight: `${config.minHeight || viewportHeight}px`,
                 padding: `${(viewportHeight - contHeight) / 2}px ${(viewportWidth - contWidth) / 2}px`,
+                backgroundColor: config.style.colors[config.color]
             };
         },
         [ config ]

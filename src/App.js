@@ -8,7 +8,7 @@ import Project from './_Project';
 
 export default function App() {
     const { state, dispatch } = useContext(Store);
-    const [projectConfig] = useState(() => configService.getProjectConfig());
+    const [ projectConfig ] = useState(() => configService.getProjectConfig());
 
     useEffect(() => {
         document.body.style.fontSize = `${projectConfig.style.fontSizes.body}px`;
@@ -26,18 +26,18 @@ export default function App() {
             window.removeEventListener('resize', resizeApp);
             window.removeEventListener('orientationchange', resizeApp);
         };
-    }, [dispatch, projectConfig]);
+    }, [ dispatch, projectConfig ]);
 
     useEffect(() => {
         dispatch(actions.setContentSize(state.deviceType, projectConfig.style.pageContentSize));
-    }, [dispatch, projectConfig, state.deviceType]);
+    }, [ dispatch, projectConfig, state.deviceType ]);
 
     return (
         <div style={{
             opacity: state.showApp ? '1' : '0',
             transition: `opacity ${projectConfig.fadeInTime}s`
         }}>
-            <Project />
+            <Project/>
         </div>
     );
 }
