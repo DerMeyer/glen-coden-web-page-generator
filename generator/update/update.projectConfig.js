@@ -1,7 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const shortid = require('shortid');
-const { objectFromSchema, mergeObjectIntoBlueprint } = require('../js/helpers');
+const { objectFromSchema, mergeObjects } = require('../js/helpers');
 
 const GEN_CONFIG = require('../generator-config');
 const PROJ_CONFIG_SCHEMA = require('../project-config-schema');
@@ -14,7 +14,7 @@ function updateProjectConfig(sourceDir, projectDir, projectName) {
         let projectConfig;
 
         if (sourceConfigIsTruth) {
-            projectConfig = mergeObjectIntoBlueprint(require(sourceConfigPath), objectFromSchema(PROJ_CONFIG_SCHEMA));
+            projectConfig = mergeObjects(require(sourceConfigPath), objectFromSchema(PROJ_CONFIG_SCHEMA));
         } else {
             projectConfig = require(path.join(projectDir, 'config'));
         }
@@ -57,25 +57,16 @@ function createComponent(entry) {
         return entry;
     }
     const componentsList = require('../components-list');
-    const generalSchema = objectFromSchema(PROJ_CONFIG_SCHEMA.definitions.single_component);
-    delete generalSchema.initialState;
-    delete generalSchema.style;
-    const specificSchemaPath = path.join(componentsList[entry.component].path, `${entry.component}.schema.json`);
-    const specificSchema = fs.existsSync(specificSchemaPath)
-        ? objectFromSchema(JSON.parse(fs.readFileSync(specificSchemaPath, 'utf-8')))
+    const schemaPath = path.join(componentsList[entry.component].path, `${entry.component}.schema.json`);
+    const schema = fs.existsSync(schemaPath)
+        ? objectFromSchema(JSON.parse(fs.readFileSync(schemaPath, 'utf-8')))
         : {};
-    const { children, ...result } = {
-        ...generalSchema,
-        ...specificSchema,
-        ...entry,
-        id: shortid.generate()
-    };
-    const updatedChildren = entry.children
-        ? entry.children.map(child => createComponent(child))
-        : children;
+    const { children, ...props} = mergeObjects(entry, schema);
     return {
-        ...result,
-        children: updatedChildren
+        component: entry.component,
+        id: shortid.generate(),
+        ...props,
+        children: (children || []).map(child => createComponent(child))
     };
 }
 

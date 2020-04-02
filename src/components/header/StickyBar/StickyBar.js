@@ -5,20 +5,19 @@ import { configService } from '../../../index';
 
 
 export default function StickyBar(props) {
-    const { globalState } = useContext(Store);
-    const [config] = useState(() => configService.getComponentConfig(props.id));
-
-    const [doStick, setDoStick] = useState(false);
+    const { state } = useContext(Store);
+    const [ config ] = useState(() => configService.getComponentConfig(props.id));
+    const [ doStick, setDoStick ] = useState(false);
 
     const checkScroll = useCallback(
         () => {
-            if (window.scrollY > globalState.viewportHeight / 10) {
+            if (window.scrollY > state.viewportHeight / 10) {
                 setDoStick(true);
                 return;
             }
             setDoStick(false);
         },
-        [globalState.viewportHeight]
+        [ state.viewportHeight ]
     );
 
     useEffect(() => {
@@ -26,16 +25,16 @@ export default function StickyBar(props) {
         return () => {
             window.removeEventListener('scroll', checkScroll);
         };
-    }, [checkScroll]);
+    }, [ checkScroll ]);
 
     const style = {
-        top: doStick ? '0' : `${(100 - globalState.contentHeight) / 2}%`,
-        width: `${globalState.contentWidth}%`,
-        padding: doStick ? `0 ${(100 - globalState.contentWidth) / 2}%` : '0',
+        top: doStick ? '0' : `${(100 - state.contentHeight) / 2}%`,
+        width: `${state.contentWidth}%`,
+        padding: doStick ? `0 ${(100 - state.contentWidth) / 2}%` : '0',
         transition: `top ${config.transitionTime}s, padding ${config.transitionTime}s`,
         justifyContent: config.justifyContent,
         alignItems: config.alignItems,
-        backgroundColor: config.style.overlayColor
+        backgroundColor: config.style.colors.light
     };
 
     return (

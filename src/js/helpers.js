@@ -82,8 +82,11 @@ export function getComponentState(level, componentName, state) {
     return [...level, componentName].reduce((result, child) => result[child], state);
 }
 
-export function i18n(translations) {
-    const trans = translations[navigator.language.slice(0, 2)];
+export function i18n(translations, language = navigator.language.slice(0, 2)) {
+    if (!isObject(translations)) {
+        return translations;
+    }
+    const trans = translations[language];
     if (!trans) {
         const fallbackTrans = translations.en;
         if (!fallbackTrans) {
@@ -92,4 +95,21 @@ export function i18n(translations) {
         return fallbackTrans;
     }
     return trans;
+}
+
+export function getSizeFactor(state, config) {
+    const { sizing } = config;
+    if (!sizing || !isObject(sizing)) {
+        return 1;
+    }
+    if (state.deviceType === DeviceTypes.MOBILE) {
+        if (state.orientationType === OrientationTypes.PORTRAIT) {
+            return sizing.portrait || 1;
+        }
+        return sizing.landscape || 1;
+    }
+    if (state.breakPointType === BreakPointTypes.DESKTOP_MAX) {
+        return sizing.max || 1;
+    }
+    return sizing.desktop || 1;
 }

@@ -8,19 +8,17 @@
             "type": "string",
             "default": "big"
         },
-        "fontType": {
+        "fontTypeIndex": {
             "type": "number",
             "default": 0
         },
         "color": {
             "type": "string",
-            "default": "lightFontColor"
+            "default": "light"
         },
         "text": {
-            "type": "object",
-            "default": {
-                "en": "Your Headline"
-            }
+            "type": ["string", "object"],
+            "default": "Your*Headline"
         }
     }
 }

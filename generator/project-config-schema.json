@@ -36,8 +36,7 @@
                     "default": "Arial"
                 },
                 "url": {
-                    "type": "string",
-                    "default": ""
+                    "type": "string"
                 }
             }
         },
@@ -57,29 +56,8 @@
             "$id": "#style",
             "type": "object",
             "properties": {
-                "themeColor": {
-                    "type": "string",
-                    "default": "#000000"
-                },
-                "backgroundColor": {
-                    "type": "string",
-                    "default": "#000000"
-                },
-                "overlayColor": {
-                    "type": "string",
-                    "default": "#FFFFFF"
-                },
-                "lightFontColor": {
-                    "type": "string",
-                    "default": "#FFFFFF"
-                },
-                "mediumFontColor": {
-                    "type": "string",
-                    "default": "#F9F9F9"
-                },
-                "darkFontColor": {
-                    "type": "string",
-                    "default": "#000000"
+                "colors": {
+                    "$ref": "#colors"
                 },
                 "fontTypes": {
                     "type": "array",
@@ -97,6 +75,36 @@
                 "maxPageWidth": {
                     "type": "number",
                     "default": 2500
+                }
+            }
+        },
+        "colors": {
+            "$id": "#colors",
+            "type": "object",
+            "properties": {
+                "theme": {
+                    "type": "string",
+                    "default": "#000000"
+                },
+                "background": {
+                    "type": "string",
+                    "default": "#000000"
+                },
+                "overlay": {
+                    "type": "string",
+                    "default": "#FFFFFF"
+                },
+                "light": {
+                    "type": "string",
+                    "default": "#FFFFFF"
+                },
+                "medium": {
+                    "type": "string",
+                    "default": "#F9F9F9"
+                },
+                "dark": {
+                    "type": "string",
+                    "default": "#000000"
                 }
             }
         },
@@ -159,10 +167,6 @@
                 "usePortraitImages": {
                     "type": "boolean",
                     "default": true
-                },
-                "maxPortraitWidth": {
-                    "type": "number",
-                    "default": 500
                 }
             }
         },
@@ -184,19 +188,22 @@
                     "type": "string"
                 },
                 "initialState": {
-                    "type": "object",
-                    "default": {}
+                    "type": "object"
                 },
                 "style": {
-                    "type": "object",
-                    "default": {}
+                    "type": "object"
+                },
+                "sizing": {
+                    "type": "object"
+                },
+                "css": {
+                    "type": "object"
                 },
                 "children": {
                     "type": "array",
                     "items": {
                         "$ref": "#single_component"
-                    },
-                    "default": []
+                    }
                 }
             }
         }
