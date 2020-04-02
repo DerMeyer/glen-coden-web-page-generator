@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import styles from './Page.module.css';
 import Store from '../../../js/Store';
 import { configService } from '../../../index';
@@ -7,17 +7,27 @@ import { configService } from '../../../index';
 export default function Page(props) {
     const { state } = useContext(Store);
     const [ config ] = useState(() => configService.getComponentConfig(props.id));
+    const [ style, setStyle ] = useState({});
 
-    const contentWidth = state.contentWidth / 100 * state.viewportWidth;
-    const contentHeight = state.contentHeight / 100 * state.viewportHeight;
+    const getStyle = useCallback(
+        (contentWidth, contentHeight, viewportWidth, viewportHeight) => {
+            const contWidth = contentWidth / 100 * viewportWidth;
+            const contHeight = contentHeight / 100 * viewportHeight;
+            return {
+                gridTemplateRows: `repeat(${config.rows}, minmax(${contHeight / config.rows}px, auto))`,
+                left: `${Math.max((viewportWidth - config.style.maxPageWidth), 0) / 2}px`,
+                width: `${Math.min(viewportWidth, config.style.maxPageWidth)}px`,
+                minHeight: `${config.minHeight || viewportHeight}px`,
+                padding: `${(viewportHeight - contHeight) / 2}px ${(viewportWidth - contWidth) / 2}px`,
+            };
+        },
+        [ config ]
+    );
 
-    const style = {
-        gridTemplateRows: `repeat(${config.rows}, minmax(${contentHeight / config.rows}px, auto))`,
-        left: `${Math.max((state.viewportWidth - config.style.maxPageWidth), 0) / 2}px`,
-        width: `${Math.min(state.viewportWidth, config.style.maxPageWidth)}px`,
-        minHeight: `${config.minHeight || state.viewportHeight}px`,
-        padding: `${(state.viewportHeight - contentHeight) / 2}px ${(state.viewportWidth - contentWidth) / 2}px`,
-    };
+    useEffect(() => {
+        const updatedStyle = getStyle(state.contentWidth, state.contentHeight, state.viewportWidth, state.viewportHeight);
+        setStyle(updatedStyle);
+    }, [ getStyle, state.contentWidth, state.contentHeight, state.viewportWidth, state.viewportHeight ]);
 
     return (
         <div
