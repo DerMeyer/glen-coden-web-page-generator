@@ -44,15 +44,14 @@ export default function Image(props) {
                 : 'default';
 
             const sizesForRatio = targetImageSizes.filter(entry => entry.ratio === imageRatio);
-            const targetImageSize = sizesForRatio.find(entry => width < entry.width) || sizesForRatio.pop();
-            const targetWidth = targetImageSize.width;
+            const targetSize = sizesForRatio.find(entry => width < entry.width) || sizesForRatio.pop();
+            const targetWidth = targetSize.width;
 
             const updatedSource = `${imagesDir}/optimized/${sourceName}_${imageRatio}_${targetWidth}.${sourceType}`;
 
             if (errorList.includes(updatedSource)) {
                 return `${imagesDir}/${props.source}`;
             }
-
             return updatedSource;
         },
         [ props.source, config ]
@@ -72,7 +71,7 @@ export default function Image(props) {
         [ props.doNotSubscribeToGlobalLoading, dispatch ]);
 
     const onLoad = useCallback(
-        event => {
+        () => {
             if (typeof props.onLoaded === 'function') {
                 props.onLoaded();
             }
@@ -92,16 +91,8 @@ export default function Image(props) {
     );
 
     const hasLoaded = image.current && image.current.complete;
-
-    const getImageSizing = () => {
-        if (!hasLoaded) {
-            return {};
-        }
-        const delta = (props.width / props.height) / (image.current.offsetWidth / image.current.offsetHeight);
-        return delta >= 1
-            ? { width: '100%' }
-            : { height: '100%' };
-    };
+    const delta = hasLoaded ? (props.width / props.height) / (image.current.offsetWidth / image.current.offsetHeight) : 1;
+    const imageSizing = delta >= 1 ? { width: '100%' } : { height: '100%' };
 
     if (props.loadWithCss) {
         return (
@@ -123,7 +114,7 @@ export default function Image(props) {
                         src={source}
                         onLoad={onLoad}
                         onError={onError}
-                        alt=""
+                        alt={source}
                     />
                 )}
             </div>
@@ -144,14 +135,14 @@ export default function Image(props) {
                     ref={image}
                     className={styles.image}
                     style={{
-                        ...getImageSizing(),
+                        ...imageSizing,
                         opacity: hasLoaded ? '1' : '0',
                         transition: `opacity ${config.fadeInTime}s`
                     }}
                     src={source}
                     onLoad={onLoad}
                     onError={onError}
-                    alt="partials/"
+                    alt={source}
                 />
             )}
         </div>
