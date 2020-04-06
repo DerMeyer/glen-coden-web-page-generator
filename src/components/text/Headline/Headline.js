@@ -6,7 +6,8 @@ import { getSizeFactor, i18n } from '../../../js/helpers';
 
 export default function Headline(props) {
     const { state } = useContext(Store);
-    const [ config ] = useState(() => configService.getComponentConfig(props.id));
+    const config = configService.getConfig(props.id);
+
     const [ element, setElement ] = useState('h1');
     const [ style, setStyle ] = useState({});
 
@@ -25,15 +26,17 @@ export default function Headline(props) {
         }
     }, [ config.size ]);
 
+    const fontType = config.fontTypes[config.fontTypeIndex] || config.fontTypes[0];
+
     useEffect(() => {
         setStyle({
             margin: 0,
             fontWeight: 'bold',
-            fontSize: config.style.fontSizes[element] * getSizeFactor(state, config),
-            fontFamily: config.style.fontTypes[config.fontTypeIndex] || config.style.fontTypes[0],
-            color: config.style.colors[config.color]
+            fontSize: config.fontSizes[element] * getSizeFactor(state, config),
+            fontFamily: fontType.name || '',
+            color: config.colors[config.color]
         });
-    }, [ state, config, element ]);
+    }, [ state, config, element, fontType ]);
 
     const raw = i18n(config.text, state.language);
     const __html = raw

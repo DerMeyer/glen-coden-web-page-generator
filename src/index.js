@@ -5,18 +5,28 @@ import * as serviceWorker from './serviceWorker';
 import { Provider } from './js/Store';
 import App from './App';
 import ConfigService from './js/services/ConfigService';
-import { getInitialState } from './js/helpers';
 import PROJ_CONFIG from './project-config';
 
-export const configService = new ConfigService(PROJ_CONFIG);
+export const configService = new ConfigService();
 
-const initialState = getInitialState(PROJ_CONFIG);
+Promise.all([
+    Promise.resolve()
+        .then(() => fetch('/config.json'))
+        .then(response => response.json())
+        .then(USER_CONFIG => {
+            const CONFIG = process.env.NODE_ENV && process.env.NODE_ENV === 'production' ? USER_CONFIG : PROJ_CONFIG;
+            configService.init(CONFIG);
+        })
+])
+    .then(() => {
+        const initialState = configService.getInitialState();
 
-ReactDOM.render(
-    <Provider initialState={initialState}>
-        <App />
-    </Provider>,
-    document.getElementById('root')
-);
+        ReactDOM.render(
+            <Provider initialState={initialState}>
+                <App />
+            </Provider>,
+            document.getElementById('root')
+        );
 
-serviceWorker.unregister();
+        serviceWorker.unregister();
+    });

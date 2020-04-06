@@ -10,12 +10,6 @@
         "description": {
             "type": "string"
         },
-        "fontTypes": {
-            "type": "array",
-            "items": {
-                "$ref": "#fontType"
-            }
-        },
         "initialState": {
             "type": "object"
         },
@@ -44,27 +38,14 @@
             "$id": "#global",
             "type": "object",
             "properties": {
-                "style": {
-                    "$ref": "#style"
-                },
-                "props": {
-                    "$ref": "#props"
-                }
-            }
-        },
-        "style": {
-            "$id": "#style",
-            "type": "object",
-            "properties": {
                 "colors": {
                     "$ref": "#colors"
                 },
                 "fontTypes": {
                     "type": "array",
                     "items": {
-                        "type": "string"
-                    },
-                    "default": ["Arial"]
+                        "$ref": "#fontType"
+                    }
                 },
                 "fontSizes": {
                     "$ref": "#fontSizes"
@@ -75,6 +56,18 @@
                 "maxPageWidth": {
                     "type": "number",
                     "default": 2500
+                },
+                "fadeInTime": {
+                    "type": "number",
+                    "default": 0.2
+                },
+                "loadingTimeout": {
+                    "type": "number",
+                    "default": 10
+                },
+                "usePortraitImages": {
+                    "type": "boolean",
+                    "default": true
                 }
             }
         },
@@ -149,24 +142,6 @@
                 "heightMobile": {
                     "type": "number",
                     "default": 90
-                }
-            }
-        },
-        "props": {
-            "$id": "#props",
-            "type": "object",
-            "properties": {
-                "fadeInTime": {
-                    "type": "number",
-                    "default": 0.2
-                },
-                "loadingTimeout": {
-                    "type": "number",
-                    "default": 10
-                },
-                "usePortraitImages": {
-                    "type": "boolean",
-                    "default": true
                 }
             }
         },

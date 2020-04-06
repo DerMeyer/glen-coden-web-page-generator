@@ -5,7 +5,7 @@ const getPath = require('./js/getters/getPath');
 const CONFIG = require('./generator-config');
 
 const SupportedCmds = {
-    __PROJECT: '-p',
+    __LIST: '--list',
     __BOOTSTRAP: '--bootstrap',
     __UPDATE: '--update',
     __OPTIMIZE: '--optimize',
@@ -20,8 +20,11 @@ if (argv.length !== 2 && argv.length !== 3) {
     process.exit();
 }
 
-if (userCmds.includes(SupportedCmds.__PROJECT)) {
-    console.log(`\nProject name: ${CONFIG._project}\n`);
+if (userCmds.includes(SupportedCmds.__LIST)) {
+    const projectList = fs.readdirSync(path.resolve(getPath.projectsDir)).filter(fileName => !CONFIG.ignore.includes(fileName));
+    let list = '\n';
+    projectList.forEach(name => list += `${name}${name === CONFIG._project ? '\t*' : ''}\n`);
+    console.log(list);
 }
 
 const projectName = argv[2] || '';

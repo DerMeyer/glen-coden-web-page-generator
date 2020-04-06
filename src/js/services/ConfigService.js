@@ -1,41 +1,59 @@
 class ConfigService {
-    constructor(config) {
-        this.style = config.global.style;
-        this.props = config.global.props;
-        this.componentsMap = config.components;
-        this.componentsConfig = {};
-        this.init();
+    constructor() {
+        this.config = {};
+        this.componentsList = {};
     }
 
-    init() {
-        this.addComponentsConfig(this.componentsMap);
+    init(config) {
+        this.config = config;
+        this._createComponentsList(this.config.components);
     }
 
-    addComponentsConfig(list) {
-        list.forEach(entry => {
+    _createComponentsList(components) {
+        if (!Array.isArray(components)) {
+            console.warn('Missing components list at ConfigService');
+            return;
+        }
+        components.forEach(entry => {
             delete entry.initialState;
-            this.componentsConfig[entry.id] = {
-                ...entry,
-                style: {
-                    ...this.style,
-                    ...entry.style
-                }
+            this.componentsList[entry.id] = {
+                ...this.config.global,
+                ...entry
             };
             if (entry.children.length) {
-                this.addComponentsConfig(entry.children);
+                this._createComponentsList(entry.children);
             }
         });
     }
 
-    getProjectConfig() {
+    getInitialState() {
+        const { initialState, components } = this.config;
+        if (!initialState || !components) {
+            return {};
+        }
+        const state = {};
+        Object.keys(components).forEach(key => {
+            if (!components[key].initialState) {
+                return;
+            }
+            state[key] = {
+                ...components[key].initialState
+            };
+        });
         return {
-            style: this.style,
-            ...this.props
+            ...initialState,
+            ...state
         };
     }
 
-    getComponentConfig(id) {
-        return this.componentsConfig[id];
+    getConfig(id) {
+        if (!id || !this.componentsList[id]) {
+            if (!this.config.global) {
+                return {};
+            }
+            return this.config.global;
+        }
+        return this.componentsList[id];
     }
 }
 

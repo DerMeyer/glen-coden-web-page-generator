@@ -14,25 +14,27 @@ function updateProjectConfig(sourceDir, projectDir, projectName) {
         let projectConfig;
 
         if (sourceConfigIsTruth) {
-            projectConfig = mergeObjects(require(sourceConfigPath), objectFromSchema(PROJ_CONFIG_SCHEMA));
+            projectConfig = JSON.parse(fs.readFileSync(sourceConfigPath, 'utf-8'));
         } else {
-            projectConfig = require(path.join(projectDir, 'config'));
+            projectConfig = JSON.parse(fs.readFileSync(path.join(projectDir, 'config.json'), 'utf-8'));
         }
 
-        projectConfig.global.style.fontTypes = projectConfig.fontTypes.map(entry => entry.name);
-        projectConfig.components = updateComponentsMap(projectConfig.components);
+        const updatedConfig = mergeObjects(projectConfig, objectFromSchema(PROJ_CONFIG_SCHEMA));
 
-        writeProjectConfig(sourceDir, projectDir, projectConfig);
+        updatedConfig.components = updateComponentsMap(updatedConfig.components);
+
+        writeProjectConfig(sourceDir, projectDir, updatedConfig);
         resolve();
     });
 }
 
 function writeProjectConfig(sourceDir, projectDir, config) {
     const historyDir = path.join(projectDir, 'json', 'config-history');
-    const currentEntry = `${new Date()}.json`.split(' ').join('_');
+    const date = new Date();
+    const currentEntry = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}_${date.getHours()}-${date.getSeconds()}.json`;
     const historyEntries = fs.readdirSync(historyDir);
     while (historyEntries.length > 50) {
-        const obsoleteEntry = historyEntries.reverse().pop();
+        const obsoleteEntry = historyEntries.pop();
         fs.unlinkSync(path.join(historyDir, obsoleteEntry));
     }
     fs.writeFileSync(path.join(sourceDir, 'project-config.json'), JSON.stringify(config, null, 4));

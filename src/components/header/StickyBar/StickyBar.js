@@ -6,7 +6,8 @@ import { configService } from '../../../index';
 
 export default function StickyBar(props) {
     const { state } = useContext(Store);
-    const [ config ] = useState(() => configService.getComponentConfig(props.id));
+    const config = configService.getConfig(props.id);
+
     const [ doStick, setDoStick ] = useState(false);
 
     const checkScroll = useCallback(
@@ -34,7 +35,7 @@ export default function StickyBar(props) {
         transition: `top ${config.transitionTime}s, padding ${config.transitionTime}s`,
         justifyContent: config.justifyContent,
         alignItems: config.alignItems,
-        backgroundColor: config.style.colors.light
+        backgroundColor: config.colors.light
     };
 
     return (
