@@ -7,17 +7,18 @@ const PROJ_CONFIG_SCHEMA = require('../project-config-schema');
 
 function updateProjectConfig(projectDir) {
     return new Promise(resolve => {
-        const projectConfig = fs.readFileSync(path.join(projectDir, 'config.json'), 'uft-8');
-        const updatedConfig = mergeObjects((projectConfig), objectFromSchema(PROJ_CONFIG_SCHEMA));
+        const projectConfig = JSON.parse(fs.readFileSync(path.join(projectDir, 'config.json'), 'utf-8'));
+        const updatedConfig = mergeObjects(projectConfig, objectFromSchema(PROJ_CONFIG_SCHEMA));
         updatedConfig.components = updateComponentsMap(updatedConfig.components);
-        writeProjectConfig(projectDir, projectConfig);
+        writeProjectConfig(projectDir, updatedConfig);
         resolve();
     });
 }
 
 function writeProjectConfig(projectDir, config) {
     const historyDir = path.join(projectDir, 'json', 'config-history');
-    const currentEntry = `${new Date()}.json`.split(' ').join('_');
+    const date = new Date();
+    const currentEntry = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}_${date.getHours()}:${date.getSeconds()}.json`;
     const historyEntries = fs.readdirSync(historyDir);
     while (historyEntries.length > 50) {
         const obsoleteEntry = historyEntries.reverse().pop();
