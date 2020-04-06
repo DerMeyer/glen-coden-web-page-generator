@@ -11,7 +11,7 @@ class ConfigService {
 
     _createComponentsList(components) {
         if (!Array.isArray(components)) {
-            console.warn('Config has no components list at ConfigService.init');
+            console.warn('Missing components list at ConfigService');
             return;
         }
         components.forEach(entry => {

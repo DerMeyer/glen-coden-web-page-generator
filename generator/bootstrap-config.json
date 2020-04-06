@@ -54,29 +54,30 @@
     "projectConfig": {
         "title": "Glen Coden App",
         "description": "This app was created with Glen Coden Web Page Generator.",
-        "fontTypes": [
-            {
-                "name": "Comfortaa",
-                "url": "https://fonts.googleapis.com/css?family=Comfortaa&display=swap"
-            }
-        ],
+        "global": {
+            "fontTypes": [
+                {
+                    "name": "Comfortaa",
+                    "url": "https://fonts.googleapis.com/css?family=Comfortaa&display=swap"
+                }
+            ]
+        },
         "components": [
             {
                 "component": "Page",
+                "rows": 1,
                 "children": [
                     {
                         "component": "ZoomBackground",
                         "image": "background-image.jpg"
                     },
                     {
-                        "component": "Section",
-                        "verticalPosition": "bottom",
+                        "component": "Row",
+                        "alignSelf": "end",
                         "children": [
                             {
                                 "component": "Headline",
-                                "text": {
-                                    "en": "Welcome to Glen Coden Generator"
-                                }
+                                "text": "Welcome to Glen Coden Generator"
                             }
                         ]
                     }
