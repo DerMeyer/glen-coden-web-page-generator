@@ -36,13 +36,39 @@ export function isObject(value) {
     return value !== null && typeof value !== 'function' && typeof value === 'object' && !Array.isArray(value);
 }
 
+export function deepCompare(value1, value2) {
+    if (isObject(value1) && isObject(value2)) {
+        const keys = Object.keys(value1);
+        for (let i = 0; i < keys.length; i++) {
+            const key = keys[i];
+            if (!deepCompare(value1[key], value2[key])) {
+                return false;
+            }
+        }
+        return true;
+    }
+    if (Array.isArray(value1) && Array.isArray(value2)) {
+        for (let i = 0; i < value1.length; i++) {
+            if (!deepCompare(value1[i], value2[i])) {
+                return false;
+            }
+        }
+        return true;
+    }
+    return value1 === value2;
+}
+
 export function mergeObjects(value1, value2) {
     if (!isObject(value1) && !isObject(value2)) {
         if (Array.isArray(value1) && Array.isArray(value2)) {
-            return [
-                ...value1,
-                ...value2
-            ];
+            const resultArr = [ ...value1 ];
+            value2.forEach(entry => {
+                if (resultArr.some(result => deepCompare(result, entry))) {
+                    return;
+                }
+                resultArr.push(entry);
+            });
+            return resultArr;
         }
         return value1;
     }
