@@ -26,6 +26,6 @@ Promise.resolve()
     })
     .then(() => {
         console.log('Update project config.\n');
-        return updateProjectConfig(getPath.sourceDir, projectDir, projectName);
+        return updateProjectConfig(projectDir);
     })
     .catch(console.error);

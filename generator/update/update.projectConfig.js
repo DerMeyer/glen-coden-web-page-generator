@@ -3,30 +3,19 @@ const fs = require('fs');
 const shortid = require('shortid');
 const { objectFromSchema, mergeObjects } = require('../js/helpers');
 
-const GEN_CONFIG = require('../generator-config');
 const PROJ_CONFIG_SCHEMA = require('../project-config-schema');
 
-function updateProjectConfig(sourceDir, projectDir, projectName) {
+function updateProjectConfig(projectDir) {
     return new Promise(resolve => {
-        const sourceConfigPath = path.join(sourceDir, 'project-config.json');
-        const sourceConfigIsTruth = fs.existsSync(sourceConfigPath) && projectName === GEN_CONFIG._project;
-
-        let projectConfig;
-
-        if (sourceConfigIsTruth) {
-            projectConfig = mergeObjects(require(sourceConfigPath), objectFromSchema(PROJ_CONFIG_SCHEMA));
-        } else {
-            projectConfig = require(path.join(projectDir, 'config'));
-        }
-
-        projectConfig.components = updateComponentsMap(projectConfig.components);
-
-        writeProjectConfig(sourceDir, projectDir, projectConfig);
+        const projectConfig = fs.readFileSync(path.join(projectDir, 'config.json'), 'uft-8');
+        const updatedConfig = mergeObjects((projectConfig), objectFromSchema(PROJ_CONFIG_SCHEMA));
+        updatedConfig.components = updateComponentsMap(updatedConfig.components);
+        writeProjectConfig(projectDir, projectConfig);
         resolve();
     });
 }
 
-function writeProjectConfig(sourceDir, projectDir, config) {
+function writeProjectConfig(projectDir, config) {
     const historyDir = path.join(projectDir, 'json', 'config-history');
     const currentEntry = `${new Date()}.json`.split(' ').join('_');
     const historyEntries = fs.readdirSync(historyDir);
@@ -34,7 +23,6 @@ function writeProjectConfig(sourceDir, projectDir, config) {
         const obsoleteEntry = historyEntries.reverse().pop();
         fs.unlinkSync(path.join(historyDir, obsoleteEntry));
     }
-    fs.writeFileSync(path.join(sourceDir, 'project-config.json'), JSON.stringify(config, null, 4));
     fs.writeFileSync(path.join(historyDir, currentEntry), JSON.stringify(config, null, 4));
     fs.writeFileSync(path.join(projectDir, 'config.json'), JSON.stringify(config, null, 4));
 }
