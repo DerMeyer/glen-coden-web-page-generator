@@ -6,7 +6,8 @@ import { configService } from '../../../index';
 
 export default function Page(props) {
     const { state } = useContext(Store);
-    const [ config ] = useState(() => configService.getComponentConfig(props.id));
+    const config = configService.getConfig(props.id);
+
     const [ style, setStyle ] = useState({});
 
     const getStyle = useCallback(
@@ -15,11 +16,11 @@ export default function Page(props) {
             const contHeight = contentHeight / 100 * viewportHeight;
             return {
                 gridTemplateRows: `repeat(${config.rows}, minmax(${contHeight / config.rows}px, auto))`,
-                left: `${Math.max((viewportWidth - config.style.maxPageWidth), 0) / 2}px`,
-                width: `${Math.min(viewportWidth, config.style.maxPageWidth)}px`,
+                left: `${Math.max((viewportWidth - config.maxPageWidth), 0) / 2}px`,
+                width: `${Math.min(viewportWidth, config.maxPageWidth)}px`,
                 minHeight: `${config.minHeight || viewportHeight}px`,
                 padding: `${(viewportHeight - contHeight) / 2}px ${(viewportWidth - contWidth) / 2}px`,
-                backgroundColor: config.style.colors[config.color]
+                backgroundColor: config.colors[config.color]
             };
         },
         [ config ]

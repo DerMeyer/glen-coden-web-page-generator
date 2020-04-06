@@ -23,7 +23,8 @@ const imagesDir = 'images';
 
 export default function Image(props) {
     const { dispatch } = useContext(Store);
-    const [ config ] = useState(() => configService.getProjectConfig());
+    const config = configService.getConfig();
+
     const [ source, setSource ] = useState('');
     const [ errors, setErrors ] = useState([]);
 

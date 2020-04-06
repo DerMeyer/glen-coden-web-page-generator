@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Store from './js/Store';
 import actions from './js/actions';
 import { configService } from './index';
@@ -8,14 +8,14 @@ import Project from './_Project';
 
 export default function App() {
     const { state, dispatch } = useContext(Store);
-    const [ projectConfig ] = useState(() => configService.getProjectConfig());
+    const config = configService.getConfig();
 
     useEffect(() => {
-        document.body.style.fontSize = `${projectConfig.style.fontSizes.body}px`;
-        document.body.style.backgroundColor = projectConfig.style.colors.background;
+        document.body.style.fontSize = `${config.fontSizes.body}px`;
+        document.body.style.backgroundColor = config.colors.background;
 
-        window.setTimeout(() => dispatch(actions.showApp()), projectConfig.fadeInTime * 1000);
-        window.setTimeout(() => dispatch(actions.loadingTimeout()), projectConfig.loadingTimeout * 1000);
+        window.setTimeout(() => dispatch(actions.showApp()), config.fadeInTime * 1000);
+        window.setTimeout(() => dispatch(actions.loadingTimeout()), config.loadingTimeout * 1000);
 
         const resizeApp = event => dispatch(actions.resize(event.target.innerWidth, event.target.innerHeight));
 
@@ -26,16 +26,16 @@ export default function App() {
             window.removeEventListener('resize', resizeApp);
             window.removeEventListener('orientationchange', resizeApp);
         };
-    }, [ dispatch, projectConfig ]);
+    }, [ dispatch, config ]);
 
     useEffect(() => {
-        dispatch(actions.setContentSize(state.deviceType, projectConfig.style.pageContentSize));
-    }, [ dispatch, projectConfig, state.deviceType ]);
+        dispatch(actions.setContentSize(state.deviceType, config.pageContentSize));
+    }, [ dispatch, config, state.deviceType ]);
 
     return (
         <div style={{
             opacity: state.showApp ? '1' : '0',
-            transition: `opacity ${projectConfig.fadeInTime}s`
+            transition: `opacity ${config.fadeInTime}s`
         }}>
             <Project/>
         </div>

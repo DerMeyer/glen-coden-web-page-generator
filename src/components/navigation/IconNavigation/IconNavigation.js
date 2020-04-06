@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import Store from '../../../js/Store';
 import { configService } from '../../../index';
 import { DeviceTypes, OrientationTypes, getSizeFactor } from '../../../js/helpers';
@@ -10,7 +10,7 @@ import Svg from '../../../partials/Svg/Svg';
 
 export default function IconNavigation(props) {
     const { state } = useContext(Store);
-    const [ config ] = useState(() => configService.getComponentConfig(props.id));
+    const config = configService.getConfig(props.id);
 
     const navigationBarVertical = state.deviceType === DeviceTypes.MOBILE && state.orientationType === OrientationTypes.PORTRAIT;
 
@@ -28,8 +28,8 @@ export default function IconNavigation(props) {
                 >
                     <Svg
                         name={icon.svg}
-                        width={config.style.fontSizes.body * 2.5 * getSizeFactor(state, config)}
-                        color={config.style.colors[config.color]}
+                        width={config.fontSizes.body * 2.5 * getSizeFactor(state, config)}
+                        color={config.colors[config.color]}
                     />
                 </Link>
             ))}

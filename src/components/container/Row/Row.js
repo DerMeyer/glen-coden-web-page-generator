@@ -6,7 +6,8 @@ import { configService } from '../../../index';
 
 export default function Row(props) {
     const { state } = useContext(Store);
-    const [ config ] = useState(() => configService.getComponentConfig(props.id));
+    const config = configService.getConfig(props.id);
+
     const [ style, setStyle ] = useState({});
 
     const getStyle = useCallback(

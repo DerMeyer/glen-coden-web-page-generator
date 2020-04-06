@@ -36,6 +36,27 @@ export function isObject(value) {
     return value !== null && typeof value !== 'function' && typeof value === 'object' && !Array.isArray(value);
 }
 
+export function mergeObjects(value1, value2) {
+    if (!isObject(value1) && !isObject(value2)) {
+        if (Array.isArray(value1) && Array.isArray(value2)) {
+            return [
+                ...value1,
+                ...value2
+            ];
+        }
+        return value1;
+    }
+    const merged = { ...value1 };
+    Object.keys(value2).forEach(key => {
+        if (value1[key]) {
+            merged[key] = mergeObjects(value1[key], value2[key]);
+            return;
+        }
+        merged[key] = value2[key];
+    });
+    return merged;
+}
+
 export function getBreakPointType(viewportWidth = window.innerWidth) {
     return Object.keys(BreakPoints).find(type => BreakPoints[type] > viewportWidth);
 }
@@ -63,23 +84,6 @@ export function getContentSize(deviceType, pageContentSize) {
         ? pageContentSize.heightMobile
         : pageContentSize.height;
     return { width, height };
-}
-
-export function getInitialState(config) {
-    const componentsInitialState = {};
-    Object.keys(config.components).forEach(key => {
-        componentsInitialState[key] = {
-            ...config.components[key].initialState
-        };
-    });
-    return {
-        ...config.initialState,
-        ...componentsInitialState
-    };
-}
-
-export function getComponentState(level, componentName, state) {
-    return [...level, componentName].reduce((result, child) => result[child], state);
 }
 
 export function i18n(translations, language = navigator.language.slice(0, 2)) {

@@ -19,7 +19,6 @@ function updateProjectConfig(sourceDir, projectDir, projectName) {
             projectConfig = require(path.join(projectDir, 'config'));
         }
 
-        projectConfig.global.style.fontTypes = projectConfig.fontTypes.map(entry => entry.name);
         projectConfig.components = updateComponentsMap(projectConfig.components);
 
         writeProjectConfig(sourceDir, projectDir, projectConfig);

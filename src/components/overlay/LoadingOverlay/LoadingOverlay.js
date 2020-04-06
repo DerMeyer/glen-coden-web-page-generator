@@ -8,8 +8,8 @@ import ThreeDotsLoadingIcon from '../../../partials/icons/ThreeDotsLoadingIcon/T
 
 export default function LoadingOverlay(props) {
     const { state } = useContext(Store);
-    const [ projectConfig ] = useState(() => configService.getProjectConfig());
-    const [ config ] = useState(() => configService.getComponentConfig(props.id));
+    const config = configService.getConfig(props.id);
+
     const [ visible, setVisible ] = useState(true);
 
     if (!visible) {
@@ -23,9 +23,9 @@ export default function LoadingOverlay(props) {
         <div
             className={styles.overlay}
             style={{
-                backgroundColor: config.style.colors.overlay,
+                backgroundColor: config.colors.overlay,
                 opacity: state.loading ? '1' : '0',
-                transition: `opacity ${state.loading ? 0 : projectConfig.fadeInTime}s`,
+                transition: `opacity ${state.loading ? 0 : config.fadeInTime}s`,
                 ...(config.css || {})
             }}
             onTransitionEnd={() => setVisible(false)}
