@@ -77,7 +77,11 @@
                         "children": [
                             {
                                 "component": "Headline",
-                                "text": "Welcome to Glen Coden Generator"
+                                "text": "Welcome to*Glen Coden Generator",
+                                "sizing": {
+                                    "landscape": 0.8,
+                                    "portrait": 0.5
+                                }
                             }
                         ]
                     }

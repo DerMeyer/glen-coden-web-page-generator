@@ -16,10 +16,9 @@ export default function Page(props) {
             const contHeight = contentHeight / 100 * viewportHeight;
             return {
                 gridTemplateRows: `repeat(${config.rows}, minmax(${contHeight / config.rows}px, auto))`,
-                left: `${Math.max((viewportWidth - config.maxPageWidth), 0) / 2}px`,
-                width: `${Math.min(viewportWidth, config.maxPageWidth)}px`,
+                width: `${viewportWidth}px`,
                 minHeight: `${config.minHeight || viewportHeight}px`,
-                padding: `${(viewportHeight - contHeight) / 2}px ${(viewportWidth - contWidth) / 2}px`,
+                padding: `${(viewportHeight - contHeight) / 2}px ${((viewportWidth - contWidth) / 2) + (Math.max((viewportWidth - config.maxPageWidth), 0) / 2)}px`,
                 backgroundColor: config.colors[config.color]
             };
         },

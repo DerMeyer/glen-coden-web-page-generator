@@ -14,9 +14,7 @@ Promise.all([
         .then(() => fetch('/config.json'))
         .then(response => response.json())
         .then(USER_CONFIG => {
-            const CONFIG = process.env.NODE_ENV && process.env.NODE_ENV === 'production'
-                ? USER_CONFIG
-                : PROJ_CONFIG;
+            const CONFIG = process.env.NODE_ENV && process.env.NODE_ENV === 'production' ? USER_CONFIG : PROJ_CONFIG;
             configService.init(CONFIG);
         })
 ])
