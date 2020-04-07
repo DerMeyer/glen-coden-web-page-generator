@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './ThreeDotsLoadingIcon.module.css';
 import PropTypes from 'prop-types';
-import { configService } from '../../../index';
+import { configService } from '../../../../index';
 
 ThreeDotsLoadingIcon.propTypes = {
     size: PropTypes.number.isRequired

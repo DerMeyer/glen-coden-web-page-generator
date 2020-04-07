@@ -27,10 +27,10 @@ if (userCmds.includes(SupportedCmds.__LIST)) {
     console.log(list);
 }
 
-const projectName = argv[2] || '';
+const projectName = argv[2] || CONFIG._project;
 
 if (userCmds.length === 0) {
-    if (projectName && !fs.existsSync(path.resolve(getPath.projectsDir, projectName))) {
+    if (!fs.existsSync(path.resolve(getPath.projectsDir, projectName))) {
         userCmds.push(SupportedCmds.__BOOTSTRAP);
     }
     userCmds.push(SupportedCmds.__UPDATE);

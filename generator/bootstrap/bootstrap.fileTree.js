@@ -19,7 +19,12 @@ function createFileTreeFromConfig(config, targetDir, bootstrapDir) {
                 createFileTreeFromConfig(entry.children, targetPath, bootstrapDir);
             }
         } else if (entry.type === 'file') {
-            const file = fs.readFileSync(path.join(bootstrapDir, 'files', entry.name));
+            const filePath = path.join(bootstrapDir, 'files', entry.name);
+            if (!fs.existsSync(filePath)) {
+                console.warn(`Couldn't find file at ${filePath}`);
+                return;
+            }
+            const file = fs.readFileSync(filePath);
             fs.writeFileSync(targetPath, file);
         }
     });

@@ -21,8 +21,6 @@ function optimizeImages(projectDir) {
         const previousOptimized = fs.readdirSync(targetDir);
         const maxEstimatedApiCalls = (images.length - 1) * targetImageSizes.length * 2;
 
-        console.log('\nOptimizing images...\n');
-
         if (!hasFreeApiCalls(maxEstimatedApiCalls)) {
             process.exit();
         }
@@ -79,7 +77,6 @@ function optimizeImages(projectDir) {
                     console.log(`Deleted previously optimized image ${prevFile}`);
                 });
                 addCallCount(apiCalls);
-                console.log('\nDone.');
                 resolve();
             })
     });

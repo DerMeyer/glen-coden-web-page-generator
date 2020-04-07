@@ -22,8 +22,6 @@ function optimizeIcons(projectDir) {
 
         const maxEstimatedApiCalls = targetIconList.length * 2;
 
-        console.log('\nOptimizing icons...\n');
-
         if (!hasFreeApiCalls(maxEstimatedApiCalls)) {
             process.exit();
         }
@@ -56,7 +54,6 @@ function optimizeIcons(projectDir) {
                     console.log(`Deleted previously optimized icon ${prevFile}`);
                 });
                 addCallCount(apiCalls);
-                console.log('\nDone.');
                 resolve();
             })
     });

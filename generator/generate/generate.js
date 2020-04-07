@@ -16,24 +16,22 @@ if (!fs.existsSync(getPath.publicDir)) {
     fs.mkdirSync(getPath.publicDir);
 }
 
-let projectName = process.argv[2];
+const projectName = process.argv[2];
 
 if (!projectName) {
-    projectName = GEN_CONFIG._project;
-    if (!fs.readdirSync(getPath.projectsDir).includes(projectName)) {
-        console.warn(`\nCouldn't find project with name ${projectName}. Exit process.\n`);
-        process.exit();
-    }
-} else {
-    if (!fs.readdirSync(getPath.projectsDir).includes(projectName)) {
-        console.warn(`\nCouldn't find project with name ${projectName}. Exit process.\n`);
-        process.exit();
-    }
-    if (projectName !== GEN_CONFIG._project) {
-        setGeneratorConfig({
-            _project: projectName
-        });
-    }
+    console.warn(`\nCouldn't generate project. Please pass a project name as first arg to the generate command.\n`);
+    process.exit();
+}
+
+if (!fs.readdirSync(getPath.projectsDir).includes(projectName)) {
+    console.warn(`\nCouldn't find project with name ${projectName}. Exit process.\n`);
+    process.exit();
+}
+
+if (projectName !== GEN_CONFIG._project) {
+    setGeneratorConfig({
+        _project: projectName
+    });
 }
 
 const projectDir = path.join(getPath.projectsDir, projectName);

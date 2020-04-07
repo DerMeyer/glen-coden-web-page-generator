@@ -1,7 +1,6 @@
 const path = require('path');
 const fs = require('fs');
 const getPath = require('../js/getters/getPath');
-const GEN_CONFIG = require('../generator-config');
 
 const updateComponentsList = require('./update.componentsList');
 const updateProjectConfig = require('./update.projectConfig');
@@ -9,7 +8,8 @@ const updateProjectConfig = require('./update.projectConfig');
 let projectName = process.argv[2];
 
 if (!projectName) {
-    projectName = GEN_CONFIG._project;
+    console.warn(`\nCouldn't update project. Please pass a project name as first arg to the update command.\n`);
+    process.exit();
 }
 
 if (!fs.readdirSync(getPath.projectsDir).includes(projectName)) {

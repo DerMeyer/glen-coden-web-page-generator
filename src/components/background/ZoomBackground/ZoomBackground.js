@@ -4,7 +4,7 @@ import Store from '../../../js/Store';
 import { configService } from '../../../index';
 import { DeviceTypes } from '../../../js/helpers';
 
-import Image from '../../../partials/Image/Image';
+import Image from '../../partials/Image/Image';
 
 // IDEAS
 // make use of devicemotion and/or deviceorientation events for mobile design, once they are broadly supported

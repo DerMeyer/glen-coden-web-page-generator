@@ -2,10 +2,10 @@ import React, { useContext, useRef, useState, useCallback, useEffect } from 'rea
 import styles from './Image.module.css';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import Store from '../../js/Store';
-import actions from '../../js/actions';
-import { targetImageSizes } from '../../js/generated';
-import { configService } from '../../index';
+import Store from '../../../js/Store';
+import actions from '../../../js/actions';
+import { targetImageSizes } from '../../../js/generated';
+import { configService } from '../../../index';
 
 Image.propTypes = {
     className: PropTypes.string,

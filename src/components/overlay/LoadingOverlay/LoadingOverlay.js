@@ -3,7 +3,7 @@ import styles from './LoadingOverlay.module.css';
 import Store from '../../../js/Store';
 import { configService } from '../../../index';
 
-import ThreeDotsLoadingIcon from '../../../partials/icons/ThreeDotsLoadingIcon/ThreeDotsLoadingIcon';
+import ThreeDotsLoadingIcon from '../../partials/icons/ThreeDotsLoadingIcon/ThreeDotsLoadingIcon';
 
 
 export default function LoadingOverlay(props) {

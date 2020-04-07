@@ -2,7 +2,7 @@ import React, { useContext, useState, useRef, useEffect } from 'react';
 import styles from './ItemBar.module.css';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import Store from '../../js/Store';
+import Store from '../../../js/Store';
 
 ItemBar.propTypes = {
     className: PropTypes.string,

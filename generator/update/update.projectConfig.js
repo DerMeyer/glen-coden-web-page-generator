@@ -32,7 +32,7 @@ function writeProjectConfig(sourceDir, projectDir, config) {
     const historyDir = path.join(projectDir, 'json', 'config-history');
     const date = new Date();
     const currentEntry = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}_${date.getHours()}-${date.getSeconds()}.json`;
-    const historyEntries = fs.readdirSync(historyDir);
+    const historyEntries = fs.readdirSync(historyDir).reverse();
     while (historyEntries.length > 50) {
         const obsoleteEntry = historyEntries.pop();
         fs.unlinkSync(path.join(historyDir, obsoleteEntry));

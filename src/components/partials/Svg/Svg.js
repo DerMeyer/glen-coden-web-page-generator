@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
-import * as SvgList from '../../js/svgExports';
+import * as SvgList from '../../../js/svgExports';
 
 Svg.propTypes = {
     className: PropTypes.string,

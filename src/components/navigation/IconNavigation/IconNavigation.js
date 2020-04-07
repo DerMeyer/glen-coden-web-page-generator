@@ -3,9 +3,9 @@ import Store from '../../../js/Store';
 import { configService } from '../../../index';
 import { DeviceTypes, OrientationTypes, getSizeFactor } from '../../../js/helpers';
 
-import ItemBar from '../../../partials/ItemBar/ItemBar';
-import Link from '../../../partials/Link/Link';
-import Svg from '../../../partials/Svg/Svg';
+import ItemBar from '../../partials/ItemBar/ItemBar';
+import Link from '../../partials/Link/Link';
+import Svg from '../../partials/Svg/Svg';
 
 
 export default function IconNavigation(props) {

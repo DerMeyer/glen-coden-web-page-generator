@@ -29,6 +29,6 @@ Promise.resolve()
     })
     .then(() => {
         console.log('Create config at root level.\n');
-        return bootstrapConfig(projectDir);
+        return bootstrapConfig(getPath.sourceDir, projectDir);
     })
     .catch(console.error);
