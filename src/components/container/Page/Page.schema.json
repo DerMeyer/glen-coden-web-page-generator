@@ -6,7 +6,7 @@
     "properties": {
         "rows": {
             "type": "number",
-            "default": 3
+            "default": 1
         },
         "minHeight": {
             "type": "number",
@@ -20,21 +20,7 @@
             "type": "array",
             "items": {
                 "type": "object"
-            },
-            "default": [
-                {
-                    "component": "Row",
-                    "alignSelf": "start"
-                },
-                {
-                    "component": "Row",
-                    "alignSelf": "center"
-                },
-                {
-                    "component": "Row",
-                    "alignSelf": "end"
-                }
-            ]
+            }
         }
     }
 }

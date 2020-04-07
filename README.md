@@ -1,68 +1,117 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Scripts
 
-## Available Scripts
+Any scripts listed in the [Create React App Docs](https://github.com/facebook/create-react-app) will run in this project.
 
-In the project directory, you can run:
+## Commands
 
-### `yarn start`
+### `yarn glencoden <project-name>`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Selects the project with ```<project-name>``` in your project directory, if it already exists.<br />
+Otherwise bootstraps a project with ```<project-name>```.<br />
+Generates project files.<br />
+Executes for the most recently selected project, if ```<project-name>``` is not specified.
 
-### `yarn test`
+### `yarn glencoden <options>`
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### option ```--list```
 
-### `yarn build`
+Returns a list of projects in your project directory.<br />
+The currently selected project is marked by an asterisk (```<current-project> *```).
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### option ```--optimize <project-name> (<image-path>)```
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+Resizes and minifies all images in ```<project-dir>/static/images/``` to sized listed as ```targetImageSizes``` in ```generator/generator-config.json```.<br />
+Creates all icons listed as ```icons``` in ```generator/generator-config.json``` by file ```<project-dir>/static/icon.png```.<br />
+Executes for the most recently selected project, if ```<project-name>``` is not specified.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+For optimal results, add files of type ```.jpg```, ```.jpeg``` or ```.png``` with a width of 2500px in ```<project-dir>/static/images/>``` and a file ```<project-dir>/static/icon.png``` with min-width 512px.
 
-### `yarn eject`
+#### Note:
+ 
+If ```<image-path``` is specified, the image it points at will be replaced by its minified version.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Add a confidential.json
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Setup a projects directory at ```PROJECTS_PATH_SEGMENTS```.<br />
+Expose your [Tinify API Key](https://tinypng.com/developers) at ```TINIFY_API_KEY```.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
+Example:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+{
+   "PROJECTS_PATH_SEGMENTS": ["..", "<my-projects>", "<glen-coden-projects>"],
+   "TINIFY_API_KEY": "ABCD..."
+}
+```
 
-## Learn More
+## Style your project
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+{
+    "title": "Glen Coden App",
+    "description": "This app was created with Glen Coden Web Page Generator.",
+    "global": {
+        "fontTypes": [
+            {
+                "name": "Comfortaa",
+                "url": "https://fonts.googleapis.com/css?family=Comfortaa&display=swap"
+            }
+        ],
+        "colors": {
+            "theme": "#000000",
+            "background": ...
+        },
+        "fontSizes": {
+            "h1": 54,
+            "h2": ...
+        },
+        "pageContentSize": ...
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Create a structure
 
-### Code Splitting
+Available components are listed in ```generator/components-list.json```.<br />
+The ```yarn glencoden``` command will automatically fill your layout with properties listed in ```<component-name>.schema.json``` in the component's directory.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+```
+"components": [
+        {
+            "component": "Page",
+            "rows": 1,
+            "children": [
+                {
+                    "component": "ZoomBackground"
+                },
+                {
+                    "component": "Row",
+                    "alignSelf": "start",
+                    "children": [
+                        {
+                            "component": "Headline",
+                            "text": "Welcome to*Glen Coden Generator"
+                        }
+                    ]
+                },
+                ...
+            ]
+        },
+        ...
+        {
+            "component": "LoadingOverlay"
+        }
+    ]
+```
 
-### Analyzing the Bundle Size
+## The workflow
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+Run your app in development at ```localhost:3000``` with ```yarn start```.<br />
+Make changes to ```src/project-config.json```.<br />
+Changes to most properties will hot reload. However, for some changes, especially structure, cancel the process and run ```yarn glencoden```.<br />
+This will also save the current config structure to ```<project-name>/json/config-history/<time-stamp>```.
 
-### Making a Progressive Web App
+## Get your ready-to-deploy web code
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+Run ```yarn build``` and copy the code inside ```build/``` to your hosting root.<br />
 
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Enjoy finest web code.
