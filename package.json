@@ -2,19 +2,28 @@
   "name": "glen-coden-web-page-generator",
   "version": "0.1.0",
   "private": true,
+  "homepage": ".",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "classnames": "^2.2.6",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-scripts": "3.3.0"
+    "react-scripts": "3.3.0",
+    "shortid": "^2.2.15",
+    "tinify": "^1.6.0-beta.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "bootstrap": "node generator/bootstrap/bootstrap.js",
+    "update": "node generator/update/update.js",
+    "generate": "node generator/generate/generate.js",
+    "optimize": "node generator/optimize/optimize.js",
+    "glencoden": "node generator/glencoden.js"
   },
   "eslintConfig": {
     "extends": "react-app"

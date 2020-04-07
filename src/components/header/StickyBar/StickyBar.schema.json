@@ -1,0 +1,24 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "#StickyBar",
+    "title": "StickyBar",
+    "type": "object",
+    "properties": {
+        "alwaysSticky": {
+            "type": "boolean",
+            "default": false
+        },
+        "transitionTime": {
+            "type": "number",
+            "default": 0.5
+        },
+        "justifyContent": {
+            "type": "string",
+            "default": "space-between"
+        },
+        "alignItems": {
+            "type": "string",
+            "default": "center"
+        }
+    }
+}

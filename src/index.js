@@ -1,12 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { Provider } from './js/Store';
+import App from './App';
+import ConfigService from './js/services/ConfigService';
+import PROJ_CONFIG from './project-config';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+export const configService = new ConfigService();
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+Promise.all([
+    Promise.resolve()
+        .then(() => fetch('/config.json'))
+        .then(response => response.json())
+        .then(USER_CONFIG => {
+            const CONFIG = process.env.NODE_ENV && process.env.NODE_ENV === 'production' ? USER_CONFIG : PROJ_CONFIG;
+            configService.init(CONFIG);
+        })
+])
+    .then(() => {
+        const initialState = configService.getInitialState();
+
+        ReactDOM.render(
+            <Provider initialState={initialState}>
+                <App />
+            </Provider>,
+            document.getElementById('root')
+        );
+
+        serviceWorker.unregister();
+    });

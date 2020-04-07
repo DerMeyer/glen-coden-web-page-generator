@@ -2250,6 +2250,10 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
+classnames@^2.2.6:
+  version "2.2.6"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
+
 clean-css@4.2.x:
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/clean-css/-/clean-css-4.2.1.tgz#2d411ef76b8569b6d0c84068dabe85b0aa5e5c17"
@@ -5727,6 +5731,10 @@ nan@^2.12.1:
   version "2.14.0"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.14.0.tgz#7818f722027b2459a86f0295d434d1fc2336c52c"
 
+nanoid@^2.1.0:
+  version "2.1.11"
+  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-2.1.11.tgz#ec24b8a758d591561531b4176a01e3ab4f0f0280"
+
 nanomatch@^1.2.9:
   version "1.2.13"
   resolved "https://registry.yarnpkg.com/nanomatch/-/nanomatch-1.2.13.tgz#b87a8aa4fc0de8fe6be88895b38983ff265bd119"
@@ -7070,6 +7078,10 @@ promise-inflight@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/promise-inflight/-/promise-inflight-1.0.1.tgz#98472870bf228132fcbdd868129bad12c3c029e3"
 
+"promise-nodeify@>= 0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/promise-nodeify/-/promise-nodeify-3.0.1.tgz#f0f5d9720ee9ec71dd2bfa92667be504c10229c2"
+
 promise@^8.0.3:
   version "8.0.3"
   resolved "https://registry.yarnpkg.com/promise/-/promise-8.0.3.tgz#f592e099c6cddc000d538ee7283bb190452b0bf6"
@@ -7097,6 +7109,10 @@ proxy-addr@~2.0.5:
   dependencies:
     forwarded "~0.1.2"
     ipaddr.js "1.9.0"
+
+"proxying-agent@>= 2.1":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/proxying-agent/-/proxying-agent-2.4.0.tgz#6796549fc46bf3423554440f64a4449220f9014d"
 
 prr@~1.0.1:
   version "1.0.1"
@@ -7914,6 +7930,12 @@ shellwords@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/shellwords/-/shellwords-0.1.1.tgz#d6b9181c1a48d397324c84871efbcfc73fc0654b"
 
+shortid@^2.2.15:
+  version "2.2.15"
+  resolved "https://registry.yarnpkg.com/shortid/-/shortid-2.2.15.tgz#2b902eaa93a69b11120373cd42a1f1fe4437c122"
+  dependencies:
+    nanoid "^2.1.0"
+
 signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
@@ -8457,6 +8479,13 @@ timers-browserify@^2.0.4:
 timsort@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/timsort/-/timsort-0.3.0.tgz#405411a8e7e6339fe64db9a234de11dc31e02bd4"
+
+tinify@^1.6.0-beta.2:
+  version "1.6.0-beta.2"
+  resolved "https://registry.yarnpkg.com/tinify/-/tinify-1.6.0-beta.2.tgz#5985ca021d11685d846c53ac8465dce78116adfe"
+  dependencies:
+    promise-nodeify ">= 0.1"
+    proxying-agent ">= 2.1"
 
 tmp@^0.0.33:
   version "0.0.33"

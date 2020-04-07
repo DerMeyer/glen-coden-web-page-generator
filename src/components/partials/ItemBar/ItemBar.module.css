@@ -1,0 +1,13 @@
+.itemBarBox {
+    height: 0;
+}
+
+.itemBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.vertical {
+    flex-direction: column;
+}

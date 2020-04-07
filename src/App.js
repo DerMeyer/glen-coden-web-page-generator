@@ -1,26 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useContext, useEffect } from 'react';
+import Store from './js/Store';
+import actions from './js/actions';
+import { configService } from './index';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Project from './_Project';
+
+
+export default function App() {
+    const { state, dispatch } = useContext(Store);
+    const config = configService.getConfig();
+
+    useEffect(() => {
+        document.body.style.fontSize = `${config.fontSizes.body}px`;
+        document.body.style.backgroundColor = config.colors.background;
+
+        window.setTimeout(() => dispatch(actions.showApp()), config.fadeInTime * 1000);
+        window.setTimeout(() => dispatch(actions.loadingTimeout()), config.loadingTimeout * 1000);
+
+        const resizeApp = event => dispatch(actions.resize(event.target.innerWidth, event.target.innerHeight));
+
+        window.addEventListener('resize', resizeApp);
+        window.addEventListener('orientationchange', resizeApp);
+
+        return () => {
+            window.removeEventListener('resize', resizeApp);
+            window.removeEventListener('orientationchange', resizeApp);
+        };
+    }, [ dispatch, config ]);
+
+    useEffect(() => {
+        dispatch(actions.setContentSize(state.deviceType, config.pageContentSize));
+    }, [ dispatch, config, state.deviceType ]);
+
+    return (
+        <div style={{
+            opacity: state.showApp ? '1' : '0',
+            transition: `opacity ${config.fadeInTime}s`
+        }}>
+            <Project/>
+        </div>
+    );
 }
-
-export default App;

@@ -1,0 +1,6 @@
+.page {
+    display: grid;
+    position: relative;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}

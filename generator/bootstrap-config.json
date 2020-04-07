@@ -1,0 +1,95 @@
+{
+    "paths": {
+        "images": [
+            "static",
+            "images"
+        ],
+        "optimizedImages": [
+            "static",
+            "images",
+            "optimized"
+        ],
+        "logos": [],
+        "optimizedLogos": [],
+        "json": [
+            "json"
+        ]
+    },
+    "fileTree": [
+        {
+            "name": "static",
+            "type": "directory",
+            "children": [
+                {
+                    "name": "images",
+                    "type": "directory",
+                    "children": [
+                        {
+                            "name": "background-image.jpg",
+                            "type": "file"
+                        }
+                    ]
+                },
+                {
+                    "name": "favicon.png",
+                    "type": "file"
+                },
+                {
+                    "name": "icon.png",
+                    "type": "file"
+                }
+            ]
+        },
+        {
+            "name": "json",
+            "type": "directory",
+            "children": [
+                {
+                    "name": "config-history",
+                    "type": "directory"
+                }
+            ]
+        }
+    ],
+    "projectConfig": {
+        "title": "Glen Coden App",
+        "description": "This app was created with Glen Coden Web Page Generator.",
+        "global": {
+            "fontTypes": [
+                {
+                    "name": "Comfortaa",
+                    "url": "https://fonts.googleapis.com/css?family=Comfortaa&display=swap"
+                }
+            ]
+        },
+        "components": [
+            {
+                "component": "Page",
+                "rows": 1,
+                "children": [
+                    {
+                        "component": "ZoomBackground",
+                        "image": "background-image.jpg"
+                    },
+                    {
+                        "component": "Row",
+                        "alignSelf": "end",
+                        "children": [
+                            {
+                                "component": "Headline",
+                                "text": "Welcome to*Glen Coden Generator",
+                                "sizing": {
+                                    "landscape": 0.8,
+                                    "portrait": 0.5
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "component": "LoadingOverlay"
+            }
+        ]
+    }
+}
