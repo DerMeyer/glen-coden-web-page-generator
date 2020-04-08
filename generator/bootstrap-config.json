@@ -31,11 +31,21 @@
                     ]
                 },
                 {
+                    "name": "icons",
+                    "type": "directory",
+                    "children": [
+                        {
+                            "name": "icon.png",
+                            "type": "file"
+                        }
+                    ]
+                },
+                {
                     "name": "favicon.png",
                     "type": "file"
                 },
                 {
-                    "name": "icon.png",
+                    "name": "logo.png",
                     "type": "file"
                 }
             ]
@@ -65,11 +75,26 @@
         "components": [
             {
                 "component": "Page",
-                "rows": 1,
+                "rows": 2,
                 "children": [
                     {
                         "component": "ZoomBackground",
                         "image": "background-image.jpg"
+                    },
+                    {
+                        "component": "Row",
+                        "alignSelf": "start",
+                        "children": [
+                            {
+                                "component": "IconNavigation",
+                                "items": [
+                                    {
+                                        "imageUrl": "/logo.png",
+                                        "targetUrl": "https://github.com/DerMeyer/glen-coden-web-page-generator"
+                                    }
+                                ]
+                            }
+                        ]
                     },
                     {
                         "component": "Row",

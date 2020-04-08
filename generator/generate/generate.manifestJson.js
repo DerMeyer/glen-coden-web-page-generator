@@ -10,7 +10,7 @@ function generateManifestJson(projectDir, targetDir) {
             .readdirSync(path.join(projectDir, 'static'))
             .filter(entry => !fs.statSync(path.join(projectDir, 'static', entry)).isDirectory());
 
-        const icons = GEN_CONFIG.icons.filter(icon => availableFiles.includes(icon.src));
+        const icons = GEN_CONFIG.logos.filter(logo => availableFiles.includes(logo.src));
 
         const manifest = {
             name: PROJ_CONFIG.title,

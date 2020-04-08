@@ -1,9 +1,9 @@
 {
-    "_project": "test-project",
+    "_project": "thoughts-on-image",
     "ignore": [
         ".DS_Store"
     ],
-    "icons": [
+    "logos": [
         {
             "src": "favicon.png",
             "type": "image/png",
@@ -66,6 +66,15 @@
                 "width": 450,
                 "height": 800
             }
+        ],
+        "targetIconSizes": [
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024
         ]
     }
 }

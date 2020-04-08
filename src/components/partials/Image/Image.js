@@ -10,11 +10,11 @@ import { configService } from '../../../index';
 Image.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
-    source: PropTypes.string.isRequired,
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
+    source: PropTypes.string.isRequired,
+    setSourceDirectly: PropTypes.bool,
     onLoaded: PropTypes.func,
-    loadWithCss: PropTypes.bool,
     doNotSubscribeToGlobalLoading: PropTypes.bool
 };
 
@@ -30,7 +30,7 @@ export default function Image(props) {
 
     const image = useRef(null);
 
-    const getSource = useCallback(
+    const getOptimizedSource = useCallback(
         (width, height, errorList) => {
             const sourceParts = props.source.split('.');
             const sourceType = sourceParts.pop();
@@ -59,10 +59,14 @@ export default function Image(props) {
     );
 
     useEffect(() => {
-            const updatedSource = getSource(props.width, props.height, errors);
+            if (props.setSourceDirectly) {
+                setSource(props.source);
+                return;
+            }
+            const updatedSource = getOptimizedSource(props.width, props.height, errors);
             setSource(updatedSource);
         },
-        [ props.width, props.height, errors, getSource ]);
+        [ props.width, props.height, props.source, props.setSourceDirectly, errors, getOptimizedSource ]);
 
     useEffect(() => {
             if (!props.doNotSubscribeToGlobalLoading) {
@@ -94,33 +98,6 @@ export default function Image(props) {
     const hasLoaded = image.current && image.current.complete;
     const delta = hasLoaded ? (props.width / props.height) / (image.current.offsetWidth / image.current.offsetHeight) : 1;
     const imageSizing = delta >= 1 ? { width: '100%' } : { height: '100%' };
-
-    if (props.loadWithCss) {
-        return (
-            <div
-                className={cx(styles.imageBoxCss, { [props.className]: props.className })}
-                style={{
-                    ...props.style,
-                    backgroundImage: `url(${source})`,
-                    width: props.width,
-                    height: props.height,
-                    opacity: hasLoaded ? '1' : '0',
-                    transition: `opacity ${config.fadeInTime}s${props.style.transition ? `, ${props.style.transition}` : ''}`
-                }}
-            >
-                {source && (
-                    <img
-                        ref={image}
-                        className={styles.imageCss}
-                        src={source}
-                        onLoad={onLoad}
-                        onError={onError}
-                        alt={source}
-                    />
-                )}
-            </div>
-        );
-    }
 
     return (
         <div

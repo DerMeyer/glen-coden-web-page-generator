@@ -8,3 +8,5 @@ exports.targetImageSizes = [
 	{ ratio: 'default', width: 2500 },
 	{ ratio: 'portrait', width: 450, height: 800 }
 ];
+
+exports.targetIconSizes = [16,32,64,128,256,512,1024];

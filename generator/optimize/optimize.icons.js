@@ -2,25 +2,24 @@ const path = require('path');
 const fs = require('fs');
 
 const GEN_CONFIG = require('../generator-config');
-const targetIconList = GEN_CONFIG.icons;
+const supportedImageTypes = GEN_CONFIG.imageTypesForOptimization;
+const { targetIconSizes } = require('../../src/js/generated');
 const { hasFreeApiCalls, addCallCount } = require('../statistics/tinifyApi/manageCallCount');
 const optimizeTinify = require('./optimize.tinify');
 
 function optimizeIcons(projectDir) {
     return new Promise(resolve => {
-        const iconDir = path.join(projectDir, 'static');
-        const sourceIconName = 'icon.png';
-        const sourceIconPath = path.join(iconDir, sourceIconName);
+        const iconDir = path.join(projectDir, 'static', 'icons');
+        const targetDirName = 'optimized';
+        const targetDir = path.join(iconDir, targetDirName);
 
-        if (!fs.existsSync(sourceIconPath)) {
-            console.log(`\nCouldn't find icon.png in ${sourceIconPath}.\n`);
-            process.exit();
+        if (!fs.existsSync(targetDir)) {
+            fs.mkdirSync(targetDir);
         }
 
-        const previousOptimized = fs.readdirSync(iconDir).filter(fileName => fileName.endsWith('.png'));
-        previousOptimized.splice(previousOptimized.indexOf(sourceIconName), 1);
-
-        const maxEstimatedApiCalls = targetIconList.length * 2;
+        const icons = fs.readdirSync(iconDir).filter(fileName => !GEN_CONFIG.ignore.includes(fileName) && fileName !== targetDirName);
+        const previousOptimized = fs.readdirSync(targetDir);
+        const maxEstimatedApiCalls = (icons.length - 1) * targetIconSizes.length * 2;
 
         if (!hasFreeApiCalls(maxEstimatedApiCalls)) {
             process.exit();
@@ -29,28 +28,38 @@ function optimizeIcons(projectDir) {
         let apiCalls = 0;
 
         Promise.all(
-            targetIconList.map(icon => {
-                if (previousOptimized.includes(icon.src)) {
-                    previousOptimized.splice(previousOptimized.indexOf(icon.src), 1);
+            icons.map(fileName => {
+                const nameParts = fileName.split('.');
+                const iconType = nameParts.pop();
+                const iconName = nameParts.join('.');
+                if (!supportedImageTypes.includes(iconType)) {
                     return Promise.resolve()
-                        .then(() => console.log(`Optimized icon ${icon.src} already exists.`));
+                        .then(() => console.log(`Type of ${fileName} is not supported.`));
                 }
-                const [width, height] = icon.sizes.split('x');
-                const options = {
-                    method: 'cover',
-                    width: parseInt(width, 10),
-                    height: parseInt(height, 10)
-                };
-                return optimizeTinify(sourceIconPath, path.join(iconDir, icon.src), options)
-                    .then(() => {
-                        apiCalls += 2;
-                        console.log(`Saved optimized icon ${icon.src}`);
-                    });
+                return Promise.all(
+                    targetIconSizes.map(iconSize => {
+                        const targetName = `${iconName}_${iconSize}.${iconType}`;
+                        if (previousOptimized.includes(targetName)) {
+                            previousOptimized.splice(previousOptimized.indexOf(targetName), 1);
+                            return Promise.resolve()
+                                .then(() => console.log(`Optimized icon ${targetName} already exists.`));
+                        }
+                        const options = {
+                            method: 'scale',
+                            width: iconSize
+                        };
+                        return optimizeTinify(path.join(iconDir, fileName), path.join(targetDir, targetName), options)
+                            .then(() => {
+                                apiCalls += 2;
+                                console.log(`Saved optimized icon ${targetName}`);
+                            });
+                    })
+                );
             })
         )
             .then(() => {
                 previousOptimized.forEach(prevFile => {
-                    fs.unlinkSync(path.join(iconDir, prevFile));
+                    fs.unlinkSync(path.join(targetDir, prevFile));
                     console.log(`Deleted previously optimized icon ${prevFile}`);
                 });
                 addCallCount(apiCalls);

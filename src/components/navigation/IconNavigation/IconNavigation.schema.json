@@ -1,40 +1,40 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "$id": "#SocialIconBar",
-    "title": "SocialIconBar",
+    "$id": "#IconNavigation",
+    "title": "IconNavigation",
     "type": "object",
     "properties": {
         "stretch": {
             "type": "number",
             "default": 1
         },
+        "verticalOnPortrait": {
+            "type": "boolean",
+            "default": true
+        },
         "color": {
             "type": "string",
             "default": "light"
         },
-        "icons": {
+        "items": {
             "type": "array",
             "items": {
                 "$ref": "#icon"
-            },
-            "default": [
-                {
-                    "svg": "",
-                    "url": "",
-                    "internal": false
-                }
-            ]
+            }
         }
     },
     "definitions": {
-        "icon": {
+        "item": {
             "$id": "#icon",
             "type": "object",
             "properties": {
-                "svg": {
+                "svgName": {
                     "type": "string"
                 },
-                "url": {
+                "imageUrl": {
+                    "type": "string"
+                },
+                "targetUrl": {
                     "type": "string"
                 },
                 "internal": {

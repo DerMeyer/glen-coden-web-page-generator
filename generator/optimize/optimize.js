@@ -4,6 +4,7 @@ const getPath = require('../js/getters/getPath');
 
 const optimizeImages = require('./optimize.images');
 const optimizeIcons = require('./optimize.icons');
+const optimizeLogos = require('./optimize.logos');
 const optimizeSingleImage = require('./optimize.singleImage');
 
 const projectName = process.argv[2];
@@ -42,6 +43,10 @@ if (imagePath) {
         .then(() => {
             console.log(`\nOptimize icons in ${projectDir}.\n`);
             return optimizeIcons(projectDir);
+        })
+        .then(() => {
+            console.log(`\nOptimize icons in ${projectDir}.\n`);
+            return optimizeLogos(projectDir);
         })
         .catch(console.error);
 }

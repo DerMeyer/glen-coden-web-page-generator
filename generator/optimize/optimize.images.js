@@ -17,7 +17,7 @@ function optimizeImages(projectDir) {
             fs.mkdirSync(targetDir);
         }
 
-        const images = fs.readdirSync(imageDir).filter(fileName => !GEN_CONFIG.ignore.includes(fileName));
+        const images = fs.readdirSync(imageDir).filter(fileName => !GEN_CONFIG.ignore.includes(fileName) && fileName !== targetDirName);
         const previousOptimized = fs.readdirSync(targetDir);
         const maxEstimatedApiCalls = (images.length - 1) * targetImageSizes.length * 2;
 
@@ -34,12 +34,7 @@ function optimizeImages(projectDir) {
                 const imageName = nameParts.join('.');
                 if (!supportedImageTypes.includes(imageType)) {
                     return Promise.resolve()
-                        .then(() => {
-                            if (fileName === targetDirName) {
-                                return;
-                            }
-                            console.log(`Type of ${fileName} is not supported.`);
-                        });
+                        .then(() => console.log(`Type of ${fileName} is not supported.`));
                 }
                 return Promise.all(
                     targetImageSizes.map(imageSize => {

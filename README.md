@@ -22,10 +22,10 @@ The currently selected project is marked by an asterisk (```<current-project> *`
 #### option ```--optimize <project-name> (<image-path>)```
 
 Resizes and minifies all images in ```<project-dir>/static/images/``` to sized listed as ```targetImageSizes``` in ```generator/generator-config.json```.<br />
-Creates all icons listed as ```icons``` in ```generator/generator-config.json``` by file ```<project-dir>/static/icon.png```.<br />
+Creates all logos listed as ```logos``` in ```generator/generator-config.json``` by file ```<project-dir>/static/logo.png```.<br />
 Executes for the most recently selected project, if ```<project-name>``` is not specified.
 
-For optimal results, add files of type ```.jpg```, ```.jpeg``` or ```.png``` with a width of 2500px in ```<project-dir>/static/images/>``` and a file ```<project-dir>/static/icon.png``` with min-width 512px.
+For optimal results, add files of type ```.jpg```, ```.jpeg``` or ```.png``` with a width of 2500px in ```<project-dir>/static/images/>``` and a file ```<project-dir>/static/logo.png``` with min-width 512px.
 
 #### Note:
  
