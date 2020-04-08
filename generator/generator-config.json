@@ -4,28 +4,6 @@
         ".DS_Store"
     ],
     "robotsTxt": "# https://www.robotstxt.org/robotstxt.html\nUser-agent: *",
-    "imageNameStructure": [
-        {
-            "separator": "",
-            "prop": "name"
-        },
-        {
-            "separator": "_",
-            "prop": "method"
-        },
-        {
-            "separator": "_w",
-            "prop": "width"
-        },
-        {
-            "separator": "_h",
-            "prop": "height"
-        },
-        {
-            "separator": ".",
-            "prop": "type"
-        }
-    ],
     "logos": {
         "sources": [
             "logo.png"
@@ -153,7 +131,6 @@
         ]
     },
     "exposedValues": [
-        "imageNameStructure",
         "icons",
         "images"
     ]

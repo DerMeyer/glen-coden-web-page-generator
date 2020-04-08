@@ -4,8 +4,16 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import Store from '../../../js/Store';
 import actions from '../../../js/actions';
-import { imageNameStructure, images } from '../../../js/generated';
 import { configService } from '../../../index';
+import { DeviceTypes, OrientationTypes } from '../../../js/helpers';
+import { createImageFileName, getImagePath } from '../../../js/shared';
+
+import { icons, images } from '../../../js/generated';
+
+const optimizations = {
+    icons,
+    images
+};
 
 Image.propTypes = {
     className: PropTypes.string,
@@ -23,9 +31,14 @@ const ImageRatios = {
     PORTRAIT: 'portrait'
 };
 
+const optionsFilter = {
+    [ImageRatios.ORIGINAL]: options => options.filter(option => !(option.height > option.width)),
+    [ImageRatios.PORTRAIT]: options => options.filter(option => option.height > option.width)
+};
+
 
 export default function Image(props) {
-    const { dispatch } = useContext(Store);
+    const { state, dispatch } = useContext(Store);
     const config = configService.getConfig();
 
     const [ source, setSource ] = useState('');
@@ -35,30 +48,36 @@ export default function Image(props) {
 
     const getOptimizedSource = useCallback(
         (width, height, errorList) => {
-            const sourceParts = props.source.split('.');
-            const sourceType = sourceParts.pop();
-            const sourceName = sourceParts.join('.');
+            const sourcePath = props.source.split('/');
 
-            const maxPortraitWidth = targetImageSizes
-                .filter(entry => entry.ratio === 'portrait')
-                .reduce((result, entry) => Math.max(result, entry.width), 0);
+            if (sourcePath.length !== 2) {
+                return props.source;
+            }
+            const [ assetType, asset ] = sourcePath;
 
-            const imageRatio = config.usePortraitImages && (width < maxPortraitWidth) && (width / height < 0.8)
+            const imageRatio = config.usePortraitImages && state.deviceType === DeviceTypes.MOBILE && state.orientationType === OrientationTypes.PORTRAIT
                 ? ImageRatios.PORTRAIT
                 : ImageRatios.ORIGINAL;
 
-            const sizesForRatio = targetImageSizes.filter(entry => entry.ratio === imageRatio);
-            const targetSize = sizesForRatio.find(entry => width < entry.width) || sizesForRatio.pop();
-            const targetWidth = targetSize.width;
+            const OPTIMIZE_CONFIG = optimizations[assetType];
 
-            const updatedSource = `${imagesDir}/optimized/${sourceName}_${imageRatio}_${targetWidth}.${sourceType}`;
+            if (!OPTIMIZE_CONFIG) {
+                return props.source;
+            }
+            const optionList = optionsFilter[imageRatio](OPTIMIZE_CONFIG.optionList);
+            const options = optionList.find(entry => entry.width > width) || optionList.pop();
+            const targetPath = OPTIMIZE_CONFIG.targetPath;
+
+            const assetName = createImageFileName(asset, options);
+            const updatedSource = getImagePath(assetName, targetPath);
 
             if (errorList.includes(updatedSource)) {
-                return `${imagesDir}/${props.source}`;
+                return props.source;
             }
+            console.log(updatedSource);// TODO remove dev code
             return updatedSource;
         },
-        [ props.source, config ]
+        [ props.source, state.deviceType, state.orientationType, config ]
     );
 
     useEffect(() => {

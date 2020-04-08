@@ -1,26 +1,3 @@
-exports.imageNameStructure = [
-	{
-		separator: '',
-		prop: 'name'
-	},
-	{
-		separator: '_',
-		prop: 'method'
-	},
-	{
-		separator: '_w',
-		prop: 'width'
-	},
-	{
-		separator: '_h',
-		prop: 'height'
-	},
-	{
-		separator: '.',
-		prop: 'type'
-	}
-];
-
 exports.icons = {
 	sources: [
 		'.jpg',
