@@ -3,7 +3,7 @@ const fs = require('fs');
 const { hasFreeApiCalls, addCallCount } = require('../statistics/tinifyApi/manageCallCount');
 const optimizeTinify = require('./optimize.tinify');
 
-function optimizeSingleImage(filePath) {
+function optimizeSingleAsset(filePath) {
     return new Promise(resolve => {
         if (!fs.existsSync(filePath)) {
             console.log(`\nCouldn't find file in ${filePath}.\n`);
@@ -23,4 +23,4 @@ function optimizeSingleImage(filePath) {
     });
 }
 
-module.exports = optimizeSingleImage;
+module.exports = optimizeSingleAsset;

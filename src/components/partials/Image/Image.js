@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import Store from '../../../js/Store';
 import actions from '../../../js/actions';
-import { targetImageSizes } from '../../../js/generated';
+import { imageNameStructure, images } from '../../../js/generated';
 import { configService } from '../../../index';
 
 Image.propTypes = {
@@ -18,7 +18,10 @@ Image.propTypes = {
     doNotSubscribeToGlobalLoading: PropTypes.bool
 };
 
-const imagesDir = 'images';
+const ImageRatios = {
+    ORIGINAL: 'original',
+    PORTRAIT: 'portrait'
+};
 
 
 export default function Image(props) {
@@ -41,8 +44,8 @@ export default function Image(props) {
                 .reduce((result, entry) => Math.max(result, entry.width), 0);
 
             const imageRatio = config.usePortraitImages && (width < maxPortraitWidth) && (width / height < 0.8)
-                ? 'portrait'
-                : 'default';
+                ? ImageRatios.PORTRAIT
+                : ImageRatios.ORIGINAL;
 
             const sizesForRatio = targetImageSizes.filter(entry => entry.ratio === imageRatio);
             const targetSize = sizesForRatio.find(entry => width < entry.width) || sizesForRatio.pop();

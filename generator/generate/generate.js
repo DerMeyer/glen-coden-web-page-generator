@@ -9,6 +9,7 @@ const generateIndexHtml = require('./generate.indexHtml');
 const generateManifestJson = require('./generate.manifestJson');
 const generateRobotsTxt = require('./generate.robotsTxt');
 const generateValuesExport = require('./generate.valuesExport');
+const generateSharedHelpers = require('./generate.sharedHelpers');
 const generateSvgExport = require('./generate.svgExport');
 const generateProjectFile = require('./generate.projectFile');
 
@@ -56,6 +57,10 @@ Promise.resolve()
     .then(() => {
         console.log('Export generator-config values from generated.js in /src/js.\n');
         return generateValuesExport(getPath.sourceDir);
+    })
+    .then(() => {
+        console.log('Copy shared.js to /src/js.\n');
+        return generateSharedHelpers(getPath.generatorDir, getPath.sourceDir);
     })
     .then(() => {
         console.log('Export svg as ReactComponent in /src/js.\n');
