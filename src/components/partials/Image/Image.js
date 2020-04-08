@@ -21,7 +21,6 @@ Image.propTypes = {
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
     source: PropTypes.string.isRequired,
-    setSourceDirectly: PropTypes.bool,
     onLoaded: PropTypes.func,
     doNotSubscribeToGlobalLoading: PropTypes.bool
 };
@@ -65,7 +64,7 @@ export default function Image(props) {
                 return props.source;
             }
             const optionList = optionsFilter[imageRatio](OPTIMIZE_CONFIG.optionList);
-            const options = optionList.find(entry => entry.width > width) || optionList.pop();
+            const options = optionList.find(entry => entry.width >= width) || optionList.pop();
             const targetPath = OPTIMIZE_CONFIG.targetPath;
 
             const assetName = createImageFileName(asset, options);
@@ -74,21 +73,16 @@ export default function Image(props) {
             if (errorList.includes(updatedSource)) {
                 return props.source;
             }
-            console.log(updatedSource);// TODO remove dev code
             return updatedSource;
         },
         [ props.source, state.deviceType, state.orientationType, config ]
     );
 
     useEffect(() => {
-            if (props.setSourceDirectly) {
-                setSource(props.source);
-                return;
-            }
             const updatedSource = getOptimizedSource(props.width, props.height, errors);
             setSource(updatedSource);
         },
-        [ props.width, props.height, props.source, props.setSourceDirectly, errors, getOptimizedSource ]);
+        [ props.width, props.height, props.source, errors, getOptimizedSource ]);
 
     useEffect(() => {
             if (!props.doNotSubscribeToGlobalLoading) {

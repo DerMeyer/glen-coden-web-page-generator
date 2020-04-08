@@ -8,7 +8,7 @@ function createImageFileName(source, options) {
 function getImagePath(name, targetPath) {
     let result = '';
     const staticDirIndex = targetPath.indexOf('static');
-    const imagePath = targetPath.splice(staticDirIndex + 1);
+    const imagePath = [ ...targetPath ].splice(staticDirIndex + 1);
     imagePath.forEach(entry => result += `${entry}/`);
     result += name;
     return result;

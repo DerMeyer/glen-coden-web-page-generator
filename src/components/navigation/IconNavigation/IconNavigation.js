@@ -42,7 +42,6 @@ export default function IconNavigation(props) {
                             width={width}
                             height={width}
                             source={item.imageUrl}
-                            setSourceDirectly
                             doNotSubscribeToGlobalLoading
                         />
                     )}
