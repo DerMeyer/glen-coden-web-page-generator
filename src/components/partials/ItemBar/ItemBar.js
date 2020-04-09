@@ -22,30 +22,30 @@ export default function ItemBar(props) {
     const stretchWidthBy = widthStretch * (props.stretchFactor || 1);
     const stretchHeightBy = heightStretch * (props.stretchFactor || 1);
 
-    const [calcWidth, setCalcWidth] = useState(0);
-    const [calcHeight, setCalcHeight] = useState(0);
+    const [ calcWidth, setCalcWidth ] = useState(0);
+    const [ calcHeight, setCalcHeight ] = useState(0);
 
     const itemBar = useRef(null);
 
     useEffect(() => {
         setCalcWidth(0);
         setCalcHeight(0);
-    }, [state.viewportWidth, state.viewportHeight]);
+    }, [ state.viewportWidth, state.viewportHeight ]);
 
     useEffect(() => {
         if (calcWidth === 0) {
-            const updatedWidth = props.vertical
+            const updatedWidth = props.vertical || props.children.length === 1
                 ? itemBar.current.offsetWidth
                 : itemBar.current.offsetWidth * stretchWidthBy;
             setCalcWidth(updatedWidth);
         }
         if (calcHeight === 0) {
-            const updatedHeight = props.vertical
-                ? itemBar.current.offsetHeight * stretchHeightBy
-                : itemBar.current.offsetHeight;
+            const updatedHeight = !props.vertical || props.children.length === 1
+                ? itemBar.current.offsetHeight
+                : itemBar.current.offsetHeight * stretchHeightBy;
             setCalcHeight(updatedHeight);
         }
-    }, [calcWidth, calcHeight, stretchWidthBy, stretchHeightBy, props.vertical]);
+    }, [ calcWidth, calcHeight, stretchWidthBy, stretchHeightBy, props.vertical, props.children ]);
 
     const style = {};
 

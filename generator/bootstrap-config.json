@@ -79,17 +79,19 @@
                 "children": [
                     {
                         "component": "ZoomBackground",
-                        "image": "background-image.jpg"
+                        "image": "images/background-image.jpg"
                     },
                     {
                         "component": "Row",
                         "alignSelf": "start",
+                        "justifyContent": "flex-end",
                         "children": [
                             {
                                 "component": "IconNavigation",
+                                "sizing": 2,
                                 "items": [
                                     {
-                                        "imageUrl": "/logo.png",
+                                        "imageUrl": "icons/icon.png",
                                         "targetUrl": "https://github.com/DerMeyer/glen-coden-web-page-generator"
                                     }
                                 ]
@@ -102,10 +104,10 @@
                         "children": [
                             {
                                 "component": "Headline",
-                                "text": "Welcome to*Glen Coden Generator",
+                                "text": "Welcome*to Glen Coden*Generator",
                                 "sizing": {
                                     "landscape": 0.8,
-                                    "portrait": 0.5
+                                    "portrait": 0.7
                                 }
                             }
                         ]

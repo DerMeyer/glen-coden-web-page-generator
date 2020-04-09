@@ -31,6 +31,7 @@ export default function Headline(props) {
     useEffect(() => {
         setStyle({
             margin: 0,
+            lineHeight: '1.3',
             fontWeight: 'bold',
             fontSize: config.fontSizes[element] * getSizeFactor(state, config),
             fontFamily: fontType.name || '',
