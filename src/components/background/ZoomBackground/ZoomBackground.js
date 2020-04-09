@@ -39,7 +39,7 @@ export default function ZoomBackground(props) {
     );
 
     useEffect(() => {
-        if (state.loading) {
+        if (state.loading.length) {
             shrinkZoomBg();
             return;
         }

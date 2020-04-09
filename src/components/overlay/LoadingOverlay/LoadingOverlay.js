@@ -13,7 +13,7 @@ export default function LoadingOverlay(props) {
     const [ visible, setVisible ] = useState(true);
 
     if (!visible) {
-        if (state.loading) {
+        if (state.loading.length) {
             setVisible(true);
         }
         return null;
@@ -24,13 +24,13 @@ export default function LoadingOverlay(props) {
             className={styles.overlay}
             style={{
                 backgroundColor: config.colors.overlay,
-                opacity: state.loading ? '1' : '0',
-                transition: `opacity ${state.loading ? 0 : config.fadeInTime}s`,
+                opacity: state.loading.length ? '1' : '0',
+                transition: `opacity ${state.loading.length ? 0 : config.fadeInTime}s`,
                 ...(config.css || {})
             }}
             onTransitionEnd={() => setVisible(false)}
         >
-            {state.loading ? <ThreeDotsLoadingIcon size={Math.round(state.viewportWidth / 15)}/> : null}
+            {state.loading.length ? <ThreeDotsLoadingIcon size={Math.round(state.viewportWidth / 15)}/> : null}
         </div>
     );
 }

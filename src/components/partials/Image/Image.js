@@ -2,6 +2,7 @@ import React, { useContext, useState, useRef, useCallback, useEffect } from 'rea
 import styles from './Image.module.css';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import shortid from 'shortid';
 import Store from '../../../js/Store';
 import actions from '../../../js/actions';
 import { configService } from '../../../index';
@@ -42,6 +43,7 @@ export default function Image(props) {
     const [ source, setSource ] = useState('');
     const [ errors, setErrors ] = useState([]);
     const [ , setMaxRequestedWidth ] = useState(0);
+    const [ id ] = useState(() => shortid.generate());
 
     const image = useRef(null);
 
@@ -102,7 +104,7 @@ export default function Image(props) {
                             props.onLoaded();
                         }
                         if (!props.doNotSubscribeToGlobalLoading) {
-                            dispatch(actions.stopLoading());
+                            dispatch(actions.stopLoading(id));
                         }
                         return optimalSource;
                     });
@@ -120,14 +122,14 @@ export default function Image(props) {
                 return props.width;
             });
         },
-        [ props, dispatch, source, errors, getOptimalSource ]);
+        [ props, dispatch, source, errors, id, getOptimalSource ]);
 
     useEffect(() => {
             if (!props.doNotSubscribeToGlobalLoading) {
-                dispatch(actions.startLoading());
+                dispatch(actions.startLoading(id));
             }
         },
-        [ props.doNotSubscribeToGlobalLoading, dispatch ]);
+        [ props.doNotSubscribeToGlobalLoading, dispatch, id ]);
 
     const hasLoaded = image.current && image.current.complete;
 

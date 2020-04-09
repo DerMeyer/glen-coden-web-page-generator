@@ -25,7 +25,7 @@ if (userCmds.some(cmd => !Object.values(SupportedCmds).includes(cmd))) {
 }
 
 if (argv.length !== 2 && argv.length !== 3) {
-    console.warn(`\nCouldn't understand arguments passed to glencoden command. Please read the documentation.\n`);
+    console.warn(`\nCouldn't read arguments passed to glencoden command. Please read the documentation in README.txt.\n`);
     process.exit();
 }
 

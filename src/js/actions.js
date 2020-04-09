@@ -20,11 +20,13 @@ const actions = {
         deviceType: getDeviceType(),
         orientationType: getOrientationType()
     }),
-    startLoading: () => ({
-        type: ActionTypes.START_LOADING
+    startLoading: id => ({
+        type: ActionTypes.START_LOADING,
+        id
     }),
-    stopLoading: () => ({
-        type: ActionTypes.STOP_LOADING
+    stopLoading: id => ({
+        type: ActionTypes.STOP_LOADING,
+        id
     }),
     loadingTimeout: () => ({
         type: ActionTypes.LOADING_TIMEOUT
