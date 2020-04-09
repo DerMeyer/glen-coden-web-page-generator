@@ -5,10 +5,11 @@ function createImageFileName(source, options) {
     return `${name}_${options.method}_w${options.width}${options.height ? `_h${options.height}` : ''}.${type}`;
 }
 
-function getImagePath(name, targetPath) {
+function getImagePath(segments, name = '') {
+    const pathSegments = [ ...segments ];
     let result = '';
-    const staticDirIndex = targetPath.indexOf('static');
-    const imagePath = [ ...targetPath ].splice(staticDirIndex + 1);
+    const staticDirIndex = pathSegments.indexOf('static');
+    const imagePath = pathSegments.splice(staticDirIndex + 1);
     imagePath.forEach(entry => result += `${entry}/`);
     result += name;
     return result;

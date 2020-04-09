@@ -1,19 +1,12 @@
-import React, { useContext, useRef, useState, useCallback, useEffect } from 'react';
+import React, { useContext, useState, useRef, useCallback, useEffect } from 'react';
 import styles from './Image.module.css';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import Store from '../../../js/Store';
 import actions from '../../../js/actions';
 import { configService } from '../../../index';
-import { DeviceTypes, OrientationTypes } from '../../../js/helpers';
 import { createImageFileName, getImagePath } from '../../../js/shared';
-
 import { icons, images } from '../../../js/generated';
-
-const optimizations = {
-    icons,
-    images
-};
 
 Image.propTypes = {
     className: PropTypes.string,
@@ -21,8 +14,14 @@ Image.propTypes = {
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
     source: PropTypes.string.isRequired,
+    setSourceDirectly: PropTypes.bool,
     onLoaded: PropTypes.func,
     doNotSubscribeToGlobalLoading: PropTypes.bool
+};
+
+const optimizedSources = {
+    [getImagePath(icons.sourcePath)]: icons,
+    [getImagePath(images.sourcePath)]: images
 };
 
 const ImageRatios = {
@@ -31,58 +30,97 @@ const ImageRatios = {
 };
 
 const optionsFilter = {
-    [ImageRatios.ORIGINAL]: options => options.filter(option => !(option.height > option.width)),
-    [ImageRatios.PORTRAIT]: options => options.filter(option => option.height > option.width)
+    [ImageRatios.ORIGINAL]: options => options.filter(option => option.method === 'scale'),
+    [ImageRatios.PORTRAIT]: options => options.filter(option => option.method === 'cover' && option.height > option.width)
 };
 
 
 export default function Image(props) {
-    const { state, dispatch } = useContext(Store);
+    const { dispatch } = useContext(Store);
     const config = configService.getConfig();
 
     const [ source, setSource ] = useState('');
     const [ errors, setErrors ] = useState([]);
+    const [ , setMaxRequestedWidth ] = useState(0);
 
     const image = useRef(null);
 
-    const getOptimizedSource = useCallback(
-        (width, height, errorList) => {
-            const sourcePath = props.source.split('/');
+    const imageRatio = config.usePortraitImages && props.width / props.height < 0.8
+        ? ImageRatios.PORTRAIT
+        : ImageRatios.ORIGINAL;
 
-            if (sourcePath.length !== 2) {
-                return props.source;
-            }
-            const [ assetType, asset ] = sourcePath;
+    const getOptimalSource = useCallback(
+        (width, height, rawSource, errorList) => {
+            const segments = rawSource.split('/');
+            const imageName = segments.pop();
+            const imagePath = `${segments.join('/')}/`;
 
-            const imageRatio = config.usePortraitImages && state.deviceType === DeviceTypes.MOBILE && state.orientationType === OrientationTypes.PORTRAIT
-                ? ImageRatios.PORTRAIT
-                : ImageRatios.ORIGINAL;
-
-            const OPTIMIZE_CONFIG = optimizations[assetType];
+            const OPTIMIZE_CONFIG = optimizedSources[imagePath];
 
             if (!OPTIMIZE_CONFIG) {
-                return props.source;
+                return rawSource;
             }
-            const optionList = optionsFilter[imageRatio](OPTIMIZE_CONFIG.optionList);
+
+            let optionList = optionsFilter[imageRatio](OPTIMIZE_CONFIG.optionList);
+            if (!optionList.length) {
+                optionList = optionsFilter[ImageRatios.ORIGINAL](OPTIMIZE_CONFIG.optionList);
+            }
             const options = optionList.find(entry => entry.width >= width) || optionList.pop();
-            const targetPath = OPTIMIZE_CONFIG.targetPath;
 
-            const assetName = createImageFileName(asset, options);
-            const updatedSource = getImagePath(assetName, targetPath);
+            const imageFileName = createImageFileName(imageName, options);
+            const optimalSource = getImagePath(OPTIMIZE_CONFIG.targetPath, imageFileName);
 
-            if (errorList.includes(updatedSource)) {
-                return props.source;
+            if (errorList.includes(optimalSource)) {
+                return rawSource;
             }
-            return updatedSource;
+
+            return optimalSource;
         },
-        [ props.source, state.deviceType, state.orientationType, config ]
+        [ imageRatio ]
     );
 
     useEffect(() => {
-            const updatedSource = getOptimizedSource(props.width, props.height, errors);
-            setSource(updatedSource);
+            if (props.setSourceDirectly) {
+                setSource(props.source);
+                return;
+            }
+            setMaxRequestedWidth(prevState => {
+                if (props.width <= prevState) {
+                    return prevState;
+                }
+                const optimalSource = getOptimalSource(props.width, props.height, props.source, errors);
+                if (optimalSource === source) {
+                    return props.width;
+                }
+                const img = new window.Image();
+                img.onload = () => {
+                    setSource(prevSource => {
+                        if (optimalSource === prevSource) {
+                            return prevSource;
+                        }
+                        if (typeof props.onLoaded === 'function') {
+                            props.onLoaded();
+                        }
+                        if (!props.doNotSubscribeToGlobalLoading) {
+                            dispatch(actions.stopLoading());
+                        }
+                        return optimalSource;
+                    });
+                };
+                img.onerror = () => {
+                    setErrors(prevErrors => {
+                        if (prevErrors.includes(source)) {
+                            return [ ...prevErrors ];
+                        }
+                        console.warn(`Missing an optimized image for ${source}`);
+                        return [ ...prevErrors, source ];
+                    });
+                };
+                img.src = optimalSource;
+                return props.width;
+            });
         },
-        [ props.width, props.height, props.source, errors, getOptimizedSource ]);
+        [ props, dispatch, source, errors, getOptimalSource ]);
 
     useEffect(() => {
             if (!props.doNotSubscribeToGlobalLoading) {
@@ -91,27 +129,8 @@ export default function Image(props) {
         },
         [ props.doNotSubscribeToGlobalLoading, dispatch ]);
 
-    const onLoad = useCallback(
-        () => {
-            if (typeof props.onLoaded === 'function') {
-                props.onLoaded();
-            }
-            if (!props.doNotSubscribeToGlobalLoading) {
-                dispatch(actions.stopLoading());
-            }
-        },
-        [ props, dispatch ]
-    );
-
-    const onError = useCallback(
-        () => {
-            console.warn(`Missing an optimized image for ${source}`);
-            setErrors(prevState => [ ...prevState, source ]);
-        },
-        [ source ]
-    );
-
     const hasLoaded = image.current && image.current.complete;
+
     const delta = hasLoaded ? (props.width / props.height) / (image.current.offsetWidth / image.current.offsetHeight) : 1;
     const imageSizing = delta >= 1 ? { width: '100%' } : { height: '100%' };
 
@@ -134,8 +153,6 @@ export default function Image(props) {
                         transition: `opacity ${config.fadeInTime}s`
                     }}
                     src={source}
-                    onLoad={onLoad}
-                    onError={onError}
                     alt={source}
                 />
             )}
