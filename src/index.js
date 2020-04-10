@@ -11,7 +11,7 @@ export const configService = new ConfigService();
 
 Promise.all([
     Promise.resolve()
-        .then(() => fetch('/config.json'))
+        .then(() => fetch('config.json'))
         .then(response => response.json())
         .then(USER_CONFIG => {
             const CONFIG = process.env.NODE_ENV && process.env.NODE_ENV === 'production' ? USER_CONFIG : PROJ_CONFIG;
