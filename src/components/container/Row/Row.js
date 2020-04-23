@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect, useCallback } from 'react';
 import styles from './Row.module.css';
-import Store from '../../../js/Store';
+import Store from '../../../store/Store';
 import { configService } from '../../../index';
 
 

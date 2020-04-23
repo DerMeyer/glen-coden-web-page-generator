@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
-import Store from './js/Store';
-import actions from './js/actions';
+import Store from './store/Store';
+import actions from './store/actions';
 import { configService } from './index';
 
 import Project from './_Project';
@@ -30,7 +30,7 @@ export default function App() {
 
     useEffect(() => {
         dispatch(actions.setContentSize(state.deviceType, config.pageContentSize));
-    }, [ dispatch, config, state.deviceType ]);
+    }, [ dispatch, state.deviceType, config.pageContentSize ]);
 
     return (
         <div style={{

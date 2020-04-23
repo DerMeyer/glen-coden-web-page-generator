@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
-import Store from '../../../js/Store';
+import Store from '../../../store/Store';
 import { configService } from '../../../index';
 import { DeviceTypes, OrientationTypes, getSizeFactor } from '../../../js/helpers';
 
-import ItemBar from '../../partials/ItemBar/ItemBar';
-import Link from '../../partials/Link/Link';
-import Svg from '../../partials/Svg/Svg';
-import Image from '../../partials/Image/Image';
+import ItemBar from '../../partial/ItemBar/ItemBar';
+import Link from '../../partial/Link/Link';
+import Svg from '../../partial/Svg/Svg';
+import Image from '../../partial/Image/Image';
 
 
 export default function IconNavigation(props) {

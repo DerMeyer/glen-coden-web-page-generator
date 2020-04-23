@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import Store from '../../../js/Store';
+import Store from '../../../store/Store';
 import { configService } from '../../../index';
 import { getSizeFactor, i18n } from '../../../js/helpers';
 

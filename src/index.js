@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import { Provider } from './js/Store';
+import { Provider } from './store/Store';
 import App from './App';
-import ConfigService from './js/services/ConfigService';
+import ConfigService from './services/ConfigService';
 import PROJ_CONFIG from './project-config';
 
 export const configService = new ConfigService();

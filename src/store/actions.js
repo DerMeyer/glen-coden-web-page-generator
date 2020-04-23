@@ -1,4 +1,4 @@
-import { getBreakPointType, getContentSize, getDeviceType, getOrientationType } from './helpers';
+import { getBreakPointType, getContentSize, getDeviceType, getOrientationType } from '../js/helpers';
 
 export const ActionTypes = {
     SHOW_APP: 'show-app',

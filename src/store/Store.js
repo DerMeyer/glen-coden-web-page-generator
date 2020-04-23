@@ -1,5 +1,5 @@
 import React, { createContext, useReducer } from 'react';
-import { getBreakPointType, getDeviceType, getOrientationType } from './helpers';
+import { getBreakPointType, getDeviceType, getOrientationType } from '../js/helpers';
 import reducer from './reducer';
 
 const initStore = initialState => {

@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import styles from './Page.module.css';
-import Store from '../../../js/Store';
+import Store from '../../../store/Store';
 import { configService } from '../../../index';
 
 

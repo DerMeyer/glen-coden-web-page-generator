@@ -1,6 +1,6 @@
 import React, { useContext, useState, useCallback, useEffect } from 'react';
 import styles from './StickyBar.module.css';
-import Store from '../../../js/Store';
+import Store from '../../../store/Store';
 import { configService } from '../../../index';
 
 

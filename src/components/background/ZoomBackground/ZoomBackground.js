@@ -1,10 +1,10 @@
 import React, { useContext, useState, useCallback, useEffect } from 'react';
 import styles from './ZoomBackground.module.css';
-import Store from '../../../js/Store';
+import Store from '../../../store/Store';
 import { configService } from '../../../index';
 import { DeviceTypes } from '../../../js/helpers';
 
-import Image from '../../partials/Image/Image';
+import Image from '../../partial/Image/Image';
 
 // IDEAS
 // make use of devicemotion and/or deviceorientation events for mobile design, once they are broadly supported
