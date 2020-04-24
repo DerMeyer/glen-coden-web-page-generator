@@ -44,6 +44,7 @@ export default function Image(props) {
     const [ source, setSource ] = useState('');
     const [ hasLoaded, setHasLoaded ] = useState(false);
     const [ errors, setErrors ] = useState([]);
+    const [ sizeBy, setSizeBy ] = useState('width');
     const [ , setMaxRequestedWidth ] = useState(0);
     const [ id ] = useState(() => shortid.generate());
 
@@ -134,8 +135,6 @@ export default function Image(props) {
             }
         },
         [ props.doNotSubscribeToGlobalLoading, dispatch, id ]);
-
-    const [ sizeBy, setSizeBy ] = useState('width');
 
     const calcSizeBy = useCallback(
         (imageWidth, imageHeight, boxWidth, boxHeight) => {

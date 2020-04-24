@@ -1,3 +1,4 @@
+import { trackingService } from '../index';
 import { ActionTypes } from './actions';
 
 const reducer = (state, action) => {
@@ -24,6 +25,9 @@ const reducer = (state, action) => {
         case ActionTypes.STOP_LOADING:
             const loading = [ ...state.loading ];
             loading.splice(state.loading.indexOf(action.id), 1);
+            if (!loading.length) {
+                trackingService.pageLoaded();
+            }
             return {
                 ...state,
                 loading

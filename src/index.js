@@ -4,9 +4,11 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from './store/Store';
 import App from './App';
+import TrackingService from './services/TrackingService';
 import ConfigService from './services/ConfigService';
 import PROJ_CONFIG from './project-config';
 
+export const trackingService = new TrackingService();
 export const configService = new ConfigService();
 
 Promise.all([
@@ -19,6 +21,7 @@ Promise.all([
         })
 ])
     .then(() => {
+        trackingService.callRender();
         const initialState = configService.getInitialState();
 
         ReactDOM.render(
