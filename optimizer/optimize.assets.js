@@ -2,9 +2,9 @@ const path = require('path');
 const fs = require('fs');
 const { isObject } = require('../js/helpers');
 const { createImageFileName } = require('../js/shared');
-const { hasFreeApiCalls, addCallCount } = require('../statistics/tinifyApi/manageCallCount');
+const { hasFreeApiCalls, addCallCount } = require('./statistics/tinifyApi/manageCallCount');
 const optimizeTinify = require('./optimize.tinify');
-const GEN_CONFIG = require('../generator-config');
+const GEN_CONFIG = require('../generator/generator-config.json');
 
 function optimizeAssets(projectDir, assetType) {
     return new Promise(resolve => {

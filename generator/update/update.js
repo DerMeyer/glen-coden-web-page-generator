@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-const getPath = require('../js/getters/getPath');
+const getPath = require('../../js/getters/getPath');
 
 const updateComponentsList = require('./update.componentsList');
 const updateProjectConfig = require('./update.projectConfig');

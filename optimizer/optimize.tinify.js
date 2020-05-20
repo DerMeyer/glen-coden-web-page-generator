@@ -1,5 +1,5 @@
 const tinify = require('tinify');
-const { TINIFY_API_KEY } = require('../../confidential');
+const { TINIFY_API_KEY } = require('../confidential.json');
 tinify.key = TINIFY_API_KEY;
 
 function optimizeTinify(source, target, options, doResize = true) {

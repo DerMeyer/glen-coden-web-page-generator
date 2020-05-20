@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const { hasFreeApiCalls, addCallCount } = require('../statistics/tinifyApi/manageCallCount');
+const { hasFreeApiCalls, addCallCount } = require('./statistics/tinifyApi/manageCallCount');
 const optimizeTinify = require('./optimize.tinify');
 
 function optimizeSingleAsset(filePath) {

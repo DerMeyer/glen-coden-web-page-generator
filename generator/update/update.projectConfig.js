@@ -1,7 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const shortid = require('shortid');
-const { objectFromSchema, mergeObjects } = require('../js/helpers');
+const { objectFromSchema, mergeObjects } = require('../../js/helpers');
 
 const GEN_CONFIG = require('../generator-config');
 const PROJ_CONFIG_SCHEMA = require('../project-config-schema');

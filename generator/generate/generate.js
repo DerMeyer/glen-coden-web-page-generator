@@ -1,7 +1,7 @@
 const path = require('path');
 const fs = require('fs');
-const getPath = require('../js/getters/getPath');
-const setGeneratorConfig = require('../js/setters/setGeneratorConfig');
+const getPath = require('../../js/getters/getPath');
+const setGeneratorConfig = require('../../js/setters/setGeneratorConfig');
 const GEN_CONFIG = require('../generator-config');
 
 const generatePublicAssets = require('./generate.publicAssets');
