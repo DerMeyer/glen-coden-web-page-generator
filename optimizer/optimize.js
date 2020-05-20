@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const getPath = require('../js/getters/getPath');
 
-const optimizeAssets = require('./optimize.assets');
+const minifierLayout = require('./minifierLayout');
 const optimizeSingleAsset = require('./optimize.singleAsset');
 
 const projectName = process.argv[2];
@@ -20,7 +20,19 @@ if (!fs.existsSync(projectDir)) {
     process.exit();
 }
 
-if (imagePath) {
+
+const OPTIMIZE_CONFIG = require('./optimiize-config.json');
+const { images } = OPTIMIZE_CONFIG;
+
+const dir = path.join(projectDir, ...images.path);
+const assets = fs.readdirSync(dir).filter(entry => images.sources.find(src => entry.endsWith(src)));
+const sizes = images.sizes;
+
+console.log('DIR: ', dir, 'ASSETS: ', assets, 'SIZES: ', sizes);// TODO remove dev code
+minifierLayout(dir, assets, sizes);
+
+
+/*if (imagePath) {
     const filePath = path.join(projectDir, imagePath);
     if (!fs.existsSync(filePath)) {
         console.warn(`\nCouldn't find image in ${filePath}.\n`);
@@ -47,4 +59,4 @@ if (imagePath) {
             return optimizeAssets(projectDir, 'images');
         })
         .catch(console.error);
-}
+}*/

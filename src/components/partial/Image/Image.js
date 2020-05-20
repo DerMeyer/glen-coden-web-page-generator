@@ -41,7 +41,7 @@ export default function Image(props) {
     const { dispatch } = useContext(Store);
     const config = configService.getConfig();
 
-    const [ source, setSource ] = useState('');
+    const [ source, setSource ] = useState(props.source);
     const [ hasLoaded, setHasLoaded ] = useState(false);
     const [ errors, setErrors ] = useState([]);
     const [ sizeBy, setSizeBy ] = useState('width');
@@ -89,6 +89,14 @@ export default function Image(props) {
             setSource(props.source);
             return;
         }
+        const onSourceEvaluation = () => {
+            if (typeof props.onLoaded === 'function') {
+                props.onLoaded();
+            }
+            if (!props.doNotSubscribeToGlobalLoading) {
+                dispatch(actions.stopLoading(id));
+            }
+        };
         setMaxRequestedWidth(prevState => {
             if (props.width <= prevState && imageRatio !== ImageRatios.PORTRAIT) {
                 return prevState;
@@ -103,12 +111,7 @@ export default function Image(props) {
                     if (optimalSource === prevSource) {
                         return prevSource;
                     }
-                    if (typeof props.onLoaded === 'function') {
-                        props.onLoaded();
-                    }
-                    if (!props.doNotSubscribeToGlobalLoading) {
-                        dispatch(actions.stopLoading(id));
-                    }
+                    onSourceEvaluation();
                     return optimalSource;
                 });
                 setHasLoaded(true);
@@ -121,6 +124,8 @@ export default function Image(props) {
                     console.warn(`Missing an optimized image for ${source}`);
                     return [ ...prevErrors, source ];
                 });
+                onSourceEvaluation();
+                setHasLoaded(true);
             };
             setHasLoaded(false);
             img.src = optimalSource;
