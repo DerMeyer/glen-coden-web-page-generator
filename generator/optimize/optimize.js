@@ -2,9 +2,8 @@ const path = require('path');
 const fs = require('fs');
 const getPath = require('../js/getters/getPath');
 
-const optimizeImages = require('./optimize.images');
-const optimizeIcons = require('./optimize.icons');
-const optimizeSingleImage = require('./optimize.singleImage');
+const optimizeAssets = require('./optimize.assets');
+const optimizeSingleAsset = require('./optimize.singleAsset');
 
 const projectName = process.argv[2];
 const imagePath = process.argv[3];
@@ -30,18 +29,22 @@ if (imagePath) {
     Promise.resolve()
         .then(() => {
             console.log(`\nOptimize image in ${projectDir}.\n`);
-            return optimizeSingleImage(filePath);
+            return optimizeSingleAsset(filePath);
         })
         .catch(console.error);
 } else {
     Promise.resolve()
         .then(() => {
-            console.log(`\nOptimize images in ${projectDir}.\n`);
-            return optimizeImages(projectDir);
+            console.log(`\nOptimize logos in ${projectDir}.\n`);
+            return optimizeAssets(projectDir, 'logos');
         })
         .then(() => {
             console.log(`\nOptimize icons in ${projectDir}.\n`);
-            return optimizeIcons(projectDir);
+            return optimizeAssets(projectDir, 'icons');
+        })
+        .then(() => {
+            console.log(`\nOptimize images in ${projectDir}.\n`);
+            return optimizeAssets(projectDir, 'images');
         })
         .catch(console.error);
 }

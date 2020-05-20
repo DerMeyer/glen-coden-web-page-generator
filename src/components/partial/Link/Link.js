@@ -6,7 +6,7 @@ import cx from 'classnames';
 Link.propTypes = {
     className: PropTypes.string,
     url: PropTypes.string.isRequired,
-    internal: PropTypes.bool.isRequired
+    internal: PropTypes.bool
 };
 
 

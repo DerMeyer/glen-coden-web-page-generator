@@ -129,8 +129,12 @@ export function i18n(translations, language = navigator.language.slice(0, 2)) {
 
 export function getSizeFactor(state, config) {
     const { sizing } = config;
-    if (!sizing || !isObject(sizing)) {
-        return 1;
+    if (!isObject(sizing)) {
+        const sizeFactor = parseInt(sizing, 10);
+        if (Number.isNaN(sizeFactor)) {
+            return 1;
+        }
+        return sizeFactor;
     }
     if (state.deviceType === DeviceTypes.MOBILE) {
         if (state.orientationType === OrientationTypes.PORTRAIT) {

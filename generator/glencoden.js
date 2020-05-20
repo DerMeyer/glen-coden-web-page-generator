@@ -12,11 +12,20 @@ const SupportedCmds = {
     __GENERATE: '--generate'
 };
 
-const userCmds = process.argv.filter(cmd => Object.values(SupportedCmds).includes(cmd));
-const argv = process.argv.filter(cmd => !Object.values(SupportedCmds).includes(cmd));
+const userCmds = process.argv.filter(cmd => cmd.startsWith('--'));
+const argv = process.argv.filter(cmd => !cmd.startsWith('--'));
+
+if (userCmds.some(cmd => !Object.values(SupportedCmds).includes(cmd))) {
+    userCmds.forEach(cmd => {
+        if (!Object.values(SupportedCmds).includes(cmd)) {
+            console.warn(`\nUser command ${cmd} not supported.\n`);
+        }
+    });
+    process.exit();
+}
 
 if (argv.length !== 2 && argv.length !== 3) {
-    console.warn(`\nCouldn't understand arguments passed to glencoden command. Please read the documentation.\n`);
+    console.warn(`\nCouldn't read arguments passed to glencoden command. Please read the documentation in README.txt.\n`);
     process.exit();
 }
 

@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react';
 import styles from './LoadingOverlay.module.css';
-import Store from '../../../js/Store';
+import Store from '../../../store/Store';
 import { configService } from '../../../index';
 
-import ThreeDotsLoadingIcon from '../../partials/icons/ThreeDotsLoadingIcon/ThreeDotsLoadingIcon';
+import ThreeDotsLoadingIcon from '../../partial/icons/ThreeDotsLoadingIcon/ThreeDotsLoadingIcon';
 
 
 export default function LoadingOverlay(props) {
@@ -13,7 +13,7 @@ export default function LoadingOverlay(props) {
     const [ visible, setVisible ] = useState(true);
 
     if (!visible) {
-        if (state.loading) {
+        if (state.loading.length) {
             setVisible(true);
         }
         return null;
@@ -24,13 +24,13 @@ export default function LoadingOverlay(props) {
             className={styles.overlay}
             style={{
                 backgroundColor: config.colors.overlay,
-                opacity: state.loading ? '1' : '0',
-                transition: `opacity ${state.loading ? 0 : config.fadeInTime}s`,
+                opacity: state.loading.length ? '1' : '0',
+                transition: `opacity ${state.loading.length ? 0 : config.fadeInTime}s`,
                 ...(config.css || {})
             }}
             onTransitionEnd={() => setVisible(false)}
         >
-            {state.loading ? <ThreeDotsLoadingIcon size={Math.round(state.viewportWidth / 15)}/> : null}
+            {state.loading.length ? <ThreeDotsLoadingIcon size={Math.round(state.viewportWidth / 15)}/> : null}
         </div>
     );
 }
