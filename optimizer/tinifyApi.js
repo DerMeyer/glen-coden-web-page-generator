@@ -2,7 +2,7 @@ const tinify = require('tinify');
 const { TINIFY_API_KEY } = require('../confidential.json');
 tinify.key = TINIFY_API_KEY;
 
-function minify(source, target, resizeOptions) {
+function tinifyApi(source, target, resizeOptions) {
     return resizeOptions
         ? tinify
             .fromFile(source)
@@ -13,4 +13,4 @@ function minify(source, target, resizeOptions) {
             .toFile(target);
 }
 
-module.exports = minify;
+module.exports = tinifyApi;
