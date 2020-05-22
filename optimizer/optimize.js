@@ -19,10 +19,20 @@ if (!fs.existsSync(projectDir)) {
 
 const OPTIMIZE_CONFIG = require('./optimize-config.json');
 
-Object.keys(OPTIMIZE_CONFIG).forEach(assetType => {
-    const entry = OPTIMIZE_CONFIG[assetType];
+iterateOverAssets(OPTIMIZE_CONFIG)
+    .then(() => console.log('Done.\n'));
+
+async function iterateOverAssets(config) {
+    const c = { ...config };
+    const [ assetType ] = Object.keys(c);
+    if (!assetType) {
+        return;
+    }
+    const entry = c[assetType];
+    delete c[assetType];
     const dir = path.join(projectDir, ...entry.path);
     const assets = fs.readdirSync(dir).filter(e => entry.sources.find(src => e.endsWith(src)));
-    optimizeAssets(dir, assets, entry.sizes, entry.custom)
-        .then(() => console.log(`Optimized ${assetType} in ${projectDir}.\n`));
-});
+    await optimizeAssets(dir, assets, entry.sizes, entry.custom);
+    console.log(`Optimized ${assetType} in ${projectDir}.\n`);
+    await iterateOverAssets(c);
+}

@@ -1,27 +1,9 @@
 const path = require('path');
 const fs = require('fs');
-const rimraf = require('rimraf');
 const tinifyApi = require('./tinifyApi');
 const { hasFreeApiCalls, addCallCount } = require('./statistics/tinifyApi/manageCallCount');
 
 let apiCalls = 0;
-
-function optimizeSingleAsset(targetDir, source, name, options) {
-    if (!fs.existsSync(targetDir)) {
-        fs.mkdirSync(targetDir);
-    }
-    const target = path.join(targetDir, name);
-    /*if (fs.existsSync(target)) {
-        return Promise.resolve()
-            .then(() => console.log(`Asset already exists: ${targetDir}/${name}`))
-    }*/
-    return new Promise(resolve => source.startsWith(targetDir) ? resolve() : rimraf(path.join(targetDir, '*'), resolve)) // TODO replace rimraf with more precise logic
-        .then(() => tinifyApi(source, target, options))
-        .then(() => {
-            apiCalls += 2;
-            console.log(`Saved optimized asset ${targetDir}/${name}`);
-        });
-}
 
 function optimizeAssets(dir, assets = [], sizes = [], custom = []) {
     return new Promise(resolve => {
@@ -63,6 +45,22 @@ function optimizeAssets(dir, assets = [], sizes = [], custom = []) {
                 resolve();
             });
     });
+}
+
+function optimizeSingleAsset(targetDir, source, name, options) {
+    if (!fs.existsSync(targetDir)) {
+        fs.mkdirSync(targetDir);
+    }
+    const target = path.join(targetDir, name);
+    if (fs.existsSync(target)) {
+        return Promise.resolve()
+            .then(() => console.log(`Asset already exists: ${targetDir}/${name}`))
+    }
+    return tinifyApi(source, target, options)
+        .then(() => {
+            apiCalls += 2;
+            console.log(`Saved optimized asset ${targetDir}/${name}`);
+        });
 }
 
 module.exports = optimizeAssets;
