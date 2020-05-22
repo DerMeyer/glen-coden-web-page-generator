@@ -43,7 +43,8 @@ function optimizeAssets(dir, assets = [], sizes = [], custom = []) {
                 addCallCount(apiCalls);
                 apiCalls = 0;
                 resolve();
-            });
+            })
+            .catch(console.error);
     });
 }
 

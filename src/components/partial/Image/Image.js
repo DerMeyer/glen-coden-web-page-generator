@@ -1,5 +1,5 @@
 import React, { useContext, useState, useRef, useCallback, useEffect } from 'react';
-import styles from './Image.module.css';
+import s from './Image.module.css';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import shortid from 'shortid';
@@ -160,7 +160,7 @@ export default function Image(props) {
 
     return (
         <div
-            className={cx(styles.imageBox, { [props.className]: props.className })}
+            className={cx(s.imageBox, { [props.className]: props.className })}
             style={{
                 ...props.style,
                 width: props.width,
@@ -170,7 +170,7 @@ export default function Image(props) {
             {source && (
                 <img
                     ref={image}
-                    className={styles.image}
+                    className={s.image}
                     style={{
                         opacity: hasLoaded ? '1' : '0',
                         transition: `opacity ${config.fadeInTime}s`,
