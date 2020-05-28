@@ -6,34 +6,18 @@ import shortid from 'shortid';
 import Store from '../../../store/Store';
 import actions from '../../../store/actions';
 import { configService } from '../../../index';
-import { createImageFileName, getImagePath } from '../../../js/shared';
-import { icons, images } from '../../../js/generated';
+import useOptimalSource from '../../../hooks/useOptimalSource';
 
 Image.propTypes = {
+    source: PropTypes.string, // TODO deal with empty value
+    width: PropTypes.number, // TODO deal with empty value
+    height: PropTypes.number, // TODO deal with empty value
     className: PropTypes.string,
     style: PropTypes.object,
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
-    source: PropTypes.string.isRequired,
     setSourceDirectly: PropTypes.bool,
     onLoaded: PropTypes.func,
     doNotSubscribeToGlobalLoading: PropTypes.bool,
     loadAfterGlobalLoading: PropTypes.bool // TODO implement
-};
-
-const optimizedSources = {
-    [getImagePath(icons.sourcePath)]: icons,
-    [getImagePath(images.sourcePath)]: images
-};
-
-const ImageRatios = {
-    ORIGINAL: 'original',
-    PORTRAIT: 'portrait'
-};
-
-const optionsFilter = {
-    [ImageRatios.ORIGINAL]: options => options.filter(option => option.method === 'scale'),
-    [ImageRatios.PORTRAIT]: options => options.filter(option => option.method === 'cover' && option.height > option.width)
 };
 
 
@@ -41,98 +25,17 @@ export default function Image(props) {
     const { dispatch } = useContext(Store);
     const config = configService.getConfig();
 
-    const [ source, setSource ] = useState(props.source);
+    const [ source, requestOptimalSource ] = useOptimalSource();
+
     const [ hasLoaded, setHasLoaded ] = useState(false);
-    const [ errors, setErrors ] = useState([]);
     const [ sizeBy, setSizeBy ] = useState('width');
-    const [ , setMaxRequestedWidth ] = useState(0);
     const [ id ] = useState(() => shortid.generate());
 
     const image = useRef(null);
 
-    const imageRatio = config.usePortraitImages && props.width / props.height < 0.8
-        ? ImageRatios.PORTRAIT
-        : ImageRatios.ORIGINAL;
-
-    const getOptimalSource = useCallback(
-        (width, height, rawSource, errorList) => {
-            const segments = rawSource.split('/');
-            const imageName = segments.pop();
-            const imagePath = `${segments.join('/')}/`;
-
-            const OPTIMIZE_CONFIG = optimizedSources[imagePath];
-
-            if (!OPTIMIZE_CONFIG) {
-                return rawSource;
-            }
-
-            let optionList = optionsFilter[imageRatio](OPTIMIZE_CONFIG.optionList);
-            if (!optionList.length) {
-                optionList = optionsFilter[ImageRatios.ORIGINAL](OPTIMIZE_CONFIG.optionList);
-            }
-            const options = optionList.find(entry => entry.width >= width) || optionList.pop();
-
-            const imageFileName = createImageFileName(imageName, options);
-            const optimalSource = getImagePath(OPTIMIZE_CONFIG.targetPath, imageFileName);
-
-            if (errorList.includes(optimalSource)) {
-                return rawSource;
-            }
-
-            return optimalSource;
-        },
-        [ imageRatio ]
-    );
-
     useEffect(() => {
-        if (props.setSourceDirectly) {
-            setSource(props.source);
-            return;
-        }
-        const onSourceEvaluation = () => {
-            if (typeof props.onLoaded === 'function') {
-                props.onLoaded();
-            }
-            if (!props.doNotSubscribeToGlobalLoading) {
-                dispatch(actions.stopLoading(id));
-            }
-        };
-        setMaxRequestedWidth(prevState => {
-            if (props.width <= prevState && imageRatio !== ImageRatios.PORTRAIT) {
-                return prevState;
-            }
-            const optimalSource = getOptimalSource(props.width, props.height, props.source, errors);
-            if (optimalSource === source) {
-                return props.width;
-            }
-            const img = new window.Image();
-            img.onload = () => {
-                setSource(prevSource => {
-                    if (optimalSource === prevSource) {
-                        return prevSource;
-                    }
-                    onSourceEvaluation();
-                    return optimalSource;
-                });
-                setHasLoaded(true);
-            };
-            img.onerror = () => {
-                setErrors(prevErrors => {
-                    if (prevErrors.includes(source)) {
-                        return [ ...prevErrors ];
-                    }
-                    console.warn(`Missing an optimized image for ${source}`);
-                    return [ ...prevErrors, source ];
-                });
-                onSourceEvaluation();
-                setHasLoaded(true);
-            };
-            setHasLoaded(false);
-            img.src = optimalSource;
-            return props.width;
-        });
-    },
-    [ props, dispatch, source, errors, id, imageRatio, getOptimalSource ]);
+        requestOptimalSource(props.source, props.width, props.height);
+    }, [ requestOptimalSource, props.source, props.width, props.height ]);
 
     useEffect(() => {
             if (!props.doNotSubscribeToGlobalLoading) {
@@ -158,6 +61,19 @@ export default function Image(props) {
         calcSizeBy(width, height, props.width, props.height);
     }, [ props.width, props.height, calcSizeBy ]);
 
+    const onLoad = useCallback(
+        event => {
+            if (!props.doNotSubscribeToGlobalLoading) {
+                dispatch(actions.stopLoading(id));
+            }
+            setHasLoaded(true);
+            calcSizeBy(event.target.width, event.target.height, props.width, props.height);
+        },
+        [ dispatch, props.doNotSubscribeToGlobalLoading, id, calcSizeBy, props.width, props.height ]
+    );
+
+    useEffect(() => { console.log('OPTIMAL SRC: ', source); }, [ source ]); // TODO remove dev code
+
     return (
         <div
             className={cx(s.imageBox, { [props.className]: props.className })}
@@ -172,13 +88,13 @@ export default function Image(props) {
                     ref={image}
                     className={s.image}
                     style={{
-                        opacity: hasLoaded ? '1' : '0',
+                        opacity: hasLoaded ? '1' : '0.5',
                         transition: `opacity ${config.fadeInTime}s`,
                         [sizeBy]: '100%'
                     }}
                     src={source}
                     alt={source}
-                    onLoad={event => calcSizeBy(event.target.width, event.target.height, props.width, props.height)}
+                    onLoad={onLoad}
                 />
             )}
         </div>

@@ -16,7 +16,7 @@
     "icons": {
         "sources": [ ".jpg", ".jpeg", ".png" ],
         "path": [ "static", "icons" ],
-        "sizes": [ 32, 64, 128, 256, 512, 102 ],
+        "sizes": [ 32, 64, 128, 256, 512, 1024 ],
         "custom": []
     },
     "logos": {
