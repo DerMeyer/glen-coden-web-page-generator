@@ -14,17 +14,19 @@ function findCustomSize(type, width, height) {
 
 
 export default function useOptimalSource() {
-    const [ originalSrc, setOriginalSrc ] = useState('');
-    const [ requestedSrc, setRequestedSrc ] = useState('');
-    const [ optimalSrc, setOptimalSrc ] = useState('');
+    const [ requested, setRequested ] = useState('');
+    const [ optimal, setOptimal ] = useState('');
+    const [ source, setSource ] = useState('');
     const [ maxRequestedWidth, setMaxRequestedWidth ] = useState(0);
-    const [ errors, setErrors ] = useState([]);
 
-    const requestOptimalSource = useCallback(
+    const requestOptimalSrc = useCallback(
         (src, width, height) => {
-            setOriginalSrc(src);
+            if (!src) {
+                return;
+            }
+            setRequested(src);
             if (!width) {
-                setOptimalSrc(src);
+                setSource(src);
                 return;
             }
             if (width <= maxRequestedWidth) {
@@ -35,41 +37,37 @@ export default function useOptimalSource() {
             const type = segments.pop();
             const sizes = sizeMap[type];
             if (!sizes) {
-                setRequestedSrc(src);
+                setOptimal(src);
                 return;
             }
+            //////// CUSTOM SIZE INTEGRATION ///////
             const customSize = findCustomSize(type, width, height);
             if (customSize) {
-                setRequestedSrc(`${type}/${customSize}/${name}`);
+                setOptimal(`${type}/${customSize}/${name}`);
                 return;
             }
+            ////////////////////////////////////////
             const size = sizes.find(s => s >= width) || sizes.pop();
             setMaxRequestedWidth(size);
-            setRequestedSrc(`${type}/${size}px/${name}`);
+            setOptimal(`${type}/${size}px/${name}`);
         },
         [ maxRequestedWidth ]
     );
 
     useEffect(() => {
-        if (!requestedSrc || errors.includes(requestedSrc)) {
+        if (!optimal) {
             return;
         }
         const img = new window.Image();
         img.onload = () => {
-            setOptimalSrc(requestedSrc);
+            setSource(optimal);
         };
         img.onerror = () => {
-            setOptimalSrc(originalSrc);
-            setErrors(prevErrors => {
-                if (prevErrors.includes(requestedSrc)) {
-                    return [ ...prevErrors ];
-                }
-                console.warn(`Missing an optimized image for ${requestedSrc}`);
-                return [ ...prevErrors, requestedSrc ];
-            });
+            console.warn(`Missing an optimized image for ${optimal}`);
+            setSource(requested);
         };
-        img.src = requestedSrc;
-    }, [ originalSrc, requestedSrc, errors ]);
+        img.src = optimal;
+    }, [ requested, optimal ]);
 
-    return [ optimalSrc, requestOptimalSource ];
+    return [ source, requestOptimalSrc ];
 }
