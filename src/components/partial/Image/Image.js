@@ -9,14 +9,8 @@ export default function Image({ source, width, height, className, style, subscri
 
     const [ sizeBy, setSizeBy ] = useState('width');
 
-    const [ startLoading, stopLoading ] = useGlobalLoading(subscribeToGlobalLoading);
+    const [ startLoading, stopLoading, hasLoaded ] = useGlobalLoading();
     const [ optimalSource, requestOptimalSource ] = useOptimalSource();
-
-    useEffect(startLoading, [ startLoading ]);
-
-    useEffect(() => {
-        requestOptimalSource(source, width, height);
-    }, [ requestOptimalSource, source, width, height ]);
 
     const calcSizeBy = useCallback(
         (imgWidth, imgHeight, boxWidth, boxHeight) => {
@@ -33,14 +27,6 @@ export default function Image({ source, width, height, className, style, subscri
         []
     );
 
-    useEffect(() => {
-        if (!image.current) {
-            return;
-        }
-        const { w, h } = image.current.getBoundingClientRect();
-        calcSizeBy(w, h, width, height);
-    }, [ calcSizeBy, width, height ]);
-
     const onLoad = useCallback(
         event => {
             stopLoading();
@@ -48,6 +34,27 @@ export default function Image({ source, width, height, className, style, subscri
         },
         [ stopLoading, calcSizeBy, width, height ]
     );
+
+    useEffect(() => {
+        if (subscribeToGlobalLoading) {
+            startLoading();
+        }
+    }, [ startLoading, subscribeToGlobalLoading ]);
+
+    useEffect(() => {
+        if (loadAfterGlobalLoading && !hasLoaded) {
+            return;
+        }
+        requestOptimalSource(source, width, height);
+    }, [ loadAfterGlobalLoading, hasLoaded, requestOptimalSource, source, width, height ]);
+
+    useEffect(() => {
+        if (!image.current) {
+            return;
+        }
+        const element = image.current.getBoundingClientRect();
+        calcSizeBy(element.width, element.height, width, height);
+    }, [ calcSizeBy, width, height ]);
 
     return (
         <div
