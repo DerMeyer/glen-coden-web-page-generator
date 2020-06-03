@@ -1,7 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const { exec } = require('child_process');
-const getPath = require('./js/getters/getPath');
+const getPath = require('../js/getters/getPath');
 const CONFIG = require('./generator-config');
 
 const SupportedCmds = {

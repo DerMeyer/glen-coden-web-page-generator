@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-const getPath = require('../js/getters/getPath');
+const getPath = require('../../js/getters/getPath');
 
 const bootstrapFileTree = require('./bootstrap.fileTree');
 const bootstrapConfig = require('./bootstrap.config');

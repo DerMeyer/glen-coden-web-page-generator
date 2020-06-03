@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-const { objectFromSchema, mergeObjects } = require('../js/helpers');
+const { objectFromSchema, mergeObjects } = require('../../js/helpers');
 
 const BOOTSTRAP_CONFIG = require('../bootstrap-config');
 const PROJ_CONFIG_SCHEMA = require('../project-config-schema');

@@ -1,15 +1,13 @@
 const path = require('path');
 const fs = require('fs');
-const getPath = require('../js/getters/getPath');
-const setGeneratorConfig = require('../js/setters/setGeneratorConfig');
+const getPath = require('../../js/getters/getPath');
+const setGeneratorConfig = require('../../js/setters/setGeneratorConfig');
 const GEN_CONFIG = require('../generator-config');
 
 const generatePublicAssets = require('./generate.publicAssets');
 const generateIndexHtml = require('./generate.indexHtml');
 const generateManifestJson = require('./generate.manifestJson');
 const generateRobotsTxt = require('./generate.robotsTxt');
-const generateValuesExport = require('./generate.valuesExport');
-const generateSharedHelpers = require('./generate.sharedHelpers');
 const generateSvgExport = require('./generate.svgExport');
 const generateProjectFile = require('./generate.projectFile');
 
@@ -53,14 +51,6 @@ Promise.resolve()
     .then(() => {
         console.log('Generate robots.txt in /public.\n');
         return generateRobotsTxt(getPath.publicDir);
-    })
-    .then(() => {
-        console.log('Export generator-config values from generated.js in /src/js.\n');
-        return generateValuesExport(getPath.sourceDir);
-    })
-    .then(() => {
-        console.log('Copy shared.js to /src/js.\n');
-        return generateSharedHelpers(getPath.generatorDir, getPath.sourceDir);
     })
     .then(() => {
         console.log('Export svg as ReactComponent in /src/js.\n');

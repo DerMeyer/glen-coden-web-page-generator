@@ -88,6 +88,7 @@ export default function ZoomBackground(props) {
                     source={config.image}
                     width={state.viewportWidth}
                     height={state.viewportHeight}
+                    subscribeToGlobalLoading
                 />
             </div>
         </div>
