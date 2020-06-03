@@ -1,5 +1,7 @@
 {
     "_project": "optimizer",
-    "ignore": [ ".DS_Store" ],
+    "ignore": [
+        ".DS_Store"
+    ],
     "robotsTxt": "# https://www.robotstxt.org/robotstxt.html\nUser-agent: *"
 }
