@@ -11,7 +11,7 @@ import Image from '../../partial/Image/Image';
 
 export default function IconNavigation(props) {
     const { state } = useContext(Store);
-    const config = configService.getConfig(props.id);
+    const config = configService.getProps(props.id);
 
     const isPortrait = state.deviceType === DeviceTypes.MOBILE && state.orientationType === OrientationTypes.PORTRAIT;
 

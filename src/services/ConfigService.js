@@ -26,7 +26,7 @@ class ConfigService {
         });
     }
 
-    getInitialState() {
+    getInitialState = () => {
         const { initialState, components } = this.config;
         if (!initialState || !components) {
             return {};
@@ -46,14 +46,16 @@ class ConfigService {
         };
     }
 
-    getConfig(id) {
+    getProps = id => {
         if (!id || !this.componentsList[id]) {
             if (!this.config.global) {
                 return {};
             }
             return this.config.global;
         }
-        return this.componentsList[id];
+        const props = this.componentsList[id];
+        props.id = id;
+        return props;
     }
 }
 

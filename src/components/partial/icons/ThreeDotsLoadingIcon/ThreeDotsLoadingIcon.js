@@ -9,7 +9,7 @@ ThreeDotsLoadingIcon.propTypes = {
 
 
 export default function ThreeDotsLoadingIcon(props) {
-    const config = configService.getConfig();
+    const config = configService.getProps();
     return (
         <div
             className={styles.iconBox}

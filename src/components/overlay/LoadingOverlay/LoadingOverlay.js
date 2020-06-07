@@ -8,7 +8,7 @@ import ThreeDotsLoadingIcon from '../../partial/icons/ThreeDotsLoadingIcon/Three
 
 export default function LoadingOverlay(props) {
     const { state } = useContext(Store);
-    const config = configService.getConfig(props.id);
+    const config = configService.getProps(props.id);
 
     const [ visible, setVisible ] = useState(true);
 

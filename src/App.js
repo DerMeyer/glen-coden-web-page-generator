@@ -8,7 +8,7 @@ import Project from './_Project';
 
 export default function App() {
     const { state, dispatch } = useContext(Store);
-    const config = configService.getConfig();
+    const config = configService.getProps();
 
     useEffect(() => {
         document.body.style.fontSize = `${config.fontSizes.body}px`;

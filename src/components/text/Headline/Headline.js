@@ -6,7 +6,7 @@ import { getSizeFactor, i18n } from '../../../js/helpers';
 
 export default function Headline(props) {
     const { state } = useContext(Store);
-    const config = configService.getConfig(props.id);
+    const config = configService.getProps(props.id);
 
     const [ element, setElement ] = useState('h1');
     const [ style, setStyle ] = useState({});
