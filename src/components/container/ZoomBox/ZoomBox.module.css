@@ -1,0 +1,20 @@
+.box {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid lime; /* TODO remove dev code */
+    margin: 50px 300px; /* TODO remove dev code */
+}
+
+.shifter {
+    position: relative;
+    left: 0;
+    top: 0;
+}
+
+.zoomer {
+    display: grid;
+    grid-template: 1fr / 1fr;
+    justify-items: center;
+    align-items: center;
+}
