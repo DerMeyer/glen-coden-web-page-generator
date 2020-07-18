@@ -1,0 +1,52 @@
+.Container {
+    width: 100%;
+}
+
+.Preview {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.LaneBox {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.LaneButton {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: white; /* dev code */
+}
+
+.Lane {
+    display: flex;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transition: left 0.2s;
+    height: 100%;
+}
+
+.LaneItem {
+    cursor: pointer;
+    position: relative;
+    height: 100%;
+    border: 3px solid whitesmoke;
+    overflow: hidden;
+}
+
+.LaneItem.Active {
+    border-color: orange;
+}
+
+.Image {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 100%;
+}
