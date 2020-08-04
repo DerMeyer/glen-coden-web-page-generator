@@ -5,7 +5,7 @@
         "sizes": [ 100, 300, 500, 750, 1000, 1500, 2500 ],
         "custom": [
             {
-                "dir": "mobile_portrait",
+                "dir": "mobile-portrait",
                 "name": "",
                 "method": "cover",
                 "width": 450,

@@ -1,18 +1,22 @@
 import React, { useState, useContext, useEffect, useCallback } from 'react';
 import styles from './Row.module.css';
 import Store from '../../../store/Store';
-import { configService } from '../../../index';
+
+Row.defaultProps = {
+    alignSelf: 'center',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    css: {}
+};
 
 
-export default function Row(props) {
+export default function Row({ alignSelf, justifyContent, alignItems, css, children }) {
     const { state } = useContext(Store);
-    const config = configService.getProps(props.id);
 
     const [ style, setStyle ] = useState({});
 
     const getStyle = useCallback(
         (contentWidth, viewportWidth) => {
-            const { alignSelf, justifyContent, alignItems } = config;
             return {
                 width: `${contentWidth / 100 * viewportWidth}px`,
                 alignSelf,
@@ -20,7 +24,7 @@ export default function Row(props) {
                 alignItems
             };
         },
-        [ config ]
+        [ alignSelf, justifyContent, alignItems ]
     );
 
     useEffect(() => {
@@ -33,10 +37,10 @@ export default function Row(props) {
             className={styles.row}
             style={{
                 ...style,
-                ...(config.css || {})
+                ...css
             }}
         >
-            {props.children}
+            {children}
         </div>
     );
 }

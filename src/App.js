@@ -8,14 +8,14 @@ import Project from './_Project';
 
 export default function App() {
     const { state, dispatch } = useContext(Store);
-    const config = configService.getProps();
+    const { global } = configService.getProps();
 
     useEffect(() => {
-        document.body.style.fontSize = `${config.fontSizes.body}px`;
-        document.body.style.backgroundColor = config.colors.background;
+        document.body.style.fontSize = `${global.fontSizes.body}px`;
+        document.body.style.backgroundColor = global.colors.background;
 
-        window.setTimeout(() => dispatch(actions.showApp()), config.fadeInTime * 1000);
-        window.setTimeout(() => dispatch(actions.loadingTimeout()), config.loadingTimeout * 1000);
+        window.setTimeout(() => dispatch(actions.showApp()), global.fadeInTime * 1000);
+        window.setTimeout(() => dispatch(actions.loadingTimeout()), global.loadingTimeout * 1000);
 
         const resizeApp = event => dispatch(actions.resize(event.target.innerWidth, event.target.innerHeight));
 
@@ -26,16 +26,16 @@ export default function App() {
             window.removeEventListener('resize', resizeApp);
             window.removeEventListener('orientationchange', resizeApp);
         };
-    }, [ dispatch, config ]);
+    }, [ dispatch, global ]);
 
     useEffect(() => {
-        dispatch(actions.setContentSize(state.deviceType, config.pageContentSize));
-    }, [ dispatch, state.deviceType, config.pageContentSize ]);
+        dispatch(actions.setContentSize(state.deviceType, global.pageContentSize));
+    }, [ dispatch, state.deviceType, global.pageContentSize ]);
 
     return (
         <div style={{
             opacity: state.showApp ? '1' : '0',
-            transition: `opacity ${config.fadeInTime}s`
+            transition: `opacity ${global.fadeInTime}s`
         }}>
             <Project/>
         </div>

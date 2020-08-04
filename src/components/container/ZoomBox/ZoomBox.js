@@ -59,7 +59,7 @@ export default function ZoomBox({ auto, factor, time, children }) {
                 className={s.shifter}
                 style={{
                     transform: `translate(${active ? shift.x : 0}%, ${active ? shift.y : 0}%)`,
-                    transition: `width ${time}s ease-out, height ${time}s ease-out, transform ${time}s ease-out`
+                    transition: active ? '' :`width ${time}s ease-out, height ${time}s ease-out, transform ${time}s ease-out`
                 }}
             >
                 <div
@@ -68,6 +68,7 @@ export default function ZoomBox({ auto, factor, time, children }) {
                         transform: `scale(${active ? (1 + factor / 100) : 1})`,
                         transition: `transform ${time}s ease-out`
                     }}
+                    onTransitionEnd={() => console.log('transition end')}
                 >
                     {children}
                 </div>

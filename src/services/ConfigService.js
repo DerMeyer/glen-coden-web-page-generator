@@ -17,7 +17,7 @@ class ConfigService {
         components.forEach(entry => {
             delete entry.initialState;
             this.componentsList[entry.id] = {
-                ...this.config.global,
+                global: this.config.global,
                 ...entry
             };
             if (entry.children.length) {
@@ -51,7 +51,9 @@ class ConfigService {
             if (!this.config.global) {
                 return {};
             }
-            return this.config.global;
+            return {
+                global: this.config.global
+            };
         }
         const props = this.componentsList[id];
         props.id = id;
