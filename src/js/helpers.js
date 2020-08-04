@@ -127,8 +127,7 @@ export function i18n(translations, language = navigator.language.slice(0, 2)) {
     return trans;
 }
 
-export function getSizeFactor(state, config) {
-    const { sizing } = config;
+export function getSizeFactor(state, sizing) {
     if (!isObject(sizing)) {
         const sizeFactor = parseInt(sizing, 10);
         if (Number.isNaN(sizeFactor)) {

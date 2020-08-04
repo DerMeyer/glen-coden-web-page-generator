@@ -9,7 +9,7 @@ export default function Image({ source, width, height, className, style, subscri
 
     const [ sizeBy, setSizeBy ] = useState('width');
 
-    const [ startLoading, stopLoading, hasLoaded ] = useGlobalLoading();
+    const [ startGloLoading, stopGloLoading, doneGloLoading ] = useGlobalLoading();
     const [ optimalSource, requestOptimalSource ] = useOptimalSource();
 
     const calcSizeBy = useCallback(
@@ -29,24 +29,24 @@ export default function Image({ source, width, height, className, style, subscri
 
     const onLoad = useCallback(
         event => {
-            stopLoading();
+            stopGloLoading();
             calcSizeBy(event.target.width, event.target.height, width, height);
         },
-        [ stopLoading, calcSizeBy, width, height ]
+        [ stopGloLoading, calcSizeBy, width, height ]
     );
 
     useEffect(() => {
         if (subscribeToGlobalLoading) {
-            startLoading();
+            startGloLoading();
         }
-    }, [ startLoading, subscribeToGlobalLoading ]);
+    }, [ startGloLoading, subscribeToGlobalLoading ]);
 
     useEffect(() => {
-        if (loadAfterGlobalLoading && !hasLoaded) {
+        if (loadAfterGlobalLoading && !doneGloLoading) {
             return;
         }
         requestOptimalSource(source, width, height);
-    }, [ loadAfterGlobalLoading, hasLoaded, requestOptimalSource, source, width, height ]);
+    }, [ loadAfterGlobalLoading, doneGloLoading, requestOptimalSource, source, width, height ]);
 
     useEffect(() => {
         if (!image.current) {
@@ -56,14 +56,18 @@ export default function Image({ source, width, height, className, style, subscri
         calcSizeBy(element.width, element.height, width, height);
     }, [ calcSizeBy, width, height ]);
 
+    const boxStyle = { ...style } || {};
+    if (width) {
+        boxStyle.width = `${width}px`;
+    }
+    if (height) {
+        boxStyle.height = `${height}px`;
+    }
+
     return (
         <div
             className={`${s.imageBox}${className ? ` ${className}` : ''}`}
-            style={{
-                ...(style || {}),
-                width,
-                height
-            }}
+            style={boxStyle}
         >
             {optimalSource && (
                 <img

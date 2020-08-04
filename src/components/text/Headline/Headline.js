@@ -1,18 +1,20 @@
 import React, { useContext, useState, useEffect } from 'react';
 import Store from '../../../store/Store';
-import { configService } from '../../../index';
 import { getSizeFactor, i18n } from '../../../js/helpers';
 
+Headline.defaultProps = {
+    global: {}
+};
 
-export default function Headline(props) {
+
+export default function Headline({ global, size, fontTypeIndex, color, text, sizing }) {
     const { state } = useContext(Store);
-    const config = configService.getConfig(props.id);
 
     const [ element, setElement ] = useState('h1');
     const [ style, setStyle ] = useState({});
 
     useEffect(() => {
-        switch (config.size) {
+        switch (size) {
             case 'big':
                 setElement('h1');
                 break;
@@ -24,22 +26,23 @@ export default function Headline(props) {
                 break;
             default:
         }
-    }, [ config.size ]);
+    }, [ size ]);
 
-    const fontType = config.fontTypes[config.fontTypeIndex] || config.fontTypes[0];
+    const { fontTypes = {}, colors = {}, fontSizes = {} } = global;
+    const fontType = fontTypes[fontTypeIndex] || fontTypes[0];
 
     useEffect(() => {
         setStyle({
             margin: 0,
             lineHeight: '1.3',
             fontWeight: 'bold',
-            fontSize: config.fontSizes[element] * getSizeFactor(state, config),
+            fontSize: fontSizes[element] * getSizeFactor(state, sizing),
             fontFamily: fontType.name || '',
-            color: config.colors[config.color]
+            color: colors[color]
         });
-    }, [ state, config, element, fontType ]);
+    }, [ state, fontSizes, colors, color, sizing, element, fontType ]);
 
-    const raw = i18n(config.text, state.language);
+    const raw = i18n(text, state.language);
     const __html = raw
         .split('*')
         .map((partial, index) => `${index ? ' ' : ''}<span style="white-space: nowrap">${partial}</span>`)

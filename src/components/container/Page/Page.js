@@ -1,12 +1,17 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-import styles from './Page.module.css';
+import s from './Page.module.css';
 import Store from '../../../store/Store';
-import { configService } from '../../../index';
+
+Page.defaultProps = {
+    rows: 3,
+    minHeight: 0,
+    css: {},
+    global: {}
+};
 
 
-export default function Page(props) {
+export default function Page({ rows, minHeight, global, color, css, children }) {
     const { state } = useContext(Store);
-    const config = configService.getConfig(props.id);
 
     const [ style, setStyle ] = useState({});
 
@@ -14,15 +19,18 @@ export default function Page(props) {
         (contentWidth, contentHeight, viewportWidth, viewportHeight) => {
             const contWidth = contentWidth / 100 * viewportWidth;
             const contHeight = contentHeight / 100 * viewportHeight;
-            return {
-                gridTemplateRows: `repeat(${config.rows}, minmax(${contHeight / config.rows}px, auto))`,
+            const result = {
+                gridTemplateRows: `repeat(${rows}, minmax(${contHeight / rows}px, auto))`,
                 width: `${viewportWidth}px`,
-                minHeight: `${config.minHeight || viewportHeight}px`,
-                padding: `${(viewportHeight - contHeight) / 2}px ${((viewportWidth - contWidth) / 2) + (Math.max((viewportWidth - config.maxPageWidth), 0) / 2)}px`,
-                backgroundColor: config.colors[config.color]
+                minHeight: `${minHeight || viewportHeight}px`,
+                padding: `${(viewportHeight - contHeight) / 2}px ${((viewportWidth - contWidth) / 2) + (Math.max((viewportWidth - global.maxPageWidth), 0) / 2)}px`,
             };
+            if (global.colors) {
+                result.backgroundColor = global.colors[color];
+            }
+            return result;
         },
-        [ config ]
+        [ rows, minHeight, global, color ]
     );
 
     useEffect(() => {
@@ -32,13 +40,13 @@ export default function Page(props) {
 
     return (
         <div
-            className={styles.page}
+            className={s.page}
             style={{
                 ...style,
-                ...(config.css || {})
+                ...css
             }}
         >
-            {props.children}
+            {children}
         </div>
     );
 }

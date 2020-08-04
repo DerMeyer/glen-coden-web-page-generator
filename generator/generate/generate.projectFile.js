@@ -7,7 +7,9 @@ function generateProjectFile(projectDir, targetDir) {
     const componentsMap = PROJ_CONFIG.components;
 
     return new Promise(resolve => {
-        let file = `import React from 'react';\n\n`;
+        let file = '';
+        file += `import React from 'react';\n`
+        file += `import { configService } from './index';\n\n`
 
         listProjectComponents(componentsMap)
             .reduce((result, component) => {
@@ -23,9 +25,12 @@ function generateProjectFile(projectDir, targetDir) {
             }
             file += `import ${component} from '${componentsList[component].srcImportPath}';\n`
         });
-        file += '\n\nexport default function _Project() {\n\treturn (\n\t\t<>\n';
+        file += '\n\nexport default function _Project() {\n';
+        file += '\tconst { getProps } = configService;\n';
+        file += '\treturn (\n\t\t<>\n';
         file += createJsx(componentsMap, 3);
-        file += '\t\t</>\n\t);\n}\n';
+        file += '\t\t</>\n\t);\n';
+        file += '}\n';
 
         fs.writeFileSync(path.join(targetDir, '_Project.js'), file);
         resolve();
@@ -47,9 +52,9 @@ function createJsx(componentsMap, depth) {
     let jsx = '';
     componentsMap.forEach(entry => {
         if (entry.children.length === 0) {
-            jsx += `${'\t'.repeat(depth)}<${entry.component} id="${entry.id}" />\n`;
+            jsx += `${'\t'.repeat(depth)}<${entry.component} {...getProps('${entry.id}')} />\n`;
         } else {
-            jsx += `${'\t'.repeat(depth)}<${entry.component} id="${entry.id}">\n`;
+            jsx += `${'\t'.repeat(depth)}<${entry.component} {...getProps('${entry.id}')}>\n`;
             jsx += createJsx(entry.children, depth + 1);
             jsx += `${'\t'.repeat(depth)}</${entry.component}>\n`;
         }

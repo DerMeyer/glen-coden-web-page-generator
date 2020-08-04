@@ -1,14 +1,20 @@
 import React, { useContext, useState } from 'react';
-import styles from './LoadingOverlay.module.css';
+import s from './LoadingOverlay.module.css';
 import Store from '../../../store/Store';
-import { configService } from '../../../index';
 
 import ThreeDotsLoadingIcon from '../../partial/icons/ThreeDotsLoadingIcon/ThreeDotsLoadingIcon';
 
+LoadingOverlay.defaultProps = {
+    global: {
+        fadeInTime: 0.2,
+        colors: {}
+    },
+    css: {}
+};
 
-export default function LoadingOverlay(props) {
+
+export default function LoadingOverlay({ global, css }) {
     const { state } = useContext(Store);
-    const config = configService.getConfig(props.id);
 
     const [ visible, setVisible ] = useState(true);
 
@@ -21,16 +27,24 @@ export default function LoadingOverlay(props) {
 
     return (
         <div
-            className={styles.overlay}
+            className={s.overlay}
             style={{
-                backgroundColor: config.colors.overlay,
+                backgroundColor: global.colors.overlay,
                 opacity: state.loading.length ? '1' : '0',
-                transition: `opacity ${state.loading.length ? 0 : config.fadeInTime}s`,
-                ...(config.css || {})
+                transition: `opacity ${state.loading.length ? 0 : global.fadeInTime}s`,
+                ...css
             }}
             onTransitionEnd={() => setVisible(false)}
         >
-            {state.loading.length ? <ThreeDotsLoadingIcon size={Math.round(state.viewportWidth / 15)}/> : null}
+            {state.loading.length
+                ? (
+                    <ThreeDotsLoadingIcon
+                        size={Math.round(state.viewportWidth / 15)}
+                        color={global.colors.dark}
+                    />
+                )
+                : null
+            }
         </div>
     );
 }

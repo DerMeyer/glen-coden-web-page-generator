@@ -24,7 +24,7 @@ ImageAttr.propTypes = {
 
 export default function ImageAttr(props) {
     const { state, dispatch } = useContext(Store);
-    const config = configService.getConfig();
+    const config = configService.getProps();
 
     const [ hasLoaded, setHasLoaded ] = useState(false);
     const [ sizeBy, setSizeBy ] = useState('width');

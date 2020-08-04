@@ -1,5 +1,5 @@
 {
-    "_project": "optimizer",
+    "_project": "config-as-props",
     "ignore": [
         ".DS_Store"
     ],
