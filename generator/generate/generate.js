@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const getPath = require('../../js/getters/getPath');
 const setGeneratorConfig = require('../../js/setters/setGeneratorConfig');
-const GEN_CONFIG = require('../generator-config');
+const GEN_CONFIG = require('../../generator-config.json');
 
 const generatePublicAssets = require('./generate.publicAssets');
 const generateIndexHtml = require('./generate.indexHtml');

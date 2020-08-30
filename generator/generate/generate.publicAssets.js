@@ -1,7 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const rimraf = require('rimraf');
-const GEN_CONFIG = require('../generator-config');
+const GEN_CONFIG = require('../../generator-config.json');
 
 function generatePublicAssets(projectDir, publicDir) {
     return new Promise(resolve => {

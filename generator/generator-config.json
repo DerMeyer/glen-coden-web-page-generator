@@ -1,7 +1,0 @@
-{
-    "_project": "rain-outside",
-    "ignore": [
-        ".DS_Store"
-    ],
-    "robotsTxt": "# https://www.robotstxt.org/robotstxt.html\nUser-agent: *"
-}

@@ -3,7 +3,7 @@ const fs = require('fs');
 const shortid = require('shortid');
 const { objectFromSchema, mergeObjects } = require('../../js/helpers');
 
-const GEN_CONFIG = require('../generator-config');
+const GEN_CONFIG = require('../../generator-config.json');
 const PROJ_CONFIG_SCHEMA = require('../project-config-schema');
 
 function updateProjectConfig(sourceDir, projectDir, projectName) {

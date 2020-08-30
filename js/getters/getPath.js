@@ -1,12 +1,19 @@
 const path = require('path');
+const GEN_CONFIG = require('../../generator-config.json');
 
-const { PROJECTS_PATH_SEGMENTS } = require('../../confidential.json');
+const {
+    projectsDirSegments,
+    generatorDirSegments,
+    optimizerDirSegments,
+    publicDirSegments,
+    sourceDirSegments
+} = GEN_CONFIG.paths;
 
-const projectsDir = path.resolve( ...PROJECTS_PATH_SEGMENTS);
-const generatorDir = path.resolve('generator');
-const optimizerDir = path.resolve('optimizer');
-const publicDir = path.resolve('public');
-const sourceDir = path.resolve('src');
+const projectsDir = path.resolve(...projectsDirSegments);
+const generatorDir = path.resolve(...generatorDirSegments);
+const optimizerDir = path.resolve(...optimizerDirSegments);
+const publicDir = path.resolve(...publicDirSegments);
+const sourceDir = path.resolve(...sourceDirSegments);
 
 module.exports = {
     projectsDir,

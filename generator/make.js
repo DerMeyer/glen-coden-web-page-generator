@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const { exec } = require('child_process');
 const getPath = require('../js/getters/getPath');
-const GEN_CONFIG = require('./generator-config');
+const GEN_CONFIG = require('../generator-config.json');
 
 
 const projectName = process.argv[2] || GEN_CONFIG._project;
