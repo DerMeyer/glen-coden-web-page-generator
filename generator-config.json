@@ -1,5 +1,5 @@
 {
-    "_project": "internal-first",
+    "_project": "repo-inside-repo",
     "paths": {
         "projectsDirSegments": [
             "projects"
