@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('fs');
+const { exec } = require('child_process');
 const GEN_CONFIG = require('../generator-config.json');
 
 
@@ -111,8 +112,24 @@ function deepCopyDirectory(dirPath, targetPath) {
     });
 }
 
+function execProcess(command, options = {}) {
+    return new Promise((resolve, reject) => {
+        exec(command, options, (error, stdout, stderr) => {
+            if (error) {
+                reject(`exec error for command ${command}: ${error}`);
+            }
+            if (stderr) {
+                console.error(`stderr for command ${command}: ${stderr}`);
+            }
+            console.log(stdout);
+            resolve();
+        });
+    });
+}
+
 exports.isObject = isObject;
 exports.objectFromSchema = objectFromSchema;
 exports.deepCompare = deepCompare;
 exports.mergeObjects = mergeObjects;
 exports.deepCopyDirectory = deepCopyDirectory;
+exports.execProcess = execProcess;
