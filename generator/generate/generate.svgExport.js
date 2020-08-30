@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-const GEN_CONFIG = require('../generator-config');
+const GEN_CONFIG = require('../../generator-config.json');
 
 function generateSvgExport(sourceDir) {
     return new Promise(resolve => {

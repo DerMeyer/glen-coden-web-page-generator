@@ -1,3 +1,9 @@
+const path = require('path');
+const fs = require('fs');
+const { exec } = require('child_process');
+const GEN_CONFIG = require('../generator-config.json');
+
+
 const emptyJsValues = {
     object: {},
     array: [],
@@ -89,7 +95,41 @@ function mergeObjects(value1, value2) {
     return merged;
 }
 
+function deepCopyDirectory(dirPath, targetPath) {
+    const entryList = fs.readdirSync(dirPath).filter(entry => !GEN_CONFIG.ignore.includes(entry));
+    entryList.forEach(entry => {
+        const entryPath = path.join(dirPath, entry);
+        if (fs.statSync(entryPath).isDirectory()) {
+            const targetDir = path.join(targetPath, entry);
+            if (!fs.existsSync(targetDir)) {
+                fs.mkdirSync(targetDir);
+            }
+            deepCopyDirectory(entryPath, targetDir);
+            return;
+        }
+        const file = fs.readFileSync(entryPath);
+        fs.writeFileSync(path.join(targetPath, entry), file);
+    });
+}
+
+function execProcess(command, options = {}) {
+    return new Promise((resolve, reject) => {
+        exec(command, options, (error, stdout, stderr) => {
+            if (error) {
+                reject(`exec error for command ${command}: ${error}`);
+            }
+            if (stderr) {
+                console.error(`stderr for command ${command}: ${stderr}`);
+            }
+            console.log(stdout);
+            resolve();
+        });
+    });
+}
+
 exports.isObject = isObject;
 exports.objectFromSchema = objectFromSchema;
 exports.deepCompare = deepCompare;
 exports.mergeObjects = mergeObjects;
+exports.deepCopyDirectory = deepCopyDirectory;
+exports.execProcess = execProcess;

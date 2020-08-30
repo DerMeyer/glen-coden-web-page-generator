@@ -22,8 +22,9 @@
     "bootstrap": "node generator/bootstrap/bootstrap.js",
     "update": "node generator/update/update.js",
     "generate": "node generator/generate/generate.js",
-    "optimize": "node optimizer/optimize.js",
-    "glencoden": "node generator/glencoden.js"
+    "make": "node generator/make.js",
+    "finalize": "node generator/finalize.js",
+    "optimize": "node optimizer/optimize.js"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -13,6 +13,7 @@
 
 # generator
 components-list.json
+/projects
 /public
 _Project.js
 project-config.json

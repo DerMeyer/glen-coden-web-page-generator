@@ -1,0 +1,24 @@
+{
+    "_project": "repo-inside-repo",
+    "paths": {
+        "projectsDirSegments": [
+            "projects"
+        ],
+        "generatorDirSegments": [
+            "generator"
+        ],
+        "optimizerDirSegments": [
+            "optimizer"
+        ],
+        "publicDirSegments": [
+            "public"
+        ],
+        "sourceDirSegments": [
+            "src"
+        ]
+    },
+    "ignore": [
+        ".DS_Store"
+    ],
+    "robotsTxt": "# https://www.robotstxt.org/robotstxt.html\nUser-agent: *"
+}
