@@ -1,19 +1,14 @@
-const path = require('path');
-const fs = require('fs');
 const { objectFromSchema, mergeObjects } = require('../../js/helpers');
+const { post } = require('../../js/requests');
 
 const BOOTSTRAP_CONFIG = require('../bootstrap-config');
 const PROJ_CONFIG_SCHEMA = require('../project-config-schema');
 
-function bootstrapConfig(sourceDir, projectDir) {
+function bootstrapConfig(sourceDir, projectName) {
     return new Promise(resolve => {
-        const sourceConfigPath = path.join(sourceDir, 'project-config.json');
-        if (fs.existsSync(sourceConfigPath)) {
-            fs.unlinkSync(sourceConfigPath);
-        }
-        const projectConfig = mergeObjects(BOOTSTRAP_CONFIG.projectConfig, objectFromSchema(PROJ_CONFIG_SCHEMA));
-        fs.writeFileSync(path.join(projectDir, 'config.json'), JSON.stringify(projectConfig, null, 4));
-        resolve();
+        const config = mergeObjects(BOOTSTRAP_CONFIG.projectConfig, objectFromSchema(PROJ_CONFIG_SCHEMA));
+        post(`http://116.202.99.153/api/config/${projectName}`, { config })
+            .then(resolve);
     });
 }
 

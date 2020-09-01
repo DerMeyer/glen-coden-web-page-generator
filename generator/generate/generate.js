@@ -34,11 +34,11 @@ Promise.resolve()
     })
     .then(() => {
         console.log('Generate index.html in /public.\n');
-        return generateIndexHtml(projectDir, getPath.publicDir);
+        return generateIndexHtml(getPath.sourceDir, getPath.publicDir);
     })
     .then(() => {
         console.log('Generate manifest.json in /public.\n');
-        return generateManifestJson(projectDir, getPath.publicDir);
+        return generateManifestJson(getPath.sourceDir, projectDir, getPath.publicDir);
     })
     .then(() => {
         console.log('Generate robots.txt in /public.\n');
@@ -50,6 +50,6 @@ Promise.resolve()
     })
     .then(() => {
         console.log('Generate _Project.js in /src.\n');
-        return generateProjectFile(projectDir, getPath.sourceDir);
+        return generateProjectFile(getPath.sourceDir, getPath.sourceDir);
     })
     .catch(console.error);

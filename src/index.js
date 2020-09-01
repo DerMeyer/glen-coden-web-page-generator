@@ -13,11 +13,14 @@ export const requestService = new RequestService();
 export const trackingService = new TrackingService();
 
 Promise.all([
-    configService.init()
+    configService.init(),
+    requestService.init(),
+    trackingService.init()
 ])
     .then(() => {
-        trackingService.callRender();
         const initialState = configService.getInitialState();
+
+        trackingService.callRender();
 
         ReactDOM.render(
             <Provider initialState={initialState}>

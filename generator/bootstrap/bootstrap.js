@@ -29,6 +29,6 @@ Promise.resolve()
     })
     .then(() => {
         console.log('Create config.\n');
-        return bootstrapConfig(getPath.sourceDir, projectDir);
+        return bootstrapConfig(getPath.sourceDir, projectName);
     })
     .catch(console.error);

@@ -36,14 +36,14 @@
     "components": [
         {
             "component": "Page",
-            "id": "WwMYe7s6Y",
+            "id": "GYn8wxGkQ",
             "rows": 2,
             "minHeight": 0,
             "color": "background",
             "children": [
                 {
                     "component": "ZoomBackground",
-                    "id": "pL9oRPSSYD",
+                    "id": "Cc5lmjLY53",
                     "image": "images/background-image.jpg",
                     "autoZoom": false,
                     "zoomFactor": {
@@ -58,14 +58,14 @@
                 },
                 {
                     "component": "Row",
-                    "id": "QDnnRilsF4",
+                    "id": "J8LR6AthYX",
                     "alignSelf": "start",
                     "justifyContent": "flex-end",
                     "alignItems": "center",
                     "children": [
                         {
                             "component": "IconNavigation",
-                            "id": "4VKz-4PBBY",
+                            "id": "wbCrJUuvHl",
                             "sizing": 2,
                             "items": [
                                 {
@@ -82,14 +82,14 @@
                 },
                 {
                     "component": "Row",
-                    "id": "hTrMpy4qen",
+                    "id": "dYn9HZkb30",
                     "alignSelf": "end",
                     "justifyContent": "space-between",
                     "alignItems": "center",
                     "children": [
                         {
                             "component": "Headline",
-                            "id": "Oh8uWtks26",
+                            "id": "tyXfF8O-ts",
                             "text": "Welcome*to Glen Coden*Generator",
                             "sizing": {
                                 "landscape": 0.8,
@@ -106,9 +106,10 @@
         },
         {
             "component": "LoadingOverlay",
-            "id": "4DPHY2JOvd",
+            "id": "3pNxmXKZS_",
             "children": []
         }
     ],
+    "_lastUpdated": "2020-09-01T21:26:24.106Z",
     "initialState": {}
 }

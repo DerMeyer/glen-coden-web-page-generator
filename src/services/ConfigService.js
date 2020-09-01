@@ -10,7 +10,7 @@ class ConfigService {
 
     init() {
         return Promise.resolve()
-            .then(() => requestService.get(`http://116.202.99.153/api/config/${PROJ_INFO.projectName}.json`))
+            .then(() => requestService.get(`http://116.202.99.153/api/config/${PROJ_INFO.projectName}`))
             .then(PROD_CONFIG => {
                 this.config = process.env.NODE_ENV && process.env.NODE_ENV === 'production' ? PROD_CONFIG : DEV_CONFIG;
                 this._createComponentsList(this.config.components);

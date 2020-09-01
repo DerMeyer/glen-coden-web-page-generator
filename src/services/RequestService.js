@@ -1,4 +1,8 @@
 class RequestService {
+    init() {
+        return Promise.resolve();
+    }
+
     get(url) {
         return Promise.resolve()
             .then(() => fetch(url))
