@@ -1,0 +1,115 @@
+{
+    "title": "Glen Coden App",
+    "description": "This app was created with Glen Coden Web Page Generator.",
+    "global": {
+        "fontTypes": [
+            {
+                "name": "Comfortaa",
+                "url": "https://fonts.googleapis.com/css?family=Comfortaa&display=swap"
+            }
+        ],
+        "colors": {
+            "theme": "#FFFFFF",
+            "background": "#000000",
+            "overlay": "#FFFFFF",
+            "light": "#FFFFFF",
+            "medium": "#F9F9F9",
+            "dark": "#000000"
+        },
+        "fontSizes": {
+            "h1": 54,
+            "h2": 32,
+            "h3": 24,
+            "body": 16
+        },
+        "pageContentSize": {
+            "width": 80,
+            "widthMobile": 90,
+            "height": 85,
+            "heightMobile": 90
+        },
+        "maxPageWidth": 2500,
+        "fadeInTime": 0.2,
+        "loadingTimeout": 10,
+        "usePortraitImages": true
+    },
+    "components": [
+        {
+            "component": "Page",
+            "id": "GYn8wxGkQ",
+            "rows": 2,
+            "minHeight": 0,
+            "color": "background",
+            "children": [
+                {
+                    "component": "ZoomBackground",
+                    "id": "Cc5lmjLY53",
+                    "image": "images/background-image.jpg",
+                    "autoZoom": false,
+                    "zoomFactor": {
+                        "manual": 4,
+                        "auto": 12
+                    },
+                    "zoomTime": {
+                        "manual": 0.5,
+                        "auto": 10
+                    },
+                    "children": []
+                },
+                {
+                    "component": "Row",
+                    "id": "J8LR6AthYX",
+                    "alignSelf": "start",
+                    "justifyContent": "flex-end",
+                    "alignItems": "center",
+                    "children": [
+                        {
+                            "component": "IconNavigation",
+                            "id": "wbCrJUuvHl",
+                            "sizing": 2,
+                            "items": [
+                                {
+                                    "imageUrl": "icons/icon.png",
+                                    "targetUrl": "https://github.com/DerMeyer/glen-coden-web-page-generator"
+                                }
+                            ],
+                            "stretch": 1,
+                            "verticalOnPortrait": true,
+                            "color": "light",
+                            "children": []
+                        }
+                    ]
+                },
+                {
+                    "component": "Row",
+                    "id": "dYn9HZkb30",
+                    "alignSelf": "end",
+                    "justifyContent": "space-between",
+                    "alignItems": "center",
+                    "children": [
+                        {
+                            "component": "Headline",
+                            "id": "tyXfF8O-ts",
+                            "text": "Welcome*to Glen Coden*Generator",
+                            "sizing": {
+                                "landscape": 0.8,
+                                "portrait": 0.7
+                            },
+                            "size": "big",
+                            "fontTypeIndex": 0,
+                            "color": "light",
+                            "children": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "component": "LoadingOverlay",
+            "id": "3pNxmXKZS_",
+            "children": []
+        }
+    ],
+    "_lastUpdated": "2020-09-01T21:26:24.106Z",
+    "initialState": {}
+}

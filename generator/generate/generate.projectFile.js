@@ -2,8 +2,8 @@ const path = require('path');
 const fs = require('fs');
 const componentsList = require('../components-list');
 
-function generateProjectFile(projectDir, targetDir) {
-    const PROJ_CONFIG = require(path.join(projectDir, 'config'));
+function generateProjectFile(sourceDir, targetDir) {
+    const PROJ_CONFIG = require(path.join(sourceDir, 'dev-project-config'));
     const componentsMap = PROJ_CONFIG.components;
 
     return new Promise(resolve => {

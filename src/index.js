@@ -4,25 +4,23 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from './store/Store';
 import App from './App';
-import TrackingService from './services/TrackingService';
 import ConfigService from './services/ConfigService';
-import PROJ_CONFIG from './project-config';
+import RequestService from './services/RequestService';
+import TrackingService from './services/TrackingService';
 
-export const trackingService = new TrackingService();
 export const configService = new ConfigService();
+export const requestService = new RequestService();
+export const trackingService = new TrackingService();
 
 Promise.all([
-    Promise.resolve()
-        .then(() => fetch('config.json'))
-        .then(response => response.json())
-        .then(USER_CONFIG => {
-            const CONFIG = process.env.NODE_ENV && process.env.NODE_ENV === 'production' ? USER_CONFIG : PROJ_CONFIG;
-            configService.init(CONFIG);
-        })
+    configService.init(),
+    requestService.init(),
+    trackingService.init()
 ])
     .then(() => {
-        trackingService.callRender();
         const initialState = configService.getInitialState();
+
+        trackingService.callRender();
 
         ReactDOM.render(
             <Provider initialState={initialState}>
@@ -32,4 +30,5 @@ Promise.all([
         );
 
         serviceWorker.unregister();
-    });
+    })
+    .catch(err => console.error(err));

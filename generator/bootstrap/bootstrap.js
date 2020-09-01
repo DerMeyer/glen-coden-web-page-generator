@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-const getPath = require('../../js/getters/getPath');
+const getPath = require('../../js/getPath');
 
 const bootstrapFileTree = require('./bootstrap.fileTree');
 const bootstrapConfig = require('./bootstrap.config');
@@ -28,7 +28,7 @@ Promise.resolve()
         return bootstrapFileTree(projectDir, bootstrapDir);
     })
     .then(() => {
-        console.log('Create config at root level.\n');
-        return bootstrapConfig(getPath.sourceDir, projectDir);
+        console.log('Create config.\n');
+        return bootstrapConfig(getPath.sourceDir, projectName);
     })
     .catch(console.error);

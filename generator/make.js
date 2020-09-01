@@ -1,11 +1,11 @@
 const path = require('path');
 const fs = require('fs');
-const getPath = require('../js/getters/getPath');
+const getPath = require('../js/getPath');
 const { execProcess } = require('../js/helpers');
-const GEN_CONFIG = require('../generator-config.json');
+const PROJ_INFO = require('../src/project-info.json');
 
 
-const projectName = process.argv[2] || GEN_CONFIG._project;
+const projectName = process.argv[2] || PROJ_INFO.projectName;
 
 Promise.resolve()
     .then(

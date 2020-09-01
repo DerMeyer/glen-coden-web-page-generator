@@ -5,6 +5,11 @@ class TrackingService {
         this.pageLoadedAt = 0;
     }
 
+    init() {
+        console.log('TRACKING: Tracking service initiated.');
+        return Promise.resolve();
+    }
+
     callRender() {
         this.callRenderAt = Date.now();
     }
@@ -14,8 +19,8 @@ class TrackingService {
             return;
         }
         this.pageLoadedAt = Date.now();
-        console.log(`Page loaded in ${(this.pageLoadedAt - this.initAt) / 1000} seconds.`);
-        console.log(`Page rendered in ${(this.pageLoadedAt -this.callRenderAt) / 1000} seconds.`);
+        console.log(`TRACKING: Page loaded in ${(this.pageLoadedAt - this.initAt) / 1000} seconds.`);
+        console.log(`TRACKING: Page rendered in ${(this.pageLoadedAt -this.callRenderAt) / 1000} seconds.`);
     }
 }
 

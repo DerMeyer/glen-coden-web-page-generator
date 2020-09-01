@@ -1,8 +1,8 @@
-const path = require('path');
+ const path = require('path');
 const fs = require('fs');
 
-function generateIndexHtml(projectDir, targetDir) {
-    const PROJ_CONFIG = require(path.join(projectDir, 'config'));
+function generateIndexHtml(sourceDir, targetDir) {
+    const PROJ_CONFIG = require(path.join(sourceDir, 'dev-project-config'));
 
     return new Promise(resolve => {
         let file = '';

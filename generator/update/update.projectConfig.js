@@ -2,33 +2,50 @@ const path = require('path');
 const fs = require('fs');
 const shortid = require('shortid');
 const { objectFromSchema, mergeObjects } = require('../../js/helpers');
+const { get, post } = require('../../js/requests');
 
-const GEN_CONFIG = require('../../generator-config.json');
 const PROJ_CONFIG_SCHEMA = require('../project-config-schema');
+const PROJ_INFO = require('../../src/project-info.json');
 
 function updateProjectConfig(sourceDir, projectDir, projectName) {
-    return new Promise(resolve => {
-        const sourceConfigPath = path.join(sourceDir, 'project-config.json');
-        const sourceConfigIsTruth = fs.existsSync(sourceConfigPath) && projectName === GEN_CONFIG._project;
+    return Promise.resolve()
+        .then(() => getProjectConfig(sourceDir, projectName))
+        .then(config => {
+            const jsConfig = typeof config === 'string' ? JSON.parse(config) : config;
+            const updatedConfig = mergeObjects(jsConfig, objectFromSchema(PROJ_CONFIG_SCHEMA));
 
-        let projectConfig;
+            updatedConfig.components = updateComponentsMap(updatedConfig.components);
+            updatedConfig._lastUpdated = new Date().toISOString();
 
-        if (sourceConfigIsTruth) {
-            projectConfig = JSON.parse(fs.readFileSync(sourceConfigPath, 'utf-8'));
-        } else {
-            projectConfig = JSON.parse(fs.readFileSync(path.join(projectDir, 'config.json'), 'utf-8'));
-        }
+            updateDevProjectConfig(sourceDir, updatedConfig);
+            updateConfigHistory(projectDir, updatedConfig);
 
-        const updatedConfig = mergeObjects(projectConfig, objectFromSchema(PROJ_CONFIG_SCHEMA));
-
-        updatedConfig.components = updateComponentsMap(updatedConfig.components);
-
-        writeProjectConfig(sourceDir, projectDir, updatedConfig);
-        resolve();
-    });
+            return updateRemoteProjectConfig(projectName, updatedConfig);
+        });
 }
 
-function writeProjectConfig(sourceDir, projectDir, config) {
+function getProjectConfig(sourceDir, projectName) {
+    return Promise.resolve()
+        .then(() => {
+            if (projectName !== PROJ_INFO.projectName) {
+                return get(`http://116.202.99.153/api/config/${projectName}`);
+            } else {
+                return Promise.resolve(
+                    JSON.parse(fs.readFileSync(path.join(sourceDir, 'dev-project-config.json'), 'utf-8'))
+                );
+            }
+        })
+}
+
+function updateRemoteProjectConfig(projectName, config) {
+    return post(`http://116.202.99.153/api/config/${projectName}`, { config });
+}
+
+function updateDevProjectConfig(sourceDir, config) {
+    fs.writeFileSync(path.join(sourceDir, 'dev-project-config.json'), JSON.stringify(config, null, 4));
+}
+
+function updateConfigHistory(projectDir, config) {
     const historyDir = path.join(projectDir, 'json', 'config-history');
     const date = new Date();
     const currentEntry = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}_${date.getHours()}-${date.getSeconds()}.json`;
@@ -37,9 +54,7 @@ function writeProjectConfig(sourceDir, projectDir, config) {
         const obsoleteEntry = historyEntries.pop();
         fs.unlinkSync(path.join(historyDir, obsoleteEntry));
     }
-    fs.writeFileSync(path.join(sourceDir, 'project-config.json'), JSON.stringify(config, null, 4));
     fs.writeFileSync(path.join(historyDir, currentEntry), JSON.stringify(config, null, 4));
-    fs.writeFileSync(path.join(projectDir, 'config.json'), JSON.stringify(config, null, 4));
 }
 
 function updateComponentsMap(componentsMap) {
