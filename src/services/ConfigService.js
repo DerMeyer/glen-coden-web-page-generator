@@ -1,12 +1,20 @@
+import { requestService } from '../index';
+import PROJ_INFO from '../project-info.json';
+import DEV_CONFIG from '../dev-project-config.json';
+
 class ConfigService {
     constructor() {
         this.config = {};
         this.componentsList = {};
     }
 
-    init(config) {
-        this.config = config;
-        this._createComponentsList(this.config.components);
+    init() {
+        return Promise.resolve()
+            .then(() => requestService.get(`http://116.202.99.153/api/config/${PROJ_INFO.projectName}.json`))
+            .then(PROD_CONFIG => {
+                this.config = process.env.NODE_ENV && process.env.NODE_ENV === 'production' ? PROD_CONFIG : DEV_CONFIG;
+                this._createComponentsList(this.config.components);
+            });
     }
 
     _createComponentsList(components) {

@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-const getPath = require('../js/getters/getPath');
+const getPath = require('../js/getPath');
 const optimizeAssets = require('./optimizeAssets');
 
 const projectName = process.argv[2];

@@ -1,5 +1,5 @@
 const path = require('path');
-const GEN_CONFIG = require('../../generator-config.json');
+const GEN_CONFIG = require('../generator-config.json');
 
 const {
     projectsDirSegments,

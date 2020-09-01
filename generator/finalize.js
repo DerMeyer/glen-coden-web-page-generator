@@ -1,12 +1,12 @@
 const path = require('path');
 const fs = require('fs');
 const rimraf = require('rimraf');
-const getPath = require('../js/getters/getPath');
+const getPath = require('../js/getPath');
 const { deepCopyDirectory, execProcess } = require('../js/helpers');
-const GEN_CONFIG = require('../generator-config.json');
+const PROJ_INFO = require('../src/project-info.json');
 
 
-const projectName = GEN_CONFIG._project;
+const { projectName } = PROJ_INFO;
 const projectDir = path.join(getPath.projectsDir, projectName);
 const buildDirectory = path.join(projectDir, 'build');
 
