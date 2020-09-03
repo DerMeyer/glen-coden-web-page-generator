@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('fs');
+const logger = require('../../js/logger/logger');
 const getPath = require('../../js/getPath');
 
 const updateComponentsList = require('./update.componentsList');
@@ -8,24 +9,29 @@ const updateProjectConfig = require('./update.projectConfig');
 let projectName = process.argv[2];
 
 if (!projectName) {
-    console.warn(`\nCouldn't update project. Please pass a project name as first arg to the update command.\n`);
+    logger.warn(`Couldn't update project. Please pass a project name as first arg to the update command.`, true, true);
     process.exit();
 }
 
 if (!fs.readdirSync(getPath.projectsDir).includes(projectName)) {
-    console.warn(`\nCouldn't find project with name ${projectName}. Exit process.\n`);
+    logger.warn(`Couldn't find project with name ${projectName}. Exit process.`, true, true);
     process.exit();
 }
 
 const projectDir = path.join(getPath.projectsDir, projectName);
 
+logger.title('run update.js');
+
 Promise.resolve()
     .then(() => {
-        console.log('\nUpdate components list.\n');
+        logger.print('Update components list.');
         return updateComponentsList(getPath.sourceDir, getPath.generatorDir);
     })
     .then(() => {
-        console.log('Update project config.\n');
+        logger.print('Update project config.');
         return updateProjectConfig(getPath.sourceDir, projectDir, projectName);
+    })
+    .then(() => {
+        logger.success('Updated');
     })
     .catch(console.error);

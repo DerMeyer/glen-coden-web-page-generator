@@ -9,7 +9,7 @@
             }
         ],
         "colors": {
-            "theme": "#FFFFFF",
+            "theme": "#000000",
             "background": "#000000",
             "overlay": "#FFFFFF",
             "light": "#FFFFFF",
@@ -36,14 +36,14 @@
     "components": [
         {
             "component": "Page",
-            "id": "GYn8wxGkQ",
+            "id": "f8IgshhLz",
             "rows": 2,
             "minHeight": 0,
             "color": "background",
             "children": [
                 {
                     "component": "ZoomBackground",
-                    "id": "Cc5lmjLY53",
+                    "id": "pCwF68JHxa",
                     "image": "images/background-image.jpg",
                     "autoZoom": false,
                     "zoomFactor": {
@@ -58,14 +58,14 @@
                 },
                 {
                     "component": "Row",
-                    "id": "J8LR6AthYX",
+                    "id": "EoS0VU7t8b",
                     "alignSelf": "start",
                     "justifyContent": "flex-end",
                     "alignItems": "center",
                     "children": [
                         {
                             "component": "IconNavigation",
-                            "id": "wbCrJUuvHl",
+                            "id": "_2TyQ8UEq-",
                             "sizing": 2,
                             "items": [
                                 {
@@ -82,14 +82,14 @@
                 },
                 {
                     "component": "Row",
-                    "id": "dYn9HZkb30",
+                    "id": "oCDsK-aRNm",
                     "alignSelf": "end",
                     "justifyContent": "space-between",
                     "alignItems": "center",
                     "children": [
                         {
                             "component": "Headline",
-                            "id": "tyXfF8O-ts",
+                            "id": "LkY8lEdqHp",
                             "text": "Welcome*to Glen Coden*Generator",
                             "sizing": {
                                 "landscape": 0.8,
@@ -106,10 +106,10 @@
         },
         {
             "component": "LoadingOverlay",
-            "id": "3pNxmXKZS_",
+            "id": "LWoWRlXKnW",
             "children": []
         }
     ],
-    "_lastUpdated": "2020-09-01T21:26:24.106Z",
+    "_lastUpdated": "2020-09-03T19:00:29.362Z",
     "initialState": {}
 }

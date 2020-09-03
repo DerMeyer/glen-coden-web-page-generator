@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('fs');
+const logger = require('../../js/logger/logger');
 const getPath = require('../../js/getPath');
 
 const generateProjectInfo = require('./generate.projectInfo');
@@ -14,7 +15,7 @@ const projectName = process.argv[2];
 const projectDir = path.join(getPath.projectsDir, projectName);
 
 if (!fs.readdirSync(getPath.projectsDir).includes(projectName)) {
-    console.warn(`\nCouldn't find project with name ${projectName}. Exit process.\n`);
+    logger.warn(`Couldn't find project with name ${projectName}. Exit process.`, true, true);
     process.exit();
 }
 
@@ -22,34 +23,38 @@ if (!fs.existsSync(getPath.publicDir)) {
     fs.mkdirSync(getPath.publicDir);
 }
 
+logger.title('run generate.js');
 
 Promise.resolve()
     .then(() => {
-        console.log('Generate project-info in src.\n');
+        logger.print('Write dev-project-config into src directory.');
         return generateProjectInfo(getPath.sourceDir, projectName);
     })
     .then(() => {
-        console.log(`\nCopy static assets into public directory.\nFROM ${path.join(projectDir, 'static')}\nTO ${getPath.publicDir}\n`);
+        logger.print('Copy static assets into public directory.');
         return generatePublicAssets(projectDir, getPath.publicDir);
     })
     .then(() => {
-        console.log('Generate index.html in /public.\n');
+        logger.print('Create index.html in public directory.');
         return generateIndexHtml(getPath.sourceDir, getPath.publicDir);
     })
     .then(() => {
-        console.log('Generate manifest.json in /public.\n');
+        logger.print('Create manifest.json in public directory.');
         return generateManifestJson(getPath.sourceDir, projectDir, getPath.publicDir);
     })
     .then(() => {
-        console.log('Generate robots.txt in /public.\n');
+        logger.print('Create robots.txt in public directory.');
         return generateRobotsTxt(getPath.publicDir);
     })
     .then(() => {
-        console.log('Export svg as ReactComponent in /src/js.\n');
+        logger.print('Export SVGs as ReactComponents in src/js directory.');
         return generateSvgExport(getPath.sourceDir);
     })
     .then(() => {
-        console.log('Generate _Project.js in /src.\n');
+        logger.print('Create _Project.js in src directory.');
         return generateProjectFile(getPath.sourceDir, getPath.sourceDir);
+    })
+    .then(() => {
+        logger.success('Generated');
     })
     .catch(console.error);

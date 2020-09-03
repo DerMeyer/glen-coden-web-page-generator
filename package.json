@@ -7,6 +7,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "chalk": "^4.1.0",
     "classnames": "^2.2.6",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
@@ -24,7 +25,8 @@
     "generate": "node generator/generate/generate.js",
     "make": "node generator/make.js",
     "finalize": "node generator/finalize.js",
-    "optimize": "node optimizer/optimize.js"
+    "optimize": "node optimizer/optimize.js",
+    "project": "node project-info.js"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('fs');
+const logger = require('../../js/logger/logger');
 const getPath = require('../../js/getPath');
 
 const bootstrapFileTree = require('./bootstrap.fileTree');
@@ -8,12 +9,12 @@ const bootstrapConfig = require('./bootstrap.config');
 const projectName = process.argv[2];
 
 if (!projectName) {
-    console.warn(`\nCouldn't bootstrap project. Please pass a project name as first arg to the bootstrap command.\n`);
+    logger.warn(`Couldn't bootstrap project. Please pass a project name as first arg to the bootstrap command.`, true, true);
     process.exit();
 }
 
 if (fs.readdirSync(getPath.projectsDir).includes(projectName)) {
-    console.warn(`\nCouldn't bootstrap project. The project name already exists.\n`);
+    logger.warn(`Couldn't bootstrap project. The project name already exists.`, true, true);
     process.exit();
 }
 
@@ -22,13 +23,18 @@ const projectDir = path.join(getPath.projectsDir, projectName);
 
 fs.mkdirSync(projectDir);
 
+logger.title('run bootstrap.js');
+
 Promise.resolve()
     .then(() => {
-        console.log(`\nBootstrap static contents in ${projectDir}.\n`);
+        logger.print('Bootstrap static contents.');
         return bootstrapFileTree(projectDir, bootstrapDir);
     })
     .then(() => {
-        console.log('Create config.\n');
+        logger.print('Bootstrap config.');
         return bootstrapConfig(getPath.sourceDir, projectName);
+    })
+    .then(() => {
+        logger.success('Bootstrapped');
     })
     .catch(console.error);
