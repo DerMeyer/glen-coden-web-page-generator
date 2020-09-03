@@ -3,7 +3,7 @@ const { log } = console;
 
 
 function print(string, first = false, last = false) {
-    log(`${first ? '\n' : ''}\t${chalk.green(string)}${last ? '\n' : ''}`);
+    log(`${first ? '\n' : ''}\t${string}${last ? '\n' : ''}`);
 }
 
 function warn(string, first = false, last = false) {
