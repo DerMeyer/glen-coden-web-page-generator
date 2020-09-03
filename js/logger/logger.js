@@ -5,8 +5,13 @@ const { log } = console;
 function print(string, first = false, last = false) {
     log(`${first ? '\n' : ''}\t${chalk.green(string)}${last ? '\n' : ''}`);
 }
+
 function warn(string, first = false, last = false) {
     log(`${first ? '\n' : ''}\t${chalk.red(string)}${last ? '\n' : ''}`);
+}
+
+function title(string) {
+    log(`\t${chalk.bgBlue(`\n\t${string}\t`)}\n`);
 }
 
 function success(string) {
@@ -14,6 +19,7 @@ function success(string) {
     log(`\t${chalk.bgGreen(' ')}\t${chalk.blue(string)}\t${chalk.bgGreen(' ')}`);
     log(`\t${chalk.green.bgGreen(`\t${string}\t\s\n`)}`);
 }
+
 function error(string) {
     log(`\n\t${chalk.red.bgRed(`\t${string}\t\s`)}`);
     log(`\t${chalk.bgRed(' ')}\t${chalk.blue(string)}\t${chalk.bgRed(' ')}`);
@@ -22,5 +28,6 @@ function error(string) {
 
 exports.print = print;
 exports.warn = warn;
+exports.title = title;
 exports.success = success;
 exports.error = error;
