@@ -1,4 +1,5 @@
 const http = require('http');
+const logger = require('./logger/logger');
 
 function get(url) {
     const parsedUrl = url.split('//').pop();
@@ -9,7 +10,7 @@ function get(url) {
             host,
             path
         }, res => {
-            console.log('GET REQUEST - STATUS CODE: ', res.statusCode);
+            logger.statusCode(`GET REQUEST TO ${url}`, res.statusCode);
             let result = '';
             res.on('data', chunk => result += chunk);
             res.on('end', () => resolve(result));
@@ -32,7 +33,7 @@ function post(url, data) {
                 'Content-Type': 'application/json; charset=utf-8'
             }
         }, res => {
-            console.log('POST REQUEST - STATUS CODE: ', res.statusCode);
+            logger.statusCode(`POST REQUEST TO ${url}`, res.statusCode);
             let result = '';
             res.on('data', chunk => result += chunk);
             res.on('end', () => resolve(result));

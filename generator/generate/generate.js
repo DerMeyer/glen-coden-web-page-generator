@@ -15,7 +15,7 @@ const projectName = process.argv[2];
 const projectDir = path.join(getPath.projectsDir, projectName);
 
 if (!fs.readdirSync(getPath.projectsDir).includes(projectName)) {
-    console.warn(`\nCouldn't find project with name ${projectName}. Exit process.\n`);
+    logger.warn(`Couldn't find project with name ${projectName}. Exit process.`, true, true);
     process.exit();
 }
 
@@ -55,6 +55,6 @@ Promise.resolve()
         return generateProjectFile(getPath.sourceDir, getPath.sourceDir);
     })
     .then(() => {
-        logger.success('Generated assets');
+        logger.success('Generated');
     })
     .catch(console.error);
