@@ -4,8 +4,8 @@
     "global": {
         "fontTypes": [
             {
-                "name": "Comfortaa",
-                "url": "https://fonts.googleapis.com/css?family=Comfortaa&display=swap"
+                "name": "'Roboto', 'Arial', 'sans-serif'",
+                "url": ""
             }
         ],
         "colors": {
@@ -36,14 +36,14 @@
     "components": [
         {
             "component": "Page",
-            "id": "f8IgshhLz",
+            "id": "DuEh0n9rL",
             "rows": 2,
             "minHeight": 0,
             "color": "background",
             "children": [
                 {
                     "component": "ZoomBackground",
-                    "id": "pCwF68JHxa",
+                    "id": "HAKkBxuHeW",
                     "image": "images/background-image.jpg",
                     "autoZoom": false,
                     "zoomFactor": {
@@ -58,14 +58,14 @@
                 },
                 {
                     "component": "Row",
-                    "id": "EoS0VU7t8b",
+                    "id": "B7ugQd8BOC",
                     "alignSelf": "start",
                     "justifyContent": "flex-end",
                     "alignItems": "center",
                     "children": [
                         {
                             "component": "IconNavigation",
-                            "id": "_2TyQ8UEq-",
+                            "id": "b-yhlpZSYN",
                             "sizing": 2,
                             "items": [
                                 {
@@ -82,14 +82,14 @@
                 },
                 {
                     "component": "Row",
-                    "id": "oCDsK-aRNm",
+                    "id": "P_M-AayvlL",
                     "alignSelf": "end",
                     "justifyContent": "space-between",
                     "alignItems": "center",
                     "children": [
                         {
                             "component": "Headline",
-                            "id": "LkY8lEdqHp",
+                            "id": "pnmktjoBgd",
                             "text": "Welcome*to Glen Coden*Generator",
                             "sizing": {
                                 "landscape": 0.8,
@@ -106,10 +106,10 @@
         },
         {
             "component": "LoadingOverlay",
-            "id": "LWoWRlXKnW",
+            "id": "Vh2CHwqO-7",
             "children": []
         }
     ],
-    "_lastUpdated": "2020-09-03T19:00:29.362Z",
+    "_lastUpdated": "2020-09-04T12:51:18.885Z",
     "initialState": {}
 }

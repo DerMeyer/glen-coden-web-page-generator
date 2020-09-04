@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-const logger = require('../../js/logger/logger');
+const logger = require('../../js/logger');
 const getPath = require('../../js/getPath');
 
 const bootstrapFileTree = require('./bootstrap.fileTree');

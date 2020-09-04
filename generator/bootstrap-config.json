@@ -1,21 +1,19 @@
 {
-    "paths": {
-        "images": [
-            "static",
-            "images"
-        ],
-        "optimizedImages": [
-            "static",
-            "images",
-            "optimized"
-        ],
-        "logos": [],
-        "optimizedLogos": [],
-        "json": [
-            "json"
-        ]
-    },
     "fileTree": [
+        {
+            "name": "docs",
+            "type": "directory"
+        },
+        {
+            "name": "json",
+            "type": "directory",
+            "children": [
+                {
+                    "name": "config-history",
+                    "type": "directory"
+                }
+            ]
+        },
         {
             "name": "static",
             "type": "directory",
@@ -51,14 +49,8 @@
             ]
         },
         {
-            "name": "json",
-            "type": "directory",
-            "children": [
-                {
-                    "name": "config-history",
-                    "type": "directory"
-                }
-            ]
+            "name": ".gitignore",
+            "type": "file"
         }
     ],
     "projectConfig": {
@@ -67,8 +59,8 @@
         "global": {
             "fontTypes": [
                 {
-                    "name": "Comfortaa",
-                    "url": "https://fonts.googleapis.com/css?family=Comfortaa&display=swap"
+                    "name": "'Roboto', 'Arial', 'sans-serif'",
+                    "url": ""
                 }
             ]
         },
