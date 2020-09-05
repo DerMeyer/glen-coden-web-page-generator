@@ -168,8 +168,11 @@
                 "initialState": {
                     "type": "object"
                 },
-                "style": {
-                    "type": "object"
+                "fromGlobal": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 },
                 "sizing": {
                     "type": "object"

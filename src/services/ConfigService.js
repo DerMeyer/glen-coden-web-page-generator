@@ -2,10 +2,33 @@ import { requestService } from '../index';
 import PROJ_INFO from '../project-info.json';
 import DEV_CONFIG from '../dev-project-config.json';
 
+const mappedProps = {
+    fontSizes: mapToFontSizes,
+    colors: mapToColors,
+    pageSizes: mapToBreakpoints,
+    scale: mapToBreakpoints,
+    stretch: mapToBreakpoints
+};
+
+function mapToFontSizes() {
+
+}
+
+function mapToColors() {
+
+}
+
+function mapToBreakpoints() {
+
+}
+
+
 class ConfigService {
     constructor() {
         this.config = {};
-        this.componentsList = {};
+        this.global = {};
+        this.components = {};
+        this.initialState = {};
     }
 
     init() {
@@ -13,25 +36,36 @@ class ConfigService {
             .then(() => requestService.get(`http://116.202.99.153/api/config/${PROJ_INFO.projectName}`))
             .then(PROD_CONFIG => {
                 this.config = process.env.NODE_ENV && process.env.NODE_ENV === 'production' ? PROD_CONFIG : DEV_CONFIG;
-                this._createComponentsList(this.config.components);
+
+                this._createGlobal();
+                this._createComponents(this.config.components);
+                this._createInitialState();
             });
     }
 
-    _createComponentsList(components) {
+    _createGlobal() {
+
+    }
+
+    _createComponents(components) {
         if (!Array.isArray(components)) {
             console.warn('Missing components list at ConfigService');
             return;
         }
         components.forEach(entry => {
             delete entry.initialState;
-            this.componentsList[entry.id] = {
+            this.components[entry.id] = {
                 global: this.config.global,
                 ...entry
             };
             if (entry.children.length) {
-                this._createComponentsList(entry.children);
+                this._createComponents(entry.children);
             }
         });
+    }
+
+    _createInitialState() {
+
     }
 
     getInitialState = () => {
@@ -55,7 +89,7 @@ class ConfigService {
     }
 
     getProps = id => {
-        if (!id || !this.componentsList[id]) {
+        if (!id || !this.components[id]) {
             if (!this.config.global) {
                 return {};
             }
@@ -63,7 +97,7 @@ class ConfigService {
                 global: this.config.global
             };
         }
-        const props = this.componentsList[id];
+        const props = this.components[id];
         props.id = id;
         return props;
     }

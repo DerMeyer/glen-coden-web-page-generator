@@ -59,8 +59,7 @@
         "global": {
             "fontTypes": [
                 {
-                    "name": "'Roboto', 'Arial', 'sans-serif'",
-                    "url": ""
+                    "name": "'Roboto', 'Arial', 'sans-serif'"
                 }
             ]
         },
