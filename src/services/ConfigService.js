@@ -1,31 +1,88 @@
+import { BreakPointTypes } from '../js/helpers';
 import { requestService } from '../index';
 import PROJ_INFO from '../project-info.json';
 import DEV_CONFIG from '../dev-project-config.json';
 
-const mappedProps = {
-    fontSizes: mapToFontSizes,
-    colors: mapToColors,
-    pageSizes: mapToBreakpoints,
-    scale: mapToBreakpoints,
-    stretch: mapToBreakpoints
-};
+const valueLengthToFontSizeIndex = [
+    [ 0, 1, 1, 1, 1 ],
+    [ 0, 1, 1, 1, 2 ],
+    [ 0, 1, 1, 2, 3 ],
+    [ 0, 1, 2, 3, 4 ]
+];
 
-function mapToFontSizes() {
-
+function mapToFontSizes(value) {
+    if (!Array.isArray(value)) {
+        return value;
+    }
+    if (value.length < 2) {
+        return value[0];
+    }
+    const indices = valueLengthToFontSizeIndex[value.length];
+    return {
+        body: value[indices[0]],
+        h4: value[indices[1]],
+        h3: value[indices[2]],
+        h2: value[indices[3]],
+        h1: value[indices[4]]
+    };
 }
 
-function mapToColors() {
+const valueLengthToColorIndex = [
+    [ 0, 0, 1, 1, 1 ],
+    [ 0, 0, 1, 2, 2 ],
+    [ 0, 0, 1, 2, 3 ],
+    [ 0, 1, 2, 3, 4 ]
+];
 
+function mapToColors(value) {
+    if (!Array.isArray(value)) {
+        return value;
+    }
+    if (value.length < 2) {
+        return value[0];
+    }
+    const indices = valueLengthToColorIndex[value.length];
+    return [
+        value[indices[0]],
+        value[indices[1]],
+        value[indices[2]],
+        value[indices[3]],
+        value[indices[4]]
+    ];
 }
 
-function mapToBreakpoints() {
+const isTypeArray = [
+    'fontTypes',
+    'fontSizes',
+    'colors',
+    'items'
+];
 
+const valueLengthToBreakpointIndex = [
+    [ 0, 0, 1, 1, 1, 1 ],
+    [ 0, 1, 2, 2, 2, 2 ],
+    [ 0, 1, 2, 2, 2, 3 ],
+    [ 0, 1, 2, 2, 3, 4 ],
+    [ 0, 1, 2, 3, 4, 5 ]
+];
+
+function mapToBreakpointType(key, value, type) {
+    if (
+        !Array.isArray(value)
+        || (isTypeArray[key] && !Array.isArray(value[0]))
+    ) {
+        return value;
+    }
+    if (value.length < 2) {
+        return value[0];
+    }
+    const indices = valueLengthToBreakpointIndex[value.length];
+    return indices[BreakPointTypes.values().indexOf(type)];
 }
 
 
 class ConfigService {
     constructor() {
-        this.config = {};
         this.global = {};
         this.components = {};
         this.initialState = {};
@@ -35,16 +92,22 @@ class ConfigService {
         return Promise.resolve()
             .then(() => requestService.get(`http://116.202.99.153/api/config/${PROJ_INFO.projectName}`))
             .then(PROD_CONFIG => {
-                this.config = process.env.NODE_ENV && process.env.NODE_ENV === 'production' ? PROD_CONFIG : DEV_CONFIG;
+                const config = process.env.NODE_ENV && process.env.NODE_ENV === 'production' ? PROD_CONFIG : DEV_CONFIG;
 
-                this._createGlobal();
-                this._createComponents(this.config.components);
-                this._createInitialState();
+                this._createGlobal(config.global);
+                this._createComponents(config.components);
+                this._createInitialState(config.initialState, config.components);
             });
     }
 
-    _createGlobal() {
-
+    _createGlobal(config) {
+        BreakPointTypes.values().forEach(type => {
+            const entryForType = {};
+            Object.keys(config).forEach(key => {
+                entryForType[key] = mapToBreakpointType(key, config[key], type);
+            });
+            this.global[type] = entryForType;
+        });
     }
 
     _createComponents(components) {
@@ -55,7 +118,7 @@ class ConfigService {
         components.forEach(entry => {
             delete entry.initialState;
             this.components[entry.id] = {
-                global: this.config.global,
+                global: this.global,
                 ...entry
             };
             if (entry.children.length) {
@@ -64,14 +127,9 @@ class ConfigService {
         });
     }
 
-    _createInitialState() {
-
-    }
-
-    getInitialState = () => {
-        const { initialState, components } = this.config;
+    _createInitialState(initialState, components) {
         if (!initialState || !components) {
-            return {};
+            return;
         }
         const state = {};
         Object.keys(components).forEach(key => {
@@ -82,19 +140,23 @@ class ConfigService {
                 ...components[key].initialState
             };
         });
-        return {
+        this.initialState = {
             ...initialState,
             ...state
         };
     }
 
+    getInitialState = () => {
+        return this.initialState;
+    }
+
     getProps = id => {
         if (!id || !this.components[id]) {
-            if (!this.config.global) {
+            if (!this.global) {
                 return {};
             }
             return {
-                global: this.config.global
+                global: this.global
             };
         }
         const props = this.components[id];
