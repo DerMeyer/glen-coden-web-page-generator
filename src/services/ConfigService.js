@@ -59,6 +59,30 @@ function mapToBreakpointType(key, value, type) {
     return value[valIndex];
 }
 
+function getPropsFromGlobal(element, global) {
+    Object.keys(element).forEach(k => {
+        if (k === 'fromGlobal') {
+            [].concat(element[k]).forEach(e => {
+                if (isObject(e)) {
+                    const { key, value, property } = e;
+                    if (typeof property === 'undefined') {
+                        element[key] = global[value];
+                        return;
+                    }
+                    element[key] = global[value][property];
+                    return;
+                }
+                element[e] = global[e];
+                delete element[k];
+            });
+        }
+        if (isObject(element[k])) {
+            element[k] = getPropsFromGlobal(element[k], global);
+        }
+    });
+    return element;
+}
+
 
 class ConfigService {
     constructor() {
@@ -130,23 +154,8 @@ class ConfigService {
                 this.components[type] = {};
             }
             components.forEach(c => {
-                const comp = { ...c };
+                const comp = getPropsFromGlobal({ ...c }, this.global[type]);
                 delete comp.initialState;
-                if (comp.fromGlobal) {
-                    [].concat(comp.fromGlobal).forEach(e => {
-                        if (isObject(e)) {
-                            const { key, value, property } = e;
-                            if (typeof property === 'undefined') {
-                                comp[key] = this.global[type][value];
-                                return;
-                            }
-                            comp[key] = this.global[type][value][property];
-                            return;
-                        }
-                        comp[e] = this.global[type][e];
-                    });
-                }
-                delete comp.fromGlobal;
                 this.components[type][comp.id] = { ...comp };
                 if (Array.isArray(comp.children) && comp.children.length) {
                     this._createComponents(comp.children);

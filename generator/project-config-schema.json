@@ -40,15 +40,22 @@
                         "type": "number"
                     }
                 },
-                "pageSize": {
+                "contentSize": {
                     "type": "array",
                     "items": {
-                        "$ref": "#singlePageSize"
+                        "$ref": "#singleContentSize"
                     }
                 },
-                "maxPageWidth": {
+                "maxContentWidth": {
                     "type": "number",
                     "default": 2500
+                },
+                "pageWidth": {
+                    "type": "number",
+                    "default": 1
+                },
+                "maxPageWidth": {
+                    "type": "number"
                 },
                 "colors": {
                     "type": "array",
@@ -95,8 +102,8 @@
                 }
             }
         },
-        "singlePageSize": {
-            "$id": "#singlePageSize",
+        "singleContentSize": {
+            "$id": "#singleContentSize",
             "type": "object",
             "properties": {
                 "width": {

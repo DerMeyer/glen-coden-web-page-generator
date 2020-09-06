@@ -3,30 +3,40 @@ import s from './Page.module.css';
 import Store from '../../../store/Store';
 
 Page.defaultProps = {
-    pageSize: {
-        width: 80,
-        height: 90
+    contentSize: {
+        width: 0.8,
+        height: 0.9
     },
-    maxPageWidth: 2500
+    pageWidth: 1,
+    maxContentWidth: 2500
 };
 
 
-export default function Page({ pageSize, maxPageWidth, rows, minHeight, bgColor, css, children }) {
+export default function Page({ contentSize, maxContentWidth, pageWidth, maxPageWidth, rows, minHeight, bgColor, css, children }) {
     const { state } = useContext(Store);
     const { vw, vh } = state;
-    const { width, height } = pageSize;
+    const { width, height } = contentSize;
 
     const [ style, setStyle ] = useState({});
 
     useEffect(() => {
-        const w = width / 100 * vw;
-        const h = height / 100 * vh;
+        const w = pageWidth * vw;
+        const h = height * vh;
+        const contentWidth = width * w;
 
-        const r = {
-            width: `${w}px`,
-            padding: `${(vh - h) / 2}px 0`,
-            margin: `0 ${((vw - w) / 2) + (Math.max((vw - maxPageWidth), 0) / 2)}px`
-        };
+        const r = {};
+
+        if (maxPageWidth && w > maxPageWidth) {
+            r.width = `${maxPageWidth}px`;
+            r.margin = `0 ${(vw - maxPageWidth) / 2}px`;
+        } else {
+            r.width = `${w}px`;
+            if (w !== vw) {
+                r.margin = `0 ${(vw - w) / 2}px`;
+            }
+        }
+
+        r.padding = `${(vh - h) / 2}px ${((w - contentWidth) / 2) + (Math.max((contentWidth - maxContentWidth), 0) / 2)}px`;
 
         if (rows) {
             r.display = 'grid';
@@ -50,14 +60,14 @@ export default function Page({ pageSize, maxPageWidth, rows, minHeight, bgColor,
             return;
         }
         setStyle(r);
-    }, [ width, height, vw, vh, maxPageWidth, rows, minHeight, bgColor, css ]);
+    }, [ width, height, vw, vh, maxContentWidth, pageWidth, maxPageWidth, rows, minHeight, bgColor, css ]);
 
     return (
-        <div
+        <section
             className={s.page}
             style={style}
         >
             {children}
-        </div>
+        </section>
     );
 }
