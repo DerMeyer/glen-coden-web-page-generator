@@ -4,31 +4,34 @@
     "global": {
         "fontTypes": [
             {
-                "name": "'Roboto', 'Arial', 'sans-serif'",
-                "url": ""
+                "name": "'Roboto', 'Arial', 'sans-serif'"
             }
         ],
-        "colors": {
-            "theme": "#000000",
-            "background": "#000000",
-            "overlay": "#FFFFFF",
-            "light": "#FFFFFF",
-            "medium": "#F9F9F9",
-            "dark": "#000000"
-        },
-        "fontSizes": {
-            "h1": 54,
-            "h2": 32,
-            "h3": 24,
-            "body": 16
-        },
-        "pageContentSize": {
-            "width": 80,
-            "widthMobile": 90,
-            "height": 85,
-            "heightMobile": 90
-        },
+        "fontSizes": [
+            16,
+            24,
+            32,
+            54
+        ],
+        "pageSize": [
+            {
+                "width": 90,
+                "height": 90
+            },
+            {
+                "width": 80,
+                "height": 85
+            }
+        ],
+        "colors": [
+            "#000000",
+            "#F9F9F9",
+            "#FFFFFF"
+        ],
         "maxPageWidth": 2500,
+        "bgColor": 0,
+        "overlayColor": 4,
+        "themeColor": 0,
         "fadeInTime": 0.2,
         "loadingTimeout": 10,
         "usePortraitImages": true
@@ -36,14 +39,14 @@
     "components": [
         {
             "component": "Page",
-            "id": "DuEh0n9rL",
-            "rows": 2,
+            "id": "5BokRhIx-",
+            "rows": 1,
             "minHeight": 0,
             "color": "background",
             "children": [
                 {
                     "component": "ZoomBackground",
-                    "id": "HAKkBxuHeW",
+                    "id": "q3B31Hza_1",
                     "image": "images/background-image.jpg",
                     "autoZoom": false,
                     "zoomFactor": {
@@ -55,61 +58,23 @@
                         "auto": 10
                     },
                     "children": []
-                },
-                {
-                    "component": "Row",
-                    "id": "B7ugQd8BOC",
-                    "alignSelf": "start",
-                    "justifyContent": "flex-end",
-                    "alignItems": "center",
-                    "children": [
-                        {
-                            "component": "IconNavigation",
-                            "id": "b-yhlpZSYN",
-                            "sizing": 2,
-                            "items": [
-                                {
-                                    "imageUrl": "icons/icon.png",
-                                    "targetUrl": "https://github.com/DerMeyer/glen-coden-web-page-generator"
-                                }
-                            ],
-                            "stretch": 1,
-                            "verticalOnPortrait": true,
-                            "color": "light",
-                            "children": []
-                        }
-                    ]
-                },
-                {
-                    "component": "Row",
-                    "id": "P_M-AayvlL",
-                    "alignSelf": "end",
-                    "justifyContent": "space-between",
-                    "alignItems": "center",
-                    "children": [
-                        {
-                            "component": "Headline",
-                            "id": "pnmktjoBgd",
-                            "text": "Welcome*to Glen Coden*Generator",
-                            "sizing": {
-                                "landscape": 0.8,
-                                "portrait": 0.7
-                            },
-                            "size": "big",
-                            "fontTypeIndex": 0,
-                            "color": "light",
-                            "children": []
-                        }
-                    ]
                 }
             ]
         },
         {
             "component": "LoadingOverlay",
-            "id": "Vh2CHwqO-7",
+            "id": "b_b70D-Oeb",
+            "fromGlobal": [
+                "fadeInTime",
+                "overlayColor",
+                {
+                    "key": "iconColor",
+                    "value": "bgColor"
+                }
+            ],
             "children": []
         }
     ],
-    "_lastUpdated": "2020-09-04T13:16:33.217Z",
+    "_lastUpdated": "2020-09-06T09:52:29.861Z",
     "initialState": {}
 }

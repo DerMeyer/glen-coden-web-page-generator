@@ -1,4 +1,4 @@
-import { BreakPointTypes } from '../js/helpers';
+import { BreakPointTypes, isObject } from '../js/helpers';
 import { requestService } from '../index';
 import PROJ_INFO from '../project-info.json';
 import DEV_CONFIG from '../dev-project-config.json';
@@ -17,7 +17,7 @@ function mapToFontSizes(value) {
     if (value.length < 2) {
         return value[0];
     }
-    const indices = valueLengthToFontSizeIndex[value.length];
+    const indices = valueLengthToFontSizeIndex[value.length - 2];
     return {
         body: value[indices[0]],
         h4: value[indices[1]],
@@ -41,7 +41,7 @@ function mapToColors(value) {
     if (value.length < 2) {
         return value[0];
     }
-    const indices = valueLengthToColorIndex[value.length];
+    const indices = valueLengthToColorIndex[value.length - 2];
     return [
         value[indices[0]],
         value[indices[1]],
@@ -70,14 +70,14 @@ const valueLengthToBreakpointIndex = [
 function mapToBreakpointType(key, value, type) {
     if (
         !Array.isArray(value)
-        || (isTypeArray[key] && !Array.isArray(value[0]))
+        || (isTypeArray.includes(key) && !Array.isArray(value[0]))
     ) {
         return value;
     }
     if (value.length < 2) {
         return value[0];
     }
-    const indices = valueLengthToBreakpointIndex[value.length];
+    const indices = valueLengthToBreakpointIndex[value.length - 2];
     return indices[Object.values(BreakPointTypes).indexOf(type)];
 }
 
@@ -106,6 +106,25 @@ class ConfigService {
             });
     }
 
+    getProps = id => {
+        const components = this.components[this.breakPointType];
+        if (!id || !components[id]) {
+            return this.global[this.breakPointType];
+        }
+        return components[id];
+    }
+
+    getInitialState = () => {
+        return this.initialState;
+    }
+
+    setBreakpointType(type) {
+        if (!this) {
+            return;
+        }
+        this.breakPointType = type;
+    }
+
     _createGlobal(config) {
         Object.values(BreakPointTypes).forEach(type => {
             if (!this.global[type]) {
@@ -119,6 +138,13 @@ class ConfigService {
                 if (key === 'colors') {
                     value = mapToColors(value);
                 }
+                if (
+                    key === 'bgColor'
+                    || key === 'overlayColor'
+                    || key === 'themeColor'
+                ) {
+                    value = this.global[type].colors[value];
+                }
                 this.global[type][key] = mapToBreakpointType(key, value, type);
             });
         });
@@ -129,19 +155,25 @@ class ConfigService {
             if (!this.components[type]) {
                 this.components[type] = {};
             }
-            components.forEach(comp => {
+            components.forEach(c => {
+                const comp = { ...c };
                 delete comp.initialState;
-                const global = {};
-                const { fromGlobal } = comp;
-                if (fromGlobal) {
-                    [].concat(fromGlobal).forEach(prop => {
-                        global[prop] = this.global[type][prop];
+                if (comp.fromGlobal) {
+                    [].concat(comp.fromGlobal).forEach(e => {
+                        if (isObject(e)) {
+                            const { key, value, property } = e;
+                            if (!property) {
+                                comp[key] = this.global[type][value];
+                                return;
+                            }
+                            comp[key] = this.global[type][value][property];
+                            return;
+                        }
+                        comp[e] = this.global[type][e];
                     });
                 }
-                this.components[type][comp.id] = {
-                    ...global,
-                    ...comp
-                };
+                delete comp.fromGlobal;
+                this.components[type][comp.id] = { ...comp };
                 if (Array.isArray(comp.children) && comp.children.length) {
                     this._createComponents(comp.children);
                 }
@@ -166,28 +198,6 @@ class ConfigService {
             ...initialState,
             ...state
         };
-    }
-
-    getInitialState = () => {
-        return this.initialState;
-    }
-
-    getProps = id => {
-        const global = this.global[this.breakPointType];
-        const components = this.components[this.breakPointType];
-        if (!id || !components[id]) {
-            if (!global) {
-                return {};
-            }
-            return { global };
-        }
-        const props = components[id];
-        props.id = id;
-        return props;
-    }
-
-    setBreakpointType(type) {
-        this.breakPointType = type;
     }
 }
 

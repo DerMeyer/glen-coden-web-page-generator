@@ -11,10 +11,12 @@ export default function App() {
     const { getProps, setBreakpointType } = configService;
     const globProps = getProps();
 
+    console.log('APP RUNS');// TODO remove dev code
+
     useEffect(() => setBreakpointType(state.breakPointType), [ setBreakpointType, state.breakPointType ]);
 
     useEffect(() => {
-        document.body.style.fontSize = `${globProps.fontSizes[0]}px`;
+        document.body.style.fontSize = `${globProps.fontSizes.body}px`;
         document.body.style.backgroundColor = globProps.colors[globProps.bgColor];
 
         window.setTimeout(() => dispatch(actions.showApp()), globProps.fadeInTime * 1000);

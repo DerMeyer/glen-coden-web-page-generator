@@ -13,7 +13,8 @@ LoadingOverlay.defaultProps = {
 };
 
 
-export default function LoadingOverlay({ global, css }) {
+export default function LoadingOverlay({ fadeInTime, overlayColor, iconColor, css }) {
+    console.log(fadeInTime, overlayColor, iconColor);// TODO remove dev code
     const { state } = useContext(Store);
 
     const [ visible, setVisible ] = useState(true);
@@ -29,9 +30,9 @@ export default function LoadingOverlay({ global, css }) {
         <div
             className={s.overlay}
             style={{
-                backgroundColor: global.colors.overlay,
+                backgroundColor: overlayColor,
                 opacity: state.loading.length ? '1' : '0',
-                transition: `opacity ${state.loading.length ? 0 : global.fadeInTime}s`,
+                transition: `opacity ${state.loading.length ? 0 : fadeInTime}s`,
                 ...css
             }}
             onTransitionEnd={() => setVisible(false)}
@@ -40,7 +41,7 @@ export default function LoadingOverlay({ global, css }) {
                 ? (
                     <ThreeDotsLoadingIcon
                         size={Math.round(state.viewportWidth / 15)}
-                        color={global.colors.dark}
+                        color={iconColor}
                     />
                 )
                 : null

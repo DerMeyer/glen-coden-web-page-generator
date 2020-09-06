@@ -8,7 +8,7 @@ ThreeDotsLoadingIcon.propTypes = {
 };
 
 
-export default function ThreeDotsLoadingIcon({ size, color}) {
+export default function ThreeDotsLoadingIcon({ size, color }) {
     return (
         <div
             className={s.iconBox}
