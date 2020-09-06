@@ -86,6 +86,10 @@
         },
         "components": [
             {
+                "component": "ZoomBackground",
+                "image": "images/background-image.jpg"
+            },
+            {
                 "component": "LoadingOverlay"
             }
         ]

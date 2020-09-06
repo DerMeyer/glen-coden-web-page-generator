@@ -16,14 +16,14 @@ export default function Page({ rows, minHeight, global, color, css, children }) 
     const [ style, setStyle ] = useState({});
 
     const getStyle = useCallback(
-        (contentWidth, contentHeight, viewportWidth, viewportHeight) => {
-            const contWidth = contentWidth / 100 * viewportWidth;
-            const contHeight = contentHeight / 100 * viewportHeight;
+        (contentWidth, contentHeight, vw, vh) => {
+            const contWidth = contentWidth / 100 * vw;
+            const contHeight = contentHeight / 100 * vh;
             const result = {
                 gridTemplateRows: `repeat(${rows}, minmax(${contHeight / rows}px, auto))`,
-                width: `${viewportWidth}px`,
-                minHeight: `${minHeight || viewportHeight}px`,
-                padding: `${(viewportHeight - contHeight) / 2}px ${((viewportWidth - contWidth) / 2) + (Math.max((viewportWidth - global.maxPageWidth), 0) / 2)}px`,
+                width: `${vw}px`,
+                minHeight: `${minHeight || vh}px`,
+                padding: `${(vh - contHeight) / 2}px ${((vw - contWidth) / 2) + (Math.max((vw - global.maxPageWidth), 0) / 2)}px`,
             };
             if (global.colors) {
                 result.backgroundColor = global.colors[color];
@@ -34,9 +34,9 @@ export default function Page({ rows, minHeight, global, color, css, children }) 
     );
 
     useEffect(() => {
-        const updatedStyle = getStyle(state.contentWidth, state.contentHeight, state.viewportWidth, state.viewportHeight);
+        const updatedStyle = getStyle(state.contentWidth, state.contentHeight, state.vw, state.vh);
         setStyle(updatedStyle);
-    }, [ getStyle, state.contentWidth, state.contentHeight, state.viewportWidth, state.viewportHeight ]);
+    }, [ getStyle, state.contentWidth, state.contentHeight, state.vw, state.vh ]);
 
     return (
         <div

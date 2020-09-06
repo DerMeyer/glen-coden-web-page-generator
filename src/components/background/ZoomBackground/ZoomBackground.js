@@ -37,14 +37,14 @@ export default function ZoomBackground({ css, autoZoom, zoomFactor, zoomTime, im
 
     const calculateBoxTransform = useCallback(
         event => {
-            const xFromCenter = event.clientX - (state.viewportWidth / 2);
-            const yFromCenter = event.clientY - (state.viewportHeight / 2);
+            const xFromCenter = event.clientX - (state.vw / 2);
+            const yFromCenter = event.clientY - (state.vh / 2);
             setBoxTransform({
-                x: xFromCenter / (state.viewportWidth / 2) * factor / 2,
-                y: yFromCenter / (state.viewportHeight / 2) * factor / 2
+                x: xFromCenter / (state.vw / 2) * factor / 2,
+                y: yFromCenter / (state.vh / 2) * factor / 2
             });
         },
-        [ state.viewportWidth, state.viewportHeight, factor ]
+        [ state.vw, state.vh, factor ]
     );
 
     useEffect(() => {
@@ -74,8 +74,8 @@ export default function ZoomBackground({ css, autoZoom, zoomFactor, zoomTime, im
         <div
             className={styles.background}
             style={{
-                width: `${state.viewportWidth}px`,
-                height: `${state.viewportHeight}px`,
+                width: `${state.vw}px`,
+                height: `${state.vh}px`,
                 ...(css || {})
             }}
         >
@@ -95,8 +95,8 @@ export default function ZoomBackground({ css, autoZoom, zoomFactor, zoomTime, im
                         transition: `transform ${time}s ease-out`
                     }}
                     source={image}
-                    width={state.viewportWidth}
-                    height={state.viewportHeight}
+                    width={state.vw}
+                    height={state.vh}
                     subscribeToGlobalLoading
                 />
             </div>

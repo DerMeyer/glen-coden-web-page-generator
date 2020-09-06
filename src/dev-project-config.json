@@ -38,43 +38,26 @@
     },
     "components": [
         {
-            "component": "Page",
-            "id": "5BokRhIx-",
-            "rows": 1,
-            "minHeight": 0,
-            "color": "background",
-            "children": [
-                {
-                    "component": "ZoomBackground",
-                    "id": "q3B31Hza_1",
-                    "image": "images/background-image.jpg",
-                    "autoZoom": false,
-                    "zoomFactor": {
-                        "manual": 4,
-                        "auto": 12
-                    },
-                    "zoomTime": {
-                        "manual": 0.5,
-                        "auto": 10
-                    },
-                    "children": []
-                }
-            ]
+            "component": "ZoomBackground",
+            "id": "3hzEEKnoX",
+            "image": "images/background-image.jpg",
+            "autoZoom": false,
+            "zoomFactor": {
+                "manual": 4,
+                "auto": 12
+            },
+            "zoomTime": {
+                "manual": 0.5,
+                "auto": 10
+            },
+            "children": []
         },
         {
             "component": "LoadingOverlay",
-            "id": "b_b70D-Oeb",
-            "fromGlobal": [
-                "fadeInTime",
-                "overlayColor",
-                {
-                    "key": "iconColor",
-                    "value": "bgColor"
-                }
-            ],
+            "id": "R9kFilwuMJ",
             "children": []
         }
     ],
-    "_lastUpdated": "2020-09-06T09:52:29.861Z",
+    "_lastUpdated": "2020-09-06T10:39:40.746Z",
     "initialState": {}
 }

@@ -14,7 +14,6 @@ LoadingOverlay.defaultProps = {
 
 
 export default function LoadingOverlay({ fadeInTime, overlayColor, iconColor, css }) {
-    console.log(fadeInTime, overlayColor, iconColor);// TODO remove dev code
     const { state } = useContext(Store);
 
     const [ visible, setVisible ] = useState(true);
@@ -40,7 +39,7 @@ export default function LoadingOverlay({ fadeInTime, overlayColor, iconColor, cs
             {state.loading.length
                 ? (
                     <ThreeDotsLoadingIcon
-                        size={Math.round(state.viewportWidth / 15)}
+                        size={Math.round(state.vw / 15)}
                         color={iconColor}
                     />
                 )
