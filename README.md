@@ -88,7 +88,7 @@ The ```yarn glencoden``` command will automatically fill your layout with proper
                     "alignSelf": "start",
                     "children": [
                         {
-                            "component": "Headline",
+                            "component": "Heading",
                             "text": "Welcome to*Glen Coden Generator"
                         }
                     ]

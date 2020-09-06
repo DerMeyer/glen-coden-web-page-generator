@@ -41,9 +41,11 @@ function listProjectComponents(componentsMap) {
     const list = [];
     componentsMap.forEach(entry => {
         list.push(entry.component);
-        listProjectComponents(entry.children).forEach(child => {
-            list.push(child);
-        });
+        if (entry.children) {
+            listProjectComponents(entry.children).forEach(child => {
+                list.push(child);
+            });
+        }
     });
     return list;
 }
@@ -51,7 +53,7 @@ function listProjectComponents(componentsMap) {
 function createJsx(componentsMap, depth) {
     let jsx = '';
     componentsMap.forEach(entry => {
-        if (entry.children.length === 0) {
+        if (!entry.children || entry.children.length === 0) {
             jsx += `${'\t'.repeat(depth)}<${entry.component} {...getProps('${entry.id}')} />\n`;
         } else {
             jsx += `${'\t'.repeat(depth)}<${entry.component} {...getProps('${entry.id}')}>\n`;

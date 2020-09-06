@@ -62,14 +62,18 @@ function updateComponentsMap(componentsMap) {
         if (!entry.id) {
             return createComponent(entry);
         }
-        return {
-            ...entry,
-            children: updateComponentsMap(entry.children)
-        };
+        if (entry.children) {
+            return {
+                ...entry,
+                children: updateComponentsMap(entry.children)
+            };
+        }
+        return { ...entry };
     });
 }
 
 function createComponent(entry) {
+    console.log('ENTRY ID: ', entry.id);// TODO remove dev code
     if (entry.id) {
         return entry;
     }
@@ -79,11 +83,18 @@ function createComponent(entry) {
         ? objectFromSchema(JSON.parse(fs.readFileSync(schemaPath, 'utf-8')))
         : {};
     const { children, ...props } = mergeObjects(entry, schema);
+    if (children) {
+        return {
+            component: entry.component,
+            id: shortid.generate(),
+            ...props,
+            children: (children || []).map(child => createComponent(child))
+        };
+    }
     return {
         component: entry.component,
         id: shortid.generate(),
-        ...props,
-        children: (children || []).map(child => createComponent(child))
+        ...props
     };
 }
 

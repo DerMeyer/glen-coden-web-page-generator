@@ -23,10 +23,12 @@ function objectFromSchema(schema, defs = null) {
         return;
     }
     const definitions = defs || schema.definitions;
-    if (schema.type === 'object') {
+    const schemaType = Array.isArray(schema.type) ? schema.type[0] : schema.type;
+    if (schemaType === 'object') {
         const generated = {};
         Object.keys(schema.properties).forEach(key => {
             const value = schema.properties[key];
+            const valueType = Array.isArray(value.type) ? value.type[0] : value.type;
             if (value.default) {
                 generated[key] = value.default;
                 return;
@@ -37,15 +39,15 @@ function objectFromSchema(schema, defs = null) {
                 generated[key] = objectFromSchema(ref, definitions);
                 return;
             }
-            if (value.type === 'object' && isObject(value.properties)) {
+            if (valueType === 'object' && isObject(value.properties)) {
                 generated[key] = objectFromSchema(value, definitions);
                 return;
             }
-            generated[key] = emptyJsValues[value.type];
+            generated[key] = emptyJsValues[valueType];
         });
         return generated;
     } else {
-        return schema.default || emptyJsValues[schema.type];
+        return schema.default || emptyJsValues[schemaType];
     }
 }
 

@@ -3,9 +3,9 @@ import Store from '../../../store/Store';
 import { DeviceTypes, OrientationTypes, getSizeFactor } from '../../../js/helpers';
 
 import ItemBar from '../../partial/ItemBar/ItemBar';
-import Link from '../../partial/Link/Link';
-import Svg from '../../partial/Svg/Svg';
-import Image from '../../partial/Image/Image';
+import Link from '../../rebox/Link/Link';
+import Svg from '../../rebox/Svg/Svg';
+import Image from '../../rebox/Image/Image';
 
 IconNavigation.defaultProps = {
     rows: 3,

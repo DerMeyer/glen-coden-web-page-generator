@@ -6,15 +6,26 @@
     "properties": {
         "rows": {
             "type": "number",
-            "default": 1
-        },
-        "minHeight": {
-            "type": "number",
             "default": 0
         },
-        "color": {
-            "type": "string",
-            "default": "background"
+        "minHeight": {
+            "type": [ "number", "string" ],
+            "default": 0
+        },
+        "fromGlobal": {
+            "type": "array",
+            "items": {
+                "type": [ "string", "object" ]
+            },
+            "default": [
+                "pageSize",
+                "maxPageWidth",
+                {
+                    "key": "bgColor",
+                    "value": "colors",
+                    "property": 0
+                }
+            ]
         },
         "children": {
             "type": "array",

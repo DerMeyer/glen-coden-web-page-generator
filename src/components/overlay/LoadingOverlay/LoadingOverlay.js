@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import s from './LoadingOverlay.module.css';
 import Store from '../../../store/Store';
 
-import ThreeDotsLoadingIcon from '../../partial/icons/ThreeDotsLoadingIcon/ThreeDotsLoadingIcon';
+import ThreeDotsLoadingIcon from '../../icons/ThreeDotsLoadingIcon/ThreeDotsLoadingIcon';
 
 LoadingOverlay.defaultProps = {
     global: {

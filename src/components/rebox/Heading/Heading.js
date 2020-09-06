@@ -2,12 +2,12 @@ import React, { useContext, useState, useEffect } from 'react';
 import Store from '../../../store/Store';
 import { getSizeFactor, i18n } from '../../../js/helpers';
 
-Headline.defaultProps = {
+Heading.defaultProps = {
     global: {}
 };
 
 
-export default function Headline({ global, size, fontTypeIndex, color, text, sizing }) {
+export default function Heading({ global, size, fontTypeIndex, color, text, sizing }) {
     const { state } = useContext(Store);
 
     const [ element, setElement ] = useState('h1');

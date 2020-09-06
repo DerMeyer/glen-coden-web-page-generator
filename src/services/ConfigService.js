@@ -3,29 +3,6 @@ import { requestService } from '../index';
 import PROJ_INFO from '../project-info.json';
 import DEV_CONFIG from '../dev-project-config.json';
 
-const valueLengthToFontSizeIndex = [
-    [ 0, 1, 1, 1, 1 ],
-    [ 0, 1, 1, 1, 2 ],
-    [ 0, 1, 1, 2, 3 ],
-    [ 0, 1, 2, 3, 4 ]
-];
-
-function mapToFontSizes(value) {
-    if (!Array.isArray(value)) {
-        return value;
-    }
-    if (value.length < 2) {
-        return value[0];
-    }
-    const indices = valueLengthToFontSizeIndex[value.length - 2];
-    return {
-        body: value[indices[0]],
-        h4: value[indices[1]],
-        h3: value[indices[2]],
-        h2: value[indices[3]],
-        h1: value[indices[4]]
-    };
-}
 
 const valueLengthToColorIndex = [
     [ 0, 0, 1, 1, 1 ],
@@ -78,7 +55,8 @@ function mapToBreakpointType(key, value, type) {
         return value[0];
     }
     const indices = valueLengthToBreakpointIndex[value.length - 2];
-    return indices[Object.values(BreakPointTypes).indexOf(type)];
+    const valIndex = indices[Object.values(BreakPointTypes).indexOf(type)];
+    return value[valIndex];
 }
 
 
@@ -102,7 +80,6 @@ class ConfigService {
 
                 console.log('GLOBAL: ', this.global);// TODO remove dev code
                 console.log('COMPONENTS: ', this.components);// TODO remove dev code
-                console.log('INITIAL STATE: ', this.initialState);// TODO remove dev code
             });
     }
 
@@ -132,9 +109,6 @@ class ConfigService {
             }
             Object.keys(config).forEach(key => {
                 let value = config[key];
-                if (key === 'fontSizes') {
-                    value = mapToFontSizes(value);
-                }
                 if (key === 'colors') {
                     value = mapToColors(value);
                 }
@@ -162,7 +136,7 @@ class ConfigService {
                     [].concat(comp.fromGlobal).forEach(e => {
                         if (isObject(e)) {
                             const { key, value, property } = e;
-                            if (!property) {
+                            if (typeof property === 'undefined') {
                                 comp[key] = this.global[type][value];
                                 return;
                             }
