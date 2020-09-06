@@ -22,7 +22,7 @@ export default function Page({ contentSize, maxContentWidth, pageWidth, maxPageW
     useEffect(() => {
         const w = pageWidth * vw;
         const h = height * vh;
-        const contentWidth = width * w;
+        const contentWidth = width * vw;
 
         const r = {};
 
