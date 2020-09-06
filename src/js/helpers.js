@@ -102,16 +102,6 @@ export function getOrientationType() {
     return isPortrait ? OrientationTypes.PORTRAIT : OrientationTypes.LANDSCAPE;
 }
 
-export function getContentSize(deviceType, pageContentSize) {
-    const width = deviceType === DeviceTypes.MOBILE
-        ? pageContentSize.widthMobile
-        : pageContentSize.width;
-    const height = deviceType === DeviceTypes.MOBILE
-        ? pageContentSize.heightMobile
-        : pageContentSize.height;
-    return { width, height };
-}
-
 export function i18n(translations, language = navigator.language.slice(0, 2)) {
     if (!isObject(translations)) {
         return translations;
@@ -125,24 +115,4 @@ export function i18n(translations, language = navigator.language.slice(0, 2)) {
         return fallbackTrans;
     }
     return trans;
-}
-
-export function getSizeFactor(state, sizing) {
-    if (!isObject(sizing)) {
-        const sizeFactor = parseInt(sizing, 10);
-        if (Number.isNaN(sizeFactor)) {
-            return 1;
-        }
-        return sizeFactor;
-    }
-    if (state.deviceType === DeviceTypes.MOBILE) {
-        if (state.orientationType === OrientationTypes.PORTRAIT) {
-            return sizing.portrait || 1;
-        }
-        return sizing.landscape || 1;
-    }
-    if (state.breakPointType === BreakPointTypes.DESKTOP_MAX) {
-        return sizing.max || 1;
-    }
-    return sizing.desktop || 1;
 }

@@ -78,7 +78,7 @@ function createComponent(entry) {
     const schema = fs.existsSync(schemaPath)
         ? objectFromSchema(JSON.parse(fs.readFileSync(schemaPath, 'utf-8')))
         : {};
-    const { children, ...props} = mergeObjects(entry, schema);
+    const { children, ...props } = mergeObjects(entry, schema);
     return {
         component: entry.component,
         id: shortid.generate(),

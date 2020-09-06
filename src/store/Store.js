@@ -6,10 +6,8 @@ const initStore = initialState => {
     return {
         showApp: false,
         loading: [],
-        viewportWidth: window.innerWidth,
-        viewportHeight: window.innerHeight,
-        contentWidth: 0,
-        contentHeight: 0,
+        vw: window.innerWidth,
+        vh: window.innerHeight,
         breakPointType: getBreakPointType(),
         deviceType: getDeviceType(),
         orientationType: getOrientationType(),

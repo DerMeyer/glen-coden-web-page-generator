@@ -1,5 +1,5 @@
 const http = require('http');
-const logger = require('./logger/logger');
+const logger = require('./logger');
 
 function get(url) {
     const parsedUrl = url.split('//').pop();

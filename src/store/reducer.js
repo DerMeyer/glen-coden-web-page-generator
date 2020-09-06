@@ -11,8 +11,8 @@ const reducer = (state, action) => {
         case ActionTypes.RESIZE:
             return {
                 ...state,
-                viewportWidth: action.sizeTo.width,
-                viewportHeight: action.sizeTo.height,
+                vw: action.sizeTo.width,
+                vh: action.sizeTo.height,
                 breakPointType: action.breakPointType,
                 deviceType: action.deviceType,
                 orientationType: action.orientationType
@@ -36,12 +36,6 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 loading: []
-            };
-        case ActionTypes.SET_CONTENT_WIDTH:
-            return {
-                ...state,
-                contentWidth: action.contentSize.width,
-                contentHeight: action.contentSize.height
             };
         default:
             return state;

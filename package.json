@@ -24,7 +24,7 @@
     "update": "node generator/update/update.js",
     "generate": "node generator/generate/generate.js",
     "make": "node generator/make.js",
-    "finalize": "node generator/finalize.js",
+    "deploy": "node generator/deploy.js",
     "optimize": "node optimizer/optimize.js",
     "project": "node project-info.js"
   },

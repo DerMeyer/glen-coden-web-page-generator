@@ -24,26 +24,10 @@
         }
     },
     "definitions": {
-        "fontType": {
-            "$id": "#fontType",
-            "type": "object",
-            "properties": {
-                "name": {
-                    "type": "string",
-                    "default": "Arial"
-                },
-                "url": {
-                    "type": "string"
-                }
-            }
-        },
         "global": {
             "$id": "#global",
             "type": "object",
             "properties": {
-                "colors": {
-                    "$ref": "#colors"
-                },
                 "fontTypes": {
                     "type": "array",
                     "items": {
@@ -51,14 +35,38 @@
                     }
                 },
                 "fontSizes": {
-                    "$ref": "#fontSizes"
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    }
                 },
-                "pageContentSize": {
-                    "$ref": "#pageContentSize"
+                "pageSize": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#singlePageSize"
+                    }
                 },
                 "maxPageWidth": {
                     "type": "number",
                     "default": 2500
+                },
+                "colors": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "bgColor": {
+                    "type": "number",
+                    "default": 0
+                },
+                "overlayColor": {
+                    "type": "number",
+                    "default": 4
+                },
+                "themeColor": {
+                    "type": "number",
+                    "default": 0
                 },
                 "fadeInTime": {
                     "type": "number",
@@ -74,77 +82,28 @@
                 }
             }
         },
-        "colors": {
-            "$id": "#colors",
+        "fontType": {
+            "$id": "#fontType",
             "type": "object",
             "properties": {
-                "theme": {
+                "name": {
                     "type": "string",
-                    "default": "#000000"
+                    "default": "Arial"
                 },
-                "background": {
-                    "type": "string",
-                    "default": "#000000"
-                },
-                "overlay": {
-                    "type": "string",
-                    "default": "#FFFFFF"
-                },
-                "light": {
-                    "type": "string",
-                    "default": "#FFFFFF"
-                },
-                "medium": {
-                    "type": "string",
-                    "default": "#F9F9F9"
-                },
-                "dark": {
-                    "type": "string",
-                    "default": "#000000"
+                "url": {
+                    "type": "string"
                 }
             }
         },
-        "fontSizes": {
-            "$id": "#fontSizes",
-            "type": "object",
-            "properties": {
-                "h1": {
-                    "type": "number",
-                    "default": 54
-                },
-                "h2": {
-                    "type": "number",
-                    "default": 32
-                },
-                "h3": {
-                    "type": "number",
-                    "default": 24
-                },
-                "body": {
-                    "type": "number",
-                    "default": 16
-                }
-            }
-        },
-        "pageContentSize": {
-            "$id": "#pageContentSize",
+        "singlePageSize": {
+            "$id": "#singlePageSize",
             "type": "object",
             "properties": {
                 "width": {
-                    "type": "number",
-                    "default": 80
-                },
-                "widthMobile": {
-                    "type": "number",
-                    "default": 90
+                    "type": "number"
                 },
                 "height": {
-                    "type": "number",
-                    "default": 85
-                },
-                "heightMobile": {
-                    "type": "number",
-                    "default": 90
+                    "type": "number"
                 }
             }
         },
@@ -168,14 +127,17 @@
                 "initialState": {
                     "type": "object"
                 },
-                "style": {
-                    "type": "object"
-                },
-                "sizing": {
-                    "type": "object"
-                },
                 "css": {
                     "type": "object"
+                },
+                "scale": {
+                    "type": "number"
+                },
+                "fromGlobal": {
+                    "type": "array",
+                    "items": {
+                        "type": [ "string", "object" ]
+                    }
                 },
                 "children": {
                     "type": "array",

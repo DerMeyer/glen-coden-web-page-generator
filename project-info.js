@@ -1,4 +1,4 @@
-const logger = require('./js/logger/logger');
+const logger = require('./js/logger');
 const projectInfo = require('./src/project-info.json');
 
 

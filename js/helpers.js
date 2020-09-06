@@ -1,6 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const { exec } = require('child_process');
+const logger = require('./logger');
 const GEN_CONFIG = require('../generator-config.json');
 
 
@@ -18,7 +19,7 @@ function isObject(value) {
 
 function objectFromSchema(schema, defs = null) {
     if (!isObject(schema)) {
-        console.warn('objectFromSchema only generates JavaScript form JavaScript.');
+        logger.warn('objectFromSchema only generates JavaScript form JavaScript');
         return;
     }
     const definitions = defs || schema.definitions;
@@ -119,9 +120,9 @@ function execProcess(command, options = {}) {
                 reject(`exec error for command ${command}: ${error}`);
             }
             if (stderr) {
-                console.error(`stderr for command ${command}: ${stderr}`);
+                logger.error(`stderr for command ${command}: ${stderr}`);
             }
-            console.log(stdout);
+            logger.print(stdout);
             resolve();
         });
     });

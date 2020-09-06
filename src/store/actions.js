@@ -1,12 +1,11 @@
-import { getBreakPointType, getContentSize, getDeviceType, getOrientationType } from '../js/helpers';
+import { getBreakPointType, getDeviceType, getOrientationType } from '../js/helpers';
 
 export const ActionTypes = {
     SHOW_APP: 'show-app',
     RESIZE: 'resize',
     START_LOADING: 'start-loading',
     STOP_LOADING: 'stop-loading',
-    LOADING_TIMEOUT: 'loading-timeout',
-    SET_CONTENT_WIDTH: 'set-content-width'
+    LOADING_TIMEOUT: 'loading-timeout'
 };
 
 const actions = {
@@ -30,10 +29,6 @@ const actions = {
     }),
     loadingTimeout: () => ({
         type: ActionTypes.LOADING_TIMEOUT
-    }),
-    setContentSize: (deviceType, pageContentSize) => ({
-        type: ActionTypes.SET_CONTENT_WIDTH,
-        contentSize: getContentSize(deviceType, pageContentSize)
     })
 };
 
