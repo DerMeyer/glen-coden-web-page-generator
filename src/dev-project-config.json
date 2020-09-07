@@ -26,14 +26,17 @@
         "pageWidth": 1,
         "maxContentWidth": 2500,
         "colors": [
-            "#000000",
-            "#F9F9F9",
+            "#A82769",
+            "#F5DE38",
+            "#F551A5",
+            "#38DFF5",
             "#FFFFFF"
         ],
         "bgColor": 0,
         "overlayColor": 4,
         "themeColor": 0,
-        "fadeInTime": 0.2,
+        "timeTilFadeIn": 0.2,
+        "fadeInTime": 1,
         "loadingTimeout": 10,
         "usePortraitImages": true,
         "maxPageWidth": 0

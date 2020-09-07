@@ -73,11 +73,7 @@ function updateComponentsMap(componentsMap) {
 }
 
 function createComponent(entry) {
-    console.log('ENTRY ID: ', entry.id);// TODO remove dev code
-    if (typeof entry === 'string') {
-        return entry;
-    }
-    if (entry.id) {
+    if (entry.id || typeof entry === 'string') {
         return entry;
     }
     const componentsList = require('../components-list');

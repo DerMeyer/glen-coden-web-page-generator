@@ -120,9 +120,6 @@ class ConfigService {
     }
 
     setBreakpointType(type) {
-        if (!this) {
-            return;
-        }
         this.breakPointType = type;
     }
 
@@ -137,9 +134,10 @@ class ConfigService {
                     value = mapToColors(value);
                 }
                 if (
-                    key === 'bgColor'
+                    (key === 'bgColor'
                     || key === 'overlayColor'
-                    || key === 'themeColor'
+                    || key === 'themeColor')
+                    && typeof value === 'number'
                 ) {
                     value = this.global[type].colors[value];
                 }

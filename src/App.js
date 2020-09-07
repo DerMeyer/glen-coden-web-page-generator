@@ -8,19 +8,18 @@ import Project from './_Project';
 
 export default function App() {
     const { state, dispatch } = useContext(Store);
-    const { getProps, setBreakpointType } = configService;
-    const globProps = getProps();
+    const global = configService.getProps();
 
-    console.log('APP RUNS');// TODO remove dev code
+    console.log('APP', JSON.stringify(state, null, 4));// TODO remove dev code
 
-    useEffect(() => setBreakpointType(state.breakPointType), [ setBreakpointType, state.breakPointType ]);
+    useEffect(() => configService.setBreakpointType(state.breakPointType), [ state.breakPointType ]);
 
     useEffect(() => {
-        document.body.style.fontSize = `${globProps.fontSizes.body}px`;
-        document.body.style.backgroundColor = globProps.colors[globProps.bgColor];
+        document.documentElement.style.fontSize = `${global.fontSizes[0]}px`;
+        document.body.style.backgroundColor = global.bgColor;
 
-        window.setTimeout(() => dispatch(actions.showApp()), globProps.fadeInTime * 1000);
-        window.setTimeout(() => dispatch(actions.loadingTimeout()), globProps.loadingTimeout * 1000);
+        window.setTimeout(() => dispatch(actions.showApp()), global.timeTilFadeIn * 1000);
+        window.setTimeout(() => dispatch(actions.loadingTimeout()), global.loadingTimeout * 1000);
 
         const resizeApp = event => dispatch(actions.resize(event.target.innerWidth, event.target.innerHeight));
 
@@ -31,12 +30,12 @@ export default function App() {
             window.removeEventListener('resize', resizeApp);
             window.removeEventListener('orientationchange', resizeApp);
         };
-    }, [ dispatch, globProps ]);
+    }, [ dispatch, global ]);
 
     return (
         <div style={{
             opacity: state.showApp ? '1' : '0',
-            transition: `opacity ${globProps.fadeInTime}s`
+            transition: `opacity ${global.fadeInTime}s`
         }}>
             <Project/>
         </div>
