@@ -35,7 +35,8 @@
         "themeColor": 0,
         "fadeInTime": 0.2,
         "loadingTimeout": 10,
-        "usePortraitImages": true
+        "usePortraitImages": true,
+        "maxPageWidth": 0
     },
     "components": [
         {
@@ -62,7 +63,46 @@
                     "property": 2
                 }
             },
-            "children": []
+            "children": [
+                {
+                    "component": "Box",
+                    "id": "uNCN3-tfs",
+                    "p": 100,
+                    "fontSize": 2,
+                    "width": [
+                        1,
+                        0.4
+                    ],
+                    "color": 0,
+                    "bg": 4,
+                    "fromGlobal": [
+                        "fontSizes",
+                        "colors"
+                    ],
+                    "children": [
+                        "FIRST BOX"
+                    ]
+                },
+                {
+                    "component": "Box",
+                    "id": "z6dyK4qc5",
+                    "p": 100,
+                    "fontSize": 2,
+                    "width": [
+                        1,
+                        0.6
+                    ],
+                    "color": 0,
+                    "bg": 2,
+                    "fromGlobal": [
+                        "fontSizes",
+                        "colors"
+                    ],
+                    "children": [
+                        "SECOND BOX"
+                    ]
+                }
+            ]
         },
         {
             "component": "Page",
@@ -87,6 +127,6 @@
             "id": "gfDo5OG5-L"
         }
     ],
-    "_lastUpdated": "2020-09-06T17:34:54.086Z",
+    "_lastUpdated": "2020-09-07T10:43:58.818Z",
     "initialState": {}
 }

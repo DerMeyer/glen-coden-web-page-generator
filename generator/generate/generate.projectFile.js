@@ -40,6 +40,9 @@ function generateProjectFile(sourceDir, targetDir) {
 function listProjectComponents(componentsMap) {
     const list = [];
     componentsMap.forEach(entry => {
+        if (typeof entry === 'string') {
+            return;
+        }
         list.push(entry.component);
         if (entry.children) {
             listProjectComponents(entry.children).forEach(child => {
@@ -53,7 +56,9 @@ function listProjectComponents(componentsMap) {
 function createJsx(componentsMap, depth) {
     let jsx = '';
     componentsMap.forEach(entry => {
-        if (!entry.children || entry.children.length === 0) {
+        if (typeof entry === 'string') {
+            jsx += `${'\t'.repeat(depth)}${entry}\n`;
+        } else if (!entry.children || entry.children.length === 0) {
             jsx += `${'\t'.repeat(depth)}<${entry.component} {...getProps('${entry.id}')} />\n`;
         } else {
             jsx += `${'\t'.repeat(depth)}<${entry.component} {...getProps('${entry.id}')}>\n`;

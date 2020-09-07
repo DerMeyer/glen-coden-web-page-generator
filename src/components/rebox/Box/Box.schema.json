@@ -1,0 +1,40 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "#Box",
+    "title": "Box",
+    "type": "object",
+    "properties": {
+        "p": {
+            "type": "number"
+        },
+        "fontSize": {
+            "type": "number"
+        },
+        "width": {
+            "type": "number",
+            "default": 1
+        },
+        "color": {
+            "type": "number"
+        },
+        "bg": {
+            "type": "number"
+        },
+        "fromGlobal": {
+            "type": "array",
+            "items": {
+                "type": [ "string", "object" ]
+            },
+            "default": [
+                "fontSizes",
+                "colors"
+            ]
+        },
+        "children": {
+            "type": "array",
+            "items": {
+                "type": "object"
+            }
+        }
+    }
+}

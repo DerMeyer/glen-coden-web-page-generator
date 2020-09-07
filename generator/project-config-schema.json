@@ -147,7 +147,7 @@
                     }
                 },
                 "children": {
-                    "type": "array",
+                    "type": [ "array", "string" ],
                     "items": {
                         "$ref": "#single_component"
                     }

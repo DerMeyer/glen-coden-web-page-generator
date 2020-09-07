@@ -33,7 +33,7 @@ const isTypeArray = [
     'fontSizes',
     'colors',
     'fromGlobal',
-    'items'
+    'children'
 ];
 
 const valueLengthToBreakpointIndex = [
@@ -154,7 +154,12 @@ class ConfigService {
                 this.components[type] = {};
             }
             components.forEach(c => {
-                const comp = getPropsFromGlobal({ ...c }, this.global[type]);
+                const mappedComp = {};
+                Object.keys(c).forEach(key => {
+                    const value = c[key];
+                    mappedComp[key] = mapToBreakpointType(key, value, type);
+                });
+                const comp = getPropsFromGlobal(mappedComp, this.global[type]);
                 delete comp.initialState;
                 this.components[type][comp.id] = { ...comp };
                 if (Array.isArray(comp.children) && comp.children.length) {

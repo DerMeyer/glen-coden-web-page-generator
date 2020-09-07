@@ -62,7 +62,7 @@ function updateComponentsMap(componentsMap) {
         if (!entry.id) {
             return createComponent(entry);
         }
-        if (entry.children) {
+        if (Array.isArray(entry.children)) {
             return {
                 ...entry,
                 children: updateComponentsMap(entry.children)
@@ -74,6 +74,9 @@ function updateComponentsMap(componentsMap) {
 
 function createComponent(entry) {
     console.log('ENTRY ID: ', entry.id);// TODO remove dev code
+    if (typeof entry === 'string') {
+        return entry;
+    }
     if (entry.id) {
         return entry;
     }
@@ -83,19 +86,15 @@ function createComponent(entry) {
         ? objectFromSchema(JSON.parse(fs.readFileSync(schemaPath, 'utf-8')))
         : {};
     const { children, ...props } = mergeObjects(entry, schema);
-    if (children) {
-        return {
-            component: entry.component,
-            id: shortid.generate(),
-            ...props,
-            children: (children || []).map(child => createComponent(child))
-        };
-    }
-    return {
+    const comp = {
         component: entry.component,
         id: shortid.generate(),
         ...props
     };
+    if (Array.isArray(children)) {
+        comp.children = children.map(child => createComponent(child));
+    }
+    return comp;
 }
 
 module.exports = updateProjectConfig;
