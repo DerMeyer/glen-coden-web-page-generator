@@ -81,7 +81,7 @@
                 },
                 "fadeInTime": {
                     "type": "number",
-                    "default": 0.2
+                    "default": 0.5
                 },
                 "loadingTimeout": {
                     "type": "number",

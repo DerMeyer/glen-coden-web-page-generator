@@ -32,11 +32,11 @@
             "#38DFF5",
             "#FFFFFF"
         ],
-        "bgColor": 0,
+        "bgColor": "#000",
         "overlayColor": 4,
         "themeColor": 0,
         "timeTilFadeIn": 0.2,
-        "fadeInTime": 1,
+        "fadeInTime": 0.5,
         "loadingTimeout": 10,
         "usePortraitImages": true,
         "maxPageWidth": 0
@@ -78,6 +78,9 @@
                     ],
                     "color": 0,
                     "bg": 4,
+                    "css": {
+                        "borderRadius": "20px"
+                    },
                     "fromGlobal": [
                         "fontSizes",
                         "colors"
