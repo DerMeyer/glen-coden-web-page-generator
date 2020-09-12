@@ -41,28 +41,35 @@ function applyTheme(config, theme) {
     if (!isObject(config) || !isObject(theme)) {
         return;
     }
-    Object.keys(config).forEach(key => {
-        const value = config[key];
-        if (key === 'fontSize' && typeof value === 'number') {
-            config[key] = `${theme.fontSizes[value]}px`;
+    Object.keys(config).forEach(k => {
+        const v = config[k];
+        if (isObject(v)) {
+            applyTheme(v, theme);
+            return;
+        }
+        if (k === 'fontSize' && typeof v === 'number') {
+            config[k] = `${theme.fontSizes[v]}px`;
+            return;
         }
         if (
-            (key === 'color' || key === 'bg')
-            && !value.startsWith('#')
+            (k === 'color' || k === 'bg')
+            && !v.startsWith('#')
         ) {
-            config[key] = theme.colors[value];
+            config[k] = theme.colors[v];
+            return;
         }
         if (
-            (key === 'p' || key === 'px' || key === 'py' || key === 'm' || key === 'mx' || key === 'my')
-            && typeof value === 'number'
+            (k === 'p' || k === 'px' || k === 'py' || k === 'm' || k === 'mx' || k === 'my')
+            && typeof v === 'number'
         ) {
-            config[key] = `${theme.space[value]}px`;
+            config[k] = `${theme.space[v]}px`;
+            return;
         }
 
-        if (key === 'variant') {
+        if (k === 'variant') {
             const { variants } = theme;
             Object.keys(variants).forEach(variant => {
-                if (value === variant) {
+                if (v === variant) {
                     Object.keys(variants[variant]).forEach(prop => {
                         config[prop] = variants[variant][prop];
                     });

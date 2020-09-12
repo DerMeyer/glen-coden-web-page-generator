@@ -81,7 +81,7 @@
             "id": "7x5uWoxUp",
             "rows": 0,
             "minHeight": "viewport",
-            "bgColor": "lightblue",
+            "bg": "lightblue",
             "fromGlobal": [
                 "contentSize",
                 "maxContentWidth",
@@ -105,7 +105,8 @@
                     "color": "black",
                     "bg": "white",
                     "css": {
-                        "borderRadius": "20px"
+                        "borderRadius": "20px",
+                        "color": "pink"
                     },
                     "children": [
                         "FIRST BOX"
@@ -134,7 +135,7 @@
             "id": "zqpvmlq53G",
             "rows": 0,
             "minHeight": "viewport",
-            "bgColor": "yellow",
+            "bg": "yellow",
             "fromGlobal": [
                 "contentSize",
                 "maxContentWidth",

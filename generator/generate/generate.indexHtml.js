@@ -11,7 +11,7 @@ function generateIndexHtml(sourceDir, targetDir) {
         file += '\n<head>';
         file += '\n\t<meta charset="utf-8" />';
         file += '\n\t<meta name="viewport" content="width=device-width, initial-scale=1" />';
-        file += `\n\t<meta name="theme-color" content="${PROJ_CONFIG.global.themeColor}" />`;
+        file += `\n\t<meta name="theme-color" content="${PROJ_CONFIG.global.bg}" />`;
         file += `\n\t<meta name="description" content="${PROJ_CONFIG.description}"/>`;
         file += '\n\t<link rel="icon" href="%PUBLIC_URL%/favicon.png" />';
         file += '\n\t<link rel="manifest" href="%PUBLIC_URL%/manifest.json" />';

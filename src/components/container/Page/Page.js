@@ -12,7 +12,7 @@ Page.defaultProps = {
 };
 
 
-export default function Page({ contentSize, maxContentWidth, pageWidth, maxPageWidth, rows, minHeight, bgColor, css, children }) {
+export default function Page({ contentSize, maxContentWidth, pageWidth, maxPageWidth, rows, minHeight, bg, css, children }) {
     const { state } = useContext(Store);
     const { vw, vh } = state;
     const { width, height } = contentSize;
@@ -51,8 +51,8 @@ export default function Page({ contentSize, maxContentWidth, pageWidth, maxPageW
             }
         }
 
-        if (bgColor) {
-            r.backgroundColor = bgColor;
+        if (bg) {
+            r.backgroundColor = bg;
         }
 
         if (css) {
@@ -60,7 +60,7 @@ export default function Page({ contentSize, maxContentWidth, pageWidth, maxPageW
             return;
         }
         setStyle(r);
-    }, [ width, height, vw, vh, maxContentWidth, pageWidth, maxPageWidth, rows, minHeight, bgColor, css ]);
+    }, [ width, height, vw, vh, maxContentWidth, pageWidth, maxPageWidth, rows, minHeight, bg, css ]);
 
     return (
         <section

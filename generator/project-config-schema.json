@@ -19,8 +19,8 @@
         "global": {
             "$ref": "#global"
         },
-        "themes": {
-            "$ref": "#global"
+        "theme": {
+            "$ref": "#theme"
         },
         "components": {
             "$ref": "#components"
@@ -35,12 +35,6 @@
                     "type": "array",
                     "items": {
                         "$ref": "#fontType"
-                    }
-                },
-                "fontSizes": {
-                    "type": "array",
-                    "items": {
-                        "type": "number"
                     }
                 },
                 "contentSize": {
@@ -60,21 +54,7 @@
                 "maxPageWidth": {
                     "type": "number"
                 },
-                "colors": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "bgColor": {
-                    "type": "number",
-                    "default": 0
-                },
-                "overlayColor": {
-                    "type": "number",
-                    "default": 4
-                },
-                "themeColor": {
+                "bg": {
                     "type": "number",
                     "default": 0
                 },
@@ -118,6 +98,57 @@
                 },
                 "height": {
                     "type": "number"
+                }
+            }
+        },
+        "theme": {
+            "$id": "#theme",
+            "type": "object",
+            "properties": {
+                "breakpoints": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "fontSizes": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    }
+                },
+                "colors": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "space": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    }
+                },
+                "fonts": {
+                    "type": "object"
+                },
+                "fontWeights": {
+                    "type": "object"
+                },
+                "lineHeights": {
+                    "type": "object"
+                },
+                "shadows": {
+                    "type": "object"
+                },
+                "variants": {
+                    "type": "object"
+                },
+                "text": {
+                    "type": "object"
+                },
+                "buttons": {
+                    "type": "object"
                 }
             }
         },
