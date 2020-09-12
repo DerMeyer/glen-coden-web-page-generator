@@ -21,12 +21,7 @@
                 "contentSize",
                 "maxContentWidth",
                 "pageWidth",
-                "maxPageWidth",
-                {
-                    "key": "bgColor",
-                    "value": "colors",
-                    "property": 0
-                }
+                "maxPageWidth"
             ]
         },
         "children": {

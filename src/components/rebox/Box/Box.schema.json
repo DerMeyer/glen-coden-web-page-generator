@@ -15,20 +15,10 @@
             "default": 1
         },
         "color": {
-            "type": "number"
+            "type": "string"
         },
         "bg": {
-            "type": "number"
-        },
-        "fromGlobal": {
-            "type": "array",
-            "items": {
-                "type": [ "string", "object" ]
-            },
-            "default": [
-                "fontSizes",
-                "colors"
-            ]
+            "type": "string"
         },
         "children": {
             "type": "array",

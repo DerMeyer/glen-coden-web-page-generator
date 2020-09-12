@@ -19,6 +19,9 @@
         "global": {
             "$ref": "#global"
         },
+        "themes": {
+            "$ref": "#global"
+        },
         "components": {
             "$ref": "#components"
         }

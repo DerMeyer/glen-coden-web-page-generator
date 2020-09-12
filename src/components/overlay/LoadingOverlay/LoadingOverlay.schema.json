@@ -3,5 +3,12 @@
     "$id": "#LoadingOverlay",
     "title": "LoadingOverlay",
     "type": "object",
-    "properties": {}
+    "properties": {
+        "color": {
+            "type": "string"
+        },
+        "bg": {
+            "type": "string"
+        }
+    }
 }

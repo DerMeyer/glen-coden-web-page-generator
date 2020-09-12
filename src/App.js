@@ -15,8 +15,7 @@ export default function App() {
     useEffect(() => configService.setBreakpointType(state.breakPointType), [ state.breakPointType ]);
 
     useEffect(() => {
-        document.documentElement.style.fontSize = `${global.fontSizes[0]}px`;
-        document.body.style.backgroundColor = global.bgColor;
+        document.body.style.backgroundColor = global.bg;
 
         window.setTimeout(() => dispatch(actions.showApp()), global.timeTilFadeIn * 1000);
         window.setTimeout(() => dispatch(actions.loadingTimeout()), global.loadingTimeout * 1000);

@@ -1,38 +1,16 @@
 import { BreakPointTypes, isObject } from '../js/helpers';
-import { requestService } from '../index';
+import { requestService, trackingService } from '../index';
 import PROJ_INFO from '../project-info.json';
 import DEV_CONFIG from '../dev-project-config.json';
 
 
-const valueLengthToColorIndex = [
-    [ 0, 0, 1, 1, 1 ],
-    [ 0, 0, 1, 2, 2 ],
-    [ 0, 0, 1, 2, 3 ],
-    [ 0, 1, 2, 3, 4 ]
-];
-
-function mapToColors(value) {
-    if (!Array.isArray(value)) {
-        return value;
-    }
-    if (value.length < 2) {
-        return value[0];
-    }
-    const indices = valueLengthToColorIndex[value.length - 2];
-    return [
-        value[indices[0]],
-        value[indices[1]],
-        value[indices[2]],
-        value[indices[3]],
-        value[indices[4]]
-    ];
-}
-
 const isTypeArray = [
     'fontTypes',
-    'fontSizes',
-    'colors',
-    'fromGlobal',
+    'fromGlobal'
+];
+
+const excludeFromMapping = [
+    'theme',
     'children'
 ];
 
@@ -47,6 +25,7 @@ function mapToBreakpointType(key, value, type) {
     if (
         !Array.isArray(value)
         || (isTypeArray.includes(key) && !Array.isArray(value[0]))
+        || excludeFromMapping.includes(key)
     ) {
         return value;
     }
@@ -56,6 +35,41 @@ function mapToBreakpointType(key, value, type) {
     const indices = valueLengthToBreakpointIndex[value.length - 2];
     const valIndex = indices[Object.values(BreakPointTypes).indexOf(type)];
     return value[valIndex];
+}
+
+function applyTheme(config, theme) {
+    if (!isObject(config) || !isObject(theme)) {
+        return;
+    }
+    Object.keys(config).forEach(key => {
+        const value = config[key];
+        if (key === 'fontSize' && typeof value === 'number') {
+            config[key] = `${theme.fontSizes[value]}px`;
+        }
+        if (
+            (key === 'color' || key === 'bg')
+            && !value.startsWith('#')
+        ) {
+            config[key] = theme.colors[value];
+        }
+        if (
+            (key === 'p' || key === 'px' || key === 'py' || key === 'm' || key === 'mx' || key === 'my')
+            && typeof value === 'number'
+        ) {
+            config[key] = `${theme.space[value]}px`;
+        }
+
+        if (key === 'variant') {
+            const { variants } = theme;
+            Object.keys(variants).forEach(variant => {
+                if (value === variant) {
+                    Object.keys(variants[variant]).forEach(prop => {
+                        config[prop] = variants[variant][prop];
+                    });
+                }
+            });
+        }
+    });
 }
 
 function getPropsFromGlobal(element, global) {
@@ -85,10 +99,11 @@ function getPropsFromGlobal(element, global) {
 
 class ConfigService {
     constructor() {
+        this.theme = {};
         this.global = {};
         this.components = {};
         this.initialState = {};
-        this.breakPointType = BreakPointTypes.DESKTOP;
+        this.breakPointType = BreakPointTypes.MOBILE_PORTRAIT;
     }
 
     init() {
@@ -97,11 +112,17 @@ class ConfigService {
             .then(PROD_CONFIG => {
                 const config = process.env.NODE_ENV && process.env.NODE_ENV === 'production' ? PROD_CONFIG : DEV_CONFIG;
 
+                trackingService.startProcessTimer('BUILD_CONFIG');
+
+                this._createTheme(config.theme);
                 this._createGlobal(config.global);
                 this._createComponents(config.components);
                 this._createInitialState(config.initialState, config.components);
 
+                trackingService.stopProcessTimer('BUILD_CONFIG');
+
                 console.log('GLOBAL: ', this.global);// TODO remove dev code
+                console.log('THEME: ', this.theme);// TODO remove dev code
                 console.log('COMPONENTS: ', this.components);// TODO remove dev code
             });
     }
@@ -122,26 +143,24 @@ class ConfigService {
         this.breakPointType = type;
     }
 
+    _createTheme(theme) {
+        if (theme.variants) {
+            Object.keys(theme.variants).forEach(key => {
+                applyTheme(theme.variants[key], theme);
+            });
+        }
+        this.theme = theme;
+    }
+
     _createGlobal(config) {
         Object.values(BreakPointTypes).forEach(type => {
             if (!this.global[type]) {
                 this.global[type] = {};
             }
             Object.keys(config).forEach(key => {
-                let value = config[key];
-                if (key === 'colors') {
-                    value = mapToColors(value);
-                }
-                if (
-                    (key === 'bgColor'
-                    || key === 'overlayColor'
-                    || key === 'themeColor')
-                    && typeof value === 'number'
-                ) {
-                    value = this.global[type].colors[value];
-                }
-                this.global[type][key] = mapToBreakpointType(key, value, type);
+                this.global[type][key] = mapToBreakpointType(key, config[key], type);
             });
+            applyTheme(this.global[type], this.theme);
         });
     }
 
@@ -158,6 +177,7 @@ class ConfigService {
                 });
                 const comp = getPropsFromGlobal(mappedComp, this.global[type]);
                 delete comp.initialState;
+                applyTheme(comp, this.theme);
                 this.components[type][comp.id] = { ...comp };
                 if (Array.isArray(comp.children) && comp.children.length) {
                     this._createComponents(comp.children);
