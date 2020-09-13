@@ -4,12 +4,8 @@
     "title": "Text",
     "type": "object",
     "properties": {
-        "color": {
-            "type": "string"
-        },
         "text": {
-            "type": ["string", "object"],
-            "default": "Your Text"
+            "type": ["string", "object"]
         }
     }
 }

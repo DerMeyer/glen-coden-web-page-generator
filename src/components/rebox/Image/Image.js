@@ -4,7 +4,7 @@ import useOptimalSource from '../../../hooks/useOptimalSource';
 import useGlobalLoading from '../../../hooks/useGlobalLoading';
 
 
-export default function Image({ source, width, height, className, style, subscribeToGlobalLoading, loadAfterGlobalLoading }) {
+export default function Image({ source, width, height, className, css, subscribeToGlobalLoading, loadAfterGlobalLoading }) {
     const image = useRef(null);
 
     const [ sizeBy, setSizeBy ] = useState('width');
@@ -56,7 +56,7 @@ export default function Image({ source, width, height, className, style, subscri
         calcSizeBy(element.width, element.height, width, height);
     }, [ calcSizeBy, width, height ]);
 
-    const boxStyle = { ...style } || {};
+    const boxStyle = { ...css } || {};
     if (width) {
         boxStyle.width = `${width}px`;
     }

@@ -4,24 +4,9 @@
     "title": "Box",
     "type": "object",
     "properties": {
-        "p": {
-            "type": "number"
-        },
-        "m": {
-            "type": "number"
-        },
-        "fontSize": {
-            "type": "number"
-        },
         "width": {
             "type": "number",
             "default": 1
-        },
-        "color": {
-            "type": "string"
-        },
-        "bg": {
-            "type": "string"
         },
         "children": {
             "type": "array",

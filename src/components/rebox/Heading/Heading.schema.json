@@ -4,16 +4,12 @@
     "title": "Headline",
     "type": "object",
     "properties": {
-        "color": {
-            "type": "string"
-        },
         "as": {
             "type": "string",
             "default": "h1"
         },
         "text": {
-            "type": ["string", "object"],
-            "default": "Your*Headline"
+            "type": ["string", "object"]
         }
     }
 }

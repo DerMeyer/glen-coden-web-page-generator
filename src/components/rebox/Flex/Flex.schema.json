@@ -4,9 +4,6 @@
     "title": "Flex",
     "type": "object",
     "properties": {
-        "flexDirection": {
-            "type": "string"
-        },
         "children": {
             "type": "array",
             "items": {
