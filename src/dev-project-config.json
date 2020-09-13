@@ -176,6 +176,12 @@
                             "color": "",
                             "as": "h1",
                             "text": "Your*Headline"
+                        },
+                        {
+                            "component": "Image",
+                            "id": "rTTm-wD2B",
+                            "source": "images/background-image.jpg",
+                            "width": 200
                         }
                     ]
                 }
@@ -188,6 +194,6 @@
             "bg": "white"
         }
     ],
-    "_lastUpdated": "2020-09-13T13:20:39.732Z",
+    "_lastUpdated": "2020-09-13T13:59:40.095Z",
     "initialState": {}
 }

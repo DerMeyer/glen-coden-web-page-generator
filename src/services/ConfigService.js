@@ -53,19 +53,48 @@ function applyTheme(config, theme) {
         }
         if (
             (k === 'color' || k === 'bg')
-            && !v.startsWith('#')
+            && theme.colors[v]
         ) {
             config[k] = theme.colors[v];
             return;
         }
         if (
-            (k === 'p' || k === 'px' || k === 'py' || k === 'm' || k === 'mx' || k === 'my')
+            (k === 'p' || k === 'px' || k === 'py' || k === 'pt' || k === 'pr' || k === 'pb' || k === 'pl' || k === 'm' || k === 'mx' || k === 'my' || k === 'mt' || k === 'mr' || k === 'mb' || k === 'ml')
             && typeof v === 'number'
         ) {
-            config[k] = `${theme.space[v]}px`;
+            config[k] = theme.space[v] === 0 ? 0 : `${theme.space[v]}px`;
+            return;
+        }
+        if (
+            (k === 'font')
+            && theme.fonts[v]
+        ) {
+            config[k] = theme.fonts[v];
+            return;
+        }
+        if (
+            (k === 'fontWeight')
+            && theme.fontWeights[v]
+        ) {
+            config[k] = theme.fontWeights[v];
+            return;
+        }
+        if (
+            (k === 'lineHeight')
+            && theme.lineHeights[v]
+        ) {
+            config[k] = theme.lineHeights[v];
+            return;
+        }
+        if (
+            (k === 'shadow')
+            && theme.shadows[v]
+        ) {
+            config[k] = theme.shadows[v];
             return;
         }
 
+        // TODO add specific variants like eg buttons
         if (k === 'variant') {
             const { variants } = theme;
             Object.keys(variants).forEach(variant => {
@@ -128,9 +157,9 @@ class ConfigService {
 
                 trackingService.stopProcessTimer('BUILD_CONFIG');
 
-                console.log('GLOBAL: ', this.global);// TODO remove dev code
-                console.log('THEME: ', this.theme);// TODO remove dev code
-                console.log('COMPONENTS: ', this.components);// TODO remove dev code
+                console.log('CONFIG (global): ', this.global);// TODO remove dev code
+                console.log('CONFIG (theme): ', this.theme);// TODO remove dev code
+                console.log('CONFIG (components): ', this.components);// TODO remove dev code
             });
     }
 

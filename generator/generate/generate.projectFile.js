@@ -1,6 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const componentsList = require('../components-list');
+const { logger } = require('../../js/logger');
 
 function generateProjectFile(sourceDir, targetDir) {
     const PROJ_CONFIG = require(path.join(sourceDir, 'dev-project-config'));
@@ -20,7 +21,7 @@ function generateProjectFile(sourceDir, targetDir) {
             }, [])
             .forEach(component => {
             if (!componentsList[component]) {
-                console.warn(`Couldn't find component with name ${component}. Exit Process.\n`);
+                logger.warn(`Couldn't find component with name ${component}. Exit Process.\n`);
                 process.exit();
             }
             file += `import ${component} from '${componentsList[component].srcImportPath}';\n`

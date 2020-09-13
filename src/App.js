@@ -11,7 +11,7 @@ export default function App() {
     const config = configService.getProps();
     const { global, theme } = config;
 
-    console.log('APP', JSON.stringify(state, null, 4));// TODO remove dev code
+    console.log('APP (state): ', JSON.stringify(state, null, 4));// TODO remove dev code
 
     useEffect(() => configService.setBreakpointType(state.breakPointType), [ state.breakPointType ]);
 
