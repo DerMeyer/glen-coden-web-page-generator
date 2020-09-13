@@ -7,6 +7,9 @@
         "p": {
             "type": "number"
         },
+        "m": {
+            "type": "number"
+        },
         "fontSize": {
             "type": "number"
         },

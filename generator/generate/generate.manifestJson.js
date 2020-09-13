@@ -38,8 +38,8 @@ function generateManifestJson(sourceDir, projectDir, targetDir) {
             icons,
             start_url: '.',
             display: 'standalone',
-            theme_color: PROJ_CONFIG.global.colors[PROJ_CONFIG.global.bg],
-            background_color: PROJ_CONFIG.global.colors[PROJ_CONFIG.global.bg]
+            theme_color: PROJ_CONFIG.theme.colors[PROJ_CONFIG.global.bg],
+            background_color: PROJ_CONFIG.theme.colors[PROJ_CONFIG.global.bg]
         };
 
         fs.writeFileSync(path.join(targetDir, 'manifest.json'), JSON.stringify(manifest, null, 4));

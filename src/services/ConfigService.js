@@ -137,7 +137,10 @@ class ConfigService {
     getProps = id => {
         const components = this.components[this.breakPointType];
         if (!id || !components[id]) {
-            return this.global[this.breakPointType];
+            return {
+                global: this.global[this.breakPointType],
+                theme: this.theme
+            };
         }
         return components[id];
     }

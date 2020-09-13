@@ -1,54 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import s from './Box.module.css';
+import useBoxStyle from '../../../hooks/useBoxStyle';
 
 
-export default function Box({ p, px, py, m, mx, my, fontSize, width, color, bg, css, children }) {
-    const [ style, setStyle ] = useState({});
+export default function Box({ children, ...input }) {
+    const { p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml, fontSize, width, color, bg, shadow, css } = input;
+
+    const [ boxStyle, setBoxStyle ] = useBoxStyle(input);
 
     useEffect(() => {
-        const r = {};
-
-        if (typeof p !== 'undefined') {
-            r.padding = p;
-        }
-        if (typeof px !== 'undefined') {
-            r.padding = `0 ${p}`;
-        }
-        if (typeof py !== 'undefined') {
-            r.padding = `${p} 0`;
-        }
-        if (typeof m !== 'undefined') {
-            r.padding = m;
-        }
-        if (typeof mx !== 'undefined') {
-            r.padding = `0 ${m}`;
-        }
-        if (typeof my !== 'undefined') {
-            r.padding = `${m} 0`;
-        }
-        if (typeof fontSize !== 'undefined') {
-            r.fontSize = fontSize;
-        }
-        if (typeof width !== 'undefined') {
-            r.width = `${width * 100}%`;
-        }
-        if (typeof color !== 'undefined') {
-            r.color = color;
-        }
-        if (typeof bg !== 'undefined') {
-            r.backgroundColor = bg;
-        }
-        if (css) {
-            setStyle({ ...r, ...css });
-            return;
-        }
-        setStyle(r);
-    }, [ p, px, py, m, mx, my, fontSize, width, color, bg, css ]);
+        setBoxStyle({ p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml, fontSize, width, color, bg, shadow, css });
+    }, [ p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml, fontSize, width, color, bg, shadow, css, setBoxStyle ]);
 
     return (
         <div
             className={s.box}
-            style={style}
+            style={boxStyle}
         >
             {children}
         </div>

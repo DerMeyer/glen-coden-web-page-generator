@@ -8,7 +8,8 @@ import Project from './_Project';
 
 export default function App() {
     const { state, dispatch } = useContext(Store);
-    const global = configService.getProps();
+    const config = configService.getProps();
+    const { global, theme } = config;
 
     console.log('APP', JSON.stringify(state, null, 4));// TODO remove dev code
 
@@ -16,6 +17,15 @@ export default function App() {
 
     useEffect(() => {
         document.body.style.backgroundColor = global.bg;
+        if (theme.fonts && theme.fonts.body) {
+            document.body.style.fontFamily = theme.fonts.body;
+        }
+        if (theme.fontWeights && theme.fontWeights.body) {
+            document.body.style.fontWeight = theme.fontWeights.body;
+        }
+        if (theme.lineHeights && theme.lineHeights.body) {
+            document.body.style.lineHeight = theme.lineHeights.body;
+        }
 
         window.setTimeout(() => dispatch(actions.showApp()), global.timeTilFadeIn * 1000);
         window.setTimeout(() => dispatch(actions.loadingTimeout()), global.loadingTimeout * 1000);
@@ -29,7 +39,7 @@ export default function App() {
             window.removeEventListener('resize', resizeApp);
             window.removeEventListener('orientationchange', resizeApp);
         };
-    }, [ dispatch, global ]);
+    }, [ dispatch, global, theme ]);
 
     return (
         <div style={{

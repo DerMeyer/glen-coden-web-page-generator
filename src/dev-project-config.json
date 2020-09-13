@@ -27,9 +27,18 @@
         "maxPageWidth": 0
     },
     "theme": {
-        "breakpoints": [ "576px", "768px", "992px", "1200px" ],
+        "breakpoints": [
+            "576px",
+            "768px",
+            "992px",
+            "1200px"
+        ],
         "fontSizes": [
-            16, 24, 32, 48, 64
+            16,
+            24,
+            32,
+            48,
+            64
         ],
         "colors": {
             "black": "#000",
@@ -39,7 +48,14 @@
             "white": "#fff"
         },
         "space": [
-            0, 4, 8, 16, 32, 64, 128, 256
+            0,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            256
         ],
         "fonts": {
             "body": "system-ui, sans-serif",
@@ -66,8 +82,7 @@
                 "p": 6
             }
         },
-        "text": {
-        },
+        "text": {},
         "buttons": {
             "primary": {
                 "color": "white",
@@ -81,17 +96,13 @@
             "id": "7x5uWoxUp",
             "rows": 0,
             "minHeight": "viewport",
-            "bg": "lightblue",
+            "bg": "pink",
             "fromGlobal": [
                 "contentSize",
                 "maxContentWidth",
                 "pageWidth",
                 "maxPageWidth"
             ],
-            "css": {
-                "border": "50px solid lime",
-                "color": "pink"
-            },
             "children": [
                 {
                     "component": "Box",
@@ -102,12 +113,8 @@
                         1,
                         0.4
                     ],
-                    "color": "black",
+                    "color": "pink",
                     "bg": "white",
-                    "css": {
-                        "borderRadius": "20px",
-                        "color": "pink"
-                    },
                     "children": [
                         "FIRST BOX"
                     ]
@@ -125,7 +132,18 @@
                     "bg": "black",
                     "variant": "playful",
                     "children": [
-                        "SECOND BOX"
+                        {
+                            "component": "Text",
+                            "id": "dvaeZwarR",
+                            "color": "",
+                            "text": "Your Text"
+                        },
+                        {
+                            "component": "Button",
+                            "id": "S4Fknjw7tn",
+                            "variant": "",
+                            "text": "Your Button"
+                        }
                     ]
                 }
             ]
@@ -142,7 +160,26 @@
                 "pageWidth",
                 "maxPageWidth"
             ],
-            "children": []
+            "children": [
+                {
+                    "component": "Flex",
+                    "id": "r1p9QYpX8",
+                    "p": 3,
+                    "fontSize": 0,
+                    "width": 1,
+                    "color": "",
+                    "bg": "",
+                    "children": [
+                        {
+                            "component": "Heading",
+                            "id": "6kgje-Zhv",
+                            "color": "",
+                            "as": "h1",
+                            "text": "Your*Headline"
+                        }
+                    ]
+                }
+            ]
         },
         {
             "component": "LoadingOverlay",
@@ -151,6 +188,6 @@
             "bg": "white"
         }
     ],
-    "_lastUpdated": "2020-09-07T10:43:58.818Z",
+    "_lastUpdated": "2020-09-13T13:20:39.732Z",
     "initialState": {}
 }
