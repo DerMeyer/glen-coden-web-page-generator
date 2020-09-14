@@ -20,7 +20,7 @@ export default function useOptimalSource() {
     const [ maxRequestedWidth, setMaxRequestedWidth ] = useState(0);
 
     const requestOptimalSrc = useCallback(
-        (src, width, height) => {
+        (src, width, height, ratio = 1.5) => {
             if (!src) {
                 return;
             }
@@ -28,6 +28,11 @@ export default function useOptimalSource() {
             if (!width) {
                 setSource(src);
                 return;
+            }
+            if (width && height) {
+                if (width / height < ratio) {
+                    width = ratio * height;
+                }
             }
             if (width <= maxRequestedWidth) {
                 return;

@@ -9,6 +9,15 @@
         },
         "bg": {
             "type": "string"
+        },
+        "fromGlobal": {
+            "type": "array",
+            "items": {
+                "type": [ "string", "object" ]
+            },
+            "default": [
+                "fadeInTime"
+            ]
         }
     }
 }

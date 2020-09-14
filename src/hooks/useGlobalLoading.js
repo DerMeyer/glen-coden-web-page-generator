@@ -8,25 +8,11 @@ export default function useGlobalLoading() {
     const { dispatch, state } = useContext(Store);
 
     const [ id ] = useState(() => shortid.generate());
-    const [ hasLoaded, setHasLoaded ] = useState(false);
 
-    const startLoading = useCallback(
-        () => {
-            dispatch(actions.startLoading(id));
-            setHasLoaded(false);
-        },
-        [ dispatch, id ]
-    );
+    const startLoading = useCallback(() => dispatch(actions.startLoading(id)), [ dispatch, id ]);
+    const stopLoading = useCallback(() => dispatch(actions.stopLoading(id)), [ dispatch, id ]);
 
-    const stopLoading = useCallback(
-        () => {
-            dispatch(actions.stopLoading(id));
-            if (!state.loading.length) {
-                setHasLoaded(true);
-            }
-        },
-        [ dispatch, state, id ]
-    );
+    const done = state.loading.length === 0 && state.allCompsInitiated;
 
-    return [ startLoading, stopLoading, hasLoaded ];
+    return [ startLoading, stopLoading, done ];
 }

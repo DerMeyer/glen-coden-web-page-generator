@@ -122,7 +122,7 @@ function execProcess(command, options = {}) {
                 reject(`exec error for command ${command}: ${error}`);
             }
             if (stderr) {
-                logger.error(`stderr for command ${command}: ${stderr}`);
+                logger.warn(`stderr for command ${command}: ${stderr}`);
             }
             logger.print(stdout);
             resolve();

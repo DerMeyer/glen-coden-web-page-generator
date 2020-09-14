@@ -4,16 +4,8 @@ import Store from '../../../store/Store';
 
 import ThreeDotsLoadingIcon from '../../icons/ThreeDotsLoadingIcon/ThreeDotsLoadingIcon';
 
-LoadingOverlay.defaultProps = {
-    global: {
-        fadeInTime: 0.2,
-        colors: {}
-    },
-    css: {}
-};
 
-
-export default function LoadingOverlay({ fadeInTime, color, bg, css }) {
+export default function LoadingOverlay({ fadeInTime, color, bg, css = {} }) {
     const { state } = useContext(Store);
 
     const [ visible, setVisible ] = useState(true);

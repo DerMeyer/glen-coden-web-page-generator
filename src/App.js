@@ -13,7 +13,9 @@ export default function App() {
 
     console.log('APP (state): ', JSON.stringify(state, null, 4));// TODO remove dev code
 
-    useEffect(() => configService.setBreakpointType(state.breakPointType), [ state.breakPointType ]);
+    configService.setBreakpointType(state.breakPointType);
+
+    useEffect(() => dispatch(actions.allCompsInitiated()), [ dispatch ]);
 
     useEffect(() => {
         document.body.style.backgroundColor = global.bg;

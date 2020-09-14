@@ -117,9 +117,8 @@
                     "component": "Image",
                     "id": "qm1x4x19id",
                     "source": "images/bg-with-logo.jpg",
-                    "css": {
-                        "width": "100%"
-                    }
+                    "subscribeToGlobalLoading": true,
+                    "width": [ 300, 1100 ]
                 },
                 {
                     "component": "Flex",
@@ -192,7 +191,8 @@
                                             "id": "J_VhMt6isl",
                                             "source": "images/window-table.jpg",
                                             "width": 291,
-                                            "height": 291
+                                            "height": 291,
+                                            "loadAfterGlobalLoading": true
                                         }
                                     ]
                                 }
@@ -238,7 +238,8 @@
                                             "id": "PnoZvze0cV",
                                             "source": "images/room-at-angle.jpg",
                                             "width": 291,
-                                            "height": 291
+                                            "height": 291,
+                                            "loadAfterGlobalLoading": true
                                         }
                                     ]
                                 },
@@ -266,11 +267,14 @@
         },
         {
             "component": "LoadingOverlay",
-            "id": "gfDo5OG5-L",
+            "id": "fkLCSJAq9",
             "color": "black",
-            "bg": "white"
+            "bg": "white",
+            "fromGlobal": [
+                "fadeInTime"
+            ]
         }
     ],
-    "_lastUpdated": "2020-09-13T20:47:36.388Z",
+    "_lastUpdated": "2020-09-14T12:16:34.151Z",
     "initialState": {}
 }

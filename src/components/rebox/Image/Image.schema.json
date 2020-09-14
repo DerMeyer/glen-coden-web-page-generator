@@ -6,6 +6,18 @@
     "properties": {
         "source": {
             "type": "string"
+        },
+        "ratio": {
+            "type": "number",
+            "default": 1.5
+        },
+        "subscribeToGlobalLoading": {
+            "type": "boolean",
+            "default": false
+        },
+        "loadAfterGlobalLoading": {
+            "type": "boolean",
+            "default": false
         }
     }
 }

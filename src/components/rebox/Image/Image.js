@@ -4,7 +4,7 @@ import useOptimalSource from '../../../hooks/useOptimalSource';
 import useGlobalLoading from '../../../hooks/useGlobalLoading';
 
 
-export default function Image({ source, width, height, className, css, subscribeToGlobalLoading, loadAfterGlobalLoading }) {
+export default function Image({ source, width, height, className, css, ratio, subscribeToGlobalLoading, loadAfterGlobalLoading }) {
     const image = useRef(null);
 
     const [ sizeBy, setSizeBy ] = useState('width');
@@ -45,8 +45,8 @@ export default function Image({ source, width, height, className, css, subscribe
         if (loadAfterGlobalLoading && !doneGloLoading) {
             return;
         }
-        requestOptimalSource(source, width, height);
-    }, [ loadAfterGlobalLoading, doneGloLoading, requestOptimalSource, source, width, height ]);
+        requestOptimalSource(source, width, height, ratio);
+    }, [ loadAfterGlobalLoading, doneGloLoading, requestOptimalSource, source, width, height, ratio ]);
 
     useEffect(() => {
         if (!image.current) {

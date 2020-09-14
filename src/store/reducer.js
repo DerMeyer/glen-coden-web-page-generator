@@ -17,6 +17,14 @@ const reducer = (state, action) => {
                 deviceType: action.deviceType,
                 orientationType: action.orientationType
             };
+        case ActionTypes.ALL_COMPS_INITIATED:
+            if (!state.loading.length) {
+                trackingService.pageLoaded();
+            }
+            return {
+                ...state,
+                allCompsInitiated: true
+            };
         case ActionTypes.START_LOADING:
             return {
                 ...state,
