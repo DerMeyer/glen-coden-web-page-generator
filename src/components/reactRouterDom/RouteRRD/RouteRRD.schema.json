@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "#RouterRRD",
+    "title": "RouterRRD",
+    "type": "object",
+    "properties": {
+        "path": {
+            "type": "string",
+            "default": "/"
+        },
+        "children": {
+            "type": "array",
+            "items": {
+                "type": "object"
+            }
+        }
+    }
+}

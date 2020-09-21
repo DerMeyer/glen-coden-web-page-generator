@@ -4,7 +4,6 @@ import reducer from './reducer';
 
 const initStore = initialState => {
     return {
-        showApp: false,
         allCompsInitiated: false,
         loading: [],
         vw: window.innerWidth,

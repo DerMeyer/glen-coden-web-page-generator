@@ -8,7 +8,7 @@ import ThreeDotsLoadingIcon from '../../icons/ThreeDotsLoadingIcon/ThreeDotsLoad
 export default function LoadingOverlay({ fadeInTime, color, bg, css = {} }) {
     const { state } = useContext(Store);
 
-    const [ visible, setVisible ] = useState(true);
+    const [ visible, setVisible ] = useState(false);
 
     if (!visible) {
         if (state.loading.length) {

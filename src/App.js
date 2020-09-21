@@ -8,8 +8,7 @@ import Project from './_Project';
 
 export default function App() {
     const { state, dispatch } = useContext(Store);
-    const config = configService.getProps();
-    const { global, theme } = config;
+    const { global, theme } = configService.getProps();
 
     console.log('APP (state): ', JSON.stringify(state, null, 4));// TODO remove dev code
 
@@ -29,7 +28,6 @@ export default function App() {
             document.body.style.lineHeight = theme.lineHeights.body;
         }
 
-        window.setTimeout(() => dispatch(actions.showApp()), global.timeTilFadeIn * 1000);
         window.setTimeout(() => dispatch(actions.loadingTimeout()), global.loadingTimeout * 1000);
 
         const resizeApp = event => dispatch(actions.resize(event.target.innerWidth, event.target.innerHeight));
@@ -45,7 +43,7 @@ export default function App() {
 
     return (
         <div style={{
-            opacity: state.showApp ? '1' : '0',
+            opacity: state.allCompsInitiated ? '1' : '0',
             transition: `opacity ${global.fadeInTime}s`
         }}>
             <Project/>

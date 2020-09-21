@@ -20,13 +20,12 @@ const configHard = {
             },
             {
                 "width": 1,
-                "height": 1
+                "height": 0.9
             }
         ],
         "pageWidth": 1,
         "maxContentWidth": 1100,
         "bg": "white",
-        "timeTilFadeIn": 0.2,
         "fadeInTime": 0.5,
         "loadingTimeout": 10,
         "usePortraitImages": true,
@@ -124,9 +123,7 @@ const configHard = {
                     "id": "qm1x4x19id",
                     "source": "images/bg-with-logo.jpg",
                     "subscribeToGlobalLoading": true,
-                    "css": {
-                        "width": "100%"
-                    }
+                    "width": [ 300, 1100 ]
                 },
                 {
                     "component": "Flex",
@@ -199,7 +196,8 @@ const configHard = {
                                             "id": "J_VhMt6isl",
                                             "source": "images/window-table.jpg",
                                             "width": 291,
-                                            "height": 291
+                                            "height": 291,
+                                            "loadAfterGlobalLoading": true
                                         }
                                     ]
                                 }
@@ -245,7 +243,8 @@ const configHard = {
                                             "id": "PnoZvze0cV",
                                             "source": "images/room-at-angle.jpg",
                                             "width": 291,
-                                            "height": 291
+                                            "height": 291,
+                                            "loadAfterGlobalLoading": true
                                         }
                                     ]
                                 },
@@ -281,7 +280,7 @@ const configHard = {
             ]
         }
     ],
-    "_lastUpdated": "2020-09-14T12:05:24.085Z",
+    "_lastUpdated": "2020-09-14T12:16:34.151Z",
     "initialState": {}
 }
 

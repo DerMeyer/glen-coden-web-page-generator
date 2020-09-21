@@ -3,11 +3,6 @@ import { ActionTypes } from './actions';
 
 const reducer = (state, action) => {
     switch (action.type) {
-        case ActionTypes.SHOW_APP:
-            return {
-                ...state,
-                showApp: true
-            };
         case ActionTypes.RESIZE:
             return {
                 ...state,

@@ -14,13 +14,12 @@
             },
             {
                 "width": 1,
-                "height": 1
+                "height": 0.9
             }
         ],
         "pageWidth": 1,
         "maxContentWidth": 1100,
         "bg": "white",
-        "timeTilFadeIn": 0.2,
         "fadeInTime": 0.5,
         "loadingTimeout": 10,
         "usePortraitImages": true,
@@ -114,11 +113,50 @@
             ],
             "children": [
                 {
-                    "component": "Image",
-                    "id": "qm1x4x19id",
-                    "source": "images/bg-with-logo.jpg",
-                    "subscribeToGlobalLoading": true,
-                    "width": [ 300, 1100 ]
+                    "component": "RouterRRD",
+                    "id": "MxOFi4NJz",
+                    "children": [
+                        {
+                            "component": "LinkRRD",
+                            "id": "kdGkIQoJ8-",
+                            "to": "/",
+                            "children": [
+                                "HOME"
+                            ]
+                        },
+                        {
+                            "component": "LinkRRD",
+                            "id": "WR25q5gDl-",
+                            "to": "/other",
+                            "children": [
+                                "OTHER PAGE"
+                            ]
+                        },
+                        {
+                            "component": "RouteRRD",
+                            "id": "NWACUItBih",
+                            "path": "/",
+                            "children": [
+                                {
+                                    "component": "Image",
+                                    "id": "9WkljyDJu",
+                                    "source": "images/bg-with-logo.jpg",
+                                    "ratio": 1.5,
+                                    "subscribeToGlobalLoading": true,
+                                    "loadAfterGlobalLoading": false,
+                                    "width": 1000
+                                }
+                            ]
+                        },
+                        {
+                            "component": "RouteRRD",
+                            "id": "Eg3OXINpLV",
+                            "path": "/other",
+                            "children": [
+                                "PAGE TWO"
+                            ]
+                        }
+                    ]
                 },
                 {
                     "component": "Flex",
@@ -275,6 +313,6 @@
             ]
         }
     ],
-    "_lastUpdated": "2020-09-14T12:16:34.151Z",
+    "_lastUpdated": "2020-09-21T12:43:10.336Z",
     "initialState": {}
 }
