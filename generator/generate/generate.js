@@ -48,7 +48,7 @@ Promise.resolve()
     })
     .then(() => {
         logger.print('Export SVGs as ReactComponents in src/js directory.');
-        return generateSvgExport(getPath.sourceDir);
+        return generateSvgExport(getPath.sourceDir, getPath.projectsDir, projectName);
     })
     .then(() => {
         logger.print('Create _Project.js in src directory.');

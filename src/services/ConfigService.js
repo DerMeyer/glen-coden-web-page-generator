@@ -10,7 +10,8 @@ const configHard = {
     "global": {
         "fontTypes": [
             {
-                "name": "'Roboto', 'Arial', 'sans-serif'"
+                "name": "'Josefin Sans', 'sans-serif'",
+                "url": "https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap"
             }
         ],
         "contentSize": [
@@ -63,9 +64,9 @@ const configHard = {
             256
         ],
         "fonts": {
-            "body": "system-ui, sans-serif",
-            "heading": "inherit",
-            "monospace": "'Menlo', 'monospace'"
+            "body": "Josefin Sans",
+            "heading": "Josefin Sans",
+            "monospace": "Josefin Sans"
         },
         "fontWeights": {
             "body": 400,
@@ -107,6 +108,27 @@ const configHard = {
     },
     "components": [
         {
+            "component": "Box",
+            "id": "2amgOL5rf",
+            "width": 1,
+            "children": [
+                {
+                    "component": "Image",
+                    "id": "jIwgVEeFx7",
+                    "source": "icons/hainarbeit-logo.png",
+                    "width": 120,
+                    "ratio": 1,
+                    "subscribeToGlobalLoading": false,
+                    "loadAfterGlobalLoading": false,
+                    "css": {
+                        "position": "fixed",
+                        "top": "20px",
+                        "left": "50px"
+                    }
+                }
+            ]
+        },
+        {
             "component": "Page",
             "id": "nMyMSYVpl",
             "rows": 0,
@@ -120,10 +142,11 @@ const configHard = {
             "children": [
                 {
                     "component": "Image",
-                    "id": "qm1x4x19id",
+                    "id": "_MbT9niG7",
                     "source": "images/bg-with-logo.jpg",
+                    "ratio": 1.5,
                     "subscribeToGlobalLoading": true,
-                    "width": [ 300, 1100 ]
+                    "loadAfterGlobalLoading": false
                 },
                 {
                     "component": "Flex",
@@ -141,7 +164,7 @@ const configHard = {
                                     "component": "Heading",
                                     "id": "BarhuT27zC",
                                     "text": {
-                                        "en": "FEATURED PROJECTS"
+                                        "en": "HAINARBEIT"
                                     },
                                     "color": "heading",
                                     "as": "h2"
@@ -152,8 +175,7 @@ const configHard = {
                             "component": "Flex",
                             "id": "b-Yad2HG1",
                             "justifyContent": "space-between",
-                            "px": 5,
-                            "py": 4,
+                            "p": 5,
                             "children": [
                                 {
                                     "component": "Box",
@@ -205,19 +227,18 @@ const configHard = {
                         },
                         {
                             "component": "Flex",
-                            "id": "VRHCPDc3-",
+                            "id": "OdjemiYUv",
                             "justifyContent": "space-between",
-                            "px": 5,
-                            "py": 4,
+                            "p": 5,
                             "children": [
                                 {
                                     "component": "Box",
-                                    "id": "R4PQiCgOpo",
+                                    "id": "9mQokWuFom",
                                     "width": 0.3,
                                     "children": [
                                         {
                                             "component": "Text",
-                                            "id": "6bH_UHy0PS",
+                                            "id": "dnwGRdENOn",
                                             "text": {
                                                 "en": "I'm a paragraph. Click here to add your own text and edit me. It’s easy. Just click “Edit Text” or double click me to add your own content and make changes to the font. Feel free to drag and drop me anywhere you like on your page."
                                             },
@@ -225,7 +246,7 @@ const configHard = {
                                         },
                                         {
                                             "component": "Text",
-                                            "id": "351Aqvxmg7",
+                                            "id": "BtQ3wNTmNa",
                                             "text": {
                                                 "en": "This is a great space to write long text about your company and your services. You can use this space to go into a little more detail about your company. "
                                             },
@@ -235,27 +256,149 @@ const configHard = {
                                 },
                                 {
                                     "component": "Box",
-                                    "id": "GGeCY2XPi",
+                                    "id": "3yVqNnQt8q",
                                     "width": 0.3,
                                     "children": [
                                         {
                                             "component": "Image",
-                                            "id": "PnoZvze0cV",
-                                            "source": "images/room-at-angle.jpg",
+                                            "id": "_pnvB4V_q4",
+                                            "source": "images/kitchen.jpg",
                                             "width": 291,
                                             "height": 291,
-                                            "loadAfterGlobalLoading": true
+                                            "ratio": 0.75,
+                                            "loadAfterGlobalLoading": true,
+                                            "subscribeToGlobalLoading": false
                                         }
                                     ]
                                 },
                                 {
                                     "component": "Box",
-                                    "id": "6HYINF0Qv4",
+                                    "id": "W9Z6SmRfKG",
                                     "width": 0.3,
                                     "children": [
                                         {
                                             "component": "Heading",
-                                            "id": "34uA0pS2xu",
+                                            "id": "Rca3J4YoL4",
+                                            "text": {
+                                                "en": "SPORN*HOUSE,*PARIS"
+                                            },
+                                            "as": "h1",
+                                            "variant": "tileHeading"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "component": "Flex",
+                            "id": "Tm4KfMK177",
+                            "justifyContent": "space-between",
+                            "p": 5,
+                            "children": [
+                                {
+                                    "component": "Box",
+                                    "id": "E0Pd9ZPcSR",
+                                    "width": 0.3,
+                                    "children": [
+                                        {
+                                            "component": "Heading",
+                                            "id": "b8sGErO7l8",
+                                            "text": {
+                                                "en": "SAN*JUAN*VILLA"
+                                            },
+                                            "as": "h1",
+                                            "variant": "tileHeading"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "component": "Box",
+                                    "id": "8g-S0NHpJs",
+                                    "width": 0.3,
+                                    "children": [
+                                        {
+                                            "component": "Text",
+                                            "id": "ImILUopG3L",
+                                            "text": {
+                                                "en": "I'm a paragraph. Click here to add your own text and edit me. It’s easy. Just click “Edit Text” or double click me to add your own content and make changes to the font. I’m a great place for you to tell a story and let your users know a little more about you."
+                                            },
+                                            "variant": "tileParagraph"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "component": "Box",
+                                    "id": "VpA41sYj6W",
+                                    "width": 0.3,
+                                    "children": [
+                                        {
+                                            "component": "Image",
+                                            "id": "jNDoUP3Lfu",
+                                            "source": "images/meeting.jpg",
+                                            "width": 291,
+                                            "height": 291,
+                                            "loadAfterGlobalLoading": true,
+                                            "ratio": 0.75,
+                                            "subscribeToGlobalLoading": false
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "component": "Flex",
+                            "id": "FnRT2DYbr4",
+                            "justifyContent": "space-between",
+                            "p": 5,
+                            "children": [
+                                {
+                                    "component": "Box",
+                                    "id": "Xh3rJslyFKk",
+                                    "width": 0.3,
+                                    "children": [
+                                        {
+                                            "component": "Text",
+                                            "id": "OP3uElYLh8x",
+                                            "text": {
+                                                "en": "I'm a paragraph. Click here to add your own text and edit me. It’s easy. Just click “Edit Text” or double click me to add your own content and make changes to the font. Feel free to drag and drop me anywhere you like on your page."
+                                            },
+                                            "variant": "tileParagraph"
+                                        },
+                                        {
+                                            "component": "Text",
+                                            "id": "fILjaWaCktI",
+                                            "text": {
+                                                "en": "This is a great space to write long text about your company and your services. You can use this space to go into a little more detail about your company. "
+                                            },
+                                            "variant": "tileParagraph"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "component": "Box",
+                                    "id": "TVuP7ykTsZ8",
+                                    "width": 0.3,
+                                    "children": [
+                                        {
+                                            "component": "Image",
+                                            "id": "Vlt0mmMertH",
+                                            "source": "images/garden.jpg",
+                                            "width": 291,
+                                            "height": 291,
+                                            "ratio": 0.75,
+                                            "loadAfterGlobalLoading": true,
+                                            "subscribeToGlobalLoading": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "component": "Box",
+                                    "id": "rZfmGlfGlZ9",
+                                    "width": 0.3,
+                                    "children": [
+                                        {
+                                            "component": "Heading",
+                                            "id": "DjTNv414IDw",
                                             "text": {
                                                 "en": "SPORN*HOUSE,*PARIS"
                                             },
@@ -280,7 +423,7 @@ const configHard = {
             ]
         }
     ],
-    "_lastUpdated": "2020-09-14T12:16:34.151Z",
+    "_lastUpdated": "2020-09-22T14:30:45.902Z",
     "initialState": {}
 }
 
