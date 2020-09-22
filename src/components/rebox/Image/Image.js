@@ -4,12 +4,12 @@ import useOptimalSource from '../../../hooks/useOptimalSource';
 import useGlobalLoading from '../../../hooks/useGlobalLoading';
 
 
-export default function Image({ source, width, height, className, css, ratio, subscribeToGlobalLoading, loadAfterGlobalLoading }) {
+export default function Image({ source, width, height, ratio, className, css, subscribeToGlobalLoading, loadAfterGlobalLoading }) {
     const image = useRef(null);
 
     const [ sizeBy, setSizeBy ] = useState('width');
 
-    const [ startGloLoading, stopGloLoading, doneGloLoading ] = useGlobalLoading();
+    const [ startGL, stopGL, doneGL ] = useGlobalLoading();
     const [ optimalSource, requestOptimalSource ] = useOptimalSource();
 
     const calcSizeBy = useCallback(
@@ -29,24 +29,28 @@ export default function Image({ source, width, height, className, css, ratio, su
 
     const onLoad = useCallback(
         event => {
-            stopGloLoading();
+            stopGL();
             calcSizeBy(event.target.width, event.target.height, width, height);
         },
-        [ stopGloLoading, calcSizeBy, width, height ]
+        [ stopGL, calcSizeBy, width, height ]
     );
 
     useEffect(() => {
         if (subscribeToGlobalLoading) {
-            startGloLoading();
+            startGL();
         }
-    }, [ startGloLoading, subscribeToGlobalLoading ]);
+    }, [ startGL, subscribeToGlobalLoading ]);
 
     useEffect(() => {
-        if (loadAfterGlobalLoading && !doneGloLoading) {
+        if (loadAfterGlobalLoading && !doneGL) {
             return;
         }
+        if (!width && !height && image.current !== null) {
+            const element = image.current.getBoundingClientRect();
+            requestOptimalSource(source, element.width, element.height, ratio);
+        }
         requestOptimalSource(source, width, height, ratio);
-    }, [ loadAfterGlobalLoading, doneGloLoading, requestOptimalSource, source, width, height, ratio ]);
+    }, [ loadAfterGlobalLoading, doneGL, requestOptimalSource, source, width, height, ratio ]);
 
     useEffect(() => {
         if (!image.current) {

@@ -30,10 +30,12 @@ export default function LoadingOverlay({ fadeInTime, color, bg, css = {} }) {
         >
             {state.loading.length
                 ? (
-                    <ThreeDotsLoadingIcon
-                        size={Math.round(state.vw / 15)}
-                        color={color}
-                    />
+                    <div className={s.iconBox}>
+                        <ThreeDotsLoadingIcon
+                            size={Math.round(state.vw / 15)}
+                            color={color}
+                        />
+                    </div>
                 )
                 : null
             }

@@ -9,3 +9,18 @@
     justify-content: center;
     align-items: center;
 }
+
+@keyframes fadein {
+    from {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    to {
+        transform: scale(2);
+        opacity: 1;
+    }
+}
+
+.iconBox {
+    animation: 1s ease-out 1s fadein;
+}

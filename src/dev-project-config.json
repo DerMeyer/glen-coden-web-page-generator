@@ -143,8 +143,35 @@
                                     "source": "images/bg-with-logo.jpg",
                                     "ratio": 1.5,
                                     "subscribeToGlobalLoading": true,
-                                    "loadAfterGlobalLoading": false,
-                                    "width": 1000
+                                    "loadAfterGlobalLoading": false
+                                },
+                                {
+                                    "component": "Heading",
+                                    "id": "oJkBg-IKH",
+                                    "text": "Hello World",
+                                    "as": "h1"
+                                },
+                                {
+                                    "component": "Heading",
+                                    "id": "TUG-0JU53m",
+                                    "text": {
+                                        "en": "Hello World"
+                                    },
+                                    "as": "h1"
+                                },
+                                {
+                                    "component": "Heading",
+                                    "id": "bRa2cWzM5w",
+                                    "as": "h1",
+                                    "text": ""
+                                },
+                                {
+                                    "component": "Heading",
+                                    "id": "L6UTPw3_P",
+                                    "text": {
+                                        "en": "Hello*Lovely*World"
+                                    },
+                                    "as": "h1"
                                 }
                             ]
                         },
@@ -153,7 +180,15 @@
                             "id": "Eg3OXINpLV",
                             "path": "/other",
                             "children": [
-                                "PAGE TWO"
+                                {
+                                    "component": "Image",
+                                    "id": "8LX4awq9d",
+                                    "source": "images/window-table.jpg",
+                                    "ratio": 1.5,
+                                    "subscribeToGlobalLoading": true,
+                                    "loadAfterGlobalLoading": false,
+                                    "width": 1000
+                                }
                             ]
                         }
                     ]
@@ -313,6 +348,6 @@
             ]
         }
     ],
-    "_lastUpdated": "2020-09-21T12:43:10.336Z",
+    "_lastUpdated": "2020-09-22T09:07:12.405Z",
     "initialState": {}
 }

@@ -9,7 +9,7 @@
             "default": "h1"
         },
         "text": {
-            "type": ["string", "object"]
+            "type": [ "string", "object" ]
         }
     }
 }

@@ -20,8 +20,8 @@ class TrackingService {
             return;
         }
         this.pageLoadedAt = Date.now();
-        console.log(`TRACKING: Page loaded in ${(this.pageLoadedAt - this.initAt) / 1000} seconds.`);
         console.log(`TRACKING: Page rendered in ${(this.pageLoadedAt -this.callRenderAt) / 1000} seconds.`);
+        console.log(`TRACKING: Page loaded in ${(this.pageLoadedAt - this.initAt) / 1000} seconds.`);
     }
 
     startProcessTimer(name) {
