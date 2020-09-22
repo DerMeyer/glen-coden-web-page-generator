@@ -45,9 +45,14 @@ export default function Image({ source, width, height, ratio, className, css, su
         if (loadAfterGlobalLoading && !doneGL) {
             return;
         }
-        if (!width && !height && image.current !== null) {
-            const element = image.current.getBoundingClientRect();
-            requestOptimalSource(source, element.width, element.height, ratio);
+        if (typeof width !== 'number') {
+            if (image.current) {
+                const e = image.current.getBoundingClientRect();
+                requestOptimalSource(source, e.width, e.height, ratio);
+                return;
+            }
+            requestOptimalSource(source);
+            return;
         }
         requestOptimalSource(source, width, height, ratio);
     }, [ loadAfterGlobalLoading, doneGL, requestOptimalSource, source, width, height, ratio ]);
@@ -56,13 +61,13 @@ export default function Image({ source, width, height, ratio, className, css, su
         if (!image.current) {
             return;
         }
-        const element = image.current.getBoundingClientRect();
-        calcSizeBy(element.width, element.height, width, height);
+        const e = image.current.getBoundingClientRect();
+        calcSizeBy(e.width, e.height, width, height);
     }, [ calcSizeBy, width, height ]);
 
     const boxStyle = { ...css } || {};
     if (width) {
-        boxStyle.width = `${width}px`;
+        boxStyle.width = typeof width === 'number' ? `${width}px` : width;
     }
     if (height) {
         boxStyle.height = `${height}px`;
