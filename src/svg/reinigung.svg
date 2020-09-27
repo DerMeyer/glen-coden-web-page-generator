@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 95 95" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;">
+    <g transform="matrix(4.16667,0,0,4.16667,47.1996,42.3741)">
+        <g transform="matrix(1,0,0,1,-89,-89)">
+            <g transform="matrix(4.16667,0,0,4.16667,138.666,30.166)">
+                <path d="M0,28.04L-24.04,28.04C-25.145,28.04 -26.04,27.144 -26.04,26.04L-26.04,2C-26.04,0.895 -25.145,0 -24.04,0L0,0C1.105,0 2,0.895 2,2L2,26.04C2,27.144 1.105,28.04 0,28.04Z" style="fill:none;fill-rule:nonzero;stroke:rgb(26,26,26);stroke-width:1.5px;"/>
+            </g>
+        </g>
+    </g>
+    <g transform="matrix(4.16667,0,0,4.16667,38.8303,58.1556)">
+        <g transform="matrix(1,0,0,1,-89,-89)">
+            <g transform="matrix(4.16667,0,0,4.16667,138.666,30.166)">
+                <path d="M0,28.04L-24.04,28.04C-25.145,28.04 -26.04,27.144 -26.04,26.04L-26.04,2C-26.04,0.895 -25.145,0 -24.04,0L0,0C1.105,0 2,0.895 2,2L2,26.04C2,27.144 1.105,28.04 0,28.04Z" style="fill:none;fill-rule:nonzero;stroke:rgb(26,26,26);stroke-width:1.5px;"/>
+            </g>
+        </g>
+    </g>
+    <g transform="matrix(4.16667,0,0,4.16667,47.1996,47.2441)">
+        <g transform="matrix(1,0,0,1,-9,-9)">
+            <clipPath id="_clip1">
+                <rect x="0" y="0" width="18" height="18"/>
+            </clipPath>
+            <g clip-path="url(#_clip1)">
+                <g transform="matrix(1,0,0,1,-3,-3)">
+                    <g id="Icons">
+                        <g id="Outlined">
+                            <g id="Toggle">
+                                <g id="Outlined---Toggle---check_box">
+                                    <g>
+                                        <path id="Path" d="M0,0L24,0L24,24L0,24L0,0Z" style="fill:none;"/>
+                                        <path id="🔹-Icon-Color" d="M19,3L5,3C3.9,3 3,3.9 3,5L3,19C3,20.1 3.9,21 5,21L19,21C20.1,21 21,20.1 21,19L21,5C21,3.9 20.1,3 19,3ZM19,19L5,19L5,5L19,5L19,19ZM17.99,9L16.58,7.58L9.99,14.17L7.41,11.6L5.99,13.01L9.99,17L17.99,9Z" style="fill:rgb(29,29,29);"/>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

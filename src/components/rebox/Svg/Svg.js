@@ -4,7 +4,7 @@ import cx from 'classnames';
 import * as SvgList from '../../../js/svgExports';
 
 
-export default function Svg({ name, width, height, color, className }) {
+export default function Svg({ name, width, height, color, css, className }) {
     if (!SvgList[name]) {
         return <div>unknown svg name</div>;
     }
@@ -23,7 +23,10 @@ export default function Svg({ name, width, height, color, className }) {
     return (
         <div
             className={cx('', { [className]: className })}
-            style={style}
+            style={{
+                ...style,
+                ...css
+            }}
         >
             {SvgComponent}
         </div>

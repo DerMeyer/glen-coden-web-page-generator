@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 95 95" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(4.16667,0,0,4.16667,47.2441,47.2441)">
+        <g transform="matrix(1,0,0,1,-9,-9)">
+            <clipPath id="_clip1">
+                <rect x="0" y="0" width="18" height="18"/>
+            </clipPath>
+            <g clip-path="url(#_clip1)">
+                <g transform="matrix(1,0,0,1,-4,-3)">
+                    <g id="Icons">
+                        <g id="Outlined">
+                            <g id="Places">
+                                <g id="Outlined---Places---free_breakfast">
+                                    <g>
+                                        <path id="Path" d="M0,0L24,0L24,24L0,24L0,0Z" style="fill:none;"/>
+                                        <path id="🔹-Icon-Color" d="M4,19L20,19L20,21L4,21L4,19ZM20,3L4,3L4,13C4,15.21 5.79,17 8,17L14,17C16.21,17 18,15.21 18,13L18,10L20,10C21.11,10 22,9.1 22,8L22,5C22,3.89 21.11,3 20,3ZM16,13C16,14.1 15.1,15 14,15L8,15C6.9,15 6,14.1 6,13L6,5L16,5L16,13ZM20,8L18,8L18,5L20,5L20,8Z"/>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 95 95" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;">
+    <g transform="matrix(4.16667,0,0,4.16667,47.1996,42.3741)">
+        <g transform="matrix(1,0,0,1,-89,-89)">
+            <g transform="matrix(4.16667,0,0,4.16667,138.666,30.166)">
+                <path d="M0,28.04L-24.04,28.04C-25.145,28.04 -26.04,27.144 -26.04,26.04L-26.04,2C-26.04,0.895 -25.145,0 -24.04,0L0,0C1.105,0 2,0.895 2,2L2,26.04C2,27.144 1.105,28.04 0,28.04Z" style="fill:none;fill-rule:nonzero;stroke:rgb(26,26,26);stroke-width:1.5px;"/>
+            </g>
+        </g>
+    </g>
+    <g transform="matrix(4.16667,0,0,4.16667,22.264,67.9958)">
+        <g transform="matrix(1,0,0,1,-89,-89)">
+            <g transform="matrix(4.16667,0,0,4.16667,138.666,30.166)">
+                <path d="M0,28.04L-24.04,28.04C-25.145,28.04 -26.04,27.144 -26.04,26.04L-26.04,2C-26.04,0.895 -25.145,0 -24.04,0L0,0C1.105,0 2,0.895 2,2L2,26.04C2,27.144 1.105,28.04 0,28.04Z" style="fill:none;fill-rule:nonzero;stroke:rgb(26,26,26);stroke-width:1.5px;"/>
+            </g>
+        </g>
+    </g>
+    <g transform="matrix(4.16667,0,0,4.16667,61.7728,42.3741)">
+        <g transform="matrix(1,0,0,1,-89,-89)">
+            <g transform="matrix(4.16667,0,0,4.16667,88.5848,147.001)">
+                <path d="M5.229,-28.041L-5.229,-28.041C-7.106,-28.041 -8.628,-26.519 -8.628,-24.642L-8.628,-3.399C-8.628,-1.522 -7.106,0 -5.229,0L5.229,0C7.106,0 8.627,-1.522 8.627,-3.399L8.627,-24.642C8.627,-26.519 7.106,-28.041 5.229,-28.041Z" style="fill:none;fill-rule:nonzero;stroke:rgb(26,26,26);stroke-width:1.5px;"/>
+            </g>
+        </g>
+    </g>
+    <g transform="matrix(4.16667,0,0,4.16667,47.1996,47.2441)">
+        <g transform="matrix(1,0,0,1,-10,-8)">
+            <clipPath id="_clip1">
+                <rect x="0" y="0" width="20" height="16"/>
+            </clipPath>
+            <g clip-path="url(#_clip1)">
+                <g transform="matrix(1,0,0,1,-2,-4)">
+                    <g id="Icons">
+                        <g id="Outlined">
+                            <g id="Action">
+                                <g id="Outlined---Action---commute">
+                                    <g>
+                                        <path id="Path" d="M0,0L24,0L24,24L0,24L0,0Z" style="fill:none;"/>
+                                        <path id="🔹-Icon-Color" d="M12,4L5,4C3.34,4 2,5.34 2,7L2,15C2,16.66 3.34,18 5,18L4,19L4,20L5,20L7,18L9,18L9,13L4,13L4,6L13,6L13,8L15,8L15,7C15,5.34 13.66,4 12,4ZM5,14C5.55,14 6,14.45 6,15C6,15.55 5.55,16 5,16C4.45,16 4,15.55 4,15C4,14.45 4.45,14 5,14ZM20.57,9.66C20.43,9.26 20.05,9 19.6,9L12.41,9C11.95,9 11.58,9.26 11.43,9.66L10.01,13.77L10.01,19.28C10.01,19.66 10.32,20 10.7,20L11.32,20C11.7,20 12,19.62 12,19.24L12,18L20,18L20,19.24C20,19.62 20.31,20 20.69,20L21.3,20C21.68,20 21.99,19.66 21.99,19.28L22,17.91L22,13.77L20.57,9.66ZM12.41,10L19.6,10L20.63,13L11.38,13L12.41,10ZM12,16C11.45,16 11,15.55 11,15C11,14.45 11.45,14 12,14C12.55,14 13,14.45 13,15C13,15.55 12.55,16 12,16ZM20,16C19.45,16 19,15.55 19,15C19,14.45 19.45,14 20,14C20.55,14 21,14.45 21,15C21,15.55 20.55,16 20,16Z" style="fill:rgb(29,29,29);"/>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

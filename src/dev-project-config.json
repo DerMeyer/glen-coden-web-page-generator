@@ -35,7 +35,7 @@
         ],
         "fontSizes": [
             16,
-            24,
+            20,
             32,
             48,
             80
@@ -43,7 +43,7 @@
         "colors": {
             "black": "#000",
             "lightgrey": "#EDEDED",
-            "darkgrey": "#2F2E2E",
+            "darkgrey": "#5D5D61",
             "heading": "#2F2E2E",
             "white": "#fff"
         },
@@ -79,7 +79,7 @@
         "variants": {
             "tileParagraph": {
                 "color": "darkgrey",
-                "fontSize": 0,
+                "fontSize": 1,
                 "css": {
                     "marginTop": 0
                 }
@@ -87,6 +87,14 @@
             "tileHeading": {
                 "color": "heading",
                 "fontSize": 4,
+                "lineHeight": "small",
+                "css": {
+                    "marginTop": 0
+                }
+            },
+            "tileHeadingSmall": {
+                "color": "heading",
+                "fontSize": 3,
                 "lineHeight": "small",
                 "css": {
                     "marginTop": 0
@@ -102,28 +110,21 @@
     },
     "components": [
         {
-            "component": "ClassicNav",
-            "id": "w4t49mzuh",
-            "burger": [
-                true,
-                false
+            "component": "Svg",
+            "id": "X5h1hvJCR6",
+            "name": "Logo",
+            "width": [
+                0,
+                0,
+                0,
+                0,
+                100
             ],
-            "width": 1.5,
-            "height": 120,
-            "split": 1,
-            "bg": "white",
-            "fromGlobal": [
-                "contentSize",
-                "maxContentWidth"
-            ],
-            "children": [
-                {
-                    "component": "Svg",
-                    "id": "X5h1hvJCR6",
-                    "name": "Logo",
-                    "width": 100
-                }
-            ]
+            "css": {
+                "position": "absolute",
+                "left": "35px",
+                "top": "20px"
+            }
         },
         {
             "component": "Page",
@@ -138,12 +139,20 @@
             ],
             "children": [
                 {
-                    "component": "Image",
-                    "id": "_MbT9niG7",
-                    "source": "images/bg-with-logo.jpg",
-                    "ratio": 1.5,
-                    "subscribeToGlobalLoading": true,
-                    "loadAfterGlobalLoading": false
+                    "component": "Box",
+                    "id": "Zz9drIjFr",
+                    "pb": 6,
+                    "width": 1,
+                    "children": [
+                        {
+                            "component": "Image",
+                            "id": "_MbT9niG7",
+                            "source": "images/bg-with-logo.jpg",
+                            "ratio": 1.5,
+                            "subscribeToGlobalLoading": true,
+                            "loadAfterGlobalLoading": false
+                        }
+                    ]
                 },
                 {
                     "component": "Flex",
@@ -151,42 +160,28 @@
                     "flexDirection": "column",
                     "children": [
                         {
-                            "component": "Box",
-                            "id": "uP3yrDrpt",
-                            "p": 5,
-                            "pb": 4,
-                            "width": 1,
-                            "children": [
-                                {
-                                    "component": "Heading",
-                                    "id": "BarhuT27zC",
-                                    "text": {
-                                        "en": "HAINARBEIT"
-                                    },
-                                    "color": "heading",
-                                    "as": "h2"
-                                }
-                            ]
-                        },
-                        {
                             "component": "Flex",
                             "id": "b-Yad2HG1",
                             "justifyContent": "space-between",
-                            "p": 5,
+                            "p": 4,
                             "children": [
                                 {
                                     "component": "Box",
                                     "id": "Mdp_67-hR",
-                                    "width": 0.3,
+                                    "width": 0.25,
                                     "children": [
                                         {
                                             "component": "Heading",
                                             "id": "pwjwhljT62",
                                             "text": {
-                                                "en": "SAN*JUAN*VILLA"
+                                                "de": "AR*BEI*TEN",
+                                                "en": "WORK,*WORK,*WORK"
                                             },
                                             "as": "h1",
-                                            "variant": "tileHeading"
+                                            "variant": [
+                                                "tileHeadingSmall",
+                                                "tileHeading"
+                                            ]
                                         }
                                     ]
                                 },
@@ -197,10 +192,19 @@
                                     "children": [
                                         {
                                             "component": "Text",
+                                            "id": "OPv3mbDjZ",
+                                            "text": {
+                                                "de": "Willkommen in der HainArbeit!",
+                                                "en": "Welcome to HainArbeit!"
+                                            },
+                                            "variant": "tileParagraph"
+                                        },
+                                        {
+                                            "component": "Text",
                                             "id": "KYXMs6oQ2L",
                                             "text": {
-                                                "de": "LULILULILAAAAA",
-                                                "en": "I'm a paragraph. Click here to add your own text and edit me. It’s easy. Just click “Edit Text” or double click me to add your own content and make changes to the font. I’m a great place for you to tell a story and let your users know a little more about you."
+                                                "de": "Bist du auf Suche nach einem hellen Arbeitsplatz mit Blick ins Grüne? Das Coworking HainArbeit direkt am Volkspark Friedrichshain, freut sich über neue Gesichter!",
+                                                "en": "Are you looking for a bright comfy workspace with a view? HainArbeit Coworking directly at Volkspark Friedrichshain wants your friendly face."
                                             },
                                             "variant": "tileParagraph"
                                         }
@@ -227,7 +231,7 @@
                             "component": "Flex",
                             "id": "OdjemiYUv",
                             "justifyContent": "space-between",
-                            "p": 5,
+                            "p": 4,
                             "children": [
                                 {
                                     "component": "Box",
@@ -238,15 +242,8 @@
                                             "component": "Text",
                                             "id": "dnwGRdENOn",
                                             "text": {
-                                                "en": "I'm a paragraph. Click here to add your own text and edit me. It’s easy. Just click “Edit Text” or double click me to add your own content and make changes to the font. Feel free to drag and drop me anywhere you like on your page."
-                                            },
-                                            "variant": "tileParagraph"
-                                        },
-                                        {
-                                            "component": "Text",
-                                            "id": "BtQ3wNTmNa",
-                                            "text": {
-                                                "en": "This is a great space to write long text about your company and your services. You can use this space to go into a little more detail about your company. "
+                                                "de": "Mit Blick in den grünen Volkspark könnt ihr euch hier in gemütlicher Atmosphäre mit anderen Freelancer*innen aus unterschiedlichsten Bereichen austauschen und zusammenarbeiten - momentan Grafikdesigner, Coder und Journalisten.",
+                                                "en": "With a view into green Volkspark you can work in a comfy atmosphere with other freelancers from different areas. We are graphic designers, journalists and music label owners."
                                             },
                                             "variant": "tileParagraph"
                                         }
@@ -278,10 +275,14 @@
                                             "component": "Heading",
                                             "id": "Rca3J4YoL4",
                                             "text": {
-                                                "en": "SPORN*HOUSE,*PARIS"
+                                                "de": "GRÜN*BABY*GRÜN",
+                                                "en": "GREEN*BABY*GREEN"
                                             },
                                             "as": "h1",
-                                            "variant": "tileHeading"
+                                            "variant": [
+                                                "tileHeadingSmall",
+                                                "tileHeading"
+                                            ]
                                         }
                                     ]
                                 }
@@ -291,7 +292,7 @@
                             "component": "Flex",
                             "id": "Tm4KfMK177",
                             "justifyContent": "space-between",
-                            "p": 5,
+                            "p": 4,
                             "children": [
                                 {
                                     "component": "Box",
@@ -302,10 +303,14 @@
                                             "component": "Heading",
                                             "id": "b8sGErO7l8",
                                             "text": {
-                                                "en": "SAN*JUAN*VILLA"
+                                                "de": "ALLES*DABEI*ALLES",
+                                                "en": "ALL,*ALL,*IN..."
                                             },
                                             "as": "h1",
-                                            "variant": "tileHeading"
+                                            "variant": [
+                                                "tileHeadingSmall",
+                                                "tileHeading"
+                                            ]
                                         }
                                     ]
                                 },
@@ -318,7 +323,8 @@
                                             "component": "Text",
                                             "id": "ImILUopG3L",
                                             "text": {
-                                                "en": "I'm a paragraph. Click here to add your own text and edit me. It’s easy. Just click “Edit Text” or double click me to add your own content and make changes to the font. I’m a great place for you to tell a story and let your users know a little more about you."
+                                                "de": "Du kannst einen Hot Desk (flexibler Tisch) auf Tagesbasis, aber auch einen festen Tisch auf Monatsbasis mieten.",
+                                                "en": "You can rent a hot desk (flexible) or on a monthly base."
                                             },
                                             "variant": "tileParagraph"
                                         }
@@ -376,70 +382,291 @@
             "children": [
                 {
                     "component": "Flex",
-                    "id": "HBNJTEgxR",
-                    "flexDirection": "column",
+                    "id": "aRKLoYp4Q",
+                    "justifyContent": "space-between",
+                    "p": 3,
                     "children": [
                         {
                             "component": "Flex",
-                            "id": "FnRT2DYbr4",
-                            "justifyContent": "space-between",
-                            "p": 5,
+                            "id": "zVkK9my4Yf",
+                            "alignItems": "center",
+                            "width": 0.3,
+                            "p": 2,
                             "children": [
                                 {
-                                    "component": "Box",
-                                    "id": "Xh3rJslyFKk",
-                                    "width": 0.3,
-                                    "children": [
-                                        {
-                                            "component": "Text",
-                                            "id": "OP3uElYLh8x",
-                                            "text": {
-                                                "en": "I'm a paragraph. Click here to add your own text and edit me. It’s easy. Just click “Edit Text” or double click me to add your own content and make changes to the font. Feel free to drag and drop me anywhere you like on your page."
-                                            },
-                                            "variant": "tileParagraph"
-                                        },
-                                        {
-                                            "component": "Text",
-                                            "id": "fILjaWaCktI",
-                                            "text": {
-                                                "en": "This is a great space to write long text about your company and your services. You can use this space to go into a little more detail about your company. "
-                                            },
-                                            "variant": "tileParagraph"
-                                        }
-                                    ]
+                                    "component": "Svg",
+                                    "id": "2kzIIX1btg",
+                                    "name": "Desk",
+                                    "width": 60
                                 },
                                 {
-                                    "component": "Box",
-                                    "id": "TVuP7ykTsZ8",
-                                    "width": 0.3,
-                                    "children": [
-                                        {
-                                            "component": "Image",
-                                            "id": "Vlt0mmMertH",
-                                            "source": "images/garden.jpg",
-                                            "width": 291,
-                                            "height": 291,
-                                            "ratio": 0.75,
-                                            "loadAfterGlobalLoading": true,
-                                            "subscribeToGlobalLoading": false
-                                        }
-                                    ]
+                                    "component": "Text",
+                                    "id": "E5us9Z4jwa",
+                                    "color": "darkgrey",
+                                    "text": {
+                                        "en": "einen großen Schreibtisch (125 x 80 cm)"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "component": "Flex",
+                            "id": "Elj2tLmP7A",
+                            "alignItems": "center",
+                            "width": 0.3,
+                            "p": 2,
+                            "children": [
+                                {
+                                    "component": "Svg",
+                                    "id": "sHN0N3Bka2",
+                                    "name": "Rollcontainer",
+                                    "width": 60,
+                                    "color": "lightgrey"
                                 },
                                 {
-                                    "component": "Box",
-                                    "id": "rZfmGlfGlZ9",
-                                    "width": 0.3,
-                                    "children": [
-                                        {
-                                            "component": "Heading",
-                                            "id": "DjTNv414IDw",
-                                            "text": {
-                                                "en": "SPORN*HOUSE,*PARIS"
-                                            },
-                                            "as": "h1",
-                                            "variant": "tileHeading"
-                                        }
-                                    ]
+                                    "component": "Text",
+                                    "id": "birMHD_m-B",
+                                    "color": "darkgrey",
+                                    "text": {
+                                        "en": "Rollcontainer"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "component": "Flex",
+                            "id": "vCU5HkYlRp",
+                            "alignItems": "center",
+                            "width": 0.3,
+                            "p": 2,
+                            "children": [
+                                {
+                                    "component": "Svg",
+                                    "id": "RhCPSbYeKa",
+                                    "name": "Wifi",
+                                    "width": 60,
+                                    "color": "lightgrey"
+                                },
+                                {
+                                    "component": "Text",
+                                    "id": "KmFC5vm3xJ",
+                                    "color": "darkgrey",
+                                    "text": {
+                                        "en": "High Speed WLAN (250 Mbit/s)"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "component": "Flex",
+                    "id": "aWrDSym6CD",
+                    "justifyContent": "space-between",
+                    "p": 3,
+                    "children": [
+                        {
+                            "component": "Flex",
+                            "id": "bOzDEAWG5-",
+                            "alignItems": "center",
+                            "width": 0.3,
+                            "p": 2,
+                            "children": [
+                                {
+                                    "component": "Svg",
+                                    "id": "Iq3vJInyEw",
+                                    "name": "Oekostrom",
+                                    "width": 60
+                                },
+                                {
+                                    "component": "Text",
+                                    "id": "CmBQP9xCei",
+                                    "color": "darkgrey",
+                                    "text": {
+                                        "en": "Ökostrom"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "component": "Flex",
+                            "id": "QVOeSl2T9L",
+                            "alignItems": "center",
+                            "width": 0.3,
+                            "p": 2,
+                            "children": [
+                                {
+                                    "component": "Svg",
+                                    "id": "Tkpom0E6RA",
+                                    "name": "Coffee",
+                                    "width": 60,
+                                    "color": "black"
+                                },
+                                {
+                                    "component": "Text",
+                                    "id": "HdEvGSUebEn",
+                                    "color": "darkgrey",
+                                    "text": {
+                                        "en": "Kaffee / Tee Flatrate"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "component": "Flex",
+                            "id": "lwbVzHpSHmZ",
+                            "alignItems": "center",
+                            "width": 0.3,
+                            "p": 2,
+                            "children": [
+                                {
+                                    "component": "Svg",
+                                    "id": "2pyszWv74tC",
+                                    "name": "Meeting",
+                                    "width": 60,
+                                    "color": "lightgrey"
+                                },
+                                {
+                                    "component": "Text",
+                                    "id": "2FAGjw-6__S",
+                                    "color": "darkgrey",
+                                    "text": {
+                                        "en": "Meeting-Raum"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "component": "Flex",
+                    "id": "6W5n99SMeyf",
+                    "justifyContent": "space-between",
+                    "p": 3,
+                    "children": [
+                        {
+                            "component": "Flex",
+                            "id": "sgC4KkRJQFB",
+                            "alignItems": "center",
+                            "width": 0.3,
+                            "p": 2,
+                            "children": [
+                                {
+                                    "component": "Svg",
+                                    "id": "qDA1nkiRB9F",
+                                    "name": "Telefon",
+                                    "width": 60
+                                },
+                                {
+                                    "component": "Text",
+                                    "id": "JOGv7prSGdt",
+                                    "color": "darkgrey",
+                                    "text": {
+                                        "en": "Telefonier-Raum"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "component": "Flex",
+                            "id": "Cwb_DsEGekb",
+                            "alignItems": "center",
+                            "width": 0.3,
+                            "p": 2,
+                            "children": [
+                                {
+                                    "component": "Svg",
+                                    "id": "mAl9bCwPzgr",
+                                    "name": "Reinigung",
+                                    "width": 60,
+                                    "color": "lightgrey"
+                                },
+                                {
+                                    "component": "Text",
+                                    "id": "syYADb-EI57",
+                                    "color": "darkgrey",
+                                    "text": {
+                                        "en": "wöchentliche Reinigung"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "component": "Flex",
+                            "id": "QYiBTIEl2WO",
+                            "alignItems": "center",
+                            "width": 0.3,
+                            "p": 2,
+                            "children": [
+                                {
+                                    "component": "Svg",
+                                    "id": "qT16HeWV1bM",
+                                    "name": "Kitchen",
+                                    "width": 60,
+                                    "color": "lightgrey"
+                                },
+                                {
+                                    "component": "Text",
+                                    "id": "aDA_yaXcUyC",
+                                    "color": "darkgrey",
+                                    "text": {
+                                        "en": "Küche mit Herd, Ofen, Geschirrspüler und Mikrowelle"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "component": "Flex",
+                    "id": "pRPFSD78ekv",
+                    "justifyContent": "space-between",
+                    "p": 3,
+                    "children": [
+                        {
+                            "component": "Flex",
+                            "id": "2MEkYVcs0j5",
+                            "alignItems": "center",
+                            "width": 0.3,
+                            "p": 2,
+                            "children": [
+                                {
+                                    "component": "Svg",
+                                    "id": "U3uv6SeA6Yo",
+                                    "name": "Garten",
+                                    "width": 60
+                                },
+                                {
+                                    "component": "Text",
+                                    "id": "KvVMEWguibs",
+                                    "color": "darkgrey",
+                                    "text": {
+                                        "en": "ruhiger grüner Garten im Hinterhof"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "component": "Flex",
+                            "id": "j5nusEA_UHN",
+                            "alignItems": "center",
+                            "width": 0.3,
+                            "p": 2,
+                            "children": [
+                                {
+                                    "component": "Svg",
+                                    "id": "irtf5IJSnea",
+                                    "name": "Verkehr",
+                                    "width": 60,
+                                    "color": "lightgrey"
+                                },
+                                {
+                                    "component": "Text",
+                                    "id": "gmOK2dmbCSg",
+                                    "color": "darkgrey",
+                                    "text": {
+                                        "en": "beste Verkehrsanbindung 10 min zum Alexanderplatz 25 min zum Hauptbahnhof"
+                                    }
                                 }
                             ]
                         }
@@ -450,16 +677,50 @@
         {
             "component": "Page",
             "id": "rW77vMZYK",
-            "bg": "darkgrey",
+            "bg": "lightgrey",
             "rows": 0,
-            "minHeight": 2000,
+            "minHeight": 300,
             "fromGlobal": [
                 "contentSize",
                 "maxContentWidth",
                 "pageWidth",
                 "maxPageWidth"
             ],
-            "children": []
+            "children": [
+                {
+                    "component": "Flex",
+                    "id": "-O0h7iN1o",
+                    "justifyContent": "center",
+                    "children": [
+                        {
+                            "component": "Flex",
+                            "id": "wCkusGqWUN",
+                            "flexDirection": "column",
+                            "pr": 5,
+                            "children": [
+                                {
+                                    "component": "Text",
+                                    "id": "g8QiJHI7o7",
+                                    "color": "black",
+                                    "text": "Danziger Strasse 207"
+                                },
+                                {
+                                    "component": "Text",
+                                    "id": "oEvxxvW6Sl",
+                                    "color": "black",
+                                    "text": "10407 Berlin"
+                                },
+                                {
+                                    "component": "Text",
+                                    "id": "95n-obEwWn",
+                                    "color": "black",
+                                    "text": "contact@hainarbeit.de"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
         },
         {
             "component": "LoadingOverlay",
@@ -471,6 +732,6 @@
             ]
         }
     ],
-    "_lastUpdated": "2020-09-27T17:49:49.112Z",
+    "_lastUpdated": "2020-09-27T20:56:47.377Z",
     "initialState": {}
 }

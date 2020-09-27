@@ -28,39 +28,42 @@ export default function ClassicNav({ burger, width, height, split, bg, contentSi
     }, [ width, contentSize, maxContentWidth ]);
 
     return (
-        <nav
-            ref={navRef}
-            className={s.ClassicNav}
-            style={style}
-        >
-            <div
-                className={s.Content}
-                style={contentStyle}
+        <>
+            <nav
+                ref={navRef}
+                className={s.ClassicNav}
+                style={style}
             >
-                <div className={s.Items}>
-                    {Array.isArray(children) ? children.slice(0, split) : children}
-                </div>
-                {burger ? (
-                    <div
-                        className={s.Burger}
-                        onClick={() => setShowOverlay(true)}
-                    />
-                ) : (
+                <div
+                    className={s.Content}
+                    style={contentStyle}
+                >
                     <div className={s.Items}>
-                        {Array.isArray(children) && children.slice(split)}
+                        {Array.isArray(children) ? children.slice(0, split) : children}
+                    </div>
+                    {burger ? (
+                        <div
+                            className={s.Burger}
+                            onClick={() => setShowOverlay(true)}
+                        />
+                    ) : (
+                        <div className={s.Items}>
+                            {Array.isArray(children) && children.slice(split)}
+                        </div>
+                    )}
+                </div>
+                {showOverlay && (
+                    <div
+                        className={s.Overlay}
+                        onClick={() => setShowOverlay(false)}
+                    >
+                        <div className={s.OverlayContent}>
+                            {Array.isArray(children) && children.slice(split)}
+                        </div>
                     </div>
                 )}
-            </div>
-            {showOverlay && (
-                <div
-                    className={s.Overlay}
-                    onClick={() => setShowOverlay(false)}
-                >
-                    <div className={s.OverlayContent}>
-                        {Array.isArray(children) && children.slice(split)}
-                    </div>
-                </div>
-            )}
-        </nav>
+            </nav>
+            <div style={{ height: `${height}px` }} />
+        </>
     );
 }

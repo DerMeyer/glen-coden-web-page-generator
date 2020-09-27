@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 95 95" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;">
+    <g transform="matrix(4.16667,0,0,4.16667,47.1996,42.3741)">
+        <g transform="matrix(1,0,0,1,-89,-89)">
+            <g transform="matrix(4.16667,0,0,4.16667,138.666,30.166)">
+                <path d="M0,28.04L-24.04,28.04C-25.145,28.04 -26.04,27.144 -26.04,26.04L-26.04,2C-26.04,0.895 -25.145,0 -24.04,0L0,0C1.105,0 2,0.895 2,2L2,26.04C2,27.144 1.105,28.04 0,28.04Z" style="fill:none;fill-rule:nonzero;stroke:rgb(26,26,26);stroke-width:1.5px;"/>
+            </g>
+        </g>
+    </g>
+    <g transform="matrix(4.16667,0,0,4.16667,39.0826,51.3041)">
+        <g transform="matrix(1,0,0,1,-89,-89)">
+            <g transform="matrix(4.16667,0,0,4.16667,138.666,30.166)">
+                <path d="M0,28.04L-24.04,28.04C-25.145,28.04 -26.04,27.144 -26.04,26.04L-26.04,2C-26.04,0.895 -25.145,0 -24.04,0L0,0C1.105,0 2,0.895 2,2L2,26.04C2,27.144 1.105,28.04 0,28.04Z" style="fill:none;fill-rule:nonzero;stroke:rgb(26,26,26);stroke-width:1.5px;"/>
+            </g>
+        </g>
+    </g>
+    <g transform="matrix(3.97129,0,0,3.97129,47.1996,47.2441)">
+        <g transform="matrix(1,0,0,1,-11,-11)">
+            <clipPath id="_clip1">
+                <rect x="0" y="0" width="22" height="22"/>
+            </clipPath>
+            <g clip-path="url(#_clip1)">
+                <g transform="matrix(1,0,0,1,-1,-1)">
+                    <g id="Icons">
+                        <g id="Outlined">
+                            <g id="Hardware">
+                                <g id="Outlined---Hardware---toys">
+                                    <g>
+                                        <path id="Shape" d="M0,0L24,0L24,24L0,24L0,0ZM0,0L24,0L24,24L0,24L0,0Z" style="fill:none;"/>
+                                        <path id="🔹-Icon-Color" d="M12,23L11,23L11,16.43C9.93,17.4 8.52,18 7,18C3.75,18 1,15.25 1,12L1,11L7.57,11C6.6,9.93 6,8.52 6,7C6,3.75 8.75,1 12,1L13,1L13,7.57C14.07,6.6 15.48,6 17,6C20.25,6 23,8.75 23,12L23,13L16.43,13C17.4,14.07 18,15.48 18,17C18,20.25 15.25,23 12,23ZM13,13.13L13,20.87C14.7,20.41 16,18.83 16,17C16,15.17 14.7,13.59 13,13.13ZM3.13,13C3.59,14.7 5.17,16 7,16C8.83,16 10.41,14.7 10.87,13L3.13,13ZM13.13,11L20.87,11C20.41,9.3 18.82,8 17,8C15.18,8 13.59,9.3 13.13,11ZM11,3.13C9.3,3.59 8,5.18 8,7C8,8.82 9.3,10.41 11,10.87L11,3.13Z" style="fill:rgb(29,29,29);"/>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
