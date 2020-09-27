@@ -38,7 +38,7 @@ export default function ClassicNav({ burger, width, height, split, bg, contentSi
                 style={contentStyle}
             >
                 <div className={s.Items}>
-                    {children.slice(0, split)}
+                    {Array.isArray(children) ? children.slice(0, split) : children}
                 </div>
                 {burger ? (
                     <div
@@ -47,7 +47,7 @@ export default function ClassicNav({ burger, width, height, split, bg, contentSi
                     />
                 ) : (
                     <div className={s.Items}>
-                        {children.slice(split)}
+                        {Array.isArray(children) && children.slice(split)}
                     </div>
                 )}
             </div>
@@ -57,7 +57,7 @@ export default function ClassicNav({ burger, width, height, split, bg, contentSi
                     onClick={() => setShowOverlay(false)}
                 >
                     <div className={s.OverlayContent}>
-                        {children.slice(split)}
+                        {Array.isArray(children) && children.slice(split)}
                     </div>
                 </div>
             )}

@@ -108,8 +108,8 @@
                 true,
                 false
             ],
-            "width": 1,
-            "height": 100,
+            "width": 1.5,
+            "height": 120,
             "split": 1,
             "bg": "white",
             "fromGlobal": [
@@ -122,24 +122,12 @@
                     "id": "X5h1hvJCR6",
                     "name": "Logo",
                     "width": 100
-                },
-                {
-                    "component": "Text",
-                    "id": "2_cDuXnTO",
-                    "text": "Ein Link",
-                    "p": 3
-                },
-                {
-                    "component": "Text",
-                    "id": "zuzBYd0bpp",
-                    "text": "Noch Ein Link",
-                    "p": 3
                 }
             ]
         },
         {
             "component": "Page",
-            "id": "nMyMSYVpl",
+            "id": "WWtuJKCxV",
             "rows": 0,
             "minHeight": 0,
             "fromGlobal": [
@@ -159,7 +147,7 @@
                 },
                 {
                     "component": "Flex",
-                    "id": "HBNJTEgxR",
+                    "id": "FtK3uLVUd6",
                     "flexDirection": "column",
                     "children": [
                         {
@@ -211,6 +199,7 @@
                                             "component": "Text",
                                             "id": "KYXMs6oQ2L",
                                             "text": {
+                                                "de": "LULILULILAAAAA",
                                                 "en": "I'm a paragraph. Click here to add your own text and edit me. It’s easy. Just click “Edit Text” or double click me to add your own content and make changes to the font. I’m a great place for you to tell a story and let your users know a little more about you."
                                             },
                                             "variant": "tileParagraph"
@@ -353,7 +342,43 @@
                                     ]
                                 }
                             ]
-                        },
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "component": "FlyOverBox",
+            "id": "fxTwMcnBK",
+            "height": 500,
+            "children": [
+                {
+                    "component": "Image",
+                    "id": "FXT5inW2v",
+                    "source": "images/bg-with-logo.jpg",
+                    "ratio": 1.5,
+                    "subscribeToGlobalLoading": false,
+                    "loadAfterGlobalLoading": true
+                }
+            ]
+        },
+        {
+            "component": "Page",
+            "id": "nMyMSYVpl",
+            "rows": 0,
+            "minHeight": 0,
+            "fromGlobal": [
+                "contentSize",
+                "maxContentWidth",
+                "pageWidth",
+                "maxPageWidth"
+            ],
+            "children": [
+                {
+                    "component": "Flex",
+                    "id": "HBNJTEgxR",
+                    "flexDirection": "column",
+                    "children": [
                         {
                             "component": "Flex",
                             "id": "FnRT2DYbr4",
@@ -423,6 +448,20 @@
             ]
         },
         {
+            "component": "Page",
+            "id": "rW77vMZYK",
+            "bg": "darkgrey",
+            "rows": 0,
+            "minHeight": 2000,
+            "fromGlobal": [
+                "contentSize",
+                "maxContentWidth",
+                "pageWidth",
+                "maxPageWidth"
+            ],
+            "children": []
+        },
+        {
             "component": "LoadingOverlay",
             "id": "fkLCSJAq9",
             "color": "black",
@@ -432,6 +471,6 @@
             ]
         }
     ],
-    "_lastUpdated": "2020-09-27T15:49:14.103Z",
+    "_lastUpdated": "2020-09-27T17:49:49.112Z",
     "initialState": {}
 }
