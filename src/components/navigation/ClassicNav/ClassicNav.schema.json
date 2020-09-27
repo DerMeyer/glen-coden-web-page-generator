@@ -1,0 +1,38 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "#ClassicNav",
+    "title": "ClassicNav",
+    "type": "object",
+    "properties": {
+        "burger": {
+            "type": "boolean",
+            "default": false
+        },
+        "width": {
+            "type": "number",
+            "default": 1
+        },
+        "height": {
+            "type": "number",
+            "default": 100
+        },
+        "split": {
+            "type": "number",
+            "default": 1
+        },
+        "bg": {
+            "type": "string",
+            "default": "#fff"
+        },
+        "fromGlobal": {
+            "type": "array",
+            "items": {
+                "type": [ "string", "object" ]
+            },
+            "default": [
+                "contentSize",
+                "maxContentWidth"
+            ]
+        }
+    }
+}

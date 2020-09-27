@@ -3,6 +3,7 @@ const fs = require('fs');
 const shortid = require('shortid');
 const { objectFromSchema, mergeObjects } = require('../../js/helpers');
 const { get, post } = require('../../js/requests');
+const getPath = require('../../js/getPath');
 
 const PROJ_CONFIG_SCHEMA = require('../project-config-schema');
 const PROJ_INFO = require('../../src/project-info.json');
@@ -28,7 +29,7 @@ function getProjectConfig(sourceDir, projectName) {
     return Promise.resolve()
         .then(() => {
             if (projectName !== PROJ_INFO.projectName) {
-                return get(`http://116.202.99.153/api/config/${projectName}`);
+                return get(`${getPath.api}/config/${projectName}`);
             } else {
                 return Promise.resolve(
                     JSON.parse(fs.readFileSync(path.join(sourceDir, 'dev-project-config.json'), 'utf-8'))
@@ -38,7 +39,7 @@ function getProjectConfig(sourceDir, projectName) {
 }
 
 function updateRemoteProjectConfig(projectName, config) {
-    return post(`http://116.202.99.153/api/config/${projectName}`, { config });
+    return post(`${getPath.api}/config/${projectName}`, { config });
 }
 
 function updateDevProjectConfig(sourceDir, config) {

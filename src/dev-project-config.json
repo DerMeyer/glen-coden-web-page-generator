@@ -102,23 +102,38 @@
     },
     "components": [
         {
-            "component": "Box",
-            "id": "2amgOL5rf",
+            "component": "ClassicNav",
+            "id": "w4t49mzuh",
+            "burger": [
+                true,
+                false
+            ],
             "width": 1,
+            "height": 100,
+            "split": 1,
+            "bg": "white",
+            "fromGlobal": [
+                "contentSize",
+                "maxContentWidth"
+            ],
             "children": [
                 {
-                    "component": "Image",
-                    "id": "jIwgVEeFx7",
-                    "source": "icons/hainarbeit-logo.png",
-                    "width": 120,
-                    "ratio": 1,
-                    "subscribeToGlobalLoading": false,
-                    "loadAfterGlobalLoading": false,
-                    "css": {
-                        "position": "fixed",
-                        "top": "20px",
-                        "left": "50px"
-                    }
+                    "component": "Svg",
+                    "id": "X5h1hvJCR6",
+                    "name": "Logo",
+                    "width": 100
+                },
+                {
+                    "component": "Text",
+                    "id": "2_cDuXnTO",
+                    "text": "Ein Link",
+                    "p": 3
+                },
+                {
+                    "component": "Text",
+                    "id": "zuzBYd0bpp",
+                    "text": "Noch Ein Link",
+                    "p": 3
                 }
             ]
         },
@@ -139,7 +154,7 @@
                     "id": "_MbT9niG7",
                     "source": "images/bg-with-logo.jpg",
                     "ratio": 1.5,
-                    "subscribeToGlobalLoading": false,
+                    "subscribeToGlobalLoading": true,
                     "loadAfterGlobalLoading": false
                 },
                 {
@@ -417,6 +432,6 @@
             ]
         }
     ],
-    "_lastUpdated": "2020-09-22T15:57:57.927Z",
+    "_lastUpdated": "2020-09-27T15:49:14.103Z",
     "initialState": {}
 }

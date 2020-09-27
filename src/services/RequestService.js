@@ -1,4 +1,8 @@
 class RequestService {
+    constructor() {
+        this.apiRoute = 'https://server.glencoden.de/api';
+    }
+
     init() {
         return Promise.resolve();
     }

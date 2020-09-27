@@ -1,0 +1,43 @@
+.ClassicNav {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+.Content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Items {
+    display: flex;
+}
+
+.Burger {
+    width: 50px;
+    height: 50px;
+    background-color: blue;
+}
+
+.Overlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #2F2E2E;
+}
+
+.OverlayContent {
+    display: inline-flex;
+    flex-direction: column;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}

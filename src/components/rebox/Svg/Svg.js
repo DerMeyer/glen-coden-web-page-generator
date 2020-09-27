@@ -1,36 +1,28 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import cx from 'classnames';
 
 import * as SvgList from '../../../js/svgExports';
 
-Svg.propTypes = {
-    className: PropTypes.string,
-    name: PropTypes.string.isRequired,
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number,
-    color: PropTypes.string
-};
 
-
-export default function Svg(props) {
-    if (!SvgList[props.name]) {
+export default function Svg({ name, width, height, color, className }) {
+    if (!SvgList[name]) {
         return <div>unknown svg name</div>;
     }
 
-    const SvgComponent = React.createElement(SvgList[props.name]);
+    const SvgComponent = React.createElement(SvgList[name]);
 
-    const width = `${props.width}px`;
-    const height = `${props.height || props.width}px`;
-    const style = { width, height };
+    const style = {
+        width: `${width}px`,
+        height: `${height || width}px`
+    };
 
-    if (props.color) {
-        style.fill = props.color;
+    if (color) {
+        style.fill = color;
     }
 
     return (
         <div
-            className={cx('', { [props.className]: props.className })}
+            className={cx('', { [className]: className })}
             style={style}
         >
             {SvgComponent}
