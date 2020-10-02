@@ -8,15 +8,14 @@ import Project from './_Project';
 
 export default function App() {
     const { state, dispatch } = useContext(Store);
+    configService.setBreakpointType(state.breakPointType);
     const { global, theme } = configService.getProps();
 
     console.log('APP (state): ', JSON.stringify(state, null, 4));// TODO remove dev code
 
-    configService.setBreakpointType(state.breakPointType);
-
-    useEffect(() => dispatch(actions.allCompsInitiated()), [ dispatch ]);
-
     useEffect(() => {
+        dispatch(actions.allCompsInitiated());
+
         document.body.style.backgroundColor = global.bg;
         if (theme.fonts && theme.fonts.body) {
             document.body.style.fontFamily = theme.fonts.body;

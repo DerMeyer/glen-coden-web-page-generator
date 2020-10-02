@@ -2,28 +2,26 @@ import { useState, useEffect } from 'react';
 
 
 export default function useFlexStyle(props) {
-    const [ input, setInput ] = useState(props);
-    const [ style, setStyle ] = useState({});
+    const [ i, setInput ] = useState(props);
+    const [ s, setStyle ] = useState({});
 
     useEffect(() => {
-        const { flexDirection, flexWrap, justifyContent, alignItems } = input;
-
         const r = {};
 
-        if (typeof flexDirection !== 'undefined') {
-            r.flexDirection = flexDirection;
+        if (typeof i.flexDirection !== 'undefined') {
+            r.flexDirection = i.flexDirection;
         }
-        if (typeof flexWrap !== 'undefined') {
-            r.flexWrap = flexWrap;
+        if (typeof i.flexWrap !== 'undefined') {
+            r.flexWrap = i.flexWrap;
         }
-        if (typeof justifyContent !== 'undefined') {
-            r.justifyContent = justifyContent;
+        if (typeof i.justifyContent !== 'undefined') {
+            r.justifyContent = i.justifyContent;
         }
-        if (typeof alignItems !== 'undefined') {
-            r.alignItems = alignItems;
+        if (typeof i.alignItems !== 'undefined') {
+            r.alignItems = i.alignItems;
         }
         setStyle(r);
-    }, [ input ]);
+    }, [ i.flexDirection, i.flexWrap, i.justifyContent, i.alignItems ]);
 
-    return [ style, setInput ];
+    return [ s, setInput ];
 }

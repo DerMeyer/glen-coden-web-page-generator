@@ -2,32 +2,29 @@ import { useState, useEffect } from 'react';
 
 
 export default function useTextStyle(props) {
-    const [ input, setInput ] = useState(props);
-    const [ style, setStyle ] = useState({});
+    const [ i, setInput ] = useState(props);
+    const [ s, setStyle ] = useState({});
 
     useEffect(() => {
-        const { fontSize, fontWeight, lineHeight, color, css } = input;
-
         const r = {};
 
-        if (typeof fontSize !== 'undefined') {
-            r.fontSize = fontSize;
+        if (typeof i.fontSize !== 'undefined') {
+            r.fontSize = i.fontSize;
         }
-        if (typeof fontWeight !== 'undefined') {
-            r.fontWeight = fontWeight;
+        if (typeof i.fontWeight !== 'undefined') {
+            r.fontWeight = i.fontWeight;
         }
-        if (typeof lineHeight !== 'undefined') {
-            r.lineHeight = lineHeight;
+        if (typeof i.textDecoration !== 'undefined') {
+            r.textDecoration = i.textDecoration;
         }
-        if (typeof color !== 'undefined') {
-            r.color = color;
+        if (typeof i.lineHeight !== 'undefined') {
+            r.lineHeight = i.lineHeight;
         }
-        if (css) {
-            setStyle({ ...r, ...css });
-            return;
+        if (typeof i.color !== 'undefined') {
+            r.color = i.color;
         }
         setStyle(r);
-    }, [ input ]);
+    }, [ i.fontSize, i.fontWeight, i.textDecoration, i.lineHeight, i.color ]);
 
-    return [ style, setInput ];
+    return [ s, setInput ];
 }

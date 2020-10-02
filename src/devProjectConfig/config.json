@@ -1,0 +1,111 @@
+{
+    "title": "Hainarbeit",
+    "description": "Shared working space by Volkspark Friedrichshain park in Berlin.",
+    "global": {
+        "fontTypes": [
+            {
+                "name": "'Josefin Sans', 'sans-serif'",
+                "url": "https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap"
+            }
+        ],
+        "contentSize": [
+            {
+                "width": 0.9,
+                "height": 0.9
+            },
+            {
+                "width": 1,
+                "height": 0.9
+            }
+        ],
+        "pageWidth": 1,
+        "maxContentWidth": 1100,
+        "bg": "white",
+        "fadeInTime": 0.5,
+        "loadingTimeout": 10,
+        "usePortraitImages": true,
+        "maxPageWidth": 0
+    },
+    "theme": "light",
+    "components": [
+        {
+            "component": "Svg",
+            "id": "X5h1hvJCR6",
+            "name": "Logo",
+            "width": [
+                0,
+                0,
+                0,
+                0,
+                100
+            ],
+            "css": {
+                "position": "absolute",
+                "left": "35px",
+                "top": "20px"
+            }
+        },
+        {
+            "module": "page-home"
+        },
+        {
+            "component": "Page",
+            "id": "rW77vMZYK",
+            "bg": "lightgrey",
+            "rows": 0,
+            "minHeight": 300,
+            "fromGlobal": [
+                "contentSize",
+                "maxContentWidth",
+                "pageWidth",
+                "maxPageWidth"
+            ],
+            "children": [
+                {
+                    "component": "Flex",
+                    "id": "-O0h7iN1o",
+                    "justifyContent": "center",
+                    "children": [
+                        {
+                            "component": "Flex",
+                            "id": "wCkusGqWUN",
+                            "flexDirection": "column",
+                            "pr": 5,
+                            "children": [
+                                {
+                                    "component": "Text",
+                                    "id": "g8QiJHI7o7",
+                                    "color": "black",
+                                    "text": "Danziger Strasse 207"
+                                },
+                                {
+                                    "component": "Text",
+                                    "id": "oEvxxvW6Sl",
+                                    "color": "black",
+                                    "text": "10407 Berlin"
+                                },
+                                {
+                                    "component": "Text",
+                                    "id": "95n-obEwWn",
+                                    "color": "black",
+                                    "text": "contact@hainarbeit.de"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "component": "LoadingOverlay",
+            "id": "fkLCSJAq9",
+            "color": "black",
+            "bg": "white",
+            "fromGlobal": [
+                "fadeInTime"
+            ]
+        }
+    ],
+    "_lastUpdated": "2020-09-27T20:56:47.377Z",
+    "initialState": {}
+}

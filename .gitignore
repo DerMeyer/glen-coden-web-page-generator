@@ -15,8 +15,8 @@
 components-list.json
 /projects
 /public
+_config.json
 _Project.js
-project-config.json
 
 # misc
 .DS_Store

@@ -1,0 +1,82 @@
+{
+    "breakpoints": [
+        "576px",
+        "768px",
+        "992px",
+        "1200px"
+    ],
+    "fontSizes": [
+        16,
+        20,
+        32,
+        48,
+        80
+    ],
+    "colors": {
+        "black": "#000",
+        "lightgrey": "#EDEDED",
+        "darkgrey": "#5D5D61",
+        "heading": "#2F2E2E",
+        "white": "#fff"
+    },
+    "space": [
+        0,
+        4,
+        8,
+        16,
+        32,
+        64,
+        128,
+        256
+    ],
+    "fonts": {
+        "body": "Josefin Sans",
+        "heading": "Josefin Sans",
+        "monospace": "Josefin Sans"
+    },
+    "fontWeights": {
+        "body": 400,
+        "heading": 700,
+        "bold": 700
+    },
+    "lineHeights": {
+        "body": 1.5,
+        "heading": 1.25,
+        "small": 1
+    },
+    "shadows": {
+        "small": "0 0 4px rgba(0, 0, 0, .125)",
+        "large": "0 0 24px rgba(0, 0, 0, .125)"
+    },
+    "variants": {
+        "tileParagraph": {
+            "color": "darkgrey",
+            "fontSize": 1,
+            "css": {
+                "marginTop": 0
+            }
+        },
+        "tileHeading": {
+            "color": "heading",
+            "fontSize": 4,
+            "lineHeight": "small",
+            "css": {
+                "marginTop": 0
+            }
+        },
+        "tileHeadingSmall": {
+            "color": "heading",
+            "fontSize": 3,
+            "lineHeight": "small",
+            "css": {
+                "marginTop": 0
+            }
+        }
+    },
+    "text": {},
+    "buttons": {
+        "primary": {
+            "color": "darkgrey"
+        }
+    }
+}

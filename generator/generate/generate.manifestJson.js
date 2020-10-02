@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs');
 
 function generateManifestJson(sourceDir, projectDir, targetDir) {
-    const PROJ_CONFIG = require(path.join(sourceDir, 'dev-project-config'));
+    const PROJ_CONFIG = require(path.join(sourceDir, '_config'));
 
     return new Promise(resolve => {
         const availableFiles = fs

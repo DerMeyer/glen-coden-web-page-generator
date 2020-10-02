@@ -2,7 +2,7 @@
 const fs = require('fs');
 
 function generateIndexHtml(sourceDir, targetDir) {
-    const PROJ_CONFIG = require(path.join(sourceDir, 'dev-project-config'));
+    const PROJ_CONFIG = require(path.join(sourceDir, '_config'));
 
     return new Promise(resolve => {
         let file = '';

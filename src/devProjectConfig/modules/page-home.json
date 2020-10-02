@@ -1,0 +1,550 @@
+[
+    {
+        "component": "Page",
+        "id": "WWtuJKCxV",
+        "rows": 0,
+        "minHeight": 0,
+        "fromGlobal": [
+            "contentSize",
+            "maxContentWidth",
+            "pageWidth",
+            "maxPageWidth"
+        ],
+        "children": [
+            {
+                "component": "Box",
+                "id": "Zz9drIjFr",
+                "pb": 6,
+                "width": 1,
+                "children": [
+                    {
+                        "component": "Image",
+                        "id": "_MbT9niG7",
+                        "source": "images/bg-with-logo.jpg",
+                        "ratio": 1.5,
+                        "subscribeToGlobalLoading": true,
+                        "loadAfterGlobalLoading": false
+                    }
+                ]
+            },
+            {
+                "component": "Flex",
+                "id": "FtK3uLVUd6",
+                "flexDirection": "column",
+                "children": [
+                    {
+                        "component": "Flex",
+                        "id": "b-Yad2HG1",
+                        "justifyContent": "space-between",
+                        "p": 4,
+                        "children": [
+                            {
+                                "component": "Box",
+                                "id": "Mdp_67-hR",
+                                "width": 0.25,
+                                "children": [
+                                    {
+                                        "component": "Heading",
+                                        "id": "pwjwhljT62",
+                                        "text": {
+                                            "de": "AR*BEI*TEN",
+                                            "en": "WORK,*WORK,*WORK"
+                                        },
+                                        "as": "h1",
+                                        "variant": [
+                                            "tileHeadingSmall",
+                                            "tileHeading"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "component": "Box",
+                                "id": "ScvxHbHhYE",
+                                "width": 0.3,
+                                "children": [
+                                    {
+                                        "component": "Text",
+                                        "id": "OPv3mbDjZ",
+                                        "text": {
+                                            "de": "Willkommen in der HainArbeit!",
+                                            "en": "Welcome to HainArbeit!"
+                                        },
+                                        "variant": "tileParagraph"
+                                    },
+                                    {
+                                        "component": "Text",
+                                        "id": "KYXMs6oQ2L",
+                                        "text": {
+                                            "de": "Bist du auf Suche nach einem hellen Arbeitsplatz mit Blick ins Grüne? Das Coworking HainArbeit direkt am Volkspark Friedrichshain, freut sich über neue Gesichter!",
+                                            "en": "Are you looking for a bright comfy workspace with a view? HainArbeit Coworking directly at Volkspark Friedrichshain wants your friendly face."
+                                        },
+                                        "variant": "tileParagraph"
+                                    }
+                                ]
+                            },
+                            {
+                                "component": "Box",
+                                "id": "aTvetNmKyJ",
+                                "width": 0.3,
+                                "children": [
+                                    {
+                                        "component": "Image",
+                                        "id": "J_VhMt6isl",
+                                        "source": "images/window-table.jpg",
+                                        "width": 291,
+                                        "height": 291,
+                                        "loadAfterGlobalLoading": true
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "component": "Flex",
+                        "id": "OdjemiYUv",
+                        "justifyContent": "space-between",
+                        "p": 4,
+                        "children": [
+                            {
+                                "component": "Box",
+                                "id": "9mQokWuFom",
+                                "width": 0.3,
+                                "children": [
+                                    {
+                                        "component": "Text",
+                                        "id": "dnwGRdENOn",
+                                        "text": {
+                                            "de": "Mit Blick in den grünen Volkspark könnt ihr euch hier in gemütlicher Atmosphäre mit anderen Freelancer*innen aus unterschiedlichsten Bereichen austauschen und zusammenarbeiten - momentan Grafikdesigner, Coder und Journalisten.",
+                                            "en": "With a view into green Volkspark you can work in a comfy atmosphere with other freelancers from different areas. We are graphic designers, journalists and music label owners."
+                                        },
+                                        "variant": "tileParagraph"
+                                    }
+                                ]
+                            },
+                            {
+                                "component": "Box",
+                                "id": "3yVqNnQt8q",
+                                "width": 0.3,
+                                "children": [
+                                    {
+                                        "component": "Image",
+                                        "id": "_pnvB4V_q4",
+                                        "source": "images/kitchen.jpg",
+                                        "width": 291,
+                                        "height": 291,
+                                        "ratio": 0.75,
+                                        "loadAfterGlobalLoading": true,
+                                        "subscribeToGlobalLoading": false
+                                    }
+                                ]
+                            },
+                            {
+                                "component": "Box",
+                                "id": "W9Z6SmRfKG",
+                                "width": 0.3,
+                                "children": [
+                                    {
+                                        "component": "Heading",
+                                        "id": "Rca3J4YoL4",
+                                        "text": {
+                                            "de": "GRÜN*BABY*GRÜN",
+                                            "en": "GREEN*BABY*GREEN"
+                                        },
+                                        "as": "h1",
+                                        "variant": [
+                                            "tileHeadingSmall",
+                                            "tileHeading"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "component": "Flex",
+                        "id": "Tm4KfMK177",
+                        "justifyContent": "space-between",
+                        "p": 4,
+                        "children": [
+                            {
+                                "component": "Box",
+                                "id": "E0Pd9ZPcSR",
+                                "width": 0.3,
+                                "children": [
+                                    {
+                                        "component": "Heading",
+                                        "id": "b8sGErO7l8",
+                                        "text": {
+                                            "de": "ALLES*DABEI*ALLES",
+                                            "en": "ALL,*ALL,*IN..."
+                                        },
+                                        "as": "h1",
+                                        "variant": [
+                                            "tileHeadingSmall",
+                                            "tileHeading"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "component": "Box",
+                                "id": "8g-S0NHpJs",
+                                "width": 0.3,
+                                "children": [
+                                    {
+                                        "component": "Text",
+                                        "id": "ImILUopG3L",
+                                        "text": {
+                                            "de": "Du kannst einen Hot Desk (flexibler Tisch) auf Tagesbasis, aber auch einen festen Tisch auf Monatsbasis mieten.",
+                                            "en": "You can rent a hot desk (flexible) or on a monthly base."
+                                        },
+                                        "variant": "tileParagraph"
+                                    }
+                                ]
+                            },
+                            {
+                                "component": "Box",
+                                "id": "VpA41sYj6W",
+                                "width": 0.3,
+                                "children": [
+                                    {
+                                        "component": "Image",
+                                        "id": "jNDoUP3Lfu",
+                                        "source": "images/meeting.jpg",
+                                        "width": 291,
+                                        "height": 291,
+                                        "loadAfterGlobalLoading": true,
+                                        "ratio": 0.75,
+                                        "subscribeToGlobalLoading": false
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "component": "FlyOverBox",
+        "id": "fxTwMcnBK",
+        "height": 500,
+        "children": [
+            {
+                "component": "Image",
+                "id": "FXT5inW2v",
+                "source": "images/bg-with-logo.jpg",
+                "ratio": 1.5,
+                "subscribeToGlobalLoading": false,
+                "loadAfterGlobalLoading": true
+            }
+        ]
+    },
+    {
+        "component": "Page",
+        "id": "nMyMSYVpl",
+        "rows": 0,
+        "minHeight": 0,
+        "fromGlobal": [
+            "contentSize",
+            "maxContentWidth",
+            "pageWidth",
+            "maxPageWidth"
+        ],
+        "children": [
+            {
+                "component": "Flex",
+                "id": "aRKLoYp4Q",
+                "justifyContent": "space-between",
+                "p": 3,
+                "children": [
+                    {
+                        "component": "Flex",
+                        "id": "zVkK9my4Yf",
+                        "alignItems": "center",
+                        "width": 0.3,
+                        "p": 2,
+                        "children": [
+                            {
+                                "component": "Svg",
+                                "id": "2kzIIX1btg",
+                                "name": "Desk",
+                                "width": 60
+                            },
+                            {
+                                "component": "Text",
+                                "id": "E5us9Z4jwa",
+                                "color": "darkgrey",
+                                "text": {
+                                    "en": "einen großen Schreibtisch (125 x 80 cm)"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "component": "Flex",
+                        "id": "Elj2tLmP7A",
+                        "alignItems": "center",
+                        "width": 0.3,
+                        "p": 2,
+                        "children": [
+                            {
+                                "component": "Svg",
+                                "id": "sHN0N3Bka2",
+                                "name": "Rollcontainer",
+                                "width": 60,
+                                "color": "lightgrey"
+                            },
+                            {
+                                "component": "Text",
+                                "id": "birMHD_m-B",
+                                "color": "darkgrey",
+                                "text": {
+                                    "en": "Rollcontainer"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "component": "Flex",
+                        "id": "vCU5HkYlRp",
+                        "alignItems": "center",
+                        "width": 0.3,
+                        "p": 2,
+                        "children": [
+                            {
+                                "component": "Svg",
+                                "id": "RhCPSbYeKa",
+                                "name": "Wifi",
+                                "width": 60,
+                                "color": "lightgrey"
+                            },
+                            {
+                                "component": "Text",
+                                "id": "KmFC5vm3xJ",
+                                "color": "darkgrey",
+                                "text": {
+                                    "en": "High Speed WLAN (250 Mbit/s)"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "component": "Flex",
+                "id": "aWrDSym6CD",
+                "justifyContent": "space-between",
+                "p": 3,
+                "children": [
+                    {
+                        "component": "Flex",
+                        "id": "bOzDEAWG5-",
+                        "alignItems": "center",
+                        "width": 0.3,
+                        "p": 2,
+                        "children": [
+                            {
+                                "component": "Svg",
+                                "id": "Iq3vJInyEw",
+                                "name": "Oekostrom",
+                                "width": 60
+                            },
+                            {
+                                "component": "Text",
+                                "id": "CmBQP9xCei",
+                                "color": "darkgrey",
+                                "text": {
+                                    "en": "Ökostrom"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "component": "Flex",
+                        "id": "QVOeSl2T9L",
+                        "alignItems": "center",
+                        "width": 0.3,
+                        "p": 2,
+                        "children": [
+                            {
+                                "component": "Svg",
+                                "id": "Tkpom0E6RA",
+                                "name": "Coffee",
+                                "width": 60,
+                                "color": "black"
+                            },
+                            {
+                                "component": "Text",
+                                "id": "HdEvGSUebEn",
+                                "color": "darkgrey",
+                                "text": {
+                                    "en": "Kaffee / Tee Flatrate"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "component": "Flex",
+                        "id": "lwbVzHpSHmZ",
+                        "alignItems": "center",
+                        "width": 0.3,
+                        "p": 2,
+                        "children": [
+                            {
+                                "component": "Svg",
+                                "id": "2pyszWv74tC",
+                                "name": "Meeting",
+                                "width": 60,
+                                "color": "lightgrey"
+                            },
+                            {
+                                "component": "Text",
+                                "id": "2FAGjw-6__S",
+                                "color": "darkgrey",
+                                "text": {
+                                    "en": "Meeting-Raum"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "component": "Flex",
+                "id": "6W5n99SMeyf",
+                "justifyContent": "space-between",
+                "p": 3,
+                "children": [
+                    {
+                        "component": "Flex",
+                        "id": "sgC4KkRJQFB",
+                        "alignItems": "center",
+                        "width": 0.3,
+                        "p": 2,
+                        "children": [
+                            {
+                                "component": "Svg",
+                                "id": "qDA1nkiRB9F",
+                                "name": "Telefon",
+                                "width": 60
+                            },
+                            {
+                                "component": "Text",
+                                "id": "JOGv7prSGdt",
+                                "color": "darkgrey",
+                                "text": {
+                                    "en": "Telefonier-Raum"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "component": "Flex",
+                        "id": "Cwb_DsEGekb",
+                        "alignItems": "center",
+                        "width": 0.3,
+                        "p": 2,
+                        "children": [
+                            {
+                                "component": "Svg",
+                                "id": "mAl9bCwPzgr",
+                                "name": "Reinigung",
+                                "width": 60,
+                                "color": "lightgrey"
+                            },
+                            {
+                                "component": "Text",
+                                "id": "syYADb-EI57",
+                                "color": "darkgrey",
+                                "text": {
+                                    "en": "wöchentliche Reinigung"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "component": "Flex",
+                        "id": "QYiBTIEl2WO",
+                        "alignItems": "center",
+                        "width": 0.3,
+                        "p": 2,
+                        "children": [
+                            {
+                                "component": "Svg",
+                                "id": "qT16HeWV1bM",
+                                "name": "Kitchen",
+                                "width": 60,
+                                "color": "lightgrey"
+                            },
+                            {
+                                "component": "Text",
+                                "id": "aDA_yaXcUyC",
+                                "color": "darkgrey",
+                                "text": {
+                                    "en": "Küche mit Herd, Ofen, Geschirrspüler und Mikrowelle"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "component": "Flex",
+                "id": "pRPFSD78ekv",
+                "justifyContent": "space-between",
+                "p": 3,
+                "children": [
+                    {
+                        "component": "Flex",
+                        "id": "2MEkYVcs0j5",
+                        "alignItems": "center",
+                        "width": 0.3,
+                        "p": 2,
+                        "children": [
+                            {
+                                "component": "Svg",
+                                "id": "U3uv6SeA6Yo",
+                                "name": "Garten",
+                                "width": 60
+                            },
+                            {
+                                "component": "Text",
+                                "id": "KvVMEWguibs",
+                                "color": "darkgrey",
+                                "text": {
+                                    "en": "ruhiger grüner Garten im Hinterhof"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "component": "Flex",
+                        "id": "j5nusEA_UHN",
+                        "alignItems": "center",
+                        "width": 0.3,
+                        "p": 2,
+                        "children": [
+                            {
+                                "component": "Svg",
+                                "id": "irtf5IJSnea",
+                                "name": "Verkehr",
+                                "width": 60,
+                                "color": "lightgrey"
+                            },
+                            {
+                                "component": "Text",
+                                "id": "gmOK2dmbCSg",
+                                "color": "darkgrey",
+                                "text": {
+                                    "en": "beste Verkehrsanbindung 10 min zum Alexanderplatz 25 min zum Hauptbahnhof"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]

@@ -32,7 +32,7 @@ function getProjectConfig(sourceDir, projectName) {
                 return get(`${getPath.api}/config/${projectName}`);
             } else {
                 return Promise.resolve(
-                    JSON.parse(fs.readFileSync(path.join(sourceDir, 'dev-project-config.json'), 'utf-8'))
+                    JSON.parse(fs.readFileSync(path.join(sourceDir, '_config.json'), 'utf-8'))
                 );
             }
         })
@@ -43,7 +43,7 @@ function updateRemoteProjectConfig(projectName, config) {
 }
 
 function updateDevProjectConfig(sourceDir, config) {
-    fs.writeFileSync(path.join(sourceDir, 'dev-project-config.json'), JSON.stringify(config, null, 4));
+    fs.writeFileSync(path.join(sourceDir, '_config.json'), JSON.stringify(config, null, 4));
 }
 
 function updateConfigHistory(projectDir, config) {

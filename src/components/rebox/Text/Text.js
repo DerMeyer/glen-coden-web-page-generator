@@ -1,24 +1,28 @@
 import React, { useEffect } from 'react';
-import useTextStyle from '../../../hooks/useTextStyle';
 import useI18n from '../../../hooks/useI18n';
+import useBoxStyle from '../../../hooks/useBoxStyle';
+import useTextStyle from '../../../hooks/useTextStyle';
 
 
-export default function Text({ text, ...input }) {
-    const { fontSize, fontWeight, lineHeight, color, css } = input;
-
-    const [ style, setStyle ] = useTextStyle(input);
-    const [ translation, setTranslation ] = useI18n(text);
-
-    useEffect(() => {
-        setStyle({ fontSize, fontWeight, lineHeight, color, css });
-    }, [ fontSize, fontWeight, lineHeight, color, css, setStyle ]);
+export default function Text(props) {
+    const [ translation, setTranslation ] = useI18n(props.text);
+    const [ boxStyle, getBoxStyle ] = useBoxStyle(props);
+    const [ textStyle, getTextStyle ] = useTextStyle(props);
 
     useEffect(() => {
-        setTranslation(text);
-    }, [ text, setTranslation ]);
+        getBoxStyle(props);
+        getTextStyle(props);
+    });
+
+    useEffect(() => {
+        setTranslation(props.text);
+    }, [ props.text, setTranslation ]);
 
     return (
-        <p style={style}>
+        <p style={{
+            ...boxStyle,
+            ...textStyle
+        }}>
             {translation}
         </p>
     );

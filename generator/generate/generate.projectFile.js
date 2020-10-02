@@ -3,7 +3,7 @@ const fs = require('fs');
 const componentsList = require('../components-list');
 
 function generateProjectFile(sourceDir, targetDir) {
-    const PROJ_CONFIG = require(path.join(sourceDir, 'dev-project-config'));
+    const PROJ_CONFIG = require(path.join(sourceDir, '_config'));
     const componentsMap = PROJ_CONFIG.components;
 
     return new Promise(resolve => {

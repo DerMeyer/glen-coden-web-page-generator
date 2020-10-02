@@ -1,22 +1,17 @@
 import React, { useEffect } from 'react';
 import s from './Flex.module.css';
-import useFlexStyle from '../../../hooks/useFlexStyle';
 import useBoxStyle from '../../../hooks/useBoxStyle';
+import useFlexStyle from '../../../hooks/useFlexStyle';
 
 
-export default function Flex({ children, ...input }) {
-    const { flexDirection, flexWrap, justifyContent, alignItems, p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml, fontSize, width, color, bg, shadow, css } = input;
-
-    const [ boxStyle, setBoxStyle ] = useBoxStyle(input);
-    const [ flexStyle, setFlexStyle ] = useFlexStyle(input);
-
-    useEffect(() => {
-        setFlexStyle({ flexDirection, flexWrap, justifyContent, alignItems });
-    }, [ flexDirection, flexWrap, justifyContent, alignItems, setFlexStyle ]);
+export default function Flex(props) {
+    const [ boxStyle, getBoxStyle ] = useBoxStyle(props);
+    const [ flexStyle, getFlexStyle ] = useFlexStyle(props);
 
     useEffect(() => {
-        setBoxStyle({ p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml, fontSize, width, color, bg, shadow, css });
-    }, [ p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml, fontSize, width, color, bg, shadow, css, setBoxStyle ]);
+        getBoxStyle(props);
+        getFlexStyle(props);
+    });
 
     return (
         <div
@@ -26,7 +21,7 @@ export default function Flex({ children, ...input }) {
                 ...flexStyle
             }}
         >
-            {children}
+            {props.children}
         </div>
     );
 }

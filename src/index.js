@@ -4,9 +4,9 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from './store/Store';
 import App from './App';
-import ConfigService from './services/ConfigService';
-import RequestService from './services/RequestService';
-import TrackingService from './services/TrackingService';
+import ConfigService from './services/configService/ConfigService';
+import RequestService from './services/requestService/RequestService';
+import TrackingService from './services/trackingService/TrackingService';
 
 export const configService = new ConfigService();
 export const requestService = new RequestService();

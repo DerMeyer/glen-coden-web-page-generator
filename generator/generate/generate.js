@@ -27,7 +27,7 @@ logger.title('run generate.js');
 
 Promise.resolve()
     .then(() => {
-        logger.print('Write dev-project-config into src directory.');
+        logger.print('Write _config into src directory.');
         return generateProjectInfo(getPath.sourceDir, projectName);
     })
     .then(() => {
