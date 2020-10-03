@@ -89,10 +89,17 @@ export function applyTheme(config, theme) {
             config[k] = theme.shadows[v];
             return;
         }
-
-        // TODO add specific variants like eg buttons
         if (k === 'variant') {
-            const { variants } = theme;
+            let variants = theme.variants;
+            if (
+                config.component
+                && (config.component === 'Text' || config.component === 'Heading')
+            ) {
+                variants = theme.text;
+            }
+            if (config.component && config.component === 'Button') {
+                variants = theme.buttons;
+            }
             Object.keys(variants).forEach(variant => {
                 if (v === variant) {
                     Object.keys(variants[variant]).forEach(prop => {

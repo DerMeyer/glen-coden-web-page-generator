@@ -64,9 +64,13 @@ class ConfigService {
 
     _createTheme(theme) {
         if (theme.variants) {
-            Object.keys(theme.variants).forEach(key => {
-                applyTheme(theme.variants[key], theme);
-            });
+            Object.keys(theme.variants).forEach(key => applyTheme(theme.variants[key], theme));
+        }
+        if (theme.text) {
+            Object.keys(theme.text).forEach(key => applyTheme(theme.text[key], theme));
+        }
+        if (theme.buttons) {
+            Object.keys(theme.buttons).forEach(key => applyTheme(theme.buttons[key], theme));
         }
         this.theme = theme;
     }

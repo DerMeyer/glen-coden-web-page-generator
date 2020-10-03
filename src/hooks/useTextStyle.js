@@ -14,8 +14,8 @@ export default function useTextStyle(props) {
         if (typeof i.fontWeight !== 'undefined') {
             r.fontWeight = i.fontWeight;
         }
-        if (typeof i.textDecoration !== 'undefined') {
-            r.textDecoration = i.textDecoration;
+        if (typeof i.fontStyle !== 'undefined') {
+            r.fontStyle = i.fontStyle;
         }
         if (typeof i.lineHeight !== 'undefined') {
             r.lineHeight = i.lineHeight;
@@ -24,7 +24,7 @@ export default function useTextStyle(props) {
             r.color = i.color;
         }
         setStyle(r);
-    }, [ i.fontSize, i.fontWeight, i.textDecoration, i.lineHeight, i.color ]);
+    }, [ i.fontSize, i.fontWeight, i.fontStyle, i.lineHeight, i.color ]);
 
     return [ s, setInput ];
 }

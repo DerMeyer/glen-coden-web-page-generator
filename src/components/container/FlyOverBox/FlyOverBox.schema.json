@@ -5,8 +5,8 @@
     "type": "object",
     "properties": {
         "height": {
-            "type": "number",
-            "default": 500
+            "type": [ "string", "number" ],
+            "default": "50%"
         }
     }
 }

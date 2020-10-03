@@ -9,6 +9,7 @@ export default function FlyOverBox({ height, children }) {
     const boxRef = useRef(null);
     const contentRef = useRef(null);
 
+    const [ boxHeight, setBoxHeight ] = useState(0);
     const [ contentTop, setContentTop ] = useState(0);
 
     const calcContentTop = useCallback(
@@ -30,9 +31,14 @@ export default function FlyOverBox({ height, children }) {
     );
 
     useEffect(() => {
-        if (boxRef.current === null || contentRef.current === null) {
+        if (typeof height === 'number') {
+            setBoxHeight(height);
             return;
         }
+        setBoxHeight(contentRef.current.getBoundingClientRect().height * Number(height.slice(0, -1)) / 100);
+    }, [ height, state.loading, state.vh, state.vw ]);
+
+    useEffect(() => {
         window.addEventListener('scroll', calcContentTop);
         return () => {
             window.removeEventListener('scroll', calcContentTop);
@@ -44,7 +50,7 @@ export default function FlyOverBox({ height, children }) {
             ref={boxRef}
             className={s.FlyOverBox}
             style={{
-                height: `${height}px`
+                height: `${boxHeight}px`
             }}
         >
             <div

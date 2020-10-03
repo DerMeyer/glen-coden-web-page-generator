@@ -76,7 +76,7 @@
             "small": "0 0 4px rgba(0, 0, 0, .125)",
             "large": "0 0 24px rgba(0, 0, 0, .125)"
         },
-        "variants": {
+        "text": {
             "tileParagraph": {
                 "color": "darkgrey",
                 "fontSize": 1,
@@ -87,6 +87,7 @@
             "tileHeading": {
                 "color": "heading",
                 "fontSize": 4,
+                "fontStyle": "italic",
                 "lineHeight": "small",
                 "css": {
                     "marginTop": 0
@@ -101,7 +102,7 @@
                 }
             }
         },
-        "text": {},
+        "variants": {},
         "buttons": {
             "primary": {
                 "color": "darkgrey"
@@ -174,8 +175,8 @@
                                             "component": "Heading",
                                             "id": "pwjwhljT62",
                                             "text": {
-                                                "de": "AR*BEI*TEN",
-                                                "en": "WORK,*WORK,*WORK"
+                                                "de": "AR**BEI**TEN",
+                                                "en": "WORK,**WORK,**WORK"
                                             },
                                             "as": "h1",
                                             "variant": [
@@ -275,8 +276,8 @@
                                             "component": "Heading",
                                             "id": "Rca3J4YoL4",
                                             "text": {
-                                                "de": "GRÜN*BABY*GRÜN",
-                                                "en": "GREEN*BABY*GREEN"
+                                                "de": "GRÜN**BABY**GRÜN",
+                                                "en": "GREEN**BABY**GREEN"
                                             },
                                             "as": "h1",
                                             "variant": [
@@ -303,8 +304,8 @@
                                             "component": "Heading",
                                             "id": "b8sGErO7l8",
                                             "text": {
-                                                "de": "ALLES*DABEI*ALLES",
-                                                "en": "ALL,*ALL,*IN..."
+                                                "de": "ALLES**DABEI**ALLES",
+                                                "en": "ALL,**ALL,**IN..."
                                             },
                                             "as": "h1",
                                             "variant": [
@@ -356,7 +357,7 @@
         {
             "component": "FlyOverBox",
             "id": "fxTwMcnBK",
-            "height": 500,
+            "height": "50%",
             "children": [
                 {
                     "component": "Image",

@@ -21,8 +21,9 @@ export default function Heading(props) {
     const style = { ...boxStyle, ...textStyle };
 
     const __html = translation
+        .replace(/\*\*/g, '<br/>')
         .split('*')
-        .map((partial, index) => `${index ? ' ' : ''}<span style="white-space: nowrap">${partial}</span>`)
+        .map((e, i) => `${i ? ' ' : ''}<span style="white-space: nowrap">${e}</span>`)
         .join('');
 
     return React.createElement(props.as, { style, dangerouslySetInnerHTML: { __html } });
