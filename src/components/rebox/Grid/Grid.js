@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react';
 import s from './Grid.module.css';
 import useBoxStyle from '../../../hooks/useBoxStyle';
-import useFlexStyle from '../../../hooks/useFlexStyle';
+import useGridStyle from '../../../hooks/useGridStyle';
 
 
 export default function Grid(props) {
     const [ boxStyle, getBoxStyle ] = useBoxStyle(props);
-    const [ flexStyle, getFlexStyle ] = useFlexStyle(props);
+    const [ gridStyle, getGridStyle ] = useGridStyle(props);
 
     useEffect(() => {
         getBoxStyle(props);
-        getFlexStyle(props);
+        getGridStyle(props);
     });
 
     return (
@@ -18,7 +18,7 @@ export default function Grid(props) {
             className={s.grid}
             style={{
                 ...boxStyle,
-                ...flexStyle
+                ...gridStyle
             }}
         >
             {props.children}

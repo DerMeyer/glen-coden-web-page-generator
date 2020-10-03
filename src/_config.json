@@ -382,10 +382,10 @@
             ],
             "children": [
                 {
-                    "component": "Flex",
-                    "id": "aRKLoYp4Q",
-                    "justifyContent": "space-between",
-                    "p": 3,
+                    "component": "Grid",
+                    "id": "TqIohSvjQ",
+                    "gridTemplate": "auto / 1fr 1fr 1fr",
+                    "gridGap": "10px",
                     "children": [
                         {
                             "component": "Flex",
@@ -457,15 +457,7 @@
                                     }
                                 }
                             ]
-                        }
-                    ]
-                },
-                {
-                    "component": "Flex",
-                    "id": "aWrDSym6CD",
-                    "justifyContent": "space-between",
-                    "p": 3,
-                    "children": [
+                        },
                         {
                             "component": "Flex",
                             "id": "bOzDEAWG5-",
@@ -536,15 +528,7 @@
                                     }
                                 }
                             ]
-                        }
-                    ]
-                },
-                {
-                    "component": "Flex",
-                    "id": "6W5n99SMeyf",
-                    "justifyContent": "space-between",
-                    "p": 3,
-                    "children": [
+                        },
                         {
                             "component": "Flex",
                             "id": "sgC4KkRJQFB",
@@ -615,15 +599,7 @@
                                     }
                                 }
                             ]
-                        }
-                    ]
-                },
-                {
-                    "component": "Flex",
-                    "id": "pRPFSD78ekv",
-                    "justifyContent": "space-between",
-                    "p": 3,
-                    "children": [
+                        },
                         {
                             "component": "Flex",
                             "id": "2MEkYVcs0j5",
@@ -733,6 +709,6 @@
             ]
         }
     ],
-    "_lastUpdated": "2020-09-27T20:56:47.377Z",
+    "_lastUpdated": "2020-10-03T17:56:08.624Z",
     "initialState": {}
 }
