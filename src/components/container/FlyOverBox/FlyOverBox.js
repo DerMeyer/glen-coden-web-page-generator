@@ -39,11 +39,18 @@ export default function FlyOverBox({ height, children }) {
     }, [ height, state.loading, state.vh, state.vw ]);
 
     useEffect(() => {
+        if (!height) {
+            return;
+        }
         window.addEventListener('scroll', calcContentTop);
         return () => {
             window.removeEventListener('scroll', calcContentTop);
         };
-    }, [ calcContentTop ]);
+    }, [ height, calcContentTop ]);
+
+    if (!height) {
+        return null;
+    }
 
     return (
         <div

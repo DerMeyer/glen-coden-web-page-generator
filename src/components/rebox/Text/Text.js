@@ -19,10 +19,12 @@ export default function Text(props) {
     }, [ props.text, setTranslation ]);
 
     return (
-        <p style={{
-            ...boxStyle,
-            ...textStyle
-        }}>
+        <p
+            style={{
+                ...boxStyle,
+                ...textStyle
+            }}
+        >
             {translation}
         </p>
     );
