@@ -19,15 +19,7 @@ class ConfigService {
             .then(() => requestService.get(`${requestService.apiRoute}/config/${PROJ_INFO.projectName}`))
             .then(PROD_CONFIG => {
                 this.config = process.env.NODE_ENV && process.env.NODE_ENV === 'production' ? PROD_CONFIG : DEV_CONFIG;
-
-                trackingService.startProcessTimer('CREATE_THEME_AND_STATE');
-
-                this._createTheme(this.config.theme);
                 this._createInitialState(this.config.initialState, this.config.components);
-
-                trackingService.stopProcessTimer('CREATE_THEME_AND_STATE');
-
-                console.log('CONFIG (theme): ', this.theme);// TODO remove dev code
             });
     }
 
@@ -51,28 +43,45 @@ class ConfigService {
         }
         this.breakPointType = type;
 
-        trackingService.startProcessTimer('CREATE_GLOBAL_AND_COMPS');
+        trackingService.startProcessTimer('CREATE_THEME_GLOBAL_AND_COMPS');
 
+        this._createTheme(this.config.theme);
         this._createGlobal(this.config.global);
         this._createComponents(this.config.components);
 
+        console.log('CONFIG (theme): ', this.theme);// TODO remove dev code
         console.log('CONFIG (global): ', this.global);// TODO remove dev code
         console.log('CONFIG (components): ', this.components);// TODO remove dev code
 
-        trackingService.stopProcessTimer('CREATE_GLOBAL_AND_COMPS');
+        trackingService.stopProcessTimer('CREATE_THEME_GLOBAL_AND_COMPS');
     }
 
-    _createTheme(theme) {
+    _createTheme(config) {
+        const theme = {};
+        Object.keys(config).forEach(key => {
+            theme[key] = mapToBreakpointType(key, config[key], this.breakPointType);
+        });
         if (theme.variants) {
-            Object.keys(theme.variants).forEach(key => applyTheme(theme.variants[key], theme));
+            this._createVariants(theme.variants, theme);
         }
         if (theme.text) {
-            Object.keys(theme.text).forEach(key => applyTheme(theme.text[key], theme));
+            this._createVariants(theme.text, theme);
         }
         if (theme.buttons) {
-            Object.keys(theme.buttons).forEach(key => applyTheme(theme.buttons[key], theme));
+            this._createVariants(theme.buttons, theme);
         }
         this.theme = theme;
+    }
+
+    _createVariants(variants, theme) {
+        Object.keys(variants).forEach(key => {
+            const v = {};
+            Object.keys(variants[key]).forEach(k => {
+                v[k] = mapToBreakpointType(k, variants[key][k], this.breakPointType);
+            });
+            applyTheme(v, theme);
+            variants[key] = v;
+        });
     }
 
     _createGlobal(config) {

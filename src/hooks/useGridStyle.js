@@ -11,11 +11,17 @@ export default function useGridStyle(props) {
         if (typeof i.gridTemplate !== 'undefined') {
             r.gridTemplate = i.gridTemplate;
         }
-        if (typeof i.gridGap !== 'undefined') {
-            r.gridGap = i.gridGap;
+        if (typeof i.gap !== 'undefined') {
+            r.gap = i.gap;
+        }
+        if (typeof i.columnGap !== 'undefined') {
+            r.columnGap = i.columnGap;
+        }
+        if (typeof i.rowGap !== 'undefined') {
+            r.rowGap = i.rowGap;
         }
         setStyle(r);
-    }, [ i.gridTemplate, i.gridGap ]);
+    }, [ i.gridTemplate, i.gap, i.columnGap, i.rowGap ]);
 
     return [ s, setInput ];
 }

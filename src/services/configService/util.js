@@ -2,11 +2,13 @@ import { BreakPointTypes, isObject } from '../../js/helpers';
 
 const isTypeArray = [
     'fontTypes',
+    'fontSizes',
+    'space',
     'fromGlobal'
 ];
 
 const excludeFromMapping = [
-    'theme',
+    'breakpoints',
     'children'
 ];
 
@@ -55,7 +57,11 @@ export function applyTheme(config, theme) {
             return;
         }
         if (
-            (k === 'p' || k === 'px' || k === 'py' || k === 'pt' || k === 'pr' || k === 'pb' || k === 'pl' || k === 'm' || k === 'mx' || k === 'my' || k === 'mt' || k === 'mr' || k === 'mb' || k === 'ml')
+            (
+                k === 'p' || k === 'px' || k === 'py' || k === 'pt' || k === 'pr' || k === 'pb' || k === 'pl'
+                || k === 'm' || k === 'mx' || k === 'my' || k === 'mt' || k === 'mr' || k === 'mb' || k === 'ml'
+                || k === 'gap' || k === 'columnGap' || k === 'rowGap'
+            )
             && typeof v === 'number'
         ) {
             config[k] = theme.space[v] === 0 ? 0 : `${theme.space[v]}px`;

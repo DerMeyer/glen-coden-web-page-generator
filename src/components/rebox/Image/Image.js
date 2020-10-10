@@ -4,7 +4,7 @@ import useOptimalSource from '../../../hooks/useOptimalSource';
 import useGlobalLoading from '../../../hooks/useGlobalLoading';
 
 
-export default function Image({ source, width, height, ratio, className, css, subscribeToGlobalLoading, loadAfterGlobalLoading }) {
+export default function Image({ source, width, height, sourceRatio, className, css, subscribeToGlobalLoading, loadAfterGlobalLoading }) {
     const image = useRef(null);
 
     const [ sizeBy, setSizeBy ] = useState('width');
@@ -48,14 +48,14 @@ export default function Image({ source, width, height, ratio, className, css, su
         if (typeof width !== 'number') {
             if (image.current) {
                 const e = image.current.getBoundingClientRect();
-                requestOptimalSource(source, e.width, e.height, ratio);
+                requestOptimalSource(source, e.width, e.height, sourceRatio);
                 return;
             }
             requestOptimalSource(source);
             return;
         }
-        requestOptimalSource(source, width, height, ratio);
-    }, [ loadAfterGlobalLoading, doneGL, requestOptimalSource, source, width, height, ratio ]);
+        requestOptimalSource(source, width, height, sourceRatio);
+    }, [ loadAfterGlobalLoading, doneGL, requestOptimalSource, source, width, height, sourceRatio ]);
 
     useEffect(() => {
         if (!image.current) {
