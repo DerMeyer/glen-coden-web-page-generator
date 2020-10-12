@@ -8,7 +8,7 @@
             "type": "boolean",
             "default": false
         },
-        "width": {
+        "widthFactor": {
             "type": "number",
             "default": 1
         },
@@ -19,6 +19,10 @@
         "split": {
             "type": "number",
             "default": 1
+        },
+        "color": {
+            "type": "string",
+            "default": "#000"
         },
         "bg": {
             "type": "string",

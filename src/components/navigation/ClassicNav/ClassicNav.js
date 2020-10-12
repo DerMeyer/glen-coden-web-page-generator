@@ -1,9 +1,12 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useContext, useRef, useState, useEffect } from 'react';
 import s from './ClassicNav.module.css';
+import Store from '../../../store/Store';
 import BurgerIcon from '../../icons/BurgerIcon/BurgerIcon';
 
 
-export default function ClassicNav({ burger, width, height, split, bg, contentSize, maxContentWidth, css, children }) {
+export default function ClassicNav({ burger, widthFactor, height, split, color, bg, contentSize, maxContentWidth, css, children }) {
+    const { state } = useContext(Store);
+
     const navRef = useRef(null);
 
     const [ style, setStyle ] = useState({});
@@ -14,19 +17,22 @@ export default function ClassicNav({ burger, width, height, split, bg, contentSi
     useEffect(() => {
         const r = {};
         r.height = `${height}px`;
+        r.color = color;
         r.backgroundColor = bg;
         if (css) {
             setStyle({ ...r, ...css });
             return;
         }
         setStyle(r);
-    }, [ height, bg, css ]);
+    }, [ height, color, bg, css ]);
 
     useEffect(() => {
         const r = {};
-        r.width = `${maxContentWidth * contentSize.width * width}px`;
+        r.width = state.vw > maxContentWidth / contentSize.width
+            ? `${maxContentWidth * contentSize.width * widthFactor}px`
+            : `${contentSize.width * 100}%`;
         setContentStyle(r);
-    }, [ width, contentSize, maxContentWidth ]);
+    }, [ widthFactor, contentSize, maxContentWidth, state.vw ]);
 
     return (
         <>
@@ -49,7 +55,7 @@ export default function ClassicNav({ burger, width, height, split, bg, contentSi
                         >
                             <BurgerIcon
                                 close={showOverlay}
-                                color={showOverlay ? bg : '#000'}
+                                color={showOverlay ? bg : color}
                             />
                         </div>
                     ) : (

@@ -32,7 +32,7 @@ export default function LoadingOverlay({ fadeInTime, color, bg, css = {} }) {
                 ? (
                     <div className={s.iconBox}>
                         <ThreeDotsLoadingIcon
-                            size={Math.round(state.vw / 15)}
+                            size={Math.min(Math.round(state.vw / 15), 80)}
                             color={color}
                         />
                     </div>
