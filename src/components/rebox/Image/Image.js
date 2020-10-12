@@ -47,8 +47,8 @@ export default function Image({ source, width, height, sourceRatio, targetRatio,
             return;
         }
         if (typeof width !== 'number') {
-            if (image.current) {
-                const e = image.current.getBoundingClientRect();
+            if (box.current) {
+                const e = box.current.getBoundingClientRect();
                 requestOptimalSource(source, e.width, e.height, sourceRatio);
                 return;
             }
@@ -67,12 +67,15 @@ export default function Image({ source, width, height, sourceRatio, targetRatio,
     }, [ calcSizeBy, width, height, targetRatio ]);
 
     const boxStyle = { ...css } || {};
+
     if (width) {
         boxStyle.width = typeof width === 'number' ? `${width}px` : width;
-        if (targetRatio && box.current) {
-            boxStyle.height = box.current.getBoundingClientRect().width / targetRatio;
-        }
     }
+
+    if (targetRatio && box.current) {
+        boxStyle.height = box.current.getBoundingClientRect().width / targetRatio;
+    }
+
     if (height) {
         boxStyle.height = `${height}px`;
     }

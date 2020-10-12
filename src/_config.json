@@ -34,8 +34,8 @@
             "1200px"
         ],
         "fontSizes": [
-            16,
-            20,
+            18,
+            22,
             32,
             48,
             80
@@ -63,7 +63,7 @@
             "monospace": "Josefin Sans"
         },
         "fontWeights": {
-            "body": 400,
+            "body": 300,
             "heading": 700,
             "bold": 700
         },
@@ -94,6 +94,7 @@
                     3,
                     4
                 ],
+                "fontWeight": 500,
                 "fontStyle": "italic",
                 "lineHeight": "small",
                 "m": 0,
@@ -103,21 +104,21 @@
                 ]
             },
             "iconListParagraph": {
-                "color": "darkgrey",
-                "width": 0.7,
+                "color": "black",
+                "width": 0.8,
+                "fontSize": 0,
                 "ml": 3
             }
         },
         "variants": {
             "tileImage": {
-                "width": "100%",
                 "targetRatio": 1,
                 "subscribeToGlobalLoading": false,
                 "loadAfterGlobalLoading": true
             },
             "iconListSvg": {
                 "width": 60,
-                "color": "lightgrey"
+                "color": "darkgrey"
             }
         },
         "buttons": {
@@ -136,8 +137,8 @@
             ],
             "width": 1,
             "height": [
-                100,
-                140
+                90,
+                150
             ],
             "split": 1,
             "bg": "#fff",
@@ -147,7 +148,7 @@
             ],
             "css": [
                 {
-                    "padding": "5%"
+                    "padding": "0 5%"
                 },
                 {}
             ],
@@ -156,9 +157,10 @@
                     "component": "Svg",
                     "id": "dwv339xKT",
                     "name": "Logo",
+                    "color": "darkgrey",
                     "width": [
                         80,
-                        100
+                        110
                     ]
                 },
                 {
@@ -193,7 +195,7 @@
                 {
                     "component": "Image",
                     "id": "_MbT9niG7",
-                    "source": "images/bg-with-logo.jpg",
+                    "source": "images/10-2020-banner.jpg",
                     "subscribeToGlobalLoading": true,
                     "loadAfterGlobalLoading": false
                 },
@@ -259,7 +261,7 @@
                         {
                             "component": "Image",
                             "id": "J_VhMt6isl",
-                            "source": "images/window-table.jpg",
+                            "source": "images/10-2020-at-angle.jpg",
                             "variant": "tileImage"
                         },
                         {
@@ -297,7 +299,7 @@
                         {
                             "component": "Image",
                             "id": "_pnvB4V_q4",
-                            "source": "images/kitchen.jpg",
+                            "source": "images/10-2020-three-desks.jpg",
                             "sourceRatio": 0.75,
                             "variant": "tileImage",
                             "css": [
@@ -330,7 +332,7 @@
                         {
                             "component": "Image",
                             "id": "jNDoUP3Lfu",
-                            "source": "images/meeting.jpg",
+                            "source": "images/10-2020-far-desk.jpg",
                             "sourceRatio": 0.75,
                             "variant": "tileImage"
                         }
@@ -349,7 +351,7 @@
                 {
                     "component": "Image",
                     "id": "FXT5inW2v",
-                    "source": "images/bg-with-logo.jpg",
+                    "source": "images/10-2020-plant.jpg",
                     "subscribeToGlobalLoading": false,
                     "loadAfterGlobalLoading": true
                 }
@@ -402,11 +404,13 @@
                                     "variant": "iconListSvg"
                                 },
                                 {
-                                    "component": "Text",
+                                    "component": "Heading",
                                     "id": "E5us9Z4jwa",
+                                    "as": "h4",
                                     "variant": "iconListParagraph",
+                                    "fontWeight": 300,
                                     "text": {
-                                        "en": "einen großen Schreibtisch (125 x 80 cm)"
+                                        "en": "großer Schreibtisch**(125 x 80 cm)"
                                     }
                                 }
                             ]
@@ -498,7 +502,7 @@
                                     "id": "HdEvGSUebEn",
                                     "variant": "iconListParagraph",
                                     "text": {
-                                        "en": "Kaffee / Tee Flatrate"
+                                        "en": "Fairtrade Kaffee / Tee Flatrate"
                                     }
                                 }
                             ]
@@ -640,6 +644,32 @@
                                     }
                                 }
                             ]
+                        },
+                        {
+                            "component": "Flex",
+                            "id": "IVoFpsbsT",
+                            "alignItems": "center",
+                            "width": 1,
+                            "p": 2,
+                            "children": [
+                                {
+                                    "component": "Svg",
+                                    "id": "1Nrx_sYzdM",
+                                    "name": "Preis",
+                                    "variant": "iconListSvg",
+                                    "width": 40
+                                },
+                                {
+                                    "component": "Heading",
+                                    "id": "D6sUFFN5D1",
+                                    "as": "h4",
+                                    "variant": "iconListParagraph",
+                                    "fontWeight": 300,
+                                    "text": {
+                                        "en": "260€ pro Monat**15€ pro Tag"
+                                    }
+                                }
+                            ]
                         }
                     ]
                 }
@@ -675,7 +705,8 @@
                             "id": "sFP4ERokG",
                             "as": "h4",
                             "color": "black",
-                            "lineHeight": 2,
+                            "lineHeight": 1.8,
+                            "fontWeight": 400,
                             "text": "Danziger Strasse 207**10407 Berlin**contact@hainarbeit.de"
                         }
                     ]
@@ -692,6 +723,6 @@
             ]
         }
     ],
-    "_lastUpdated": "2020-10-10T16:13:32.324Z",
+    "_lastUpdated": "2020-10-12T13:23:13.663Z",
     "initialState": {}
 }

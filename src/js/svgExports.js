@@ -5,6 +5,7 @@ export {ReactComponent as Kitchen} from '../svg/kitchen.svg';
 export {ReactComponent as Logo} from '../svg/logo.svg';
 export {ReactComponent as Meeting} from '../svg/meeting.svg';
 export {ReactComponent as Oekostrom} from '../svg/oekostrom.svg';
+export {ReactComponent as Preis} from '../svg/preis.svg';
 export {ReactComponent as Reinigung} from '../svg/reinigung.svg';
 export {ReactComponent as Rollcontainer} from '../svg/rollcontainer.svg';
 export {ReactComponent as Telefon} from '../svg/telefon.svg';

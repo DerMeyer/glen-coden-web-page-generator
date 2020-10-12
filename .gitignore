@@ -17,7 +17,7 @@ components-list.json
 /public
 _config.json
 _Project.js
-/src/svg/
+svg
 
 # misc
 .DS_Store

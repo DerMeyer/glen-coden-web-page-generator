@@ -20,7 +20,11 @@ export default function useBoxStyle(props) {
             r.fontSize = i.fontSize;
         }
         if (typeof i.width !== 'undefined') {
-            r.width = `${i.width * 100}%`;
+            if (i.width > 1) {
+                r.width = `${i.width}px`;
+            } else {
+                r.width = `${i.width * 100}%`;
+            }
         }
         if (typeof i.color !== 'undefined') {
             r.color = i.color;
