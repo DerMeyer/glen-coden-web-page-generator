@@ -3,6 +3,7 @@ import s from './LoadingOverlay.module.css';
 import Store from '../../../store/Store';
 
 import ThreeDotsLoadingIcon from '../../icons/ThreeDotsLoadingIcon/ThreeDotsLoadingIcon';
+import Overlay from '../Overlay/Overlay';
 
 
 export default function LoadingOverlay({ fadeInTime, color, bg, css = {} }) {
@@ -18,15 +19,13 @@ export default function LoadingOverlay({ fadeInTime, color, bg, css = {} }) {
     }
 
     return (
-        <div
-            className={s.overlay}
-            style={{
-                backgroundColor: bg,
-                opacity: state.loading.length ? '1' : '0',
-                transition: `opacity ${state.loading.length ? 0 : fadeInTime}s`,
-                ...css
-            }}
-            onTransitionEnd={() => setVisible(false)}
+        <Overlay
+            color={bg}
+            opacity={state.loading.length ? 1 : 0}
+            fadeTime={state.loading.length ? 0 : fadeInTime}
+            onFadeOut={() => setVisible(false)}
+            doClose={state.loading.length === 0}
+            initVisible
         >
             {state.loading.length
                 ? (
@@ -39,6 +38,6 @@ export default function LoadingOverlay({ fadeInTime, color, bg, css = {} }) {
                 )
                 : null
             }
-        </div>
+        </Overlay>
     );
 }

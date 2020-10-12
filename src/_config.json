@@ -155,7 +155,8 @@
                         150
                     ],
                     "split": 1,
-                    "color": "black",
+                    "burgerColor": "black",
+                    "overlayColor": "darkgrey",
                     "bg": "white",
                     "fromGlobal": [
                         "contentSize",
@@ -733,7 +734,7 @@
                             "component": "Page",
                             "id": "Lgq6xwTfI",
                             "rows": 0,
-                            "minHeight": 1000,
+                            "minHeight": 950,
                             "fromGlobal": [
                                 "contentSize",
                                 "maxContentWidth",

@@ -50,7 +50,7 @@ export function applyTheme(config, theme) {
             return;
         }
         if (
-            (k === 'color' || k === 'bg')
+            ((typeof k === 'string' && k.toLowerCase().includes('color')) || k === 'bg')
             && theme.colors[v]
         ) {
             config[k] = theme.colors[v];

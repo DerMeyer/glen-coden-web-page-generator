@@ -20,7 +20,11 @@
             "type": "number",
             "default": 1
         },
-        "color": {
+        "burgerColor": {
+            "type": "string",
+            "default": "#000"
+        },
+        "overlayColor": {
             "type": "string",
             "default": "#000"
         },

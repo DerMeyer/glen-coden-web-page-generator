@@ -1,10 +1,12 @@
 import React, { useContext, useRef, useState, useEffect } from 'react';
 import s from './ClassicNav.module.css';
 import Store from '../../../store/Store';
+
 import BurgerIcon from '../../icons/BurgerIcon/BurgerIcon';
+import Overlay from '../../overlay/Overlay/Overlay';
 
 
-export default function ClassicNav({ burger, widthFactor, height, split, color, bg, contentSize, maxContentWidth, css, children }) {
+export default function ClassicNav({ burger, widthFactor, height, split, burgerColor, overlayColor, bg, contentSize, maxContentWidth, css, children }) {
     const { state } = useContext(Store);
 
     const navRef = useRef(null);
@@ -17,14 +19,13 @@ export default function ClassicNav({ burger, widthFactor, height, split, color, 
     useEffect(() => {
         const r = {};
         r.height = `${height}px`;
-        r.color = color;
         r.backgroundColor = bg;
         if (css) {
             setStyle({ ...r, ...css });
             return;
         }
         setStyle(r);
-    }, [ height, color, bg, css ]);
+    }, [ height, bg, css ]);
 
     useEffect(() => {
         const r = {};
@@ -55,7 +56,7 @@ export default function ClassicNav({ burger, widthFactor, height, split, color, 
                         >
                             <BurgerIcon
                                 close={showOverlay}
-                                color={showOverlay ? bg : color}
+                                color={showOverlay ? bg : burgerColor}
                             />
                         </div>
                     ) : (
@@ -65,14 +66,14 @@ export default function ClassicNav({ burger, widthFactor, height, split, color, 
                     )}
                 </div>
                 {showOverlay && (
-                    <div
-                        className={s.Overlay}
-                        onClick={() => setShowOverlay(false)}
+                    <Overlay
+                        color={overlayColor}
+                        onFadeOut={() => setShowOverlay(false)}
                     >
                         <div className={s.OverlayContent}>
                             {Array.isArray(children) && children.slice(split)}
                         </div>
-                    </div>
+                    </Overlay>
                 )}
             </nav>
             <div style={{ height: `${height}px` }} />
