@@ -7,6 +7,9 @@ import App from './App';
 import ConfigService from './services/configService/ConfigService';
 import RequestService from './services/requestService/RequestService';
 import TrackingService from './services/trackingService/TrackingService';
+import projectInfo from './project-info.json';
+
+window.projectInfo = projectInfo;
 
 export const configService = new ConfigService();
 export const requestService = new RequestService();

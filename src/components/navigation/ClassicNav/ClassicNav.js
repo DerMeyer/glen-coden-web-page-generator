@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import s from './ClassicNav.module.css';
+import BurgerIcon from '../../icons/BurgerIcon/BurgerIcon';
 
 
 export default function ClassicNav({ burger, width, height, split, bg, contentSize, maxContentWidth, css, children }) {
@@ -44,8 +45,13 @@ export default function ClassicNav({ burger, width, height, split, bg, contentSi
                     {burger ? (
                         <div
                             className={s.Burger}
-                            onClick={() => setShowOverlay(true)}
-                        />
+                            onClick={() => setShowOverlay(prevState => !prevState)}
+                        >
+                            <BurgerIcon
+                                close={showOverlay}
+                                color={showOverlay ? bg : '#000'}
+                            />
+                        </div>
                     ) : (
                         <div className={s.Items}>
                             {Array.isArray(children) && children.slice(split)}
