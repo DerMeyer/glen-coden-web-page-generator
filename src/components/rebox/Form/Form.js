@@ -19,17 +19,16 @@ export default function Form(props) {
             {React.Children.toArray(props.children).map(child => React.cloneElement(child, { color: 'lime' }))}
             <div
                 onClick={() => {
-                    requestService.get(`${requestService.apiRoute}/config/hainarbeit`);
+                    requestService.post(`${requestService.apiRoute}/contact`, {
+                        from: 'admin@glencoden.de',
+                        to: 'hainarbeit@gmail.com',
+                        subject: 'Test Mail',
+                        text: 'Hi from Glen Coden FE'
+                    })
+                        .then(res => console.log(res));
                 }}
             >
-                GET CONFIG
-            </div>
-            <div
-                onClick={() => {
-                    requestService.get(`${requestService.apiRoute}/contact`);
-                }}
-            >
-                TEST ROUTE
+                MAIL TO HAINARBEIT
             </div>
             <div
                 onClick={() => {
@@ -37,12 +36,12 @@ export default function Form(props) {
                         from: 'admin@glencoden.de',
                         to: 'simon.der.meyer@gmail.com',
                         subject: 'Test Mail',
-                        text: 'First Form from Glen Coden FE'
+                        text: 'Hi from Glen Coden FE'
                     })
                         .then(res => console.log(res));
                 }}
             >
-                MAIL TIME
+                MAIL TO GLEN CODEN
             </div>
         </form>
     );

@@ -1,3 +1,7 @@
+import dotenv from 'dotenv';
+
+console.log(dotenv.config());// TODO remove dev code
+
 class RequestService {
     constructor() {
         this.apiRoute = 'https://server.glencoden.de/api';
