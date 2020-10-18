@@ -750,21 +750,24 @@
                                     "submitTo": "/",
                                     "children": [
                                         {
-                                            "component": "Text",
-                                            "id": "FcxBqZ0jEa",
-                                            "text": "Italic",
-                                            "fontStyle": "italic"
-                                        },
-                                        {
-                                            "component": "Text",
-                                            "id": "9c44KEqf5",
-                                            "text": "Lime"
+                                            "component": "Input",
+                                            "id": "BoyeZJCn2",
+                                            "name": "name"
                                         },
                                         {
                                             "component": "Input",
                                             "id": "RiU4GMQOk",
-                                            "name": "test",
-                                            "defaultValue": "test"
+                                            "name": "from"
+                                        },
+                                        {
+                                            "component": "Input",
+                                            "id": "2MgiBmAE1",
+                                            "name": "subject"
+                                        },
+                                        {
+                                            "component": "Input",
+                                            "id": "uzDHMqkZnu",
+                                            "name": "text"
                                         }
                                     ]
                                 }
@@ -773,7 +776,10 @@
                         {
                             "component": "GoogleMaps",
                             "id": "zSZ45Quld",
-                            "height": [ 320, 645 ]
+                            "height": [
+                                320,
+                                645
+                            ]
                         }
                     ]
                 }
@@ -827,6 +833,6 @@
             ]
         }
     ],
-    "_lastUpdated": "2020-10-18T13:28:55.408Z",
+    "_lastUpdated": "2020-10-18T18:57:30.913Z",
     "initialState": {}
 }

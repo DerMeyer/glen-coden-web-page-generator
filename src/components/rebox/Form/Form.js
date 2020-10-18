@@ -1,11 +1,58 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import s from './Form.module.css';
 import useBoxStyle from '../../../hooks/useBoxStyle';
 import { requestService } from '../../../index';
+import { isEmail } from '../../../js/helpers';
+
+const contactForm = {
+    name: 'Name',
+    from: 'Email',
+    subject: 'Subject',
+    text: 'Message'
+};
 
 
 export default function Form(props) {
     const [ boxStyle, getBoxStyle ] = useBoxStyle(props);
+    const [ formData, setFormData ] = useState({ ...contactForm });
+    const [ inputStyles, setInputStyles ] = useState(() => {
+        const initState = {};
+        Object.keys(contactForm).map(k => initState[k] = {});
+        return initState;
+    });
+
+    const onChange = useCallback(
+        event => {
+            setFormData(prevState => ({
+                ...prevState,
+                [event.target.name]: event.target.value
+            }));
+        },
+        []
+    );
+
+    const onFocus = useCallback(
+        event => {
+            setFormData(prevState => ({
+                ...prevState,
+                [event.target.name]: ''
+            }));
+        },
+        []
+    );
+
+    const onBlur = useCallback(
+        event => {
+            if (event.target.value) {
+                return;
+            }
+            setFormData(prevState => ({
+                ...prevState,
+                [event.target.name]: contactForm[event.target.name]
+            }));
+        },
+        []
+    );
 
     useEffect(() => {
         getBoxStyle(props);
@@ -16,32 +63,34 @@ export default function Form(props) {
             className={s.form}
             style={boxStyle}
         >
-            {React.Children.toArray(props.children).map(child => React.cloneElement(child, { color: 'lime' }))}
+            {React.Children.toArray(props.children).map(child => React.cloneElement(child, { formData, onChange, onFocus, onBlur, inputStyles }))}
             <div
                 onClick={() => {
+                    let err = false;
+                    Object.keys(formData).forEach(k => {
+                        const v = formData[k];
+                        if (!v || v === contactForm[k] || (k === 'from' && !isEmail(v))) {
+                            err = true;
+                            setInputStyles(prevState => ({
+                                ...prevState,
+                                [k]: { border: '1px solid #FF4040', backgroundColor: '#FFEBEC' }
+                            }));
+                        }
+                    });
+                    if (err) {
+                        console.log('UPS, MISSING INPUT');// TODO remove dev code
+                        return;
+                    }
                     requestService.post(`${requestService.apiRoute}/contact`, {
-                        from: 'admin@glencoden.de',
-                        to: 'hainarbeit@gmail.com',
-                        subject: 'Test Mail',
-                        text: 'Hi from Glen Coden FE'
+                        from: formData.from,
+                        subject: formData.subject,
+                        text: `Hey Fabi, hier ist eine Email von ${formData.name}.\n\n${formData.text}`,
+                        to: 'simon.der.meyer@gmail.com'
                     })
                         .then(res => console.log(res));
                 }}
             >
-                MAIL TO HAINARBEIT
-            </div>
-            <div
-                onClick={() => {
-                    requestService.post(`${requestService.apiRoute}/contact`, {
-                        from: 'admin@glencoden.de',
-                        to: 'simon.der.meyer@gmail.com',
-                        subject: 'Test Mail',
-                        text: 'Hi from Glen Coden FE'
-                    })
-                        .then(res => console.log(res));
-                }}
-            >
-                MAIL TO GLEN CODEN
+                SEND
             </div>
         </form>
     );

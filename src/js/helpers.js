@@ -34,6 +34,11 @@ export function isObject(value) {
     return value !== null && typeof value !== 'function' && typeof value === 'object' && !Array.isArray(value);
 }
 
+export function isEmail(str) {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(str).toLowerCase());
+}
+
 export function deepCompare(value1, value2) {
     if (isObject(value1) && isObject(value2)) {
         const keys = Object.keys(value1);
