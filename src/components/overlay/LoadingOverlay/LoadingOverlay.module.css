@@ -1,14 +1,17 @@
 @keyframes fadein {
     from {
-        transform: scale(0.5);
         opacity: 0;
     }
     to {
-        transform: scale(2);
         opacity: 1;
     }
 }
 
 .iconBox {
-    animation: 1s ease-out 1s fadein;
+    opacity: 0;
+    animation: fadein 0.2s ease-out 0.5s;
+}
+
+.iconBox.fadedIn {
+    opacity: 1;
 }

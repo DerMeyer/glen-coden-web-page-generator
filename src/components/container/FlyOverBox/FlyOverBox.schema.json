@@ -7,6 +7,9 @@
         "height": {
             "type": [ "string", "number" ],
             "default": "50%"
+        },
+        "maxHeight": {
+            "type": "number"
         }
     }
 }

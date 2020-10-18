@@ -395,6 +395,7 @@
                                 0,
                                 "50%"
                             ],
+                            "maxHeight": 550,
                             "children": [
                                 {
                                     "component": "Image",
@@ -742,8 +743,37 @@
                                 "maxPageWidth"
                             ],
                             "children": [
-                                "Contact Form"
+                                {
+                                    "component": "Form",
+                                    "id": "63T59I0gF",
+                                    "width": 1,
+                                    "submitTo": "/",
+                                    "children": [
+                                        {
+                                            "component": "Text",
+                                            "id": "FcxBqZ0jEa",
+                                            "text": "Child One",
+                                            "fontStyle": "italic"
+                                        },
+                                        {
+                                            "component": "Text",
+                                            "id": "9c44KEqf5",
+                                            "text": "Child Two"
+                                        },
+                                        {
+                                            "component": "Input",
+                                            "id": "RiU4GMQOk",
+                                            "name": "test",
+                                            "defaultValue": "test"
+                                        }
+                                    ]
+                                }
                             ]
+                        },
+                        {
+                            "component": "GoogleMaps",
+                            "id": "zSZ45Quld",
+                            "height": [ 320, 645 ]
                         }
                     ]
                 }
@@ -781,7 +811,7 @@
                             "color": "black",
                             "lineHeight": 1.8,
                             "fontWeight": 400,
-                            "text": "Danziger Strasse 207**10407 Berlin**contact@hainarbeit.de"
+                            "text": "Danziger Strasse 207**10407 Berlin**hainarbeit@gmail.com"
                         }
                     ]
                 }
@@ -797,6 +827,6 @@
             ]
         }
     ],
-    "_lastUpdated": "2020-10-12T16:20:08.030Z",
+    "_lastUpdated": "2020-10-18T13:28:55.408Z",
     "initialState": {}
 }

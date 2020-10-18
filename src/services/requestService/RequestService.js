@@ -1,6 +1,7 @@
 class RequestService {
     constructor() {
         this.apiRoute = 'https://server.glencoden.de/api';
+        this.localApiRoute = 'http://127.0.0.1:5000/api';
     }
 
     init() {

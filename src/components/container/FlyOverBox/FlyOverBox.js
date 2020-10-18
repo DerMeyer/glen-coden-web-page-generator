@@ -3,7 +3,7 @@ import s from './FlyOverBox.module.css';
 import Store from '../../../store/Store';
 
 
-export default function FlyOverBox({ height, children }) {
+export default function FlyOverBox({ height, maxHeight = Infinity, children }) {
     const { state } = useContext(Store);
 
     const boxRef = useRef(null);
@@ -32,11 +32,11 @@ export default function FlyOverBox({ height, children }) {
 
     useEffect(() => {
         if (typeof height === 'number') {
-            setBoxHeight(height);
+            setBoxHeight(Math.min(height, maxHeight));
             return;
         }
-        setBoxHeight(contentRef.current.getBoundingClientRect().height * Number(height.slice(0, -1)) / 100);
-    }, [ height, state.loading, state.vh, state.vw ]);
+        setBoxHeight(Math.min(contentRef.current.getBoundingClientRect().height * Number(height.slice(0, -1)) / 100, maxHeight));
+    }, [ height, maxHeight, state.loading, state.vh, state.vw ]);
 
     useEffect(() => {
         if (!height) {
