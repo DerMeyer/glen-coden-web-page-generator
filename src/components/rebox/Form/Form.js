@@ -33,9 +33,14 @@ export default function Form(props) {
 
     const onFocus = useCallback(
         event => {
+            event.persist();
             setFormData(prevState => ({
                 ...prevState,
                 [event.target.name]: ''
+            }));
+            setInputStyles(prevState => ({
+                ...prevState,
+                [event.target.name]: {}
             }));
         },
         []
@@ -54,6 +59,47 @@ export default function Form(props) {
         []
     );
 
+    const onSend = useCallback(
+        () => {
+            let err = false;
+
+            Object.keys(formData).forEach(k => {
+                const v = formData[k];
+                if (!v || v === contactForm[k] || (k === 'from' && !isEmail(v))) {
+                    err = true;
+                    setInputStyles(prevState => ({
+                        ...prevState,
+                        [k]: { border: '1px solid #FF4040', backgroundColor: '#FFEBEC' }
+                    }));
+                }
+            });
+
+            if (err) {
+                console.log('UPS, MISSING INPUT');// TODO remove dev code
+                return;
+            }
+
+            requestService.post(`${requestService.apiRoute}/contact`, {
+                from: formData.from,
+                subject: formData.subject,
+                text: `Hey Fabi, hier ist eine Email von ${formData.name}:\n\n\n${formData.text}`,
+                to: 'hainarbeit@gmail.com'
+            })
+                .then(res => console.log(res));
+
+            requestService.post(`${requestService.apiRoute}/contact`, {
+                from: formData.from,
+                subject: formData.subject,
+                text: `Hey Fabi, hier ist eine Email von ${formData.name}:\n\n\n${formData.text}`,
+                to: 'simon.der.meyer@gmail.com'
+            })
+                .then(res => console.log(res));
+
+            setFormData({ ...contactForm });
+        },
+        [ formData ]
+    );
+
     useEffect(() => {
         getBoxStyle(props);
     });
@@ -65,30 +111,8 @@ export default function Form(props) {
         >
             {React.Children.toArray(props.children).map(child => React.cloneElement(child, { formData, onChange, onFocus, onBlur, inputStyles }))}
             <div
-                onClick={() => {
-                    let err = false;
-                    Object.keys(formData).forEach(k => {
-                        const v = formData[k];
-                        if (!v || v === contactForm[k] || (k === 'from' && !isEmail(v))) {
-                            err = true;
-                            setInputStyles(prevState => ({
-                                ...prevState,
-                                [k]: { border: '1px solid #FF4040', backgroundColor: '#FFEBEC' }
-                            }));
-                        }
-                    });
-                    if (err) {
-                        console.log('UPS, MISSING INPUT');// TODO remove dev code
-                        return;
-                    }
-                    requestService.post(`${requestService.apiRoute}/contact`, {
-                        from: formData.from,
-                        subject: formData.subject,
-                        text: `Hey Fabi, hier ist eine Email von ${formData.name}.\n\n${formData.text}`,
-                        to: 'simon.der.meyer@gmail.com'
-                    })
-                        .then(res => console.log(res));
-                }}
+                onClick={onSend}
+                style={{ cursor: 'pointer' }}
             >
                 SEND
             </div>
