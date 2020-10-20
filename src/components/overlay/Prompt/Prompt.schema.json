@@ -8,6 +8,9 @@
             "type": "string",
             "default": "top"
         },
+        "height": {
+            "type": "number"
+        },
         "offset": {
             "type": "number",
             "default": 0
@@ -23,6 +26,12 @@
         "animationDuration": {
             "type": "number",
             "default": 1
+        },
+        "bg": {
+            "type": "string"
+        },
+        "color": {
+            "type": "string"
         }
     }
 }

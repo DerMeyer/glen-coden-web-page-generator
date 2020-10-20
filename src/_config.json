@@ -247,6 +247,10 @@
                     "component": "Prompt",
                     "id": "z1UdXsWab",
                     "from": "top",
+                    "height": [
+                        90,
+                        150
+                    ],
                     "offset": [
                         90,
                         150
@@ -254,29 +258,17 @@
                     "showAfter": 3,
                     "showFor": 120,
                     "animationDuration": 1,
+                    "bg": "lightgrey",
+                    "color": "darkgrey",
                     "children": [
                         {
-                            "component": "Flex",
-                            "id": "RcJl-APH8",
-                            "justifyContent": "center",
-                            "alignItems": "center",
-                            "width": 1000,
-                            "height": [
-                                90,
-                                150
-                            ],
-                            "bg": "darkgrey",
-                            "children": [
-                                {
-                                    "component": "Text",
-                                    "id": "bGdaFAuN0Z",
-                                    "color": "white",
-                                    "text": {
-                                        "en": "Prompt",
-                                        "de": "Der Prompt"
-                                    }
-                                }
-                            ]
+                            "component": "Text",
+                            "id": "bGdaFAuN0Z",
+                            "color": "darkgrey",
+                            "text": {
+                                "en": "Prompt",
+                                "de": "Der Prompt"
+                            }
                         }
                     ]
                 },
@@ -982,6 +974,6 @@
             ]
         }
     ],
-    "_lastUpdated": "2020-10-20T11:14:14.891Z",
+    "_lastUpdated": "2020-10-20T15:10:43.990Z",
     "initialState": {}
 }

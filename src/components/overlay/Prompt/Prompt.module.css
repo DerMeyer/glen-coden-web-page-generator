@@ -2,3 +2,18 @@
     position: fixed;
     z-index: 50;
 }
+
+.Children {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.CloseIcon {
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 20px;
+}
