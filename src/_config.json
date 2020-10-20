@@ -129,6 +129,26 @@
             "iconListSvg": {
                 "width": 60,
                 "color": "darkgrey"
+            },
+            "formInput": {
+                "height": 42,
+                "p": "3px",
+                "pl": "12px",
+                "mb": 4,
+                "fontSize": 0,
+                "fontWeight": 300,
+                "color": "darkgrey"
+            },
+            "formTextarea": {
+                "height": 126,
+                "pt": "12px",
+                "pr": "10px",
+                "pb": "3px",
+                "pl": "16px",
+                "mb": 4,
+                "fontSize": 0,
+                "fontWeight": 300,
+                "color": "darkgrey"
             }
         },
         "buttons": {
@@ -217,6 +237,43 @@
                                     "text": {
                                         "de": "Kontakt",
                                         "en": "Contact"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "component": "Prompt",
+                    "id": "z1UdXsWab",
+                    "from": "top",
+                    "offset": [
+                        90,
+                        150
+                    ],
+                    "showAfter": 3,
+                    "showFor": 120,
+                    "animationDuration": 1,
+                    "children": [
+                        {
+                            "component": "Flex",
+                            "id": "RcJl-APH8",
+                            "justifyContent": "center",
+                            "alignItems": "center",
+                            "width": 1000,
+                            "height": [
+                                90,
+                                150
+                            ],
+                            "bg": "darkgrey",
+                            "children": [
+                                {
+                                    "component": "Text",
+                                    "id": "bGdaFAuN0Z",
+                                    "color": "white",
+                                    "text": {
+                                        "en": "Prompt",
+                                        "de": "Der Prompt"
                                     }
                                 }
                             ]
@@ -735,39 +792,74 @@
                             "component": "Page",
                             "id": "Lgq6xwTfI",
                             "rows": 0,
-                            "minHeight": 300,
+                            "maxContentWidth": 850,
                             "fromGlobal": [
                                 "contentSize",
-                                "maxContentWidth",
                                 "pageWidth",
                                 "maxPageWidth"
                             ],
                             "children": [
                                 {
+                                    "component": "Heading",
+                                    "id": "ueHld_ZfK",
+                                    "text": {
+                                        "en": "BE IN**TOUCH"
+                                    },
+                                    "color": "black",
+                                    "fontSize": [
+                                        3,
+                                        4
+                                    ],
+                                    "fontWeight": 500,
+                                    "fontStyle": "italic",
+                                    "lineHeight": "small",
+                                    "as": "h1",
+                                    "my": 5
+                                },
+                                {
                                     "component": "Form",
                                     "id": "63T59I0gF",
                                     "width": 1,
+                                    "mb": 6,
                                     "submitTo": "/",
                                     "children": [
                                         {
                                             "component": "Input",
                                             "id": "BoyeZJCn2",
-                                            "name": "name"
+                                            "name": "name",
+                                            "variant": "formInput",
+                                            "width": [
+                                                1,
+                                                0.48
+                                            ]
                                         },
                                         {
                                             "component": "Input",
                                             "id": "RiU4GMQOk",
-                                            "name": "from"
+                                            "name": "from",
+                                            "variant": "formInput",
+                                            "width": [
+                                                1,
+                                                0.48
+                                            ],
+                                            "ml": [
+                                                null,
+                                                "4%"
+                                            ]
                                         },
                                         {
                                             "component": "Input",
                                             "id": "2MgiBmAE1",
-                                            "name": "subject"
+                                            "name": "subject",
+                                            "variant": "formInput",
+                                            "width": 1
                                         },
                                         {
-                                            "component": "Input",
-                                            "id": "uzDHMqkZnu",
-                                            "name": "text"
+                                            "component": "Textarea",
+                                            "id": "fQsmsu24-",
+                                            "name": "text",
+                                            "variant": "formTextarea",
+                                            "width": 1
                                         }
                                     ]
                                 }
@@ -782,42 +874,99 @@
                             ]
                         }
                     ]
-                }
-            ]
-        },
-        {
-            "component": "Page",
-            "id": "rW77vMZYK",
-            "bg": "lightgrey",
-            "fromGlobal": [
-                "contentSize",
-                "maxContentWidth",
-                "pageWidth",
-                "maxPageWidth"
-            ],
-            "children": [
+                },
                 {
-                    "component": "Flex",
-                    "id": "xKEyB287f",
-                    "justifyContent": "center",
-                    "alignItems": "center",
-                    "css": [
+                    "component": "RouteRRD",
+                    "id": "y99SRYKXV",
+                    "path": "/dsgvo",
+                    "children": [
                         {
-                            "height": "240px"
-                        },
-                        {
-                            "height": "300px"
+                            "component": "Page",
+                            "id": "mCwnJ9hRzv",
+                            "rows": 0,
+                            "minHeight": 0,
+                            "fromGlobal": [
+                                "contentSize",
+                                "maxContentWidth",
+                                "pageWidth",
+                                "maxPageWidth"
+                            ],
+                            "children": [
+                                {
+                                    "component": "Heading",
+                                    "id": "5M3QK1Iuac",
+                                    "text": {
+                                        "de": "Datenschutz",
+                                        "en": "Data Protection"
+                                    },
+                                    "as": "h1"
+                                }
+                            ]
                         }
+                    ]
+                },
+                {
+                    "component": "Page",
+                    "id": "rW77vMZYK",
+                    "bg": "lightgrey",
+                    "fromGlobal": [
+                        "contentSize",
+                        "maxContentWidth",
+                        "pageWidth",
+                        "maxPageWidth"
                     ],
                     "children": [
                         {
-                            "component": "Heading",
-                            "id": "sFP4ERokG",
-                            "as": "h4",
-                            "color": "black",
-                            "lineHeight": 1.8,
-                            "fontWeight": 400,
-                            "text": "Danziger Strasse 207**10407 Berlin**hainarbeit@gmail.com"
+                            "component": "Flex",
+                            "id": "xKEyB287f",
+                            "justifyContent": "space-between",
+                            "alignItems": "center",
+                            "css": [
+                                {
+                                    "height": "240px"
+                                },
+                                {
+                                    "height": "300px"
+                                }
+                            ],
+                            "children": [
+                                {
+                                    "component": "Svg",
+                                    "id": "pT2CFzXg6",
+                                    "name": "Logo",
+                                    "color": "darkgrey",
+                                    "width": [
+                                        80,
+                                        110
+                                    ]
+                                },
+                                {
+                                    "component": "Heading",
+                                    "id": "sFP4ERokG",
+                                    "as": "h4",
+                                    "color": "darkgrey",
+                                    "fontStyle": "italic",
+                                    "lineHeight": 1.8,
+                                    "fontWeight": 300,
+                                    "text": "Danziger Strasse 207**10407 Berlin**hainarbeit@gmail.com"
+                                },
+                                {
+                                    "component": "LinkRRD",
+                                    "id": "zt3oPGjoz",
+                                    "to": "/dsgvo",
+                                    "children": [
+                                        {
+                                            "component": "Text",
+                                            "id": "2L8iiGu-Bd",
+                                            "text": {
+                                                "de": "Datenrichtlinie",
+                                                "en": "Data Guideline"
+                                            },
+                                            "variant": "navButton"
+                                        }
+                                    ]
+                                }
+                            ]
                         }
                     ]
                 }
@@ -833,6 +982,6 @@
             ]
         }
     ],
-    "_lastUpdated": "2020-10-18T18:57:30.913Z",
+    "_lastUpdated": "2020-10-20T11:14:14.891Z",
     "initialState": {}
 }

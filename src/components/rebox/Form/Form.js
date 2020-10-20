@@ -111,10 +111,10 @@ export default function Form(props) {
         >
             {React.Children.toArray(props.children).map(child => React.cloneElement(child, { formData, onChange, onFocus, onBlur, inputStyles }))}
             <div
+                className={s.SubmitButton}
                 onClick={onSend}
-                style={{ cursor: 'pointer' }}
             >
-                SEND
+                Submit
             </div>
         </form>
     );

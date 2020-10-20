@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import s from './Input.module.css';
+import s from './Textarea.module.css';
 import useBoxStyle from '../../../hooks/useBoxStyle';
 import useTextStyle from '../../../hooks/useTextStyle';
 
 
-export default function Input(props) {
+export default function Textarea(props) {
     const [ boxStyle, getBoxStyle ] = useBoxStyle(props);
     const [ textStyle, getTextStyle ] = useTextStyle(props);
 
@@ -16,8 +16,8 @@ export default function Input(props) {
     const { name, formData, onChange, onFocus, onBlur, inputStyles } = props;
 
     return (
-        <input
-            className={s.Input}
+        <textarea
+            className={s.Textarea}
             id={name}
             name={name}
             value={formData[name]}

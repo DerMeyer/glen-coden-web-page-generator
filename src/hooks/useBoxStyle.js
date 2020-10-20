@@ -26,6 +26,13 @@ export default function useBoxStyle(props) {
                 r.width = `${i.width * 100}%`;
             }
         }
+        if (typeof i.height !== 'undefined') {
+            if (i.height > 1) {
+                r.height = `${i.height}px`;
+            } else {
+                r.height = `${i.height * 100}%`;
+            }
+        }
         if (typeof i.color !== 'undefined') {
             r.color = i.color;
         }
@@ -40,7 +47,7 @@ export default function useBoxStyle(props) {
             return;
         }
         setStyle(r);
-    }, [ getSpacing, i.p, i.px, i.py, i.pt, i.pr, i.pb, i.pl, i.m, i.mx, i.my, i.mt, i.mr, i.mb, i.ml, i.fontSize, i.width, i.color, i.bg, i.shadow, i.css ]);
+    }, [ getSpacing, i.p, i.px, i.py, i.pt, i.pr, i.pb, i.pl, i.m, i.mx, i.my, i.mt, i.mr, i.mb, i.ml, i.fontSize, i.width, i.height, i.color, i.bg, i.shadow, i.css ]);
 
     return [ s, setInput ];
 }

@@ -1,0 +1,28 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "#Prompt",
+    "title": "Prompt",
+    "type": "object",
+    "properties": {
+        "from": {
+            "type": "string",
+            "default": "top"
+        },
+        "offset": {
+            "type": "number",
+            "default": 0
+        },
+        "showAfter": {
+            "type": "number",
+            "default": 3
+        },
+        "showFor": {
+            "type": "number",
+            "default": 120
+        },
+        "animationDuration": {
+            "type": "number",
+            "default": 1
+        }
+    }
+}

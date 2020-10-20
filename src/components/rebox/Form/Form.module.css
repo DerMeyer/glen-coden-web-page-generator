@@ -3,3 +3,17 @@
     position: relative;
     box-sizing: border-box;
 }
+
+.SubmitButton {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #5D5D61;
+    transition-duration: 0.2s;
+}
+
+.SubmitButton:hover {
+    color: #EDEDED;
+}

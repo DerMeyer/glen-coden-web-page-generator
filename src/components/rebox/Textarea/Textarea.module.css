@@ -1,10 +1,11 @@
-.Input {
+.Textarea {
     box-sizing: border-box;
+    resize: none;
     border: 1px solid transparent;
     border-bottom: 1px solid #5D5D61;
     outline: none;
 }
 
-.Input:hover {
+.Textarea:hover {
     border: 1px solid #5D5D61;
 }
