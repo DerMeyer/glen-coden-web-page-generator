@@ -7,14 +7,5 @@
 
 .image {
     flex-shrink: 0;
-}
-
-.imageBoxCss {
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-}
-
-.imageCss {
-    display: none;
+    object-fit: cover;
 }

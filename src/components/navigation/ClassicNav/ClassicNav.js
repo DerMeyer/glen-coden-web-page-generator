@@ -68,7 +68,10 @@ export default function ClassicNav({ burger, widthFactor, height, split, burgerC
                 {showOverlay && (
                     <Overlay
                         color={overlayColor}
-                        onFadeOut={() => setShowOverlay(false)}
+                        onFadeOut={() => {
+                            console.log('HIDE OVERLAY');// TODO remove dev code
+                            setShowOverlay(false);
+                        }}
                     >
                         <div className={s.OverlayContent}>
                             {Array.isArray(children) && children.slice(split)}

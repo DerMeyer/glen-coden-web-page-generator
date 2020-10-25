@@ -11,3 +11,4 @@ export {ReactComponent as Rollcontainer} from '../svg/rollcontainer.svg';
 export {ReactComponent as Telefon} from '../svg/telefon.svg';
 export {ReactComponent as Verkehr} from '../svg/verkehr.svg';
 export {ReactComponent as Wifi} from '../svg/wifi.svg';
+export {ReactComponent as Wifiicon} from '../svg/wifiicon.svg';

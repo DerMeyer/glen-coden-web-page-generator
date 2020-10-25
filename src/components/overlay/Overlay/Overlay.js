@@ -2,16 +2,27 @@ import React, { useState, useEffect } from 'react';
 import s from './Overlay.module.css';
 
 
-export default function Overlay({ color = '#000', opacity = 1, fadeTime = 0.2, onFadeOut = () => {}, doClose = false, initVisible = false, children }) {
+export default function Overlay({ color = '#000', opacity = 1, fadeTime = 2, onFadeOut = () => {}, doClose = false, initVisible = false, children }) {
     const [ visible, setVisible ] = useState(initVisible);
+    const [ safetyTimeoutId, setSafetyTimeoutId ] = useState(0);
 
     useEffect(() => {
-        if (doClose) {
+        if (doClose && !safetyTimeoutId) {
             setVisible(false);
-            return;
+            setSafetyTimeoutId(window.setTimeout(() => {
+                onFadeOut();
+            }, (fadeTime + 0.1) * 1000))
+            return () => {
+                window.clearTimeout(safetyTimeoutId);
+            };
         }
-        window.setTimeout(() => setVisible(true), 20);
-    }, [ doClose ]);
+        if (!doClose && safetyTimeoutId) {
+            setSafetyTimeoutId(0);
+        }
+        if (!safetyTimeoutId) {
+            setVisible(true);
+        }
+    }, [ fadeTime, onFadeOut, doClose, safetyTimeoutId ]);
 
     return (
         <div
@@ -21,11 +32,15 @@ export default function Overlay({ color = '#000', opacity = 1, fadeTime = 0.2, o
                 opacity: visible ? opacity : 0,
                 transition: `opacity ${fadeTime}s`
             }}
-            onClick={() => setVisible(false)}
+            onClick={() => {
+                console.log('OVERLAY CLICKED');// TODO remove dev code
+                setVisible(false);
+            }}
             onTransitionEnd={() => {
                 if (visible) {
                     return;
                 }
+                window.clearTimeout(safetyTimeoutId);
                 onFadeOut();
             }}
         >

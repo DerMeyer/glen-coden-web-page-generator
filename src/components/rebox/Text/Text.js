@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import s from './Text.module.css';
 import useI18n from '../../../hooks/useI18n';
 import useBoxStyle from '../../../hooks/useBoxStyle';
 import useTextStyle from '../../../hooks/useTextStyle';
@@ -20,6 +21,7 @@ export default function Text(props) {
 
     return (
         <p
+            className={s.Text}
             style={{
                 ...boxStyle,
                 ...textStyle

@@ -26,7 +26,6 @@ export default function LoadingOverlay({ fadeInTime, color, bg }) {
     return (
         <Overlay
             color={bg}
-            opacity={state.loading.length ? 1 : 0}
             fadeTime={state.loading.length ? 0 : fadeInTime}
             onFadeOut={() => setVisible(false)}
             doClose={state.loading.length === 0}

@@ -4,11 +4,12 @@ import useViewportSize from '../../../hooks/useViewportSize';
 import CloseIcon from '../../icons/CloseIcon/CloseIcon';
 
 
-export default function Prompt({ from, height, offset, showAfter, showFor, animationDuration, bg, color, css, children }) {
+export default function Prompt({ from, height, offset, showAfter, showFor, animationDuration, stopContentPropagation, bg, color, css, children }) {
     const { vw } = useViewportSize();
 
     const promptRef = useRef(null);
 
+    const [ boxHeight, setBoxHeight ] = useState(0);
     const [ style, setStyle ] = useState({});
     const [ show, setShow ] = useState(false);
     const [ closing, setClosing ] = useState(false);
@@ -29,7 +30,9 @@ export default function Prompt({ from, height, offset, showAfter, showFor, anima
     useEffect(() => {
         if (showAfter) {
             const timeoutId = window.setTimeout(() => {
-                setTimeoutId(window.setTimeout(() => setClosing(true), showFor * 1000));
+                if (showFor) {
+                    setTimeoutId(window.setTimeout(() => setClosing(true), showFor * 1000));
+                }
                 setShow(true);
             }, showAfter * 1000);
             return () => window.clearTimeout(timeoutId);
@@ -58,6 +61,14 @@ export default function Prompt({ from, height, offset, showAfter, showFor, anima
         });
     }, [ height, bg, color, css, vw ]);
 
+    useEffect(() => {
+        window.setTimeout(() => {
+            if (promptRef.current) {
+                setBoxHeight(promptRef.current.getBoundingClientRect().height);
+            }
+        }, 50); // TODO resolve race condition in less hacky way
+    }, []);
+
     return (
         <>
             <div
@@ -65,7 +76,7 @@ export default function Prompt({ from, height, offset, showAfter, showFor, anima
                 className={s.Prompt}
                 style={{
                     ...style,
-                    [from]: (show && !closing) ? offset : offset - (promptRef.current ? promptRef.current.getBoundingClientRect().height : 0),
+                    [from]: (show && !closing) ? offset : offset - boxHeight,
                     transition: `${from} ${show || closing ? animationDuration : 0}s ease-out`
                 }}
                 onTransitionEnd={onTransitionEnd}
@@ -73,7 +84,11 @@ export default function Prompt({ from, height, offset, showAfter, showFor, anima
             >
                 <div
                     className={s.Children}
-                    onClick={e => e.stopPropagation()}
+                    onClick={e => {
+                        if (stopContentPropagation) {
+                            e.stopPropagation();
+                        }
+                    }}
                 >
                     {children}
                 </div>
