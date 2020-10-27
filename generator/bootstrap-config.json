@@ -5,6 +5,10 @@
             "type": "directory"
         },
         {
+            "name": "production-build",
+            "type": "directory"
+        },
+        {
             "name": "json",
             "type": "directory",
             "children": [

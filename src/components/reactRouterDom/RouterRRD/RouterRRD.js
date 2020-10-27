@@ -3,6 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 
 export default function RouterRRD({ children }) {
+
     // This way the router works on github pages, eg dermeyer.github.io/my-project/
     const { projectName } = window.projectInfo;
     let basename = '/';
@@ -10,6 +11,7 @@ export default function RouterRRD({ children }) {
         basename = `/${projectName}-wip`;
     }
     //
+
     return (
         <BrowserRouter basename={basename}>
             {children}

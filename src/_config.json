@@ -97,6 +97,7 @@
                 "color": "darkgrey",
                 "fontSize": 1,
                 "fontStyle": "italic",
+                "pr": 3,
                 "ml": [
                     0,
                     5
@@ -104,7 +105,11 @@
                 "mb": [
                     3,
                     0
-                ]
+                ],
+                "mr": 3,
+                "css": {
+                    "borderRight": "1px solid #5D5D61"
+                }
             },
             "tileParagraph": {
                 "color": "darkgrey",
@@ -286,7 +291,7 @@
                                 1
                             ],
                             "text": {
-                                "en": "The current corona hygiene guidelines are implemented in the HainArbeit. Distances of 1.5 m are maintained and jointly used surfaces are disinfected. If you are interested, we will be happy to give you more information.",
+                                "en": "The current corona hygiene guidelines are implemented in the HainArbeit. Distances of 1.5m are maintained and jointly used surfaces are disinfected. If you are interested, we will be happy to give you more information.",
                                 "de": "Die aktuellen Corona-Hygiene-Richtlinien werden in der HainArbeit umgesetzt. Abstände von 1,5 m werden eingehalten, sowie gemeinsam genutzte Oberflächen desinfiziert. Bei Interesse geben wir dazu gerne Auskunft."
                             }
                         }
@@ -526,9 +531,9 @@
                                                     "id": "E5us9Z4jwa",
                                                     "as": "h4",
                                                     "variant": "iconListParagraph",
-                                                    "fontWeight": 300,
                                                     "text": {
-                                                        "en": "großer Schreibtisch**(125 x 80 cm)"
+                                                        "de": "großer Schreibtisch**(125 x 80 cm)",
+                                                        "en": "large desk**(125 x 80 cm)"
                                                     }
                                                 }
                                             ]
@@ -551,7 +556,8 @@
                                                     "id": "birMHD_m-B",
                                                     "variant": "iconListParagraph",
                                                     "text": {
-                                                        "en": "Rollcontainer"
+                                                        "de": "Rollcontainer",
+                                                        "en": "roll container"
                                                     }
                                                 }
                                             ]
@@ -597,7 +603,8 @@
                                                     "id": "CmBQP9xCei",
                                                     "variant": "iconListParagraph",
                                                     "text": {
-                                                        "en": "Ökostrom"
+                                                        "de": "Ökostrom",
+                                                        "en": "green electricity"
                                                     }
                                                 }
                                             ]
@@ -620,7 +627,8 @@
                                                     "id": "HdEvGSUebEn",
                                                     "variant": "iconListParagraph",
                                                     "text": {
-                                                        "en": "Fairtrade Kaffee / Tee Flatrate"
+                                                        "de": "Fairtrade Kaffee / Tee Flatrate",
+                                                        "en": "fairtrade coffee / tea flat rate"
                                                     }
                                                 }
                                             ]
@@ -643,7 +651,8 @@
                                                     "id": "2FAGjw-6__S",
                                                     "variant": "iconListParagraph",
                                                     "text": {
-                                                        "en": "Meeting-Raum"
+                                                        "de": "Meeting-Raum",
+                                                        "en": "meeting room"
                                                     }
                                                 }
                                             ]
@@ -666,7 +675,8 @@
                                                     "id": "JOGv7prSGdt",
                                                     "variant": "iconListParagraph",
                                                     "text": {
-                                                        "en": "Telefonier-Raum"
+                                                        "de": "Telefonier-Raum",
+                                                        "en": "telephone room"
                                                     }
                                                 }
                                             ]
@@ -689,7 +699,8 @@
                                                     "id": "syYADb-EI57",
                                                     "variant": "iconListParagraph",
                                                     "text": {
-                                                        "en": "wöchentliche Reinigung"
+                                                        "de": "wöchentliche Reinigung",
+                                                        "en": "weekly cleaning"
                                                     }
                                                 }
                                             ]
@@ -712,7 +723,8 @@
                                                     "id": "aDA_yaXcUyC",
                                                     "variant": "iconListParagraph",
                                                     "text": {
-                                                        "en": "Küche mit Herd, Ofen, Geschirrspüler und Mikrowelle"
+                                                        "de": "Küche mit Herd, Ofen, Geschirrspüler und Mikrowelle",
+                                                        "en": "kitchen with stove, oven, dishwasher and microwave"
                                                     }
                                                 }
                                             ]
@@ -735,7 +747,8 @@
                                                     "id": "KvVMEWguibs",
                                                     "variant": "iconListParagraph",
                                                     "text": {
-                                                        "en": "ruhiger grüner Garten im Hinterhof"
+                                                        "de": "ruhiger grüner Garten im Hinterhof",
+                                                        "en": "quiet green garden in the backyard"
                                                     }
                                                 }
                                             ]
@@ -754,11 +767,13 @@
                                                     "variant": "iconListSvg"
                                                 },
                                                 {
-                                                    "component": "Text",
+                                                    "component": "Heading",
                                                     "id": "gmOK2dmbCSg",
+                                                    "as": "h4",
                                                     "variant": "iconListParagraph",
                                                     "text": {
-                                                        "en": "beste Verkehrsanbindung 10 min zum Alexanderplatz 25 min zum Hauptbahnhof"
+                                                        "de": "beste Verkehrsanbindung**10 min zum Alexanderplatz**25 min zum Hauptbahnhof",
+                                                        "en": "best transport connection**10 min to Alexanderplatz**25 min to central station"
                                                     }
                                                 }
                                             ]
@@ -782,9 +797,9 @@
                                                     "id": "D6sUFFN5D1",
                                                     "as": "h4",
                                                     "variant": "iconListParagraph",
-                                                    "fontWeight": 300,
                                                     "text": {
-                                                        "en": "260€ pro Monat**15€ pro Tag"
+                                                        "de": "260€ pro Monat**15€ pro Tag",
+                                                        "en": "260€ per month**15€ per day"
                                                     }
                                                 }
                                             ]
@@ -954,6 +969,10 @@
                         {
                             "component": "Flex",
                             "id": "xKEyB287f",
+                            "flexDirection": [
+                                "column-reverse",
+                                "row"
+                            ],
                             "justifyContent": "space-between",
                             "alignItems": "center",
                             "css": [
@@ -990,24 +1009,53 @@
                                     "as": "h4",
                                     "color": "darkgrey",
                                     "fontStyle": "italic",
-                                    "lineHeight": [ 1.5, 1.8 ],
-                                    "fontWeight": 300,
-                                    "ml": [ "-10%", 0 ],
+                                    "lineHeight": [
+                                        1.5,
+                                        1.8
+                                    ],
+                                    "pb": [
+                                        3,
+                                        0
+                                    ],
                                     "text": "Danziger Strasse 207**10407 Berlin**hainarbeit@gmail.com"
                                 },
                                 {
-                                    "component": "LinkRRD",
-                                    "id": "zt3oPGjoz",
-                                    "to": "/dsgvo",
+                                    "component": "Flex",
+                                    "id": "sS08q6Lyj",
+                                    "pt": [
+                                        4,
+                                        0
+                                    ],
                                     "children": [
                                         {
-                                            "component": "Text",
-                                            "id": "2L8iiGu-Bd",
-                                            "text": {
-                                                "de": "Impressum",
-                                                "en": "Imprint"
-                                            },
-                                            "variant": "footerButton"
+                                            "component": "LinkRRD",
+                                            "id": "zt3oPGjoz",
+                                            "to": "/dsgvo",
+                                            "children": [
+                                                {
+                                                    "component": "Text",
+                                                    "id": "2L8iiGu-Bd",
+                                                    "text": {
+                                                        "de": "Impressum",
+                                                        "en": "Imprint"
+                                                    },
+                                                    "variant": "footerButton"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "component": "Link",
+                                            "id": "JvnX7oPpq",
+                                            "url": "https://www.instagram.com/hainarbeit_coworking",
+                                            "children": [
+                                                {
+                                                    "component": "Svg",
+                                                    "id": "ahUw8Md0y",
+                                                    "name": "Instagram",
+                                                    "color": "darkgrey",
+                                                    "width": 30
+                                                }
+                                            ]
                                         }
                                     ]
                                 }
@@ -1027,6 +1075,6 @@
             ]
         }
     ],
-    "_lastUpdated": "2020-10-22T13:09:58.922Z",
+    "_lastUpdated": "2020-10-27T16:44:20.995Z",
     "initialState": {}
 }

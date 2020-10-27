@@ -14,8 +14,9 @@ export default function FlyOverBox({ height, maxHeight = Infinity, children }) {
 
     const calcContentTop = useCallback(
         () => {
-            const { height: boxHeight, y } = boxRef.current.getBoundingClientRect();
-            const { height: contentHeight } = contentRef.current.getBoundingClientRect();
+            const y = boxRef.current.offsetTop - window.scrollY;
+            const boxHeight = boxRef.current.offsetHeight;
+            const contentHeight = contentRef.current.offsetHeight;
 
             if (y > state.vh) {
                 setContentTop(boxHeight - contentHeight);

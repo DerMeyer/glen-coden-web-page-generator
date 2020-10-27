@@ -1,27 +1,14 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg width="100%" height="100%" viewBox="0 0 95 95" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
-    <g transform="matrix(4.16667,0,0,4.16667,47.2441,47.2441)">
-        <g transform="matrix(1,0,0,1,-9,-9)">
-            <clipPath id="_clip1">
-                <rect x="0" y="0" width="18" height="18"/>
-            </clipPath>
-            <g clip-path="url(#_clip1)">
-                <g transform="matrix(1,0,0,1,-4,-3)">
-                    <g id="Icons">
-                        <g id="Outlined">
-                            <g id="Places">
-                                <g id="Outlined---Places---free_breakfast">
-                                    <g>
-                                        <path id="Path" d="M0,0L24,0L24,24L0,24L0,0Z" style="fill:none;"/>
-                                        <path id="🔹-Icon-Color" d="M4,19L20,19L20,21L4,21L4,19ZM20,3L4,3L4,13C4,15.21 5.79,17 8,17L14,17C16.21,17 18,15.21 18,13L18,10L20,10C21.11,10 22,9.1 22,8L22,5C22,3.89 21.11,3 20,3ZM16,13C16,14.1 15.1,15 14,15L8,15C6.9,15 6,14.1 6,13L6,5L16,5L16,13ZM20,8L18,8L18,5L20,5L20,8Z"/>
-                                    </g>
-                                </g>
-                            </g>
-                        </g>
-                    </g>
-                </g>
-            </g>
-        </g>
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN""http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 95.000000 95.000000" preserveAspectRatio="xMidYMid meet">
+    <metadata>
+        Created by potrace 1.16, written by Peter Selinger 2001-2019
+    </metadata>
+    <g transform="translate(0.000000,95.000000) scale(0.100000,-0.100000)" stroke="none">
+        <path d="M90 638 c1 -274 11 -311 95 -356 40 -21 277 -29 359 -12 103 21 146
+91 146 235 l0 55 55 0 c46 0 60 4 80 25 23 22 25 31 25 123 0 93 -1 100 -26
+123 l-26 24 -354 3 -354 3 0 -223z m500 -53 c0 -173 0 -176 -25 -200 -23 -24
+-28 -25 -176 -25 -210 0 -199 -13 -199 222 l0 178 200 0 200 0 0 -175z"/>
+        <path d="M90 145 l0 -45 340 0 340 0 0 45 0 45 -340 0 -340 0 0 -45z"/>
     </g>
 </svg>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import s from './Overlay.module.css';
 
 
-export default function Overlay({ color = '#000', opacity = 1, fadeTime = 2, onFadeOut = () => {}, doClose = false, initVisible = false, children }) {
+export default function Overlay({ color = '#000', opacity = 1, fadeTime = 0.2, onFadeOut = () => {}, doClose = false, initVisible = false, children }) {
     const [ visible, setVisible ] = useState(initVisible);
     const [ safetyTimeoutId, setSafetyTimeoutId ] = useState(0);
 
@@ -32,10 +32,7 @@ export default function Overlay({ color = '#000', opacity = 1, fadeTime = 2, onF
                 opacity: visible ? opacity : 0,
                 transition: `opacity ${fadeTime}s`
             }}
-            onClick={() => {
-                console.log('OVERLAY CLICKED');// TODO remove dev code
-                setVisible(false);
-            }}
+            onClick={() => setVisible(false)}
             onTransitionEnd={() => {
                 if (visible) {
                     return;

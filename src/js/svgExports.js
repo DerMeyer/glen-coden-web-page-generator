@@ -1,6 +1,7 @@
 export {ReactComponent as Coffee} from '../svg/coffee.svg';
 export {ReactComponent as Desk} from '../svg/desk.svg';
 export {ReactComponent as Garten} from '../svg/garten.svg';
+export {ReactComponent as Instagram} from '../svg/instagram.svg';
 export {ReactComponent as Kitchen} from '../svg/kitchen.svg';
 export {ReactComponent as Logo} from '../svg/logo.svg';
 export {ReactComponent as Meeting} from '../svg/meeting.svg';
@@ -10,5 +11,4 @@ export {ReactComponent as Reinigung} from '../svg/reinigung.svg';
 export {ReactComponent as Rollcontainer} from '../svg/rollcontainer.svg';
 export {ReactComponent as Telefon} from '../svg/telefon.svg';
 export {ReactComponent as Verkehr} from '../svg/verkehr.svg';
-export {ReactComponent as Wifi} from '../svg/wifi.svg';
 export {ReactComponent as Wifiicon} from '../svg/wifiicon.svg';

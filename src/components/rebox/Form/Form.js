@@ -87,14 +87,6 @@ export default function Form(props) {
             })
                 .then(res => console.log(res));
 
-            requestService.post(`${requestService.apiRoute}/contact`, {
-                from: formData.from,
-                subject: formData.subject,
-                text: `Hey Fabi, hier ist eine Email von ${formData.name}:\n\n\n${formData.text}`,
-                to: 'simon.der.meyer@gmail.com'
-            })
-                .then(res => console.log(res));
-
             setFormData({ ...contactForm });
         },
         [ formData ]

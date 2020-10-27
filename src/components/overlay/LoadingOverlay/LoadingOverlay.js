@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useCallback, useState } from 'react';
 import s from './LoadingOverlay.module.css';
 import Store from '../../../store/Store';
 import cx from 'classnames';
@@ -12,6 +12,11 @@ export default function LoadingOverlay({ fadeInTime, color, bg }) {
 
     const [ visible, setVisible ] = useState(false);
     const [ iconFadedIn, setIconFadedIn ] = useState(false);
+
+    const onOverlayClosed = useCallback(
+        () => setVisible(false),
+        []
+    );
 
     if (!visible) {
         if (state.loading.length) {
@@ -27,7 +32,7 @@ export default function LoadingOverlay({ fadeInTime, color, bg }) {
         <Overlay
             color={bg}
             fadeTime={state.loading.length ? 0 : fadeInTime}
-            onFadeOut={() => setVisible(false)}
+            onFadeOut={onOverlayClosed}
             doClose={state.loading.length === 0}
             initVisible
         >

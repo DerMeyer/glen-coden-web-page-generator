@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState, useEffect } from 'react';
+import React, { useContext, useRef, useState, useCallback, useEffect } from 'react';
 import s from './ClassicNav.module.css';
 import Store from '../../../store/Store';
 
@@ -15,6 +15,11 @@ export default function ClassicNav({ burger, widthFactor, height, split, burgerC
     const [ contentStyle, setContentStyle ] = useState({});
 
     const [ showOverlay, setShowOverlay ] = useState(false);
+
+    const onOverlayClosed = useCallback(
+        () => setShowOverlay(false),
+        []
+    );
 
     useEffect(() => {
         const r = {};
@@ -68,10 +73,7 @@ export default function ClassicNav({ burger, widthFactor, height, split, burgerC
                 {showOverlay && (
                     <Overlay
                         color={overlayColor}
-                        onFadeOut={() => {
-                            console.log('HIDE OVERLAY');// TODO remove dev code
-                            setShowOverlay(false);
-                        }}
+                        onFadeOut={onOverlayClosed}
                     >
                         <div className={s.OverlayContent}>
                             {Array.isArray(children) && children.slice(split)}

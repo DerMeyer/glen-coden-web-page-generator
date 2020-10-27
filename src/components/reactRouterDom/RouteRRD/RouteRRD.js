@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Route } from 'react-router-dom';
 
 
 export default function RouteRRD({ path, children }) {
-    return path === '/' ? (
-        <Route exact path={path}>
-            {children}
-        </Route>
-    ) : (
-        <Route path={path}>
+    const [ prevPathname, setPrevPathname ] = useState(window.location.pathname);
+
+    if (window.location.pathname !== prevPathname) {
+        window.scroll(0, 0);
+        setPrevPathname(window.location.pathname);
+    }
+
+    return (
+        <Route
+            exact={path === '/'}
+            path={path}
+        >
             {children}
         </Route>
     );
