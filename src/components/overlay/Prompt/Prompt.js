@@ -1,15 +1,15 @@
 import React, { useRef, useState, useCallback, useEffect } from 'react';
 import s from './Prompt.module.css';
+import cx from 'classnames';
 import useViewportSize from '../../../hooks/useViewportSize';
 import CloseIcon from '../../icons/CloseIcon/CloseIcon';
 
 
-export default function Prompt({ from, height, offset, showAfter, showFor, animationDuration, stopContentPropagation, bg, color, css, children }) {
+export default function Prompt({ from, height, offset, showAfter, showFor, animationDuration, stopContentPropagation, bg, color, contentSize, maxContentWidth, css, children }) {
     const { vw } = useViewportSize();
 
     const promptRef = useRef(null);
 
-    const [ boxHeight, setBoxHeight ] = useState(0);
     const [ style, setStyle ] = useState({});
     const [ show, setShow ] = useState(false);
     const [ closing, setClosing ] = useState(false);
@@ -61,29 +61,32 @@ export default function Prompt({ from, height, offset, showAfter, showFor, anima
         });
     }, [ height, bg, color, css, vw ]);
 
-    useEffect(() => {
-        window.setTimeout(() => {
-            if (promptRef.current) {
-                setBoxHeight(promptRef.current.getBoundingClientRect().height);
-            }
-        }, 50); // TODO resolve race condition in less hacky way
-    }, []);
-
     return (
         <>
             <div
                 ref={promptRef}
-                className={s.Prompt}
+                className={cx(s.Prompt, {
+                    [s.fromTop]: from === 'top',
+                    [s.fromBottom]: from === 'bottom',
+                    [s.showFromTop]: from === 'top' && (show && !closing),
+                    [s.showFromBottom]: from === 'bottom' && (show && !closing),
+                    [s.hideToTop]: from === 'top' && closing,
+                    [s.hideToBottom]: from === 'bottom' && closing,
+                })}
                 style={{
                     ...style,
-                    [from]: (show && !closing) ? offset : offset - boxHeight,
-                    transition: `${from} ${show || closing ? animationDuration : 0}s ease-out`
+                    [from]: `${offset}px`,
+                    animationDuration: `${animationDuration}s`
                 }}
                 onTransitionEnd={onTransitionEnd}
                 onClick={() => setClosing(true)}
             >
                 <div
                     className={s.Children}
+                    style={{
+                        maxWidth: `${maxContentWidth}px`,
+                        width: `${contentSize.width * 100}%`
+                    }}
                     onClick={e => {
                         if (stopContentPropagation) {
                             e.stopPropagation();
@@ -96,10 +99,13 @@ export default function Prompt({ from, height, offset, showAfter, showFor, anima
                     <CloseIcon color={color} />
                 </div>
             </div>
-            <div style={{
-                height: (show && !closing) ? `${height}px` : 0,
-                transition: `height ${animationDuration}s ease-out`
-            }} />
+            <div
+                className={s.Spacer}
+                style={{
+                    height: (show && !closing) ? `${promptRef.current ? promptRef.current.offsetHeight : 0}px` : 0,
+                    transitionDuration: `${animationDuration}s`
+                }}
+            />
         </>
     );
 }

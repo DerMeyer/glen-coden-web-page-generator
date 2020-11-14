@@ -265,10 +265,6 @@
                     "component": "Prompt",
                     "id": "z1UdXsWab",
                     "from": "top",
-                    "height": [
-                        250,
-                        150
-                    ],
                     "offset": [
                         90,
                         150
@@ -277,6 +273,10 @@
                     "animationDuration": 0.7,
                     "bg": "lightgrey",
                     "color": "darkgrey",
+                    "fromGlobal": [
+                        "contentSize",
+                        "maxContentWidth"
+                    ],
                     "children": [
                         {
                             "component": "Text",
@@ -286,13 +286,14 @@
                                 0,
                                 1
                             ],
-                            "width": [
-                                330,
-                                1
+                            "px": [
+                                1,
+                                5
                             ],
+                            "py": 4,
                             "text": {
                                 "en": "The current corona hygiene guidelines are implemented in the HainArbeit. Distances of 1.5m are maintained and jointly used surfaces are disinfected. If you are interested, we will be happy to give you more information.",
-                                "de": "Die aktuellen Corona-Hygiene-Richtlinien werden in der HainArbeit umgesetzt. Abstände von 1,5 m werden eingehalten, sowie gemeinsam genutzte Oberflächen desinfiziert. Bei Interesse geben wir dazu gerne Auskunft."
+                                "de": "Die aktuellen Corona-Hygiene-Richtlinien werden in der HainArbeit umgesetzt. Abstände von 1,5m werden eingehalten, sowie gemeinsam genutzte Oberflächen desinfiziert. Bei Interesse geben wir dazu gerne Auskunft."
                             }
                         }
                     ]
@@ -985,23 +986,30 @@
                             ],
                             "children": [
                                 {
-                                    "component": "Heading",
-                                    "id": "ucld5gbqf",
-                                    "text": [
-                                        "",
+                                    "component": "LinkRRD",
+                                    "id": "A81ZPXubQ",
+                                    "to": "/contact",
+                                    "children": [
                                         {
-                                            "en": "BE IN**TOUCH"
+                                            "component": "Heading",
+                                            "id": "ucld5gbqf",
+                                            "text": [
+                                                "",
+                                                {
+                                                    "en": "BE IN**TOUCH"
+                                                }
+                                            ],
+                                            "color": "black",
+                                            "fontSize": [
+                                                3,
+                                                3
+                                            ],
+                                            "fontWeight": 500,
+                                            "fontStyle": "italic",
+                                            "lineHeight": "small",
+                                            "as": "h1"
                                         }
-                                    ],
-                                    "color": "black",
-                                    "fontSize": [
-                                        3,
-                                        3
-                                    ],
-                                    "fontWeight": 500,
-                                    "fontStyle": "italic",
-                                    "lineHeight": "small",
-                                    "as": "h1"
+                                    ]
                                 },
                                 {
                                     "component": "Heading",
@@ -1075,6 +1083,6 @@
             ]
         }
     ],
-    "_lastUpdated": "2020-10-27T16:44:20.995Z",
+    "_lastUpdated": "2020-11-14T18:46:51.471Z",
     "initialState": {}
 }

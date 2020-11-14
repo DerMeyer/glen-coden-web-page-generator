@@ -22,7 +22,7 @@
     position: relative;
     width: 60px;
     height: 60px;
-    z-index: 1000;
+    z-index: 1001;
 }
 
 .Burger > div {

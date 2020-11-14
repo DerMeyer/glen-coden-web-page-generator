@@ -1,14 +1,44 @@
 .Prompt {
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: fixed;
     z-index: 50;
 }
 
+.Prompt.fromTop {
+    transform: translateY(-100%);
+}
+
+.Prompt.fromBottom {
+    transform: translateY(100%);
+}
+
+.Prompt.showFromTop {
+    animation: show-from-top 1s ease;
+    transform: translateY(0);
+}
+
+.Prompt.showFromBottom {
+    animation: show-from-bottom 1s ease;
+    transform: translateY(0);
+}
+
+.Prompt.hideToTop {
+    animation: hide-to-top 1s ease;
+}
+
+.Prompt.hideToBottom {
+    animation: hide-to-bottom 1s ease;
+}
+
+.Spacer {
+    transition: height 1s ease;
+}
+
 .Children {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    flex-shrink: 0;
 }
 
 .CloseIcon {
@@ -17,4 +47,40 @@
     right: 0;
     top: 0;
     padding: 20px;
+}
+
+@keyframes show-from-top {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes hide-to-top {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-100%);
+    }
+}
+
+@keyframes show-from-bottom {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes hide-to-bottom {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(100%);
+    }
 }

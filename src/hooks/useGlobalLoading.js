@@ -9,8 +9,25 @@ export default function useGlobalLoading() {
 
     const [ id ] = useState(() => shortid.generate());
 
-    const startLoading = useCallback(() => dispatch(actions.startLoading(id)), [ dispatch, id ]);
-    const stopLoading = useCallback(() => dispatch(actions.stopLoading(id)), [ dispatch, id ]);
+    const startLoading = useCallback(
+        () => {
+            if (state.allCompsInitiated) {
+                return;
+            }
+            dispatch(actions.startLoading(id));
+        },
+        [ state.allCompsInitiated, dispatch, id ]
+    );
+
+    const stopLoading = useCallback(
+        () => {
+            if (!state.loading.includes(id)) {
+                return;
+            }
+            dispatch(actions.stopLoading(id));
+        },
+        [ state.loading, dispatch, id ]
+    );
 
     const done = state.loading.length === 0 && state.allCompsInitiated;
 

@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import cx from 'classnames';
 
 import * as SvgList from '../../../js/svgExports';
 
 
 export default function Svg({ name, width, height, color, css, className }) {
+    const [ mounted, setMounted ] = useState(false);
+
+    useEffect(() => setMounted(true), []);
+
     if (!SvgList[name]) {
         return <div>unknown svg name</div>;
     }
@@ -13,7 +17,9 @@ export default function Svg({ name, width, height, color, css, className }) {
 
     const style = {
         width: `${width}px`,
-        height: `${height || width}px`
+        height: `${height || width}px`,
+        opacity: mounted ? 1 : 0,
+        transition: 'opacity 0.1s'
     };
 
     if (color) {
