@@ -8,7 +8,7 @@ export default function RouterRRD({ children }) {
     const { projectName } = window.projectInfo;
     let basename = '/';
     if (window.location.pathname.startsWith(`/${projectName}`)) {
-        basename = `/${projectName}-wip`;
+        basename = `/${projectName}-dev`;
     }
     //
 

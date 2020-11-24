@@ -11,7 +11,7 @@ export default function Prompt({ from, height, offset, showAfter, showFor, anima
     const promptRef = useRef(null);
 
     const [ style, setStyle ] = useState({});
-    const [ show, setShow ] = useState(false);
+    const [ show, setShow ] = useState(showAfter <= 0);
     const [ closing, setClosing ] = useState(false);
     const [ timeoutId, setTimeoutId ] = useState(0);
 

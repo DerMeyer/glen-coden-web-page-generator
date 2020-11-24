@@ -1,27 +1,32 @@
 import React, { useEffect } from 'react';
 import s from './Button.module.css';
-import useTextStyle from '../../../hooks/useTextStyle';
 import useI18n from '../../../hooks/useI18n';
+import useBoxStyle from '../../../hooks/useBoxStyle';
+import useTextStyle from '../../../hooks/useTextStyle';
 
 
-export default function Button({ text, ...input }) {
-    const { fontSize, fontWeight, lineHeight, color, css } = input;
-
-    const [ style, setStyle ] = useTextStyle(input);
-    const [ translation, setTranslation ] = useI18n(text);
-
-    useEffect(() => {
-        setStyle({ fontSize, fontWeight, lineHeight, color, css });
-    }, [ fontSize, fontWeight, lineHeight, color, css, setStyle ]);
+export default function Button(props) {
+    const [ translation, setTranslation ] = useI18n(props.text);
+    const [ boxStyle, getBoxStyle ] = useBoxStyle(props);
+    const [ textStyle, getTextStyle ] = useTextStyle(props);
 
     useEffect(() => {
-        setTranslation(text);
-    }, [ text, setTranslation ]);
+        getBoxStyle(props);
+        getTextStyle(props);
+    });
+
+    useEffect(() => {
+        setTranslation(props.text);
+    }, [ props.text, setTranslation ]);
 
     return (
         <button
-            className={s.button}
-            style={style}
+            className={s.Button}
+            style={{
+                ...(props.color ? { borderColor: props.color } : { border: 'none' }),
+                ...boxStyle,
+                ...textStyle
+            }}
         >
             {translation}
         </button>

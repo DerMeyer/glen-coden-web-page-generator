@@ -8,8 +8,7 @@
             "type": "string"
         },
         "text": {
-            "type": ["string", "object"],
-            "default": "Your Button"
+            "type": ["string", "object"]
         }
     }
 }

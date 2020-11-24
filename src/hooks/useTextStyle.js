@@ -8,6 +8,9 @@ export default function useTextStyle(props) {
     useEffect(() => {
         const r = {};
 
+        if (typeof i.font !== 'undefined') {
+            r.fontFamily = i.font;
+        }
         if (typeof i.fontSize !== 'undefined') {
             r.fontSize = i.fontSize;
         }
@@ -24,7 +27,7 @@ export default function useTextStyle(props) {
             r.color = i.color;
         }
         setStyle(r);
-    }, [ i.fontSize, i.fontWeight, i.fontStyle, i.lineHeight, i.color ]);
+    }, [ i.font, i.fontSize, i.fontWeight, i.fontStyle, i.lineHeight, i.color ]);
 
     return [ s, setInput ];
 }

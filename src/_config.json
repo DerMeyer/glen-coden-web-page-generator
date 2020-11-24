@@ -77,40 +77,6 @@
             "large": "0 0 24px rgba(0, 0, 0, .125)"
         },
         "text": {
-            "navButton": {
-                "color": [
-                    "lightgrey",
-                    "darkgrey"
-                ],
-                "fontSize": 1,
-                "fontStyle": "italic",
-                "ml": [
-                    0,
-                    5
-                ],
-                "mb": [
-                    3,
-                    0
-                ]
-            },
-            "footerButton": {
-                "color": "darkgrey",
-                "fontSize": 1,
-                "fontStyle": "italic",
-                "pr": 3,
-                "ml": [
-                    0,
-                    5
-                ],
-                "mb": [
-                    3,
-                    0
-                ],
-                "mr": 3,
-                "css": {
-                    "borderRight": "1px solid #5D5D61"
-                }
-            },
             "tileParagraph": {
                 "color": "darkgrey",
                 "fontSize": 1,
@@ -172,6 +138,42 @@
         "buttons": {
             "primary": {
                 "color": "darkgrey"
+            },
+            "navButton": {
+                "color": [
+                    "lightgrey",
+                    "darkgrey"
+                ],
+                "fontSize": 1,
+                "font": "body",
+                "fontStyle": "italic",
+                "ml": [
+                    0,
+                    5
+                ],
+                "mb": [
+                    3,
+                    0
+                ]
+            },
+            "footerButton": {
+                "color": "darkgrey",
+                "fontSize": 1,
+                "font": "body",
+                "fontStyle": "italic",
+                "pr": 3,
+                "ml": [
+                    0,
+                    5
+                ],
+                "mb": [
+                    3,
+                    0
+                ],
+                "mr": 3,
+                "css": {
+                    "borderRight": "1px solid #5D5D61"
+                }
             }
         }
     },
@@ -236,8 +238,8 @@
                             "to": "/",
                             "children": [
                                 {
-                                    "component": "Text",
-                                    "id": "B9Rzm6J2Z",
+                                    "component": "Button",
+                                    "id": "TOyM6w_PJ",
                                     "variant": "navButton",
                                     "text": "Home"
                                 }
@@ -249,8 +251,8 @@
                             "to": "/contact",
                             "children": [
                                 {
-                                    "component": "Text",
-                                    "id": "Rpa3Imm068",
+                                    "component": "Button",
+                                    "id": "OFt4WBWldN",
                                     "variant": "navButton",
                                     "text": {
                                         "de": "Kontakt",
@@ -269,7 +271,7 @@
                         90,
                         150
                     ],
-                    "showAfter": 2,
+                    "showAfter": 0,
                     "animationDuration": 0.7,
                     "bg": "lightgrey",
                     "color": "darkgrey",
@@ -1041,8 +1043,8 @@
                                             "to": "/dsgvo",
                                             "children": [
                                                 {
-                                                    "component": "Text",
-                                                    "id": "2L8iiGu-Bd",
+                                                    "component": "Button",
+                                                    "id": "e3g9zrAMp",
                                                     "text": {
                                                         "de": "Impressum",
                                                         "en": "Imprint"
@@ -1083,6 +1085,6 @@
             ]
         }
     ],
-    "_lastUpdated": "2020-11-14T18:46:51.471Z",
+    "_lastUpdated": "2020-11-24T12:25:21.594Z",
     "initialState": {}
 }
