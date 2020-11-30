@@ -12,7 +12,7 @@ class RequestService {
         return Promise.resolve()
             .then(() => fetch(url))
             .then(resp => resp.json())
-            .catch(err => console.error(err));
+            .catch(err => console.error('Request Service: ', err));
     }
 
     post(url, data) {
@@ -24,7 +24,7 @@ class RequestService {
                 body
             }))
             .then(resp => resp.json())
-            .catch(err => console.error(err));
+            .catch(err => console.error('Request Service: ', err));
     }
 }
 

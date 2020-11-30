@@ -109,6 +109,9 @@ export function applyTheme(config, theme) {
             Object.keys(variants).forEach(variant => {
                 if (v === variant) {
                     Object.keys(variants[variant]).forEach(prop => {
+                        if (config[prop]) {
+                            return;
+                        }
                         config[prop] = variants[variant][prop];
                     });
                 }

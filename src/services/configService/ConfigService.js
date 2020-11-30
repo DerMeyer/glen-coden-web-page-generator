@@ -18,7 +18,9 @@ class ConfigService {
         return Promise.resolve()
             .then(() => requestService.get(`${requestService.apiRoute}/config/${PROJ_INFO.projectName}`))
             .then(PROD_CONFIG => {
-                this.config = process.env.NODE_ENV && process.env.NODE_ENV === 'production' ? PROD_CONFIG : DEV_CONFIG;
+                this.config = PROD_CONFIG && process.env.NODE_ENV && process.env.NODE_ENV === 'production'
+                    ? PROD_CONFIG
+                    : DEV_CONFIG;
                 this._createInitialState(this.config.initialState, this.config.components);
             });
     }
@@ -43,7 +45,7 @@ class ConfigService {
         }
         this.breakPointType = type;
 
-        trackingService.startProcessTimer('CREATE_THEME_GLOBAL_AND_COMPS');
+        trackingService.startProcessTimer('PROCESS_CONFIG');
 
         this._createTheme(this.config.theme);
         this._createGlobal(this.config.global);
@@ -53,7 +55,7 @@ class ConfigService {
         console.log('CONFIG (global): ', this.global);// TODO remove dev code
         console.log('CONFIG (components): ', this.components);// TODO remove dev code
 
-        trackingService.stopProcessTimer('CREATE_THEME_GLOBAL_AND_COMPS');
+        trackingService.stopProcessTimer('PROCESS_CONFIG');
     }
 
     _createTheme(config) {

@@ -1,7 +1,6 @@
 import React, { useContext, useRef, useState, useCallback, useEffect } from 'react';
 import s from './FlyOverBox.module.css';
 import Store from '../../../store/Store';
-import ZoomBox from '../ZoomBox/ZoomBox';
 
 
 export default function FlyOverBox({ height, maxHeight = Infinity, children }) {
@@ -69,9 +68,7 @@ export default function FlyOverBox({ height, maxHeight = Infinity, children }) {
                     top: `${contentTop}px`
                 }}
             >
-                <ZoomBox>
-                    {children}
-                </ZoomBox>
+                {children}
             </div>
         </div>
     );

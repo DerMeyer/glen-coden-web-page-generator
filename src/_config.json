@@ -271,7 +271,7 @@
                         90,
                         150
                     ],
-                    "showAfter": 0,
+                    "showAfter": 2,
                     "animationDuration": 0.7,
                     "bg": "lightgrey",
                     "color": "darkgrey",
@@ -1085,6 +1085,6 @@
             ]
         }
     ],
-    "_lastUpdated": "2020-11-24T12:25:21.594Z",
+    "_lastUpdated": "2020-11-26T13:57:51.164Z",
     "initialState": {}
 }
