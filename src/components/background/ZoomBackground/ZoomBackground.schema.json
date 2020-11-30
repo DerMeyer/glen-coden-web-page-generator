@@ -5,38 +5,19 @@
     "type": "object",
     "properties": {
         "image": {
-            "type": "string",
-            "default": "background-image.jpg"
+            "type": "string"
         },
-        "autoZoom": {
+        "auto": {
             "type": "boolean",
             "default": false
         },
-        "zoomFactor": {
-            "type": "object",
-            "properties": {
-                "manual": {
-                    "type": "number",
-                    "default": 4
-                },
-                "auto": {
-                    "type": "number",
-                    "default": 12
-                }
-            }
+        "factor": {
+            "type": "number",
+            "default": 4
         },
-        "zoomTime": {
-            "type": "object",
-            "properties": {
-                "manual": {
-                    "type": "number",
-                    "default": 0.5
-                },
-                "auto": {
-                    "type": "number",
-                    "default": 10
-                }
-            }
+        "time": {
+            "type": "number",
+            "default": 0.5
         }
     }
 }

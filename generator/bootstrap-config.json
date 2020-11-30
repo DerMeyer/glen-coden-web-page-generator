@@ -67,7 +67,8 @@
         "global": {
             "fontTypes": [
                 {
-                    "name": "'Roboto', 'Arial', 'sans-serif'"
+                    "name": "'Roboto', 'Arial', 'sans-serif'",
+                    "url": "https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap"
                 }
             ],
             "contentSize": [
@@ -134,7 +135,9 @@
                 "image": "images/background-image.jpg"
             },
             {
-                "component": "LoadingOverlay"
+                "component": "LoadingOverlay",
+                "color": "black",
+                "bg": "white"
             }
         ]
     }

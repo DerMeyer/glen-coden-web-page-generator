@@ -3,12 +3,13 @@ import s from './ZoomBox.module.css';
 
 ZoomBox.defaultProps = {
     auto: false,
+    doZoom: false,
     factor: 4,
     time: 0.5
 };
 
 
-export default function ZoomBox({ auto, factor, time, children }) {
+export default function ZoomBox({ auto, doZoom, factor, time, children }) {
     const boxRef = useRef(null);
 
     const [ active, setActive ] = useState(false);
@@ -35,11 +36,12 @@ export default function ZoomBox({ auto, factor, time, children }) {
             grow();
             return;
         }
+        const box = boxRef.current;
+        console.log(boxRef.current.getBoundingClientRect());// TODO remove dev code
         const onMousemove = event => {
             grow();
             calcShift(event);
         };
-        const box = boxRef.current;
         box.addEventListener('mousemove', onMousemove);
         box.addEventListener('blur', shrink);
         box.addEventListener('mouseleave', shrink);
@@ -53,18 +55,17 @@ export default function ZoomBox({ auto, factor, time, children }) {
     return (
         <div
             ref={boxRef}
-            className={s.box}
-            onFocus={() => console.log('ZOOM BOX ON FOCUS') /* TODO implement zoom/shrink on focus/blur */ }
+            className={s.ZoomBox}
         >
             <div
-                className={s.shifter}
+                className={s.Shifter}
                 style={{
                     transform: `translate(${active ? shift.x : 0}%, ${active ? shift.y : 0}%)`,
                     transition: active ? '' :`width ${time}s ease-out, height ${time}s ease-out, transform ${time}s ease-out`
                 }}
             >
                 <div
-                    className={s.zoomer}
+                    className={s.Zoomer}
                     style={{
                         transform: `scale(${active ? (1 + factor / 100) : 1})`,
                         transition: `transform ${time}s ease-out`

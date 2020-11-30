@@ -4,7 +4,8 @@
     "global": {
         "fontTypes": [
             {
-                "name": "'Roboto', 'Arial', 'sans-serif'"
+                "name": "'Roboto', 'Arial', 'sans-serif'",
+                "url": "https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap"
             }
         ],
         "contentSize": [
@@ -77,29 +78,9 @@
     },
     "components": [
         {
-            "component": "Box",
-            "id": "gFFf3IoOT",
-            "width": 1,
-            "children": [
-                {
-                    "component": "ZoomBox",
-                    "id": "-zlxlpIfI",
-                    "children": [
-                        {
-                            "component": "Image",
-                            "id": "gcwq0hcKUy",
-                            "source": "images/background-image.jpg",
-                            "subscribeToGlobalLoading": false,
-                            "loadAfterGlobalLoading": false
-                        }
-                    ]
-                }
-            ]
-        },
-        {
             "component": "Page",
             "id": "tdC-AHvim-",
-            "rows": 0,
+            "rows": 1,
             "minHeight": 0,
             "fromGlobal": [
                 "contentSize",
@@ -109,10 +90,21 @@
             ],
             "children": [
                 {
+                    "component": "ZoomBackground",
+                    "id": "VrTuk-wbO",
+                    "image": "images/background-image.jpg",
+                    "auto": false,
+                    "factor": 4,
+                    "time": 0.5
+                },
+                {
                     "component": "Heading",
+                    "color": "white",
+                    "fontSize": 4,
+                    "fontType": "heading",
                     "id": "U_imrJF3bI",
                     "text": {
-                        "en": "Welcome to Glen Coden Generator"
+                        "en": "Welcome to*Glen Coden*Generator"
                     },
                     "as": "h1"
                 }
@@ -121,13 +113,13 @@
         {
             "component": "LoadingOverlay",
             "id": "UMfCKlUt3v",
-            "color": "",
-            "bg": "",
+            "color": "black",
+            "bg": "white",
             "fromGlobal": [
                 "fadeInTime"
             ]
         }
     ],
-    "_lastUpdated": "2020-11-30T20:05:11.327Z",
+    "_lastUpdated": "2020-11-30T20:49:13.940Z",
     "initialState": {}
 }
