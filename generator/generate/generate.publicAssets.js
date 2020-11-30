@@ -11,6 +11,4 @@ function generatePublicAssets(projectDir, publicDir) {
     });
 }
 
-
-
 module.exports = generatePublicAssets;

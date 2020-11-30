@@ -1,0 +1,19 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "#Image",
+    "title": "Image",
+    "type": "object",
+    "properties": {
+        "source": {
+            "type": "string"
+        },
+        "subscribeToGlobalLoading": {
+            "type": "boolean",
+            "default": false
+        },
+        "loadAfterGlobalLoading": {
+            "type": "boolean",
+            "default": false
+        }
+    }
+}

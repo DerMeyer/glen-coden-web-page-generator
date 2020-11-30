@@ -8,22 +8,50 @@ const PROJ_INFO = require('../src/project-info.json');
 
 
 const { projectName } = PROJ_INFO;
+const devBuildDirName = 'docs';
+const prodBuildDirName = 'production-build';
+
 const projectDir = path.join(getPath.projectsDir, projectName);
-const deployDir = path.join(projectDir, 'docs');
+const devBuildDir = path.join(projectDir, devBuildDirName);
+const prodBuildDir = path.join(projectDir, prodBuildDirName);
 
-new Promise(resolve => {
-    if (!fs.existsSync(deployDir)) {
-        fs.mkdirSync(deployDir);
-    }
-    rimraf(path.join(deployDir, '*'), () => {
-        deepCopyDirectory(path.resolve('build'), deployDir);
-        logger.print('Copied build to project docs directory.', true);
-        resolve();
+
+if (process.argv[2] === '--prod') {
+    deployProd();
+} else {
+    deployDev();
+}
+
+
+function deployDev() {
+    new Promise(resolve => {
+        if (!fs.existsSync(devBuildDir)) {
+            fs.mkdirSync(devBuildDir);
+        }
+        rimraf(path.join(devBuildDir, '*'), () => {
+            deepCopyDirectory(path.resolve('build'), devBuildDir);
+            logger.print(`Copied build to development-build directory (${devBuildDirName}).`, true);
+            resolve();
+        })
     })
-})
-    .then(() => pushSubDir(projectDir))
-    .catch(err => console.error(err));
+        .then(() => pushSubDir(projectDir))
+        .catch(err => console.error(err));
+}
 
+function deployProd() {
+    new Promise(resolve => {
+        if (!fs.existsSync(prodBuildDir)) {
+            fs.mkdirSync(prodBuildDir);
+        }
+        rimraf(path.join(prodBuildDir, '*'), () => {
+            deepCopyDirectory(path.resolve('build'), prodBuildDir);
+            logger.print(`Copied build to production build directory (${prodBuildDirName}).`, true);
+            resolve();
+        })
+    })
+        .then(() => pushSubDir(prodBuildDir))
+        .catch(err => console.error(err));
+}
 
 function pushSubDir(dir) {
     return Promise.resolve()

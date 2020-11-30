@@ -1,0 +1,5 @@
+.box {
+    display: inline-block;
+    position: relative;
+    box-sizing: border-box;
+}

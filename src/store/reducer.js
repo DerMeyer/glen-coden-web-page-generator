@@ -3,11 +3,6 @@ import { ActionTypes } from './actions';
 
 const reducer = (state, action) => {
     switch (action.type) {
-        case ActionTypes.SHOW_APP:
-            return {
-                ...state,
-                showApp: true
-            };
         case ActionTypes.RESIZE:
             return {
                 ...state,
@@ -16,6 +11,14 @@ const reducer = (state, action) => {
                 breakPointType: action.breakPointType,
                 deviceType: action.deviceType,
                 orientationType: action.orientationType
+            };
+        case ActionTypes.ALL_COMPS_INITIATED:
+            if (!state.loading.length) {
+                trackingService.pageLoaded();
+            }
+            return {
+                ...state,
+                allCompsInitiated: true
             };
         case ActionTypes.START_LOADING:
             return {

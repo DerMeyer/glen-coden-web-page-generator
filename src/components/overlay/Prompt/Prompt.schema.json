@@ -1,0 +1,47 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "#Prompt",
+    "title": "Prompt",
+    "type": "object",
+    "properties": {
+        "from": {
+            "type": "string",
+            "default": "top"
+        },
+        "height": {
+            "type": "number"
+        },
+        "offset": {
+            "type": "number",
+            "default": 0
+        },
+        "showAfter": {
+            "type": "number",
+            "default": 3
+        },
+        "showFor": {
+            "type": "number",
+            "default": 120
+        },
+        "animationDuration": {
+            "type": "number",
+            "default": 1
+        },
+        "bg": {
+            "type": "string"
+        },
+        "color": {
+            "type": "string"
+        },
+        "fromGlobal": {
+            "type": "array",
+            "items": {
+                "type": [ "string", "object" ]
+            },
+            "default": [
+                "contentSize",
+                "maxContentWidth"
+            ]
+        }
+    }
+}

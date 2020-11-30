@@ -1,0 +1,10 @@
+.Input {
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    border-bottom: 1px solid #5D5D61;
+    outline: none;
+}
+
+.Input:hover {
+    border: 1px solid #5D5D61;
+}

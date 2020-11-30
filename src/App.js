@@ -8,19 +8,29 @@ import Project from './_Project';
 
 export default function App() {
     const { state, dispatch } = useContext(Store);
-    const { getProps, setBreakpointType } = configService;
-    const globProps = getProps();
 
-    console.log('APP RUNS');// TODO remove dev code
+    configService.setBreakpointType(state.breakPointType);
 
-    useEffect(() => setBreakpointType(state.breakPointType), [ setBreakpointType, state.breakPointType ]);
+    const { global, theme } = configService.getProps();
+
+    console.log('APP (state): ', JSON.stringify(state, null, 4));// TODO remove dev code
 
     useEffect(() => {
-        document.body.style.fontSize = `${globProps.fontSizes.body}px`;
-        document.body.style.backgroundColor = globProps.colors[globProps.bgColor];
+        dispatch(actions.allCompsInitiated());
 
-        window.setTimeout(() => dispatch(actions.showApp()), globProps.fadeInTime * 1000);
-        window.setTimeout(() => dispatch(actions.loadingTimeout()), globProps.loadingTimeout * 1000);
+        document.body.style.backgroundColor = global.bg;
+
+        if (theme.fonts && theme.fonts.body) {
+            document.body.style.fontFamily = theme.fonts.body;
+        }
+        if (theme.fontWeights && theme.fontWeights.body) {
+            document.body.style.fontWeight = theme.fontWeights.body;
+        }
+        if (theme.lineHeights && theme.lineHeights.body) {
+            document.body.style.lineHeight = theme.lineHeights.body;
+        }
+
+        window.setTimeout(() => dispatch(actions.loadingTimeout()), global.loadingTimeout * 1000);
 
         const resizeApp = event => dispatch(actions.resize(event.target.innerWidth, event.target.innerHeight));
 
@@ -31,12 +41,12 @@ export default function App() {
             window.removeEventListener('resize', resizeApp);
             window.removeEventListener('orientationchange', resizeApp);
         };
-    }, [ dispatch, globProps ]);
+    }, [ dispatch, global, theme ]);
 
     return (
         <div style={{
-            opacity: state.showApp ? '1' : '0',
-            transition: `opacity ${globProps.fadeInTime}s`
+            opacity: state.allCompsInitiated ? '1' : '0',
+            transition: `opacity ${global.fadeInTime}s`
         }}>
             <Project/>
         </div>

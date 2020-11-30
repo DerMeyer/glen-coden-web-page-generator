@@ -15,10 +15,13 @@ const optimizerDir = path.resolve(...optimizerDirSegments);
 const publicDir = path.resolve(...publicDirSegments);
 const sourceDir = path.resolve(...sourceDirSegments);
 
+const api = 'http://116.202.99.153/api';
+
 module.exports = {
     projectsDir,
     generatorDir,
     optimizerDir,
     publicDir,
-    sourceDir
+    sourceDir,
+    api
 };

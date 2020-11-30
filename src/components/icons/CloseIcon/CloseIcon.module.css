@@ -1,0 +1,18 @@
+.CloseIcon {
+    position: relative;
+}
+
+.StrokeOne,
+.StrokeTwo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}
+
+.StrokeOne {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.StrokeTwo {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}

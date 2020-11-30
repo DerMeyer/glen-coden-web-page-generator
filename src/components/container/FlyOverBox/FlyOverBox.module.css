@@ -1,0 +1,9 @@
+.FlyOverBox {
+    position: relative;
+    overflow: hidden;
+}
+
+.Content {
+    position: absolute;
+    width: 100%;
+}

@@ -1,50 +1,55 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useCallback, useState } from 'react';
 import s from './LoadingOverlay.module.css';
 import Store from '../../../store/Store';
+import cx from 'classnames';
 
-import ThreeDotsLoadingIcon from '../../partial/icons/ThreeDotsLoadingIcon/ThreeDotsLoadingIcon';
-
-LoadingOverlay.defaultProps = {
-    global: {
-        fadeInTime: 0.2,
-        colors: {}
-    },
-    css: {}
-};
+import ThreeDotsLoadingIcon from '../../icons/ThreeDotsLoadingIcon/ThreeDotsLoadingIcon';
+import Overlay from '../Overlay/Overlay';
 
 
-export default function LoadingOverlay({ fadeInTime, overlayColor, iconColor, css }) {
+export default function LoadingOverlay({ fadeInTime, color, bg }) {
     const { state } = useContext(Store);
 
-    const [ visible, setVisible ] = useState(true);
+    const [ visible, setVisible ] = useState(false);
+    const [ iconFadedIn, setIconFadedIn ] = useState(false);
+
+    const onOverlayClosed = useCallback(
+        () => setVisible(false),
+        []
+    );
 
     if (!visible) {
         if (state.loading.length) {
             setVisible(true);
         }
+        if (iconFadedIn) {
+            setIconFadedIn(false);
+        }
         return null;
     }
 
     return (
-        <div
-            className={s.overlay}
-            style={{
-                backgroundColor: overlayColor,
-                opacity: state.loading.length ? '1' : '0',
-                transition: `opacity ${state.loading.length ? 0 : fadeInTime}s`,
-                ...css
-            }}
-            onTransitionEnd={() => setVisible(false)}
+        <Overlay
+            color={bg}
+            fadeTime={state.loading.length ? 0 : fadeInTime}
+            onFadeOut={onOverlayClosed}
+            doClose={state.loading.length === 0}
+            initVisible
         >
             {state.loading.length
                 ? (
-                    <ThreeDotsLoadingIcon
-                        size={Math.round(state.vw / 15)}
-                        color={iconColor}
-                    />
+                    <div
+                        className={cx(s.iconBox, { [s.fadedIn]: iconFadedIn })}
+                        onAnimationEnd={() => setIconFadedIn(true)}
+                    >
+                        <ThreeDotsLoadingIcon
+                            size={Math.min(Math.round(state.vw / 15), 80)}
+                            color={color}
+                        />
+                    </div>
                 )
                 : null
             }
-        </div>
+        </Overlay>
     );
 }

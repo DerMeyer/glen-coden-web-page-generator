@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "#Button",
+    "title": "Button",
+    "type": "object",
+    "properties": {
+        "variant": {
+            "type": "string"
+        },
+        "text": {
+            "type": ["string", "object"]
+        }
+    }
+}

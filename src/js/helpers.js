@@ -4,7 +4,6 @@ export const BreakPointTypes = {
     MOBILE_PORTRAIT: 'mobile-portrait',
     MOBILE_LANDSCAPE: 'mobile-landscape',
     TABLET: 'tablet',
-    DESKTOP_MIN: 'desktop-small',
     DESKTOP: 'desktop',
     DESKTOP_MAX: 'desktop-max'
 };
@@ -22,11 +21,10 @@ export const OrientationTypes = {
 // maps
 
 export const BreakPoints = {
-    [BreakPointTypes.MOBILE_PORTRAIT]: 450,
-    [BreakPointTypes.MOBILE_LANDSCAPE]: 850,
-    [BreakPointTypes.TABLET]: 1050,
-    [BreakPointTypes.DESKTOP_MIN]: 1250,
-    [BreakPointTypes.DESKTOP]: 2000,
+    [BreakPointTypes.MOBILE_PORTRAIT]: 576,
+    [BreakPointTypes.MOBILE_LANDSCAPE]: 768,
+    [BreakPointTypes.TABLET]: 992,
+    [BreakPointTypes.DESKTOP]: 1200,
     [BreakPointTypes.DESKTOP_MAX]: Infinity
 };
 
@@ -34,6 +32,11 @@ export const BreakPoints = {
 
 export function isObject(value) {
     return value !== null && typeof value !== 'function' && typeof value === 'object' && !Array.isArray(value);
+}
+
+export function isEmail(str) {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(str).toLowerCase());
 }
 
 export function deepCompare(value1, value2) {

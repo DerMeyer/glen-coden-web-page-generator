@@ -3,7 +3,7 @@ import styles from './ZoomBackground.module.css';
 import Store from '../../../store/Store';
 import { DeviceTypes } from '../../../js/helpers';
 
-import Image from '../../partial/Image/Image';
+import Image from '../../rebox/Image/Image';
 
 ZoomBackground.defaultProps = {
     css: {},

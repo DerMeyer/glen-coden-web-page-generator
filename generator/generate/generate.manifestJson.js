@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs');
 
 function generateManifestJson(sourceDir, projectDir, targetDir) {
-    const PROJ_CONFIG = require(path.join(sourceDir, 'dev-project-config'));
+    const PROJ_CONFIG = require(path.join(sourceDir, '_config'));
 
     return new Promise(resolve => {
         const availableFiles = fs
@@ -38,8 +38,8 @@ function generateManifestJson(sourceDir, projectDir, targetDir) {
             icons,
             start_url: '.',
             display: 'standalone',
-            theme_color: PROJ_CONFIG.global.colors[PROJ_CONFIG.global.themeColor],
-            background_color: PROJ_CONFIG.global.colors[PROJ_CONFIG.global.bgColor]
+            theme_color: PROJ_CONFIG.theme.colors[PROJ_CONFIG.global.bg],
+            background_color: PROJ_CONFIG.theme.colors[PROJ_CONFIG.global.bg]
         };
 
         fs.writeFileSync(path.join(targetDir, 'manifest.json'), JSON.stringify(manifest, null, 4));

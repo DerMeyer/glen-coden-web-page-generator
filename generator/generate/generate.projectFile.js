@@ -3,7 +3,7 @@ const fs = require('fs');
 const componentsList = require('../components-list');
 
 function generateProjectFile(sourceDir, targetDir) {
-    const PROJ_CONFIG = require(path.join(sourceDir, 'dev-project-config'));
+    const PROJ_CONFIG = require(path.join(sourceDir, '_config'));
     const componentsMap = PROJ_CONFIG.components;
 
     return new Promise(resolve => {
@@ -40,10 +40,15 @@ function generateProjectFile(sourceDir, targetDir) {
 function listProjectComponents(componentsMap) {
     const list = [];
     componentsMap.forEach(entry => {
+        if (typeof entry === 'string') {
+            return;
+        }
         list.push(entry.component);
-        listProjectComponents(entry.children).forEach(child => {
-            list.push(child);
-        });
+        if (entry.children) {
+            listProjectComponents(entry.children).forEach(child => {
+                list.push(child);
+            });
+        }
     });
     return list;
 }
@@ -51,7 +56,9 @@ function listProjectComponents(componentsMap) {
 function createJsx(componentsMap, depth) {
     let jsx = '';
     componentsMap.forEach(entry => {
-        if (entry.children.length === 0) {
+        if (typeof entry === 'string') {
+            jsx += `${'\t'.repeat(depth)}${entry}\n`;
+        } else if (!entry.children || entry.children.length === 0) {
             jsx += `${'\t'.repeat(depth)}<${entry.component} {...getProps('${entry.id}')} />\n`;
         } else {
             jsx += `${'\t'.repeat(depth)}<${entry.component} {...getProps('${entry.id}')}>\n`;

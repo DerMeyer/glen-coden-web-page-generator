@@ -54,6 +54,7 @@ export default function ZoomBox({ auto, factor, time, children }) {
         <div
             ref={boxRef}
             className={s.box}
+            onFocus={() => console.log('ZOOM BOX ON FOCUS') /* TODO implement zoom/shrink on focus/blur */ }
         >
             <div
                 className={s.shifter}

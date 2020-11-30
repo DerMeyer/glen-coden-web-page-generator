@@ -4,7 +4,7 @@ import reducer from './reducer';
 
 const initStore = initialState => {
     return {
-        showApp: false,
+        allCompsInitiated: false,
         loading: [],
         vw: window.innerWidth,
         vh: window.innerHeight,
@@ -19,7 +19,7 @@ const initStore = initialState => {
 const Store = createContext({});
 
 export function Provider({ initialState, children }) {
-    const [state, dispatch] = useReducer(reducer, initialState, initStore);
+    const [ state, dispatch ] = useReducer(reducer, initialState, initStore);
     return (
         <Store.Provider value={{ state, dispatch }}>
             {children}
