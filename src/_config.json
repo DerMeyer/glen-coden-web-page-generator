@@ -1,25 +1,24 @@
 {
-    "title": "Hainarbeit",
-    "description": "Shared working space by Volkspark Friedrichshain park in Berlin.",
+    "title": "Glen Coden App",
+    "description": "This app was created with Glen Coden Web Page Generator.",
     "global": {
         "fontTypes": [
             {
-                "name": "'Josefin Sans', 'sans-serif'",
-                "url": "https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap"
+                "name": "'Roboto', 'Arial', 'sans-serif'"
             }
         ],
         "contentSize": [
             {
                 "width": 0.9,
-                "height": 1
+                "height": 0.9
             },
             {
-                "width": 1,
-                "height": 1
+                "width": 0.8,
+                "height": 0.85
             }
         ],
         "pageWidth": 1,
-        "maxContentWidth": 1100,
+        "maxContentWidth": 2500,
         "bg": "white",
         "fadeInTime": 0.5,
         "loadingTimeout": 10,
@@ -35,16 +34,13 @@
         ],
         "fontSizes": [
             18,
-            22,
+            24,
             32,
             48,
             80
         ],
         "colors": {
             "black": "#000",
-            "lightgrey": "#EDEDED",
-            "darkgrey": "#5D5D61",
-            "heading": "#2F2E2E",
             "white": "#fff"
         },
         "space": [
@@ -58,9 +54,8 @@
             256
         ],
         "fonts": {
-            "body": "Josefin Sans",
-            "heading": "Josefin Sans",
-            "monospace": "Josefin Sans"
+            "body": "Roboto",
+            "heading": "Roboto"
         },
         "fontWeights": {
             "body": 300,
@@ -76,1015 +71,63 @@
             "small": "0 0 4px rgba(0, 0, 0, .125)",
             "large": "0 0 24px rgba(0, 0, 0, .125)"
         },
-        "text": {
-            "tileParagraph": {
-                "color": "darkgrey",
-                "fontSize": 1,
-                "m": 0
-            },
-            "tileHeading": {
-                "color": "black",
-                "fontSize": [
-                    3,
-                    4
-                ],
-                "fontWeight": 500,
-                "fontStyle": "italic",
-                "lineHeight": "small",
-                "m": 0,
-                "mt": [
-                    3,
-                    0
-                ]
-            },
-            "iconListParagraph": {
-                "color": "black",
-                "width": 0.8,
-                "fontSize": 0,
-                "ml": 3
-            }
-        },
-        "variants": {
-            "tileImage": {
-                "targetRatio": 1,
-                "subscribeToGlobalLoading": false,
-                "loadAfterGlobalLoading": true
-            },
-            "iconListSvg": {
-                "width": 60,
-                "color": "darkgrey"
-            },
-            "formInput": {
-                "height": 42,
-                "p": "3px",
-                "pl": "12px",
-                "mb": 4,
-                "fontSize": 0,
-                "fontWeight": 300,
-                "color": "darkgrey"
-            },
-            "formTextarea": {
-                "height": 126,
-                "pt": "12px",
-                "pr": "10px",
-                "pb": "3px",
-                "pl": "16px",
-                "mb": 4,
-                "fontSize": 0,
-                "fontWeight": 300,
-                "color": "darkgrey"
-            }
-        },
-        "buttons": {
-            "primary": {
-                "color": "darkgrey"
-            },
-            "navButton": {
-                "color": [
-                    "lightgrey",
-                    "darkgrey"
-                ],
-                "fontSize": 1,
-                "font": "body",
-                "fontStyle": "italic",
-                "ml": [
-                    0,
-                    5
-                ],
-                "mb": [
-                    3,
-                    0
-                ]
-            },
-            "footerButton": {
-                "color": "darkgrey",
-                "fontSize": 1,
-                "font": "body",
-                "fontStyle": "italic",
-                "pr": 3,
-                "ml": [
-                    0,
-                    5
-                ],
-                "mb": [
-                    3,
-                    0
-                ],
-                "mr": 3,
-                "css": {
-                    "borderRight": "1px solid #5D5D61"
-                }
-            }
-        }
+        "variants": {},
+        "text": {},
+        "buttons": {}
     },
     "components": [
         {
-            "component": "RouterRRD",
-            "id": "0yRVohDer",
+            "component": "Box",
+            "id": "gFFf3IoOT",
+            "width": 1,
             "children": [
                 {
-                    "component": "ClassicNav",
-                    "id": "ntBBYyq2j",
-                    "burger": [
-                        true,
-                        false
-                    ],
-                    "widthFactor": 1,
-                    "height": [
-                        90,
-                        150
-                    ],
-                    "split": 1,
-                    "burgerColor": "black",
-                    "overlayColor": "darkgrey",
-                    "bg": "white",
-                    "fromGlobal": [
-                        "contentSize",
-                        "maxContentWidth"
-                    ],
+                    "component": "ZoomBox",
+                    "id": "-zlxlpIfI",
                     "children": [
                         {
-                            "component": "LinkRRD",
-                            "id": "ldX0GekFw",
-                            "to": "/",
-                            "children": [
-                                {
-                                    "component": "Svg",
-                                    "id": "dwv339xKT",
-                                    "name": "Logo",
-                                    "color": "darkgrey",
-                                    "css": [
-                                        null,
-                                        null,
-                                        null,
-                                        null,
-                                        {
-                                            "position": "absolute",
-                                            "left": "50px",
-                                            "top": "50%",
-                                            "transform": "translateY(-50%)"
-                                        }
-                                    ],
-                                    "width": [
-                                        80,
-                                        110
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "component": "LinkRRD",
-                            "id": "quGLo2iwVL",
-                            "to": "/",
-                            "children": [
-                                {
-                                    "component": "Button",
-                                    "id": "TOyM6w_PJ",
-                                    "variant": "navButton",
-                                    "text": "Home"
-                                }
-                            ]
-                        },
-                        {
-                            "component": "LinkRRD",
-                            "id": "U4wf9_CAt2",
-                            "to": "/contact",
-                            "children": [
-                                {
-                                    "component": "Button",
-                                    "id": "OFt4WBWldN",
-                                    "variant": "navButton",
-                                    "text": {
-                                        "de": "Kontakt",
-                                        "en": "Contact"
-                                    }
-                                }
-                            ]
+                            "component": "Image",
+                            "id": "gcwq0hcKUy",
+                            "source": "images/background-image.jpg",
+                            "subscribeToGlobalLoading": false,
+                            "loadAfterGlobalLoading": false
                         }
                     ]
-                },
+                }
+            ]
+        },
+        {
+            "component": "Page",
+            "id": "tdC-AHvim-",
+            "rows": 0,
+            "minHeight": 0,
+            "fromGlobal": [
+                "contentSize",
+                "maxContentWidth",
+                "pageWidth",
+                "maxPageWidth"
+            ],
+            "children": [
                 {
-                    "component": "Prompt",
-                    "id": "z1UdXsWab",
-                    "from": "top",
-                    "offset": [
-                        90,
-                        150
-                    ],
-                    "showAfter": 2,
-                    "animationDuration": 0.7,
-                    "bg": "lightgrey",
-                    "color": "darkgrey",
-                    "fromGlobal": [
-                        "contentSize",
-                        "maxContentWidth"
-                    ],
-                    "children": [
-                        {
-                            "component": "Text",
-                            "id": "bGdaFAuN0Z",
-                            "color": "darkgrey",
-                            "fontSize": [
-                                0,
-                                1
-                            ],
-                            "px": [
-                                1,
-                                5
-                            ],
-                            "py": 4,
-                            "text": {
-                                "en": "The current corona hygiene guidelines are implemented in the HainArbeit. Distances of 1.5m are maintained and jointly used surfaces are disinfected. If you are interested, we will be happy to give you more information.",
-                                "de": "Die aktuellen Corona-Hygiene-Richtlinien werden in der HainArbeit umgesetzt. Abstände von 1,5m werden eingehalten, sowie gemeinsam genutzte Oberflächen desinfiziert. Bei Interesse geben wir dazu gerne Auskunft."
-                            }
-                        }
-                    ]
-                },
-                {
-                    "component": "RouteRRD",
-                    "id": "BKRQ_-l5Y",
-                    "path": "/",
-                    "children": [
-                        {
-                            "component": "Page",
-                            "id": "WWtuJKCxV",
-                            "rows": 0,
-                            "minHeight": 0,
-                            "fromGlobal": [
-                                "contentSize",
-                                "maxContentWidth",
-                                "pageWidth",
-                                "maxPageWidth"
-                            ],
-                            "children": [
-                                {
-                                    "component": "Image",
-                                    "id": "_MbT9niG7",
-                                    "source": "images/10-2020-banner.jpg",
-                                    "subscribeToGlobalLoading": true,
-                                    "loadAfterGlobalLoading": false
-                                },
-                                {
-                                    "component": "Grid",
-                                    "id": "38n9CaCDE",
-                                    "gridTemplate": [
-                                        "auto / 1fr",
-                                        "1fr 1fr 1fr / 1fr 1fr 1fr"
-                                    ],
-                                    "columnGap": [
-                                        0,
-                                        4
-                                    ],
-                                    "rowGap": [
-                                        4,
-                                        6
-                                    ],
-                                    "mx": [
-                                        0,
-                                        5
-                                    ],
-                                    "my": [
-                                        4,
-                                        6
-                                    ],
-                                    "children": [
-                                        {
-                                            "component": "Heading",
-                                            "id": "pwjwhljT62",
-                                            "text": {
-                                                "de": "AR**BEI**TEN",
-                                                "en": "WORK,**WORK,**WORK"
-                                            },
-                                            "as": "h1",
-                                            "variant": "tileHeading"
-                                        },
-                                        {
-                                            "component": "Box",
-                                            "id": "ScvxHbHhYE",
-                                            "width": 1,
-                                            "children": [
-                                                {
-                                                    "component": "Text",
-                                                    "id": "OPv3mbDjZ",
-                                                    "text": {
-                                                        "de": "Willkommen in der HainArbeit!",
-                                                        "en": "Welcome to HainArbeit!"
-                                                    },
-                                                    "variant": "tileParagraph"
-                                                },
-                                                {
-                                                    "component": "Text",
-                                                    "id": "KYXMs6oQ2L",
-                                                    "text": {
-                                                        "de": "Bist du auf Suche nach einem hellen Arbeitsplatz mit Blick ins Grüne? Das Coworking HainArbeit direkt am Volkspark Friedrichshain, freut sich über neue Gesichter!",
-                                                        "en": "Are you looking for a bright comfy workspace with a view? HainArbeit Coworking directly at Volkspark Friedrichshain wants your friendly face."
-                                                    },
-                                                    "variant": "tileParagraph"
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "component": "Image",
-                                            "id": "J_VhMt6isl",
-                                            "source": "images/10-2020-at-angle.jpg",
-                                            "variant": "tileImage"
-                                        },
-                                        {
-                                            "component": "Heading",
-                                            "id": "Rca3J4YoL4",
-                                            "text": {
-                                                "de": "GRÜN**BABY**GRÜN",
-                                                "en": "GREEN**BABY**GREEN"
-                                            },
-                                            "as": "h1",
-                                            "variant": "tileHeading",
-                                            "css": [
-                                                null,
-                                                {
-                                                    "gridColumn": "3 / 4"
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "component": "Text",
-                                            "id": "dnwGRdENOn",
-                                            "text": {
-                                                "de": "Mit Blick in den grünen Volkspark könnt ihr euch hier in gemütlicher Atmosphäre mit anderen Freelancer*innen aus unterschiedlichsten Bereichen austauschen und zusammenarbeiten - momentan Grafikdesigner, Coder und Journalisten.",
-                                                "en": "With a view into green Volkspark you can work in a comfy atmosphere with other freelancers from different areas. We are graphic designers, journalists and music label owners."
-                                            },
-                                            "variant": "tileParagraph",
-                                            "css": [
-                                                null,
-                                                {
-                                                    "gridColumn": "1 / 2",
-                                                    "gridRow": 2
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "component": "Image",
-                                            "id": "_pnvB4V_q4",
-                                            "source": "images/10-2020-three-desks.jpg",
-                                            "sourceRatio": 0.75,
-                                            "variant": "tileImage",
-                                            "css": [
-                                                null,
-                                                {
-                                                    "gridColumn": "2 / 3",
-                                                    "gridRow": 2
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "component": "Heading",
-                                            "id": "b8sGErO7l8",
-                                            "text": {
-                                                "de": "ALLES**DABEI**ALLES",
-                                                "en": "ALL,**ALL,**IN..."
-                                            },
-                                            "as": "h1",
-                                            "variant": "tileHeading"
-                                        },
-                                        {
-                                            "component": "Text",
-                                            "id": "ImILUopG3L",
-                                            "text": {
-                                                "de": "Du kannst einen Hot Desk (flexibler Tisch) auf Tagesbasis, aber auch einen festen Tisch auf Monatsbasis mieten.",
-                                                "en": "You can rent a hot desk (flexible) or on a monthly base."
-                                            },
-                                            "variant": "tileParagraph"
-                                        },
-                                        {
-                                            "component": "Image",
-                                            "id": "jNDoUP3Lfu",
-                                            "source": "images/10-2020-far-desk.jpg",
-                                            "sourceRatio": 0.75,
-                                            "variant": "tileImage"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "component": "FlyOverBox",
-                            "id": "fxTwMcnBK",
-                            "height": [
-                                0,
-                                "50%"
-                            ],
-                            "maxHeight": 550,
-                            "children": [
-                                {
-                                    "component": "Image",
-                                    "id": "FXT5inW2v",
-                                    "source": "images/10-2020-plant.jpg",
-                                    "subscribeToGlobalLoading": false,
-                                    "loadAfterGlobalLoading": true
-                                }
-                            ]
-                        },
-                        {
-                            "component": "Page",
-                            "id": "nMyMSYVpl",
-                            "rows": 0,
-                            "minHeight": 0,
-                            "fromGlobal": [
-                                "contentSize",
-                                "maxContentWidth",
-                                "pageWidth",
-                                "maxPageWidth"
-                            ],
-                            "children": [
-                                {
-                                    "component": "Grid",
-                                    "id": "TqIohSvjQ",
-                                    "gridTemplate": [
-                                        "auto / 1fr",
-                                        "auto / 1fr 1fr 1fr"
-                                    ],
-                                    "columnGap": 5,
-                                    "rowGap": [
-                                        1,
-                                        4
-                                    ],
-                                    "mx": [
-                                        0,
-                                        5
-                                    ],
-                                    "my": [
-                                        5,
-                                        6
-                                    ],
-                                    "children": [
-                                        {
-                                            "component": "Flex",
-                                            "id": "zVkK9my4Yf",
-                                            "alignItems": "center",
-                                            "width": 1,
-                                            "p": 2,
-                                            "children": [
-                                                {
-                                                    "component": "Svg",
-                                                    "id": "2kzIIX1btg",
-                                                    "name": "Desk",
-                                                    "variant": "iconListSvg"
-                                                },
-                                                {
-                                                    "component": "Heading",
-                                                    "id": "E5us9Z4jwa",
-                                                    "as": "h4",
-                                                    "variant": "iconListParagraph",
-                                                    "text": {
-                                                        "de": "großer Schreibtisch**(125 x 80 cm)",
-                                                        "en": "large desk**(125 x 80 cm)"
-                                                    }
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "component": "Flex",
-                                            "id": "Elj2tLmP7A",
-                                            "alignItems": "center",
-                                            "width": 1,
-                                            "p": 2,
-                                            "children": [
-                                                {
-                                                    "component": "Svg",
-                                                    "id": "sHN0N3Bka2",
-                                                    "name": "Rollcontainer",
-                                                    "variant": "iconListSvg"
-                                                },
-                                                {
-                                                    "component": "Text",
-                                                    "id": "birMHD_m-B",
-                                                    "variant": "iconListParagraph",
-                                                    "text": {
-                                                        "de": "Rollcontainer",
-                                                        "en": "roll container"
-                                                    }
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "component": "Flex",
-                                            "id": "vCU5HkYlRp",
-                                            "alignItems": "center",
-                                            "width": 1,
-                                            "p": 2,
-                                            "children": [
-                                                {
-                                                    "component": "Svg",
-                                                    "id": "RhCPSbYeKa",
-                                                    "name": "Wifiicon",
-                                                    "variant": "iconListSvg"
-                                                },
-                                                {
-                                                    "component": "Text",
-                                                    "id": "KmFC5vm3xJ",
-                                                    "variant": "iconListParagraph",
-                                                    "text": {
-                                                        "en": "High Speed WLAN (250 Mbit/s)"
-                                                    }
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "component": "Flex",
-                                            "id": "bOzDEAWG5-",
-                                            "alignItems": "center",
-                                            "width": 1,
-                                            "p": 2,
-                                            "children": [
-                                                {
-                                                    "component": "Svg",
-                                                    "id": "Iq3vJInyEw",
-                                                    "name": "Oekostrom",
-                                                    "variant": "iconListSvg"
-                                                },
-                                                {
-                                                    "component": "Text",
-                                                    "id": "CmBQP9xCei",
-                                                    "variant": "iconListParagraph",
-                                                    "text": {
-                                                        "de": "Ökostrom",
-                                                        "en": "green electricity"
-                                                    }
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "component": "Flex",
-                                            "id": "QVOeSl2T9L",
-                                            "alignItems": "center",
-                                            "width": 1,
-                                            "p": 2,
-                                            "children": [
-                                                {
-                                                    "component": "Svg",
-                                                    "id": "Tkpom0E6RA",
-                                                    "name": "Coffee",
-                                                    "variant": "iconListSvg"
-                                                },
-                                                {
-                                                    "component": "Text",
-                                                    "id": "HdEvGSUebEn",
-                                                    "variant": "iconListParagraph",
-                                                    "text": {
-                                                        "de": "Fairtrade Kaffee / Tee Flatrate",
-                                                        "en": "fairtrade coffee / tea flat rate"
-                                                    }
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "component": "Flex",
-                                            "id": "lwbVzHpSHmZ",
-                                            "alignItems": "center",
-                                            "width": 1,
-                                            "p": 2,
-                                            "children": [
-                                                {
-                                                    "component": "Svg",
-                                                    "id": "2pyszWv74tC",
-                                                    "name": "Meeting",
-                                                    "variant": "iconListSvg"
-                                                },
-                                                {
-                                                    "component": "Text",
-                                                    "id": "2FAGjw-6__S",
-                                                    "variant": "iconListParagraph",
-                                                    "text": {
-                                                        "de": "Meeting-Raum",
-                                                        "en": "meeting room"
-                                                    }
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "component": "Flex",
-                                            "id": "sgC4KkRJQFB",
-                                            "alignItems": "center",
-                                            "width": 1,
-                                            "p": 2,
-                                            "children": [
-                                                {
-                                                    "component": "Svg",
-                                                    "id": "qDA1nkiRB9F",
-                                                    "name": "Telefon",
-                                                    "variant": "iconListSvg"
-                                                },
-                                                {
-                                                    "component": "Text",
-                                                    "id": "JOGv7prSGdt",
-                                                    "variant": "iconListParagraph",
-                                                    "text": {
-                                                        "de": "Telefonier-Raum",
-                                                        "en": "telephone room"
-                                                    }
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "component": "Flex",
-                                            "id": "Cwb_DsEGekb",
-                                            "alignItems": "center",
-                                            "width": 1,
-                                            "p": 2,
-                                            "children": [
-                                                {
-                                                    "component": "Svg",
-                                                    "id": "mAl9bCwPzgr",
-                                                    "name": "Reinigung",
-                                                    "variant": "iconListSvg"
-                                                },
-                                                {
-                                                    "component": "Text",
-                                                    "id": "syYADb-EI57",
-                                                    "variant": "iconListParagraph",
-                                                    "text": {
-                                                        "de": "wöchentliche Reinigung",
-                                                        "en": "weekly cleaning"
-                                                    }
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "component": "Flex",
-                                            "id": "QYiBTIEl2WO",
-                                            "alignItems": "center",
-                                            "width": 1,
-                                            "p": 2,
-                                            "children": [
-                                                {
-                                                    "component": "Svg",
-                                                    "id": "qT16HeWV1bM",
-                                                    "name": "Kitchen",
-                                                    "variant": "iconListSvg"
-                                                },
-                                                {
-                                                    "component": "Text",
-                                                    "id": "aDA_yaXcUyC",
-                                                    "variant": "iconListParagraph",
-                                                    "text": {
-                                                        "de": "Küche mit Herd, Ofen, Geschirrspüler und Mikrowelle",
-                                                        "en": "kitchen with stove, oven, dishwasher and microwave"
-                                                    }
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "component": "Flex",
-                                            "id": "2MEkYVcs0j5",
-                                            "alignItems": "center",
-                                            "width": 1,
-                                            "p": 2,
-                                            "children": [
-                                                {
-                                                    "component": "Svg",
-                                                    "id": "U3uv6SeA6Yo",
-                                                    "name": "Garten",
-                                                    "variant": "iconListSvg"
-                                                },
-                                                {
-                                                    "component": "Text",
-                                                    "id": "KvVMEWguibs",
-                                                    "variant": "iconListParagraph",
-                                                    "text": {
-                                                        "de": "ruhiger grüner Garten im Hinterhof",
-                                                        "en": "quiet green garden in the backyard"
-                                                    }
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "component": "Flex",
-                                            "id": "j5nusEA_UHN",
-                                            "alignItems": "center",
-                                            "width": 1,
-                                            "p": 2,
-                                            "children": [
-                                                {
-                                                    "component": "Svg",
-                                                    "id": "irtf5IJSnea",
-                                                    "name": "Verkehr",
-                                                    "variant": "iconListSvg"
-                                                },
-                                                {
-                                                    "component": "Heading",
-                                                    "id": "gmOK2dmbCSg",
-                                                    "as": "h4",
-                                                    "variant": "iconListParagraph",
-                                                    "text": {
-                                                        "de": "beste Verkehrsanbindung**10 min zum Alexanderplatz**25 min zum Hauptbahnhof",
-                                                        "en": "best transport connection**10 min to Alexanderplatz**25 min to central station"
-                                                    }
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "component": "Flex",
-                                            "id": "IVoFpsbsT",
-                                            "alignItems": "center",
-                                            "width": 1,
-                                            "p": 2,
-                                            "children": [
-                                                {
-                                                    "component": "Svg",
-                                                    "id": "1Nrx_sYzdM",
-                                                    "name": "Preis",
-                                                    "variant": "iconListSvg",
-                                                    "width": 40
-                                                },
-                                                {
-                                                    "component": "Heading",
-                                                    "id": "D6sUFFN5D1",
-                                                    "as": "h4",
-                                                    "variant": "iconListParagraph",
-                                                    "text": {
-                                                        "de": "260€ pro Monat**15€ pro Tag",
-                                                        "en": "260€ per month**15€ per day"
-                                                    }
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "component": "RouteRRD",
-                    "id": "KOtuqTFEmS",
-                    "path": "/contact",
-                    "children": [
-                        {
-                            "component": "Page",
-                            "id": "Lgq6xwTfI",
-                            "rows": 0,
-                            "maxContentWidth": 850,
-                            "fromGlobal": [
-                                "contentSize",
-                                "pageWidth",
-                                "maxPageWidth"
-                            ],
-                            "children": [
-                                {
-                                    "component": "Heading",
-                                    "id": "ueHld_ZfK",
-                                    "text": {
-                                        "en": "BE IN**TOUCH"
-                                    },
-                                    "color": "black",
-                                    "fontSize": [
-                                        3,
-                                        4
-                                    ],
-                                    "fontWeight": 500,
-                                    "fontStyle": "italic",
-                                    "lineHeight": "small",
-                                    "as": "h1",
-                                    "my": [
-                                        3,
-                                        5
-                                    ]
-                                },
-                                {
-                                    "component": "Form",
-                                    "id": "63T59I0gF",
-                                    "width": 1,
-                                    "mb": [
-                                        5,
-                                        6
-                                    ],
-                                    "submitTo": "/",
-                                    "children": [
-                                        {
-                                            "component": "Input",
-                                            "id": "BoyeZJCn2",
-                                            "name": "name",
-                                            "variant": "formInput",
-                                            "width": [
-                                                1,
-                                                0.48
-                                            ]
-                                        },
-                                        {
-                                            "component": "Input",
-                                            "id": "RiU4GMQOk",
-                                            "name": "from",
-                                            "variant": "formInput",
-                                            "width": [
-                                                1,
-                                                0.48
-                                            ],
-                                            "ml": [
-                                                null,
-                                                "4%"
-                                            ]
-                                        },
-                                        {
-                                            "component": "Input",
-                                            "id": "2MgiBmAE1",
-                                            "name": "subject",
-                                            "variant": "formInput",
-                                            "width": 1
-                                        },
-                                        {
-                                            "component": "Textarea",
-                                            "id": "fQsmsu24-",
-                                            "name": "text",
-                                            "variant": "formTextarea",
-                                            "width": 1
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "component": "GoogleMaps",
-                            "id": "zSZ45Quld",
-                            "height": [
-                                420,
-                                645
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "component": "RouteRRD",
-                    "id": "y99SRYKXV",
-                    "path": "/dsgvo",
-                    "children": [
-                        {
-                            "component": "Page",
-                            "id": "mCwnJ9hRzv",
-                            "rows": 0,
-                            "minHeight": 0,
-                            "fromGlobal": [
-                                "contentSize",
-                                "maxContentWidth",
-                                "pageWidth",
-                                "maxPageWidth"
-                            ],
-                            "children": [
-                                {
-                                    "component": "Heading",
-                                    "id": "5M3QK1Iuac",
-                                    "text": {
-                                        "de": "Datenschutz",
-                                        "en": "Data Protection"
-                                    },
-                                    "as": "h1",
-                                    "fontSize": 2,
-                                    "my": [
-                                        4,
-                                        5
-                                    ]
-                                },
-                                {
-                                    "component": "Text",
-                                    "id": "nOMhpjKmW",
-                                    "mb": [
-                                        5,
-                                        6
-                                    ],
-                                    "text": {
-                                        "de": "Impressum\n\nAngaben gemäß § 5 TMG\n\nHainArbeit\nDanziger Straße 207\n10407 Berlin\n\nVertreten durch: \nFabian Kuss\n\nHaftungsausschluss:\n\nHaftung für Inhalte\n\nDie Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen. Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen. Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.\n\nHaftung für Links\n\nUnser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar. Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.\n\nUrheberrecht\n\nDie durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers. Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet. Soweit die Inhalte auf dieser Seite nicht vom Betreiber erstellt wurden, werden die Urheberrechte Dritter beachtet. Insbesondere werden Inhalte Dritter als solche gekennzeichnet. Sollten Sie trotzdem auf eine Urheberrechtsverletzung aufmerksam werden, bitten wir um einen entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Inhalte umgehend entfernen.\n\nDatenschutz\n\nDie Nutzung unserer Webseite ist in der Regel ohne Angabe personenbezogener Daten möglich. Soweit auf unseren Seiten personenbezogene Daten (beispielsweise Name, Anschrift oder eMail-Adressen) erhoben werden, erfolgt dies, soweit möglich, stets auf freiwilliger Basis. Diese Daten werden ohne Ihre ausdrückliche Zustimmung nicht an Dritte weitergegeben.\nWir weisen darauf hin, dass die Datenübertragung im Internet (z.B. bei der Kommunikation per E-Mail) Sicherheitslücken aufweisen kann. Ein lückenloser Schutz der Daten vor dem Zugriff durch Dritte ist nicht möglich.\nDer Nutzung von im Rahmen der Impressumspflicht veröffentlichten Kontaktdaten durch Dritte zur Übersendung von nicht ausdrücklich angeforderter Werbung und Informationsmaterialien wird hiermit ausdrücklich widersprochen. Die Betreiber der Seiten behalten sich ausdrücklich rechtliche Schritte im Falle der unverlangten Zusendung von Werbeinformationen, etwa durch Spam-Mails, vor.\n\nnImpressum vom impressum-generator.de der Kanzlei \"Hasselbach Rechtsanwälte\"",
-                                        "en": "Imprint\n\nInformation according to § 5 TMG\n\nHainArbeit\nDanzig Street 207\n10407 Berlin\n\n\nRepresented by: \nFabian Kuss\n\n\nDisclaimer of liability:\n\nLiability for contents\n\nThe contents of our pages were created with the greatest care. However, we cannot assume any liability for the correctness, completeness and topicality of the contents. As a service provider, we are responsible for our own content on these pages in accordance with § 7 para. 1 TMG (German Telemedia Act) and general laws. According to §§ 8 to 10 TMG we are not obliged to monitor transmitted or stored information from third parties or to investigate circumstances that indicate illegal activity. Obligations to remove or block the use of information according to general laws remain unaffected. However, liability in this respect is only possible from the time of knowledge of a concrete infringement. If we become aware of any such violations, we will remove the content in question immediately.\n\nLiability for links\n\nOur offer contains links to external websites of third parties, on whose contents we have no influence. Therefore we cannot assume any liability for these external contents. The respective provider or operator of the sites is always responsible for the contents of the linked sites. The linked pages were checked for possible legal violations at the time of linking. Illegal contents were not identified at the time of linking. However, a permanent control of the contents of the linked pages is not reasonable without concrete evidence of a violation of the law. If we become aware of any infringements, we will remove such links immediately.\n\nCopyright\n\nThe contents and works on these pages created by the site operators are subject to German copyright law. The reproduction, editing, distribution and any kind of use outside the limits of copyright law require the written consent of the respective author or creator. Downloads and copies of these pages are only permitted for private, non-commercial use. Insofar as the content on this site was not created by the operator, the copyrights of third parties are observed. In particular, third-party content is identified as such. Should you nevertheless become aware of a copyright infringement, please inform us accordingly. If we become aware of any infringements, we will remove such contents immediately.\n\nData protection\n\nThe use of our website is usually possible without providing personal data. As far as personal data (e.g. name, address or e-mail addresses) is collected on our website, this is always done on a voluntary basis, as far as possible. This data will not be passed on to third parties without your express consent.\nWe would like to point out that data transmission over the Internet (e.g. communication by e-mail) can have security gaps. A complete protection of data against access by third parties is not possible.\nThe use by third parties of contact data published within the framework of the imprint obligation for the purpose of sending advertising and information material not expressly requested is hereby expressly prohibited. The operators of the site expressly reserve the right to take legal action in the event that unsolicited advertising information is sent, for example by spam mail.\n\nImprint of impressum-generator.de of the law firm \"Hasselbach Rechtsanwälte"
-                                    }
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "component": "Page",
-                    "id": "rW77vMZYK",
-                    "bg": "lightgrey",
-                    "fromGlobal": [
-                        "contentSize",
-                        "maxContentWidth",
-                        "pageWidth",
-                        "maxPageWidth"
-                    ],
-                    "children": [
-                        {
-                            "component": "Flex",
-                            "id": "xKEyB287f",
-                            "flexDirection": [
-                                "column-reverse",
-                                "row"
-                            ],
-                            "justifyContent": "space-between",
-                            "alignItems": "center",
-                            "css": [
-                                {
-                                    "height": "240px"
-                                },
-                                {
-                                    "height": "300px"
-                                }
-                            ],
-                            "children": [
-                                {
-                                    "component": "LinkRRD",
-                                    "id": "A81ZPXubQ",
-                                    "to": "/contact",
-                                    "children": [
-                                        {
-                                            "component": "Heading",
-                                            "id": "ucld5gbqf",
-                                            "text": [
-                                                "",
-                                                {
-                                                    "en": "BE IN**TOUCH"
-                                                }
-                                            ],
-                                            "color": "black",
-                                            "fontSize": [
-                                                3,
-                                                3
-                                            ],
-                                            "fontWeight": 500,
-                                            "fontStyle": "italic",
-                                            "lineHeight": "small",
-                                            "as": "h1"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "component": "Heading",
-                                    "id": "sFP4ERokG",
-                                    "as": "h4",
-                                    "color": "darkgrey",
-                                    "fontStyle": "italic",
-                                    "lineHeight": [
-                                        1.5,
-                                        1.8
-                                    ],
-                                    "pb": [
-                                        3,
-                                        0
-                                    ],
-                                    "text": "Danziger Strasse 207**10407 Berlin**hainarbeit@gmail.com"
-                                },
-                                {
-                                    "component": "Flex",
-                                    "id": "sS08q6Lyj",
-                                    "pt": [
-                                        4,
-                                        0
-                                    ],
-                                    "children": [
-                                        {
-                                            "component": "LinkRRD",
-                                            "id": "zt3oPGjoz",
-                                            "to": "/dsgvo",
-                                            "children": [
-                                                {
-                                                    "component": "Button",
-                                                    "id": "e3g9zrAMp",
-                                                    "text": {
-                                                        "de": "Impressum",
-                                                        "en": "Imprint"
-                                                    },
-                                                    "variant": "footerButton"
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "component": "Link",
-                                            "id": "JvnX7oPpq",
-                                            "url": "https://www.instagram.com/hainarbeit_coworking",
-                                            "children": [
-                                                {
-                                                    "component": "Svg",
-                                                    "id": "ahUw8Md0y",
-                                                    "name": "Instagram",
-                                                    "color": "darkgrey",
-                                                    "width": 30
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
+                    "component": "Heading",
+                    "id": "U_imrJF3bI",
+                    "text": {
+                        "en": "Welcome to Glen Coden Generator"
+                    },
+                    "as": "h1"
                 }
             ]
         },
         {
             "component": "LoadingOverlay",
-            "id": "fkLCSJAq9",
-            "color": "black",
-            "bg": "white",
+            "id": "UMfCKlUt3v",
+            "color": "",
+            "bg": "",
             "fromGlobal": [
                 "fadeInTime"
             ]
         }
     ],
-    "_lastUpdated": "2020-11-26T13:57:51.164Z",
+    "_lastUpdated": "2020-11-30T20:05:11.327Z",
     "initialState": {}
 }
