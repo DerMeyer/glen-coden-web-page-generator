@@ -4,14 +4,6 @@
     "title": "Page",
     "type": "object",
     "properties": {
-        "rows": {
-            "type": "number",
-            "default": 0
-        },
-        "minHeight": {
-            "type": [ "number", "string" ],
-            "default": 0
-        },
         "fromGlobal": {
             "type": "array",
             "items": {

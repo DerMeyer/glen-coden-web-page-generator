@@ -79,47 +79,12 @@
     "components": [
         {
             "component": "Page",
-            "id": "tdC-AHvim-",
-            "rows": 1,
-            "minHeight": 0,
-            "fromGlobal": [
-                "contentSize",
-                "maxContentWidth",
-                "pageWidth",
-                "maxPageWidth"
-            ],
-            "children": [
-                {
-                    "component": "ZoomBackground",
-                    "id": "VrTuk-wbO",
-                    "image": "images/background-image.jpg",
-                    "auto": false,
-                    "factor": 4,
-                    "time": 0.5
-                },
-                {
-                    "component": "Heading",
-                    "color": "white",
-                    "fontSize": 4,
-                    "fontType": "heading",
-                    "id": "U_imrJF3bI",
-                    "text": {
-                        "en": "Welcome to*Glen Coden*Generator"
-                    },
-                    "as": "h1"
-                }
-            ]
-        },
-        {
-            "component": "LoadingOverlay",
-            "id": "UMfCKlUt3v",
-            "color": "black",
-            "bg": "white",
-            "fromGlobal": [
-                "fadeInTime"
-            ]
+            "id": "qG-i9mgzs",
+            "bg": "images/background-image.jpg",
+            "fadeInTime": 3,
+            "children": []
         }
     ],
-    "_lastUpdated": "2020-11-30T20:49:13.940Z",
+    "_lastUpdated": "2020-12-05T17:05:47.449Z",
     "initialState": {}
 }

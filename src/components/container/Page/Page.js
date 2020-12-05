@@ -7,52 +7,78 @@ Page.defaultProps = {
         width: 0.8,
         height: 0.9
     },
-    pageWidth: 1,
-    maxContentWidth: 2500
+    maxContentWidth: 1200,
+    pageWidth: 1
 };
 
+// Loader by Image children
+// useStore hook, or how do you do it with redux?
 
-export default function Page({ contentSize, maxContentWidth, pageWidth, maxPageWidth, rows, minHeight, bg, css, children }) {
+export default function Page({ contentSize, maxContentWidth, pageWidth, maxPageWidth, minHeight, rows, columns, bg, fadeInTime, css, children }) {
     const { state } = useContext(Store);
     const { vw, vh } = state;
-    const { width, height } = contentSize;
 
-    const [ style, setStyle ] = useState({});
+    const [ mounted, setMounted ] = useState(false);
+    const [ style, setStyle ] = useState(fadeInTime ? { opacity: 0, transition: `opacity ${fadeInTime}s ease` } : {});
 
     useEffect(() => {
-        const w = pageWidth * vw;
-        const h = height * vh;
-        const contentWidth = width * vw;
+        if (!fadeInTime) {
+            return;
+        }
+        setMounted(true);
+    }, [ fadeInTime ]);
+
+    useEffect(() => {
+        const fullWidth = pageWidth * vw;
+        const contentWidth = contentSize.width * vw;
+        const contentHeight = contentSize.height * vh;
 
         const r = {};
 
-        if (maxPageWidth && w > maxPageWidth) {
+        if (maxPageWidth && fullWidth > maxPageWidth) {
             r.width = `${maxPageWidth}px`;
             r.margin = `0 ${(vw - maxPageWidth) / 2}px`;
         } else {
-            r.width = `${w}px`;
-            if (w !== vw) {
-                r.margin = `0 ${(vw - w) / 2}px`;
+            r.width = `${fullWidth}px`;
+            if (fullWidth !== vw) {
+                r.margin = `0 ${(vw - fullWidth) / 2}px`;
             }
         }
 
-        r.padding = `${(vh - h) / 2}px ${((w - contentWidth) / 2) + (Math.max((contentWidth - maxContentWidth), 0) / 2)}px`;
+        r.padding = `${(vh - contentHeight) / 2}px ${((fullWidth - contentWidth) / 2) + (Math.max((contentWidth - maxContentWidth), 0) / 2)}px`;
 
-        if (rows) {
+        if (typeof minHeight === 'number') {
+            r.minHeight = `${vh}px`;
+        } else if (typeof minHeight === 'string' && minHeight.endsWith('vh')) {
+            r.minHeight = `${Number(minHeight.slice(0, -2)) / 100 * vh}px`;
+        } else {
+            r.minHeight = `${vh}px`;
+        }
+
+        if (rows || columns) {
             r.display = 'grid';
-            r.gridTemplateRows = `repeat(${rows}, minmax(${h / rows}px, auto))`;
+        }
+        if (rows) {
+            r.gridTemplateRows = `repeat(${rows}, minmax(${contentHeight / rows}px, auto))`;
+        }
+        if (columns) {
+            r.gridTemplateColumns = `repeat(${columns}, minmax(${Math.min(contentWidth, maxContentWidth) / columns}px, auto))`;
         }
 
-        if (minHeight) {
-            if (minHeight === 'viewport') {
-                r.minHeight = `${vh}px`;
+        if (typeof bg === 'string') {
+            if ([ '.png', '.jpg', '.jpeg', '.JPG' ].some(type => bg.endsWith(type))) {
+                r.backgroundImage = `url("${bg}")`;
+                r.backgroundRepeat = 'no-repeat';
+                r.backgroundPosition = 'center';
+                r.backgroundSize = 'cover';
             } else {
-                r.minHeight = `${minHeight}px`;
+                r.backgroundColor = bg;
             }
         }
 
-        if (bg) {
-            r.backgroundColor = bg;
+        if (fadeInTime) {
+            r.opacity = mounted ? 1 : 0;
+            r.transition = `opacity ${fadeInTime}s ease`;
         }
 
         if (css) {
@@ -60,11 +86,11 @@ export default function Page({ contentSize, maxContentWidth, pageWidth, maxPageW
             return;
         }
         setStyle(r);
-    }, [ width, height, vw, vh, maxContentWidth, pageWidth, maxPageWidth, rows, minHeight, bg, css ]);
+    }, [ vw, vh, contentSize.width, contentSize.height, maxContentWidth, pageWidth, maxPageWidth, minHeight, rows, columns, bg, fadeInTime, css, mounted ]);
 
     return (
         <section
-            className={s.page}
+            className={s.Page}
             style={style}
         >
             {children}

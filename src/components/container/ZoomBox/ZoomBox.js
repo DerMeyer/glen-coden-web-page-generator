@@ -16,7 +16,19 @@ export default function ZoomBox({ auto, doZoom, factor, time, children }) {
     const [ shift, setShift ] = useState({ x: 0, y: 0 });
 
     const grow = useCallback(() => setActive(true), []);
-    const shrink = useCallback(() => setActive(false), []);
+    const shrink = useCallback(event => {
+        console.log(event);// TODO remove dev code
+        if (event && event.target) {
+            const { x, y, width, height } = boxRef.current.getBoundingClientRect();
+            if (
+                (event.target.pageX > x && event.target.pageX < x + width)
+                || (event.target.pageY > y && event.target.pageY < y + height)
+            ) {
+                return;
+            }
+        }
+        setActive(false);
+    }, []);
 
     const calcShift = useCallback(
         event => {
@@ -36,19 +48,19 @@ export default function ZoomBox({ auto, doZoom, factor, time, children }) {
             grow();
             return;
         }
-        const box = boxRef.current;
-        console.log(boxRef.current.getBoundingClientRect());// TODO remove dev code
         const onMousemove = event => {
             grow();
             calcShift(event);
         };
+        const onMouseLeave = event => shrink(event);
+        const box = boxRef.current;
         box.addEventListener('mousemove', onMousemove);
-        box.addEventListener('blur', shrink);
-        box.addEventListener('mouseleave', shrink);
+        box.addEventListener('mouseleave', onMouseLeave);
+        window.addEventListener('blur', shrink);
         return () => {
             box.removeEventListener('mousemove', onMousemove);
-            box.removeEventListener('blur', shrink);
             box.removeEventListener('mouseleave', shrink);
+            window.removeEventListener('blur', shrink);
         };
     }, [ auto, grow, shrink, calcShift ]);
 
