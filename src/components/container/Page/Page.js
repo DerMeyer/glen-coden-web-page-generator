@@ -11,8 +11,6 @@ Page.defaultProps = {
     pageWidth: 1
 };
 
-// Loader by Image children
-// useStore hook, or how do you do it with redux?
 
 export default function Page({ contentSize, maxContentWidth, pageWidth, maxPageWidth, minHeight, rows, columns, bg, fadeInTime, css, children }) {
     const { state } = useContext(Store);

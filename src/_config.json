@@ -82,9 +82,35 @@
             "id": "qG-i9mgzs",
             "bg": "images/background-image.jpg",
             "fadeInTime": 3,
-            "children": []
+            "children": [
+                {
+                    "component": "ViewportBox",
+                    "id": "BFXb0oVGN",
+                    "width": 95,
+                    "height": 50,
+                    "center": true,
+                    "children": [
+                        {
+                            "component": "Box",
+                            "id": "OXMXN179dl",
+                            "bg": "lime",
+                            "width": 1,
+                            "height": 300,
+                            "children": []
+                        }
+                    ]
+                },
+                {
+                    "component": "Box",
+                    "id": "2liuXsozQ",
+                    "bg": "blue",
+                    "width": 1,
+                    "height": 300,
+                    "children": []
+                }
+            ]
         }
     ],
-    "_lastUpdated": "2020-12-05T17:05:47.449Z",
+    "_lastUpdated": "2020-12-05T18:22:14.443Z",
     "initialState": {}
 }
