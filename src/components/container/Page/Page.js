@@ -46,11 +46,9 @@ export default function Page({ contentSize, maxContentWidth, pageWidth, maxPageW
         r.padding = `${(vh - contentHeight) / 2}px ${((fullWidth - contentWidth) / 2) + (Math.max((contentWidth - maxContentWidth), 0) / 2)}px`;
 
         if (typeof minHeight === 'number') {
-            r.minHeight = `${vh}px`;
+            r.minHeight = `${minHeight}px`;
         } else if (typeof minHeight === 'string' && minHeight.endsWith('vh')) {
-            r.minHeight = `${Number(minHeight.slice(0, -2)) / 100 * vh}px`;
-        } else {
-            r.minHeight = `${vh}px`;
+            r.minHeight = `${Math.round(Number(minHeight.slice(0, -2)) / 100 * vh)}px`;
         }
 
         if (rows || columns) {

@@ -1,12 +1,12 @@
 import React, { useRef, useState, useCallback, useEffect } from 'react';
 import s from './Prompt.module.css';
 import cx from 'classnames';
-import useViewportSize from '../../../hooks/useViewportSize';
+import useSize from '../../../hooks/useSize';
 import CloseIcon from '../../icons/CloseIcon/CloseIcon';
 
 
 export default function Prompt({ from, height, offset, showAfter, showFor, animationDuration, stopContentPropagation, bg, color, contentSize, maxContentWidth, css, children }) {
-    const { vw } = useViewportSize();
+    const [ vw ] = useSize('100vw');
 
     const promptRef = useRef(null);
 
