@@ -1,5 +1,7 @@
 import { requestService, trackingService } from '../../index';
-import { mapToBreakpointType, applyTheme, getPropsFromGlobal } from './util';
+import getValueForBreakpoint from './lib/getValueForBreakpoint';
+import applyReboxTheme from './lib/applyReboxTheme';
+import addPropsFromGlobal from './lib/addPropsFromGlobal';
 import PROJ_INFO from '../../project-info.json';
 import DEV_CONFIG from '../../_config.json';
 
@@ -61,7 +63,7 @@ class ConfigService {
     _createTheme(config) {
         const theme = {};
         Object.keys(config).forEach(key => {
-            theme[key] = mapToBreakpointType(key, config[key], this.breakPointType);
+            theme[key] = getValueForBreakpoint(key, config[key], this.breakPointType);
         });
         if (theme.variants) {
             this._createVariants(theme.variants, theme);
@@ -79,18 +81,18 @@ class ConfigService {
         Object.keys(variants).forEach(key => {
             const v = {};
             Object.keys(variants[key]).forEach(k => {
-                v[k] = mapToBreakpointType(k, variants[key][k], this.breakPointType);
+                v[k] = getValueForBreakpoint(k, variants[key][k], this.breakPointType);
             });
-            applyTheme(v, theme);
+            applyReboxTheme(v, theme);
             variants[key] = v;
         });
     }
 
     _createGlobal(config) {
         Object.keys(config).forEach(key => {
-            this.global[key] = mapToBreakpointType(key, config[key], this.breakPointType);
+            this.global[key] = getValueForBreakpoint(key, config[key], this.breakPointType);
         });
-        applyTheme(this.global, this.theme);
+        applyReboxTheme(this.global, this.theme);
     }
 
     _createComponents(components) {
@@ -98,11 +100,11 @@ class ConfigService {
             const mappedComp = {};
             Object.keys(c).forEach(key => {
                 const value = c[key];
-                mappedComp[key] = mapToBreakpointType(key, value, this.breakPointType);
+                mappedComp[key] = getValueForBreakpoint(key, value, this.breakPointType);
             });
-            const comp = getPropsFromGlobal(mappedComp, this.global);
+            const comp = addPropsFromGlobal(mappedComp, this.global);
             delete comp.initialState;
-            applyTheme(comp, this.theme);
+            applyReboxTheme(comp, this.theme);
             this.components[comp.id] = { ...comp };
             if (Array.isArray(comp.children) && comp.children.length) {
                 this._createComponents(comp.children);

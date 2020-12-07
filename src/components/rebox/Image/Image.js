@@ -4,6 +4,15 @@ import useOptimalSource from '../../../hooks/useOptimalSource';
 import useGlobalLoading from '../../../hooks/useGlobalLoading';
 
 
+// width, height, src, srcRatio, targetRatio, awaitLoad, priority, css
+
+// useSize
+
+// subscribe
+// update
+// each case returns Promise that resolves to a source
+// >> useImageService or usePromise?
+
 export default function Image({ source, width, height, sourceRatio, targetRatio, className, css, subscribeToGlobalLoading, loadAfterGlobalLoading }) {
     const box = useRef(null);
     const image = useRef(null);

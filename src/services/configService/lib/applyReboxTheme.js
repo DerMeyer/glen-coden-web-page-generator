@@ -1,48 +1,13 @@
-import { BreakPointTypes, isObject } from '../../js/helpers';
+import { isObject } from '../../../js/helpers';
 
-const isTypeArray = [
-    'fontTypes',
-    'fontSizes',
-    'space',
-    'fromGlobal'
-];
-
-const excludeFromMapping = [
-    'breakpoints',
-    'children'
-];
-
-const valueLengthToBreakpointIndex = [
-    [ 0, 0, 1, 1, 1 ],
-    [ 0, 1, 2, 2, 2 ],
-    [ 0, 1, 2, 3, 3 ],
-    [ 0, 1, 2, 3, 4 ]
-];
-
-export function mapToBreakpointType(key, value, type) {
-    if (
-        !Array.isArray(value)
-        || (isTypeArray.includes(key) && !Array.isArray(value[0]))
-        || excludeFromMapping.includes(key)
-    ) {
-        return value;
-    }
-    if (value.length < 2) {
-        return value[0];
-    }
-    const indices = valueLengthToBreakpointIndex[value.length - 2];
-    const valIndex = indices[Object.values(BreakPointTypes).indexOf(type)];
-    return value[valIndex];
-}
-
-export function applyTheme(config, theme) {
+function applyReboxTheme(config, theme) {
     if (!isObject(config) || !isObject(theme)) {
         return;
     }
     Object.keys(config).forEach(k => {
         const v = config[k];
         if (isObject(v)) {
-            applyTheme(v, theme);
+            applyReboxTheme(v, theme);
             return;
         }
         if (k === 'fontSize' && typeof v === 'number') {
@@ -120,26 +85,4 @@ export function applyTheme(config, theme) {
     });
 }
 
-export function getPropsFromGlobal(element, global) {
-    Object.keys(element).forEach(k => {
-        if (k === 'fromGlobal') {
-            [].concat(element[k]).forEach(e => {
-                if (isObject(e)) {
-                    const { key, value, property } = e;
-                    if (typeof property === 'undefined') {
-                        element[key] = global[value];
-                        return;
-                    }
-                    element[key] = global[value][property];
-                    return;
-                }
-                element[e] = global[e];
-                delete element[k];
-            });
-        }
-        if (isObject(element[k])) {
-            element[k] = getPropsFromGlobal(element[k], global);
-        }
-    });
-    return element;
-}
+export default applyReboxTheme;
