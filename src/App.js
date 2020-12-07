@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import Store from './store/Store';
 import actions from './store/actions';
-import { configService } from './index';
+import { configService, imageService, trackingService } from './index';
 
 import Project from './_Project';
 
@@ -16,7 +16,15 @@ export default function App() {
     console.log('APP (state): ', JSON.stringify(state, null, 4));// TODO remove dev code
 
     useEffect(() => {
-        dispatch(actions.allCompsInitiated());
+        Promise.all([
+            new Promise(resolve => {
+                imageService.onAllCompsInitiated(resolve, global.loadingTimeout);
+            })
+        ])
+            .then(() => {
+                trackingService.pageLoaded();
+                dispatch(actions.onInitialViewComplete());
+            });
 
         document.body.style.backgroundColor = global.bg;
 
@@ -29,8 +37,6 @@ export default function App() {
         if (theme.lineHeights && theme.lineHeights.body) {
             document.body.style.lineHeight = theme.lineHeights.body;
         }
-
-        window.setTimeout(() => dispatch(actions.loadingTimeout()), global.loadingTimeout * 1000);
 
         const resizeApp = event => dispatch(actions.resize(event.target.innerWidth, event.target.innerHeight));
 
@@ -45,7 +51,7 @@ export default function App() {
 
     return (
         <div style={{
-            opacity: state.allCompsInitiated ? '1' : '0',
+            opacity: state.initialViewComplete ? '1' : '0',
             transition: `opacity ${global.fadeInTime}s`
         }}>
             <Project/>

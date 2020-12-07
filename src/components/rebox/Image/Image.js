@@ -13,14 +13,14 @@ import useGlobalLoading from '../../../hooks/useGlobalLoading';
 // each case returns Promise that resolves to a source
 // >> useImageService or usePromise?
 
-export default function Image({ source, width, height, sourceRatio, targetRatio, className, css, subscribeToGlobalLoading, loadAfterGlobalLoading }) {
+export default function Image({ width, height, src, srcRatio, targetRatio, awaitLoad, priority, className, css }) {
     const box = useRef(null);
     const image = useRef(null);
 
     const [ sizeBy, setSizeBy ] = useState('width');
 
-    const [ startGL, stopGL, doneGL ] = useGlobalLoading();
-    const [ optimalSource, requestOptimalSource ] = useOptimalSource();
+    //const [ startGL, stopGL, doneGL ] = useGlobalLoading();
+    //const [ optimalSource, requestOptimalSource ] = useOptimalSource();
 
     const calcSizeBy = useCallback(
         (imgWidth, imgHeight, boxWidth, boxHeight, targetRatio) => {
@@ -36,36 +36,6 @@ export default function Image({ source, width, height, sourceRatio, targetRatio,
         },
         []
     );
-
-    const onLoad = useCallback(
-        event => {
-            stopGL();
-            calcSizeBy(event.target.width, event.target.height, width, height, targetRatio);
-        },
-        [ stopGL, calcSizeBy, width, height, targetRatio ]
-    );
-
-    useEffect(() => {
-        if (subscribeToGlobalLoading) {
-            startGL();
-        }
-    }, [ startGL, subscribeToGlobalLoading ]);
-
-    useEffect(() => {
-        if (loadAfterGlobalLoading && !doneGL) {
-            return;
-        }
-        if (typeof width !== 'number') {
-            if (box.current) {
-                const e = box.current.getBoundingClientRect();
-                requestOptimalSource(source, e.width, e.height, sourceRatio);
-                return;
-            }
-            requestOptimalSource(source);
-            return;
-        }
-        requestOptimalSource(source, width, height, sourceRatio);
-    }, [ loadAfterGlobalLoading, doneGL, requestOptimalSource, source, width, height, sourceRatio ]);
 
     useEffect(() => {
         if (!image.current) {
@@ -95,14 +65,13 @@ export default function Image({ source, width, height, sourceRatio, targetRatio,
             className={`${s.imageBox}${className ? ` ${className}` : ''}`}
             style={boxStyle}
         >
-            {optimalSource && (
+            {src && (
                 <img
                     ref={image}
                     className={s.image}
                     style={{ [sizeBy]: '100%' }}
-                    src={optimalSource}
-                    alt={optimalSource}
-                    onLoad={onLoad}
+                    src={src}
+                    alt={src}
                 />
             )}
         </div>

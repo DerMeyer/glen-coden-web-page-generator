@@ -1,5 +1,5 @@
 import shortid from 'shortid';
-import { imageIdentifier, pageIdentifier, findImageIds } from './lib/util';
+import { imageIdentifier, findImageIds } from './lib/util';
 
 // caching
 
@@ -13,41 +13,44 @@ import { imageIdentifier, pageIdentifier, findImageIds } from './lib/util';
 // loading order, load for unrendered routes
 
 
+// width, height, src, srcRatio, targetRatio, awaitLoad, priority
+
+
 // LoadingService? Two Services?
 class ImageService {
+    pages = [];
     images = {};
-    pages = {};
-    initialViewLoaded = false;
+    cachedSources = {};
 
     init() {
         console.log('init ImageService');// TODO remove dev code
     }
 
-    onAllCompsInitiated() {
-        // get page nodes
-        // start working!
+    onAllCompsInitiated(onInitialViewComplete, timeout) {
+        console.log('ALL COMPS INIT IN IMAGE SERVICE: ', this.pages);// TODO remove dev code
+
+        onInitialViewComplete();
     }
 
-    subscribeImage(image) {
-        const id = `${imageIdentifier}${shortid.generate()}`;
+    subscribePage(pageNode, onImagesComplete) {
+        this.pages.push({
+            imageIds: findImageIds(pageNode),
+            onImagesComplete
+        });
+    }
 
-        this.images[id] = image;
+    subscribeImage(props) {
+        const id = imageIdentifier + shortid.generate();
+
+        this.images[id] = {
+            ...props
+        };
 
         return id;
     }
 
     updateImage(id, props) {
 
-    }
-
-    subscribePage(pageNode) {
-        const id = `${pageIdentifier}${shortid.generate()}`;
-
-        this.pages[id] = {
-            imageIds: findImageIds(pageNode)
-        };
-
-        return id;
     }
 }
 

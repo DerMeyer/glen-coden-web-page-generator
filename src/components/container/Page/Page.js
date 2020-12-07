@@ -1,6 +1,7 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useRef, useState, useEffect } from 'react';
 import s from './Page.module.css';
 import Store from '../../../store/Store';
+import { imageService } from '../../../index';
 
 Page.defaultProps = {
     contentSize: {
@@ -16,8 +17,15 @@ export default function Page({ contentSize, maxContentWidth, pageWidth, maxPageW
     const { state } = useContext(Store);
     const { vw, vh } = state;
 
+    const pageRef = useRef(null);
+
     const [ mounted, setMounted ] = useState(false);
+    const [ loadComplete, setLoadComplete ] = useState(false);
     const [ style, setStyle ] = useState(fadeInTime ? { opacity: 0, transition: `opacity ${fadeInTime}s ease` } : {});
+
+    useEffect(() => {
+        imageService.subscribePage(pageRef.current, () => setLoadComplete(true));
+    }, []);
 
     useEffect(() => {
         if (!fadeInTime) {
@@ -84,8 +92,11 @@ export default function Page({ contentSize, maxContentWidth, pageWidth, maxPageW
         setStyle(r);
     }, [ vw, vh, contentSize.width, contentSize.height, maxContentWidth, pageWidth, maxPageWidth, minHeight, rows, columns, bg, fadeInTime, css, mounted ]);
 
+    console.log(loadComplete ? 'PAGE HAS LOADED' : 'PAGE LOADING');// TODO remove dev code
+
     return (
         <section
+            ref={pageRef}
             className={s.Page}
             style={style}
         >

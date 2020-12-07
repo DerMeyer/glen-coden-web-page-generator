@@ -1,4 +1,3 @@
-import { trackingService } from '../index';
 import { ActionTypes } from './actions';
 
 const reducer = (state, action) => {
@@ -12,33 +11,10 @@ const reducer = (state, action) => {
                 deviceType: action.deviceType,
                 orientationType: action.orientationType
             };
-        case ActionTypes.ALL_COMPS_INITIATED:
-            if (!state.loading.length) {
-                trackingService.pageLoaded();
-            }
+        case ActionTypes.ON_INITIAL_VIEW_COMPLETE:
             return {
                 ...state,
-                allCompsInitiated: true
-            };
-        case ActionTypes.START_LOADING:
-            return {
-                ...state,
-                loading: [ ...state.loading, action.id ]
-            };
-        case ActionTypes.STOP_LOADING:
-            const loading = [ ...state.loading ];
-            loading.splice(state.loading.indexOf(action.id), 1);
-            if (!loading.length) {
-                trackingService.pageLoaded();
-            }
-            return {
-                ...state,
-                loading
-            };
-        case ActionTypes.LOADING_TIMEOUT:
-            return {
-                ...state,
-                loading: []
+                initialViewComplete: true
             };
         default:
             return state;

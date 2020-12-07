@@ -4,8 +4,7 @@ import reducer from './reducer';
 
 const initStore = initialState => {
     return {
-        allCompsInitiated: false,
-        loading: [],
+        initialViewComplete: false,
         vw: window.innerWidth,
         vh: window.innerHeight,
         breakPointType: getBreakPointType(),

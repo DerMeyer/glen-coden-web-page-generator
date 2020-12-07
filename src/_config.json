@@ -106,11 +106,20 @@
                     "bg": "blue",
                     "width": 1,
                     "height": 300,
-                    "children": []
+                    "children": [
+                        {
+                            "component": "Image",
+                            "id": "Rgsrb6GB5",
+                            "src": "images/background-image.jpg",
+                            "width": 300,
+                            "awaitLoad": true,
+                            "priority": 1
+                        }
+                    ]
                 }
             ]
         }
     ],
-    "_lastUpdated": "2020-12-06T11:33:19.098Z",
+    "_lastUpdated": "2020-12-07T15:31:03.975Z",
     "initialState": {}
 }

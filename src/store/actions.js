@@ -2,10 +2,7 @@ import { getBreakPointType, getDeviceType, getOrientationType } from '../js/help
 
 export const ActionTypes = {
     RESIZE: 'resize',
-    ALL_COMPS_INITIATED: 'all-comps-initiated',
-    START_LOADING: 'start-loading',
-    STOP_LOADING: 'stop-loading',
-    LOADING_TIMEOUT: 'loading-timeout'
+    ON_INITIAL_VIEW_COMPLETE: 'on-initial-view-complete'
 };
 
 const actions = {
@@ -16,19 +13,8 @@ const actions = {
         deviceType: getDeviceType(),
         orientationType: getOrientationType()
     }),
-    allCompsInitiated: () => ({
-        type: ActionTypes.ALL_COMPS_INITIATED
-    }),
-    startLoading: id => ({
-        type: ActionTypes.START_LOADING,
-        id
-    }),
-    stopLoading: id => ({
-        type: ActionTypes.STOP_LOADING,
-        id
-    }),
-    loadingTimeout: () => ({
-        type: ActionTypes.LOADING_TIMEOUT
+    onInitialViewComplete: () => ({
+        type: ActionTypes.ON_INITIAL_VIEW_COMPLETE
     })
 };
 
