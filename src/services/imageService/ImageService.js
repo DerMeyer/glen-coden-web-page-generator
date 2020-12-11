@@ -13,11 +13,9 @@ import { imageIdentifier, findImageIds } from './lib/util';
 // set loading for parent pages
 // loading order, load for unrendered routes
 
+// how to deal with bg from css?
 
-// width, height, src, srcRatio, targetRatio, awaitLoad, priority
 
-
-// LoadingService? Two Services?
 class ImageService {
     pages = [];
     images = {};
@@ -41,6 +39,7 @@ class ImageService {
     }
 
     subscribeImage(props = {}) {
+        // width, height, src, srcRatio, targetRatio, awaitLoad, priority
         const id = imageIdentifier + shortid.generate();
         console.log('*** SUBSCRIBE', id);// TODO remove dev code
 

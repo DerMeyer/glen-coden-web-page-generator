@@ -185,17 +185,17 @@
                                     "component": "Box",
                                     "id": "AkUqV-ZcYq",
                                     "bg": "orange",
-                                    "width": 1,
+                                    "width": 0.3,
                                     "height": 300,
                                     "children": [
                                         {
                                             "component": "Image",
                                             "id": "2xNoeutL68",
                                             "src": "images/background-image.jpg",
-                                            "width": 200,
                                             "awaitLoad": true,
                                             "priority": 1,
-                                            "targetRatio": 0.5
+                                            "targetRatio": 0.5,
+                                            "width": "50%"
                                         }
                                     ]
                                 }
