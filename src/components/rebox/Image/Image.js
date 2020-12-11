@@ -7,11 +7,11 @@ import { imageService } from '../../../index';
 function Image({ width: w, height: h, src, srcRatio, targetRatio, awaitLoad, priority, className, css }) {
     console.log('IMAGE RUNS');// TODO remove dev code
 
-    const [ width, getWidth ] = useSize(w);
-    const [ height, getHeight ] = useSize(h);
-
     const boxRef = useRef(null);
     const imageRef = useRef(null);
+
+    const [ width, getWidth ] = useSize(w);
+    const [ height, getHeight ] = useSize(h);
 
     const [ id ] = useState(() => imageService.subscribeImage({ width, height, src, srcRatio, awaitLoad, priority }));
     const [ imageUrl, setImageUrl ] = useState('');
@@ -31,10 +31,10 @@ function Image({ width: w, height: h, src, srcRatio, targetRatio, awaitLoad, pri
                 reqWidth = boxSize.width;
                 reqHeight = boxSize.height;
             }
-            imageService.getImageUrl(id, { reqWidth, reqHeight, src, srcRatio, awaitLoad, priority })
+            imageService.getImageUrl({ id, width: reqWidth, height: reqHeight, src, srcRatio })
                 .then(url => setImageUrl(url));
         }, 0);
-    }, [ id, width, height, src, srcRatio, awaitLoad, priority ]);
+    }, [ id, width, height, src, srcRatio ]);
 
     useEffect(() => {
         setTimeout(() => {

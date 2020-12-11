@@ -1,3 +1,10 @@
+export const LoadingState = {
+    NONE: 'none',
+    LOADING: 'loading',
+    ERROR: 'error',
+    SUCCESS: 'success'
+};
+
 export const imageIdentifier = 'image-subscription-';
 
 export function findImageIds(node) {

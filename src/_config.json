@@ -190,10 +190,19 @@
                                     "children": [
                                         {
                                             "component": "Image",
-                                            "id": "2xNoeutL68",
+                                            "id": "U4ms7Vn4C",
                                             "src": "images/background-image.jpg",
                                             "awaitLoad": true,
                                             "priority": 1,
+                                            "targetRatio": 0.5,
+                                            "width": "50%"
+                                        },
+                                        {
+                                            "component": "Image",
+                                            "id": "2xNoeutL68",
+                                            "src": "images/background-image.jpg",
+                                            "awaitLoad": false,
+                                            "priority": 0,
                                             "targetRatio": 0.5,
                                             "width": "50%"
                                         }
@@ -206,6 +215,6 @@
             ]
         }
     ],
-    "_lastUpdated": "2020-12-11T11:31:56.288Z",
+    "_lastUpdated": "2020-12-11T17:45:18.347Z",
     "initialState": {}
 }
