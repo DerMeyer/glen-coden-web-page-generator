@@ -78,48 +78,134 @@
     },
     "components": [
         {
-            "component": "Page",
-            "id": "qG-i9mgzs",
-            "minHeight": "100vh",
-            "bg": "images/background-image.jpg",
-            "fadeInTime": 3,
+            "component": "RouterRRD",
+            "id": "8I_j0VhSL",
             "children": [
                 {
-                    "component": "SizeBox",
-                    "id": "j3CeZM9MF",
-                    "width": "97vw",
-                    "center": true,
+                    "component": "LinkRRD",
+                    "id": "a8llZqcm4D",
+                    "to": "/",
+                    "children": [
+                        "Home"
+                    ]
+                },
+                {
+                    "component": "LinkRRD",
+                    "id": "AXnFNnw4Eo",
+                    "to": "/other",
+                    "children": [
+                        "Other"
+                    ]
+                },
+                {
+                    "component": "RouteRRD",
+                    "id": "8GnJTjHOAO",
+                    "path": "/",
                     "children": [
                         {
-                            "component": "Box",
-                            "id": "OXMXN179dl",
-                            "bg": "lime",
-                            "width": 1,
-                            "height": 300,
-                            "children": []
+                            "component": "Page",
+                            "id": "qG-i9mgzs",
+                            "minHeight": "100vh",
+                            "bg": "images/background-image.jpg",
+                            "fadeInTime": 3,
+                            "children": [
+                                {
+                                    "component": "SizeBox",
+                                    "id": "j3CeZM9MF",
+                                    "width": "97vw",
+                                    "center": true,
+                                    "children": [
+                                        {
+                                            "component": "Box",
+                                            "id": "OXMXN179dl",
+                                            "bg": "lime",
+                                            "width": 1,
+                                            "height": 300,
+                                            "children": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "component": "Box",
+                                    "id": "2liuXsozQ",
+                                    "bg": "blue",
+                                    "width": 1,
+                                    "height": 300,
+                                    "children": [
+                                        {
+                                            "component": "Image",
+                                            "id": "Rgsrb6GB5",
+                                            "src": "images/background-image.jpg",
+                                            "width": 300,
+                                            "awaitLoad": true,
+                                            "priority": 1
+                                        }
+                                    ]
+                                }
+                            ]
                         }
                     ]
                 },
                 {
-                    "component": "Box",
-                    "id": "2liuXsozQ",
-                    "bg": "blue",
-                    "width": 1,
-                    "height": 300,
+                    "component": "RouteRRD",
+                    "id": "4zny0Np30h",
+                    "path": "/other",
                     "children": [
                         {
-                            "component": "Image",
-                            "id": "Rgsrb6GB5",
-                            "src": "images/background-image.jpg",
-                            "width": 300,
-                            "awaitLoad": true,
-                            "priority": 1
+                            "component": "Page",
+                            "id": "1pT7gcismz",
+                            "minHeight": "100vh",
+                            "bg": "images/background-image.jpg",
+                            "fadeInTime": 1,
+                            "fromGlobal": [
+                                "contentSize",
+                                "maxContentWidth",
+                                "pageWidth",
+                                "maxPageWidth"
+                            ],
+                            "children": [
+                                {
+                                    "component": "SizeBox",
+                                    "id": "3Ev5rtrtcl",
+                                    "width": "50vw",
+                                    "center": true,
+                                    "height": "50vh",
+                                    "children": [
+                                        {
+                                            "component": "Box",
+                                            "id": "dG9g5z72de",
+                                            "bg": "whitesmoke",
+                                            "width": 1,
+                                            "height": 300,
+                                            "children": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "component": "Box",
+                                    "id": "AkUqV-ZcYq",
+                                    "bg": "orange",
+                                    "width": 1,
+                                    "height": 300,
+                                    "children": [
+                                        {
+                                            "component": "Image",
+                                            "id": "2xNoeutL68",
+                                            "src": "images/background-image.jpg",
+                                            "width": 200,
+                                            "awaitLoad": true,
+                                            "priority": 1,
+                                            "targetRatio": 0.5
+                                        }
+                                    ]
+                                }
+                            ]
                         }
                     ]
                 }
             ]
         }
     ],
-    "_lastUpdated": "2020-12-07T15:31:03.975Z",
+    "_lastUpdated": "2020-12-11T11:31:56.288Z",
     "initialState": {}
 }

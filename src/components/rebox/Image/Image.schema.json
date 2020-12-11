@@ -4,16 +4,16 @@
     "title": "Image",
     "type": "object",
     "properties": {
-        "source": {
+        "src": {
             "type": "string"
         },
-        "subscribeToGlobalLoading": {
+        "awaitLoad": {
             "type": "boolean",
             "default": false
         },
-        "loadAfterGlobalLoading": {
-            "type": "boolean",
-            "default": false
+        "priority": {
+            "type": "number",
+            "default": 0
         }
     }
 }

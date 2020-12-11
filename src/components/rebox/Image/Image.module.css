@@ -1,11 +1,11 @@
-.imageBox {
+.ImageBox {
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
 }
 
-.image {
+.Image {
     flex-shrink: 0;
     object-fit: cover;
 }

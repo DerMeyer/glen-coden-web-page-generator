@@ -20,20 +20,20 @@ function calcStyle(width, height, center) {
 }
 
 
-export default function SizeBox({ width, height, center, children }) {
-    const [ returnWidth, getReturnWidth ] = useSize(width);
-    const [ returnHeight, getReturnHeight ] = useSize(height);
+export default function SizeBox({ width: w, height: h, center, children }) {
+    const [ width, getWidth ] = useSize(w);
+    const [ height, getHeight ] = useSize(h);
 
-    const [ style, setStyle ] = useState(calcStyle(returnWidth, returnHeight, center));
-
-    useEffect(() => {
-        getReturnWidth(width);
-        getReturnHeight(height);
-    }, [ getReturnWidth, getReturnHeight, width, height ]);
+    const [ style, setStyle ] = useState(() => calcStyle(width, height, center));
 
     useEffect(() => {
-        setStyle(calcStyle(returnWidth, returnHeight, center));
-    },[ returnWidth, returnHeight, center ]);
+        getWidth(w);
+        getHeight(h);
+    }, [ getWidth, getHeight, w, h ]);
+
+    useEffect(() => {
+        setStyle(calcStyle(width, height, center));
+    },[ width, height, center ]);
 
     return (
         <div style={style}>

@@ -16,26 +16,30 @@ export default function App() {
     console.log('APP (state): ', JSON.stringify(state, null, 4));// TODO remove dev code
 
     useEffect(() => {
-        Promise.all([
-            new Promise(resolve => {
-                imageService.onAllCompsInitiated(resolve, global.loadingTimeout);
-            })
-        ])
-            .then(() => {
-                trackingService.pageLoaded();
-                dispatch(actions.onInitialViewComplete());
-            });
+        if (!state.initialViewComplete) {
+            Promise.all([
+                new Promise(resolve => {
+                    imageService.onAllCompsInitiated(resolve, global.loadingTimeout);
+                })
+            ])
+                .then(() => {
+                    trackingService.pageLoaded();
+                    dispatch(actions.onInitialViewComplete());
+                });
 
-        document.body.style.backgroundColor = global.bg;
+            document.body.style.backgroundColor = global.bg;
 
-        if (theme.fonts && theme.fonts.body) {
-            document.body.style.fontFamily = theme.fonts.body;
-        }
-        if (theme.fontWeights && theme.fontWeights.body) {
-            document.body.style.fontWeight = theme.fontWeights.body;
-        }
-        if (theme.lineHeights && theme.lineHeights.body) {
-            document.body.style.lineHeight = theme.lineHeights.body;
+            if (theme.fonts && theme.fonts.body) {
+                document.body.style.fontFamily = theme.fonts.body;
+            }
+
+            if (theme.fontWeights && theme.fontWeights.body) {
+                document.body.style.fontWeight = theme.fontWeights.body;
+            }
+
+            if (theme.lineHeights && theme.lineHeights.body) {
+                document.body.style.lineHeight = theme.lineHeights.body;
+            }
         }
 
         const resizeApp = event => dispatch(actions.resize(event.target.innerWidth, event.target.innerHeight));
@@ -47,7 +51,7 @@ export default function App() {
             window.removeEventListener('resize', resizeApp);
             window.removeEventListener('orientationchange', resizeApp);
         };
-    }, [ dispatch, global, theme ]);
+    }, [ state.initialViewComplete, dispatch, global, theme ]);
 
     return (
         <div style={{

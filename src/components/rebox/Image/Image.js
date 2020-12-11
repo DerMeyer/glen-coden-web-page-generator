@@ -1,7 +1,7 @@
 import React, { useRef, useState, useCallback, useEffect } from 'react';
 import s from './Image.module.css';
-import useOptimalSource from '../../../hooks/useOptimalSource';
-import useGlobalLoading from '../../../hooks/useGlobalLoading';
+import { imageService } from '../../../index';
+import useSize from '../../../hooks/useSize';
 
 
 // width, height, src, srcRatio, targetRatio, awaitLoad, priority, css
@@ -13,65 +13,86 @@ import useGlobalLoading from '../../../hooks/useGlobalLoading';
 // each case returns Promise that resolves to a source
 // >> useImageService or usePromise?
 
-export default function Image({ width, height, src, srcRatio, targetRatio, awaitLoad, priority, className, css }) {
+
+export default function Image({ width: w, height: h, src, srcRatio, targetRatio, awaitLoad, priority, className, css }) {
+    console.log('IMAGE RUNS');// TODO remove dev code
+
+    const [ width, getWidth ] = useSize(w);
+    const [ height, getHeight ] = useSize(h);
+
     const box = useRef(null);
     const image = useRef(null);
 
+    const [ id ] = useState(() => imageService.subscribeImage({ width, height, src, srcRatio, awaitLoad, priority }));
+    const [ imageUrl, setImageUrl ] = useState('');
     const [ sizeBy, setSizeBy ] = useState('width');
 
-    //const [ startGL, stopGL, doneGL ] = useGlobalLoading();
-    //const [ optimalSource, requestOptimalSource ] = useOptimalSource();
+    useEffect(() => getWidth(w), [ getWidth, w ]);
+    useEffect(() => getHeight(h), [ getHeight, h ]);
+
+    useEffect(() => () => imageService.unsubscribeImage(id), [ id ]);
+
+    useEffect(() => {
+        imageService.getImageUrl(id, { width, height, src, srcRatio, awaitLoad, priority })
+            .then(url => setImageUrl(url));
+    }, [ id, width, height, src, srcRatio, awaitLoad, priority ]);
+
+
+    // WAIT FOR REF SIZE IF NO INPUT SIZE
+
 
     const calcSizeBy = useCallback(
-        (imgWidth, imgHeight, boxWidth, boxHeight, targetRatio) => {
-            if (!boxHeight) {
+        (imgWidth, imgHeight, targetWidth, targetHeight, targetRatio) => {
+            if (!targetHeight) {
                 setSizeBy(targetRatio < imgWidth / imgHeight ? 'height' : 'width');
                 return;
             }
-            if (!boxWidth) {
+            if (!targetWidth) {
                 setSizeBy(targetRatio > imgWidth / imgHeight ? 'width' : 'height');
                 return;
             }
-            setSizeBy((imgWidth / imgHeight) / (boxWidth / boxHeight) < 1 ? 'width' : 'height');
+            setSizeBy((imgWidth / imgHeight) / (targetWidth / targetHeight) < 1 ? 'width' : 'height');
         },
         []
     );
 
     useEffect(() => {
-        if (!image.current) {
-            return;
-        }
-        const e = image.current.getBoundingClientRect();
-        calcSizeBy(e.width, e.height, width, height, targetRatio);
+        setTimeout(() => {
+            if (!image.current) {
+                return;
+            }
+            const imgSize = image.current.getBoundingClientRect();
+            calcSizeBy(imgSize.width, imgSize.height, width, height, targetRatio);
+        }, 0);
     }, [ calcSizeBy, width, height, targetRatio ]);
 
-    const boxStyle = { ...css } || {};
+    const style = { ...css } || {};
 
     if (width) {
-        boxStyle.width = typeof width === 'number' ? `${width}px` : width;
+        style.width = width + 'px';
     }
 
     if (targetRatio && box.current) {
-        boxStyle.height = box.current.getBoundingClientRect().width / targetRatio;
+        style.height = box.current.getBoundingClientRect().width / targetRatio + 'px';
     }
 
     if (height) {
-        boxStyle.height = `${height}px`;
+        style.height = height + 'px';
     }
 
     return (
         <div
             ref={box}
-            className={`${s.imageBox}${className ? ` ${className}` : ''}`}
-            style={boxStyle}
+            className={`${s.ImageBox}${className ? ` ${className}` : ''}`}
+            style={style}
         >
-            {src && (
+            {imageUrl && (
                 <img
                     ref={image}
-                    className={s.image}
+                    className={s.Image}
                     style={{ [sizeBy]: '100%' }}
-                    src={src}
-                    alt={src}
+                    src={imageUrl}
+                    alt={imageUrl}
                 />
             )}
         </div>

@@ -16,7 +16,7 @@ function calcSize(val, vw, vh) {
     if (typeof val === 'number') {
         return val;
     }
-    return 0;
+    return val;
 }
 
 
