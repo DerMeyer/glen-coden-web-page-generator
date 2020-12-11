@@ -38,6 +38,9 @@ function Image({ width: w, height: h, src, srcRatio, targetRatio, awaitLoad, pri
 
     useEffect(() => {
         setTimeout(() => {
+            if (!imageRef.current) {
+                return;
+            }
             const img = imageRef.current.getBoundingClientRect();
             setSizeBy(() => {
                 if (!height) {

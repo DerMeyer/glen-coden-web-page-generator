@@ -86,10 +86,49 @@ class ImageService {
             });
     }
 
-    _loadSource(e) {
-        return new Promise((resolve, reject) => {
-            resolve();
+    _loadSource(image) {
+        let res;
+        let rej;
+        const srcPromise =  new Promise((resolve, reject) => {
+            res = resolve;
+            rej = reject;
         });
+        const { src, size, url } = image;
+
+        this._createCacheEntry(src, size, url);
+        const cacheEntry =this.cache[src][size];
+
+        const img = new window.Image();
+
+        img.onerror = () => {
+            console.log('LOADING ERROR ON JS IMAGE');// TODO remove dev code
+            // look for alternative
+            rej();
+        };
+        img.onload = () => {
+            cacheEntry.file = img;
+            cacheEntry.state = LoadingState.SUCCESS;
+            res(url);
+        };
+        img.src = url;
+
+        cacheEntry.file = srcPromise;
+        cacheEntry.state = LoadingState.LOADING;
+
+        return srcPromise;
+    }
+
+    _createCacheEntry(src, size, url) {
+        if (!this.cache[src]) {
+            this.cache[src] = {};
+        }
+        if (!this.cache[src][size]) {
+            this.cache[src][size] = {
+                url,
+                file: null,
+                state: LoadingState.NONE
+            };
+        }
     }
 
     subscribePage(pageNode, onImagesComplete) {
@@ -102,7 +141,8 @@ class ImageService {
     subscribeImage({ width, height, src, srcRatio, awaitLoad, priority }) {
         const id = imageIdentifier + shortid.generate();
         console.log('*** SUBSCRIBE', id);// TODO remove dev code
-        this.images[id] = { width, height, src, srcRatio, awaitLoad, priority, optimalSrc: '' };
+        const { size, url } = getOptimalSrc(width, height, src, srcRatio);
+        this.images[id] = { width, height, src, srcRatio, awaitLoad, priority, size, url };
         return id;
     }
 
@@ -113,23 +153,19 @@ class ImageService {
 
     getImageUrl({ id, width, height, src, srcRatio }) {
         console.log('*** GET URL', id, width, height, src, srcRatio);// TODO remove dev code
+        const image = this.images[id];
+        if (image.width === width && image.height === height && image.src === src && image.srcRatio === srcRatio) {
+            // do sth
+        }
 
         return new Promise(resolve => {
-            const image = this.images[id];
-            if (image.width === width && image.height === height && image.src === src && image.srcRatio === srcRatio) {
-                // do sth
+            const cacheEntry = this.cache[image.src][image.size];
+            if (cacheEntry.state === LoadingState.LOADING) {
+                console.log('=== STILL LOADING');// TODO remove dev code
+                return cacheEntry.file.then(url => resolve(url));
             }
-
-            const { size, url } = getOptimalSrc(width, height, src, srcRatio);
-            this.cache[src] = {
-                [size]: {
-                    url,
-                    file: null,
-                    state: LoadingState.NONE
-                }
-            };
-
-            resolve(src);
+            console.log('=== LOADED, HERE IT COMES');// TODO remove dev code
+            resolve(cacheEntry.url);
         });
     }
 }
