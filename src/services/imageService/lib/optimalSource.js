@@ -26,19 +26,3 @@ export function getOptimalSrc(width, height, src, ratio = 1.5) {
     const url = `${type}/${typeof size === 'number' ? size + 'px' : size}/${name}`;
     return { name, type, size, url };
 }
-
-/*
-useEffect(() => {
-    if (!optimal) {
-        return;
-    }
-    const img = new window.Image();
-    img.onload = () => {
-        setSource(optimal);
-    };
-    img.onerror = () => {
-        console.warn(`Missing an optimized image for ${optimal}`);
-        setSource(requested);
-    };
-    img.src = optimal;
-}, [ requested, optimal ]);*/

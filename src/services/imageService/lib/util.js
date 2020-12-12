@@ -1,5 +1,6 @@
-export const LoadingState = {
+export const ImageState = {
     NONE: 'none',
+    INITIATED: 'initiated',
     LOADING: 'loading',
     ERROR: 'error',
     SUCCESS: 'success'

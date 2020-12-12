@@ -5,17 +5,16 @@ import { imageService } from '../../../index';
 
 
 function Image({ width: w, height: h, src, srcRatio, targetRatio, awaitLoad, priority, className, css }) {
-    console.log('IMAGE RUNS');// TODO remove dev code
-
     const boxRef = useRef(null);
     const imageRef = useRef(null);
 
     const [ width, getWidth ] = useSize(w);
     const [ height, getHeight ] = useSize(h);
 
-    const [ id ] = useState(() => imageService.subscribeImage({ width, height, src, srcRatio, awaitLoad, priority }));
+    const [ id ] = useState(() => imageService.subscribeImage(awaitLoad, priority));
     const [ imageUrl, setImageUrl ] = useState('');
     const [ sizeBy, setSizeBy ] = useState('width');
+    const [ pollCount, setPollCount ] = useState(0);
 
     useEffect(() => getWidth(w), [ getWidth, w ]);
     useEffect(() => getHeight(h), [ getHeight, h ]);
@@ -29,18 +28,26 @@ function Image({ width: w, height: h, src, srcRatio, targetRatio, awaitLoad, pri
             if (!width && !height) {
                 const boxSize = boxRef.current.getBoundingClientRect();
                 reqWidth = boxSize.width;
-                reqHeight = boxSize.height;
+                reqHeight = targetRatio ? boxSize.width / targetRatio : boxSize.height;
             }
             imageService.getImageUrl({ id, width: reqWidth, height: reqHeight, src, srcRatio })
-                .then(url => setImageUrl(url));
+                .then(url => {
+                    console.log('IMAGE URL: ', id, url);// TODO remove dev code
+                    setImageUrl(url);
+                });
         }, 0);
-    }, [ id, width, height, src, srcRatio ]);
+    }, [ id, width, height, src, srcRatio, targetRatio ]);
 
     useEffect(() => {
+        if (pollCount > 50) {
+            return;
+        }
+        let timeoutId = 0;
+        if (!imageRef.current) {
+            timeoutId = setTimeout(() => setPollCount(prev => prev + 1), 20);
+            return () => clearTimeout(timeoutId);
+        }
         setTimeout(() => {
-            if (!imageRef.current) {
-                return;
-            }
             const img = imageRef.current.getBoundingClientRect();
             setSizeBy(() => {
                 if (!height) {
@@ -52,7 +59,7 @@ function Image({ width: w, height: h, src, srcRatio, targetRatio, awaitLoad, pri
                 return (img.width / img.height) / (width / height) < 1 ? 'width' : 'height';
             });
         }, 0);
-    }, [ width, height, targetRatio ]);
+    }, [ width, height, targetRatio, pollCount ]);
 
     const style = { ...css } || {};
 
@@ -69,9 +76,12 @@ function Image({ width: w, height: h, src, srcRatio, targetRatio, awaitLoad, pri
         style.height = height + 'px';
     }
 
+    console.log('IMAGE RUNS');// TODO remove dev code
+
     return (
         <div
             ref={boxRef}
+            id={id}
             className={`${s.ImageBox}${className ? ` ${className}` : ''}`}
             style={style}
         >
