@@ -107,7 +107,7 @@
                             "id": "qG-i9mgzs",
                             "minHeight": "100vh",
                             "bg": "images/background-image.jpg",
-                            "fadeInTime": 3,
+                            "fadeInTime": 1,
                             "children": [
                                 {
                                     "component": "SizeBox",
@@ -156,7 +156,7 @@
                             "id": "1pT7gcismz",
                             "minHeight": "100vh",
                             "bg": "images/background-image.jpg",
-                            "fadeInTime": 1,
+                            "fadeInTime": 0,
                             "fromGlobal": [
                                 "contentSize",
                                 "maxContentWidth",
@@ -185,7 +185,7 @@
                                     "component": "Box",
                                     "id": "AkUqV-ZcYq",
                                     "bg": "orange",
-                                    "width": 0.3,
+                                    "width": 1,
                                     "height": 300,
                                     "children": [
                                         {
@@ -194,7 +194,7 @@
                                             "src": "images/background-image.jpg",
                                             "awaitLoad": true,
                                             "priority": 1,
-                                            "targetRatio": 0.5,
+                                            "targetRatio": 1,
                                             "width": "50%"
                                         },
                                         {
@@ -203,7 +203,6 @@
                                             "src": "images/background-image.jpg",
                                             "awaitLoad": false,
                                             "priority": 0,
-                                            "targetRatio": 1,
                                             "width": "50%"
                                         }
                                     ]

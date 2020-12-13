@@ -5,8 +5,6 @@ import { getOptimalSrc } from './lib/optimalSource';
 import { trackingService } from '../../index';
 
 
-// fallback to prior source if new fails to load
-
 // how to deal with bg from css?
 
 
@@ -55,6 +53,10 @@ class ImageService {
         return id;
     }
 
+    unsubscribePage(id) {
+        delete this._pages[id];
+    }
+
     subscribeImage(awaitLoad, priority) {
         if (!this._images.length) {
             trackingService.startProcessTimer('IMAGE_SERVICE_INIT_TO_LOAD');
@@ -76,7 +78,12 @@ class ImageService {
     }
 
     getImageUrl({ id, width, height, src, srcRatio }) {
-        const img = { ...this._images[id], width, height, src, srcRatio };
+        console.log('###');// TODO remove dev code
+        let img = this._images[id];
+
+        if (img.width !== width || img.height !== height || img.src !== src || img.srcRatio !== srcRatio) {
+            img = { ...this._images[id], state: ImageState.FRESH, width, height, src, srcRatio }
+        }
 
         switch (img.state) {
             case ImageState.FRESH:
@@ -104,6 +111,7 @@ class ImageService {
 
         const cacheUrl = this._getCacheEntry(src, size);
         if (cacheUrl) {
+            this._handleAwaitCount(img);
             return Promise.resolve(cacheUrl);
         }
 
@@ -111,13 +119,17 @@ class ImageService {
     }
 
     _stageImage(img) {
-        let resolve;
-        const promise = new Promise(res => {
-            resolve = arg => {
-                this._handleAwaitCount(img);
-                res(arg);
-            };
-        });
+        let promise = img.promise;
+        let resolve = img.resolve;
+
+        if (!promise) {
+            promise = new Promise(res => {
+                resolve = arg => {
+                    this._handleAwaitCount(img);
+                    res(arg);
+                };
+            });
+        }
 
         this._images[img.id] = {
             ...img,
@@ -198,11 +210,17 @@ class ImageService {
         const file = new Image();
 
         file.onerror = () => {
-            console.warn('image service loading error');// TODO remove dev code
-            // look for alternative
-            img.state = ImageState.ERROR;
-            img.promise = null;
-            img.resolve(img.src);
+            const fallbackUrl = this._getCacheEntry(img.src, img.size, true);
+            if (!fallbackUrl) {
+                console.warn('image service loading error: return initial src.');
+                img.state = ImageState.ERROR;
+                img.promise = null;
+                img.resolve(img.src);
+                return;
+            }
+            console.warn('image service loading error: try fallback.');
+            img.url = fallbackUrl;
+            this._stageImage(img);
         };
 
         file.onload = () => {
@@ -237,12 +255,15 @@ class ImageService {
         }
     }
 
-    _getCacheEntry(src, size) {
+    _getCacheEntry(src, size, error = false) {
         if (!this._cache[src]) {
             return '';
         }
         if (!this._cache[src][size]) {
-            size = Object.keys(this._cache[src]).find(e => Number(e) > size);
+            size = Object.keys(this._cache[src]).find(e => e > size);
+            if (!size && error) {
+                size = Object.keys(this._cache[src]).sort((a, b) => b - a)[0];
+            }
             if (!size) {
                 return '';
             }

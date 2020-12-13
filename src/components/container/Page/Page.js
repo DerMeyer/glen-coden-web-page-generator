@@ -19,20 +19,13 @@ export default function Page({ contentSize, maxContentWidth, pageWidth, maxPageW
 
     const pageRef = useRef(null);
 
-    const [ mounted, setMounted ] = useState(false);
     const [ loadComplete, setLoadComplete ] = useState(false);
-    const [ style, setStyle ] = useState(fadeInTime ? { opacity: 0, transition: `opacity ${fadeInTime}s ease` } : {});
+    const [ style, setStyle ] = useState(fadeInTime ? { opacity: 0 } : {});
 
     useEffect(() => {
-        imageService.subscribePage(pageRef.current, () => setLoadComplete(true));
+        const id = imageService.subscribePage(pageRef.current, () => setLoadComplete(true));
+        return () => imageService.unsubscribePage(id);
     }, []);
-
-    useEffect(() => {
-        if (!fadeInTime) {
-            return;
-        }
-        setMounted(true);
-    }, [ fadeInTime ]);
 
     useEffect(() => {
         const fullWidth = pageWidth * vw;
@@ -81,7 +74,7 @@ export default function Page({ contentSize, maxContentWidth, pageWidth, maxPageW
         }
 
         if (fadeInTime) {
-            r.opacity = mounted ? 1 : 0;
+            r.opacity = loadComplete ? 1 : 0;
             r.transition = `opacity ${fadeInTime}s ease`;
         }
 
@@ -90,9 +83,7 @@ export default function Page({ contentSize, maxContentWidth, pageWidth, maxPageW
             return;
         }
         setStyle(r);
-    }, [ vw, vh, contentSize.width, contentSize.height, maxContentWidth, pageWidth, maxPageWidth, minHeight, rows, columns, bg, fadeInTime, css, mounted ]);
-
-    console.log(loadComplete ? 'PAGE HAS LOADED' : 'PAGE LOADING');// TODO remove dev code
+    }, [ vw, vh, contentSize.width, contentSize.height, maxContentWidth, pageWidth, maxPageWidth, minHeight, rows, columns, bg, fadeInTime, css, loadComplete ]);
 
     return (
         <section

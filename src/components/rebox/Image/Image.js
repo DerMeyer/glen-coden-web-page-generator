@@ -4,6 +4,8 @@ import useSize from '../../../hooks/useSize';
 import { imageService } from '../../../index';
 
 
+// imageRef.current.complete? image fade in? image req url when resize without props.width and props.height
+
 function Image({ width: w, height: h, src, srcRatio, targetRatio, awaitLoad, priority, className, css }) {
     const boxRef = useRef(null);
     const imageRef = useRef(null);
@@ -76,8 +78,6 @@ function Image({ width: w, height: h, src, srcRatio, targetRatio, awaitLoad, pri
     if (height) {
         style.height = height + 'px';
     }
-
-    console.log('IMAGE RUNS');// TODO remove dev code
 
     return (
         <div
