@@ -38,6 +38,7 @@ function Image({ width: w, height: h, src, srcRatio, targetRatio, awaitLoad, pri
         }, 0);
     }, [ id, width, height, src, srcRatio, targetRatio ]);
 
+    // TODO nicht gut gelöst: poll anew when src changes, poll every 1-2s throughout image in dom
     useEffect(() => {
         if (pollCount > 50) {
             return;

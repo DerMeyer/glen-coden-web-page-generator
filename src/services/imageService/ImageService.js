@@ -1,5 +1,5 @@
 import shortid from 'shortid';
-import { imageIdentifier, findImageIds, ImageState } from './lib/util';
+import { ImageState, pageIdentifier, imageIdentifier, findImageIds } from './lib/util';
 import { getOptimalSrc } from './lib/optimalSource';
 
 // optimal source:
@@ -8,20 +8,19 @@ import { getOptimalSrc } from './lib/optimalSource';
 // rest optimal source at smaller requests
 // load biggest source of same image
 // fallback to prior source if new fails to load
-//
-// set loading for parent pages
 
 // how to deal with bg from css?
 
+
+const maxNumCachedSrc = 3; // 100;
 const clearCacheEntryAfter = 1000 * 60 * 60;
 
 class ImageService {
-    pages = [];
+    pages = {};
     images = {};
-    cache = {};
     queue = [];
-    queueIndex = 0;
-    onInitialViewComplete = null;
+    cache = {};
+    onInitialViewComplete = () => {};
 
     init() {
         return Promise.resolve();
@@ -29,6 +28,7 @@ class ImageService {
 
     onAllCompsInitiated(onInitialViewComplete, timeout) {
         const timeoutId = setTimeout(onInitialViewComplete, timeout * 1000);
+
         this.onInitialViewComplete = () => {
             clearTimeout(timeoutId);
             onInitialViewComplete();
@@ -37,18 +37,32 @@ class ImageService {
     }
 
     subscribePage(pageNode, onImagesComplete) {
-        this.pages.push({
-            imageIds: findImageIds(pageNode),
-            onImagesComplete
+        const id = pageIdentifier + shortid.generate();
+        const imageIds = findImageIds(pageNode);
+        let awaitCount = 0;
+
+        imageIds.forEach(imgId => {
+            if (this.images[imgId].awaitLoad) {
+                awaitCount++;
+                this.images[imgId].pageId = id;
+            }
         });
+        if (!awaitCount) {
+            onImagesComplete();
+        }
+
+        this.pages[id] = { id, awaitCount, onImagesComplete };
+
+        return id;
     }
 
     subscribeImage(awaitLoad, priority) {
         const id = imageIdentifier + shortid.generate();
         this.images[id] = {
             id,
+            pageId: '',
             awaitLoad,
-            priority,
+            priority: awaitLoad ? 0 : priority,
             state: ImageState.NONE
         };
         return id;
@@ -64,38 +78,46 @@ class ImageService {
         switch (img.state) {
             case ImageState.NONE:
                 return this._initImage(img);
-            case ImageState.INITIATED:
+            case ImageState.READY:
             case ImageState.LOADING:
                 return img.promise;
             case ImageState.ERROR:
                 return Promise.resolve('image service error loading src');
             case ImageState.SUCCESS:
                 return this._cacheExists(img.src, img.size)
-                    ? Promise.resolve(img.url)
+                    ? this._resolveImage(img)
                     : this._initImage(img);
             default:
                 return Promise.resolve('image service failed to supply url');
         }
     }
 
+    _resolveImage(img) {
+        this._handleAwaitCount(img);
+        return Promise.resolve(img.url);
+    }
+
     _initImage(img) {
         const { width, height, src, srcRatio } = img;
         const { size, url } = getOptimalSrc(width, height, src, srcRatio);
 
-        let resolve;
-        let reject;
+        if (this._cacheExists(src, size)) {
+            return Promise.resolve(url);
+        }
 
-        const promise = new Promise((res, rej) => {
-            resolve = res;
-            reject = rej;
+        let resolve;
+        const promise = new Promise(res => {
+            resolve = arg => {
+                this._handleAwaitCount(img);
+                res(arg);
+            };
         });
 
         this.images[img.id] = {
             ...img,
-            state: ImageState.INITIATED,
+            state: ImageState.READY,
             promise,
             resolve,
-            reject,
             size,
             url
         };
@@ -107,14 +129,25 @@ class ImageService {
         return promise;
     }
 
-    _initQueue() {
-        const awaitLoad = [];
+    _handleAwaitCount(img) {
+        if (img.pageId) {
+            const page = this.pages[img.pageId];
+            page.awaitCount--;
+            if (!page.awaitCount) {
+                page.onImagesComplete();
+            }
+            if (!Object.values(this.pages).find(page => page.awaitCount)) {
+                this.onInitialViewComplete();
+            }
+        }
+    }
 
+    _initQueue() {
         Object.values(this.images).forEach(img => {
-            if (img.awaitLoad) {
-                awaitLoad.push(img);
+            if (img.state !== ImageState.READY) {
                 return;
             }
+            img.state = ImageState.QUEUED;
             if (typeof img.priority !== 'undefined') {
                 const i = Number(img.priority);
                 if (!Array.isArray(this.queue[i])) {
@@ -125,47 +158,38 @@ class ImageService {
             }
         });
 
-        Promise.all(awaitLoad.map(img => this._loadSource(img)))
-            .then(this.onInitialViewComplete);
-
-        this._loadNext();
+        this._runQueue();
     }
 
-    _loadNext() {
-        if (this.queueIndex >= this.queue.length) {
+    _runQueue() {
+        const cur = this.queue.find(e => Array.isArray(e) && e.length);
+        if (!cur) {
             return;
         }
-        const next = this.queue[this.queueIndex];
-        if (!next) {
-            this.queueIndex++;
-            this._loadNext();
-        }
-        Promise.all(next.map(img => this._loadSource(img)))
-            .then(() => {
-                this.queueIndex++;
-                this._loadNext();
-            });
+        Promise.all(cur.map(img => this._loadSource(img)))
+            .then(() => this._runQueue());
+        this.queue.splice(this.queue.indexOf(cur), 1, []);
     }
 
     _loadSource(img) {
         const file = new Image();
 
         file.onerror = () => {
-            console.log('LOADING ERROR ON JS IMAGE');// TODO remove dev code
+            console.warn('image service loading error');// TODO remove dev code
             // look for alternative
             img.state = ImageState.ERROR;
             img.promise = null;
-            img.reject();
+            img.resolve(img.src);
         };
 
         file.onload = () => {
+            this._createCacheEntry(img.src, img.size, file);
             img.state = ImageState.SUCCESS;
             img.promise = null;
             img.resolve(img.url);
         };
 
         file.src = img.url;
-
         img.state = ImageState.LOADING;
 
         return img.promise;
@@ -173,7 +197,7 @@ class ImageService {
 
     _createCacheEntry(src, size, file) {
         if (!this.cache[src]) {
-            this.cache[src] = {};
+            this.cache[src] = { updatedAt: Date.now() };
         }
         if (!this.cache[src][size]) {
             const timeoutId = setTimeout(() => {
@@ -184,16 +208,21 @@ class ImageService {
                 timeoutId
             };
         }
+        if (Object.keys(this.cache).length > maxNumCachedSrc) {
+            delete this.cache.sort((a, b) => b.updatedAt - a.updatedAt).pop();
+        }
     }
 
     _cacheExists(src, size) {
         if (!this.cache[src] || !this.cache[src][size]) {
             return false;
         }
+        this.cache[src].updatedAt = Date();
         clearTimeout(this.cache[src][size].timeoutId);
         this.cache[src][size].timeoutId = setTimeout(() => {
             this.cache[src][size] = null;
         }, clearCacheEntryAfter);
+        console.log('##### CACHE EXISTS');// TODO remove dev code
         return true;
     }
 }

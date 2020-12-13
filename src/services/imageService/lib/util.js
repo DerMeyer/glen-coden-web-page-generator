@@ -1,11 +1,13 @@
 export const ImageState = {
     NONE: 'none',
-    INITIATED: 'initiated',
+    READY: 'ready',
+    QUEUED: 'queued',
     LOADING: 'loading',
     ERROR: 'error',
     SUCCESS: 'success'
 };
 
+export const pageIdentifier = 'page-subscription-';
 export const imageIdentifier = 'image-subscription-';
 
 export function findImageIds(node) {
