@@ -78,33 +78,36 @@ class ImageService {
         switch (img.state) {
             case ImageState.NONE:
                 return this._initImage(img);
-            case ImageState.READY:
+            case ImageState.STAGED:
             case ImageState.LOADING:
                 return img.promise;
             case ImageState.ERROR:
                 return Promise.resolve('image service error loading src');
             case ImageState.SUCCESS:
-                return this._cacheExists(img.src, img.size)
-                    ? this._resolveImage(img)
-                    : this._initImage(img);
+                const url = this._getCacheEntry(img.src, img.size);
+                if (!url) {
+                    return this._stageImage(img);
+                }
+                this._handleAwaitCount(img);
+                return Promise.resolve(url);
             default:
                 return Promise.resolve('image service failed to supply url');
         }
-    }
-
-    _resolveImage(img) {
-        this._handleAwaitCount(img);
-        return Promise.resolve(img.url);
     }
 
     _initImage(img) {
         const { width, height, src, srcRatio } = img;
         const { size, url } = getOptimalSrc(width, height, src, srcRatio);
 
-        if (this._cacheExists(src, size)) {
-            return Promise.resolve(url);
+        const cacheUrl = this._getCacheEntry(src, size);
+        if (cacheUrl) {
+            return Promise.resolve(cacheUrl);
         }
 
+        return this._stageImage({ ...img, size, url });
+    }
+
+    _stageImage(img) {
         let resolve;
         const promise = new Promise(res => {
             resolve = arg => {
@@ -115,11 +118,9 @@ class ImageService {
 
         this.images[img.id] = {
             ...img,
-            state: ImageState.READY,
+            state: ImageState.STAGED,
             promise,
-            resolve,
-            size,
-            url
+            resolve
         };
 
         if (!Object.values(this.images).find(img => img.state === ImageState.NONE)) {
@@ -144,7 +145,7 @@ class ImageService {
 
     _initQueue() {
         Object.values(this.images).forEach(img => {
-            if (img.state !== ImageState.READY) {
+            if (img.state !== ImageState.STAGED) {
                 return;
             }
             img.state = ImageState.QUEUED;
@@ -183,7 +184,7 @@ class ImageService {
         };
 
         file.onload = () => {
-            this._createCacheEntry(img.src, img.size, file);
+            this._createCacheEntry(img.src, img.size, img.url, file);
             img.state = ImageState.SUCCESS;
             img.promise = null;
             img.resolve(img.url);
@@ -195,7 +196,7 @@ class ImageService {
         return img.promise;
     }
 
-    _createCacheEntry(src, size, file) {
+    _createCacheEntry(src, size, url, file) {
         if (!this.cache[src]) {
             this.cache[src] = { updatedAt: Date.now() };
         }
@@ -204,6 +205,7 @@ class ImageService {
                 this.cache[src][size] = null;
             }, clearCacheEntryAfter);
             this.cache[src][size] = {
+                url,
                 file,
                 timeoutId
             };
@@ -213,17 +215,23 @@ class ImageService {
         }
     }
 
-    _cacheExists(src, size) {
-        if (!this.cache[src] || !this.cache[src][size]) {
-            return false;
+    _getCacheEntry(src, size) {
+        if (!this.cache[src]) {
+            return '';
         }
-        this.cache[src].updatedAt = Date();
+        if (!this.cache[src][size]) {
+            size = Object.keys(this.cache[src]).find(e => Number(e) > size);
+            if (!size) {
+                return '';
+            }
+        }
+        this.cache[src].updatedAt = Date.now();
         clearTimeout(this.cache[src][size].timeoutId);
         this.cache[src][size].timeoutId = setTimeout(() => {
             this.cache[src][size] = null;
         }, clearCacheEntryAfter);
         console.log('##### CACHE EXISTS');// TODO remove dev code
-        return true;
+        return this.cache[src][size].url;
     }
 }
 

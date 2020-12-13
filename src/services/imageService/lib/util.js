@@ -1,6 +1,6 @@
 export const ImageState = {
     NONE: 'none',
-    READY: 'ready',
+    STAGED: 'staged',
     QUEUED: 'queued',
     LOADING: 'loading',
     ERROR: 'error',
