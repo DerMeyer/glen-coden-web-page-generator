@@ -1,5 +1,5 @@
 export const ImageState = {
-    NONE: 'none',
+    FRESH: 'fresh',
     STAGED: 'staged',
     QUEUED: 'queued',
     LOADING: 'loading',

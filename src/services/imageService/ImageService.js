@@ -2,11 +2,9 @@ import shortid from 'shortid';
 import { ImageState, pageIdentifier, imageIdentifier, findImageIds } from './lib/util';
 import { getOptimalSrc } from './lib/optimalSource';
 
-// optimal source:
-// calc optimal source
-//
-// rest optimal source at smaller requests
-// load biggest source of same image
+import { trackingService } from '../../index';
+
+
 // fallback to prior source if new fails to load
 
 // how to deal with bg from css?
@@ -16,11 +14,11 @@ const maxNumCachedSrc = 3; // 100;
 const clearCacheEntryAfter = 1000 * 60 * 60;
 
 class ImageService {
-    pages = {};
-    images = {};
-    queue = [];
-    cache = {};
-    onInitialViewComplete = () => {};
+    _pages = {};
+    _images = {};
+    _queue = [];
+    _cache = {};
+    _onInitialViewComplete = () => {};
 
     init() {
         return Promise.resolve();
@@ -29,10 +27,11 @@ class ImageService {
     onAllCompsInitiated(onInitialViewComplete, timeout) {
         const timeoutId = setTimeout(onInitialViewComplete, timeout * 1000);
 
-        this.onInitialViewComplete = () => {
+        this._onInitialViewComplete = () => {
+            trackingService.stopProcessTimer('IMAGE_SERVICE_INIT_TO_FIRST_VIEW');
             clearTimeout(timeoutId);
             onInitialViewComplete();
-            this.onInitialViewComplete = () => {};
+            this._onInitialViewComplete = () => {};
         };
     }
 
@@ -42,41 +41,45 @@ class ImageService {
         let awaitCount = 0;
 
         imageIds.forEach(imgId => {
-            if (this.images[imgId].awaitLoad) {
+            if (this._images[imgId].awaitLoad) {
                 awaitCount++;
-                this.images[imgId].pageId = id;
             }
+            this._images[imgId].pageId = id;
         });
         if (!awaitCount) {
             onImagesComplete();
         }
 
-        this.pages[id] = { id, awaitCount, onImagesComplete };
+        this._pages[id] = { id, awaitCount, onImagesComplete };
 
         return id;
     }
 
     subscribeImage(awaitLoad, priority) {
+        if (!this._images.length) {
+            trackingService.startProcessTimer('IMAGE_SERVICE_INIT_TO_LOAD');
+            trackingService.startProcessTimer('IMAGE_SERVICE_INIT_TO_FIRST_VIEW');
+        }
         const id = imageIdentifier + shortid.generate();
-        this.images[id] = {
+        this._images[id] = {
             id,
             pageId: '',
             awaitLoad,
             priority: awaitLoad ? 0 : priority,
-            state: ImageState.NONE
+            state: ImageState.FRESH
         };
         return id;
     }
 
     unsubscribeImage(id) {
-        delete this.images[id];
+        delete this._images[id];
     }
 
     getImageUrl({ id, width, height, src, srcRatio }) {
-        const img = { ...this.images[id], width, height, src, srcRatio };
+        const img = { ...this._images[id], width, height, src, srcRatio };
 
         switch (img.state) {
-            case ImageState.NONE:
+            case ImageState.FRESH:
                 return this._initImage(img);
             case ImageState.STAGED:
             case ImageState.LOADING:
@@ -116,14 +119,15 @@ class ImageService {
             };
         });
 
-        this.images[img.id] = {
+        this._images[img.id] = {
             ...img,
             state: ImageState.STAGED,
             promise,
             resolve
         };
 
-        if (!Object.values(this.images).find(img => img.state === ImageState.NONE)) {
+        if (!Object.values(this._images).find(img => img.state === ImageState.FRESH)) {
+            this._bundleSources();
             this._initQueue();
         }
 
@@ -131,45 +135,63 @@ class ImageService {
     }
 
     _handleAwaitCount(img) {
-        if (img.pageId) {
-            const page = this.pages[img.pageId];
+        if (img.awaitLoad) {
+            const page = this._pages[img.pageId];
+            if (!page.awaitCount) {
+                return;
+            }
             page.awaitCount--;
             if (!page.awaitCount) {
                 page.onImagesComplete();
             }
-            if (!Object.values(this.pages).find(page => page.awaitCount)) {
-                this.onInitialViewComplete();
+            if (!Object.values(this._pages).find(page => page.awaitCount)) {
+                this._onInitialViewComplete();
             }
         }
     }
 
+    _bundleSources() {
+        const images = Object.values(this._images);
+        const sources = images.reduce((r, img) => {
+            if (!r[img.src] || r[img.src].size < img.size) {
+                r[img.src] = { size: img.size, url: img.url };
+                return r;
+            }
+            return r;
+        }, {});
+        images.forEach(img => {
+            img.url = sources[img.src].url;
+        });
+    }
+
     _initQueue() {
-        Object.values(this.images).forEach(img => {
+        Object.values(this._images).forEach(img => {
             if (img.state !== ImageState.STAGED) {
                 return;
             }
             img.state = ImageState.QUEUED;
             if (typeof img.priority !== 'undefined') {
                 const i = Number(img.priority);
-                if (!Array.isArray(this.queue[i])) {
-                    this.queue[i] = [ img ];
+                if (!Array.isArray(this._queue[i])) {
+                    this._queue[i] = [ img ];
                     return;
                 }
-                this.queue[i].push(img);
+                this._queue[i].push(img);
             }
         });
 
+        trackingService.stopProcessTimer('IMAGE_SERVICE_INIT_TO_LOAD');
         this._runQueue();
     }
 
     _runQueue() {
-        const cur = this.queue.find(e => Array.isArray(e) && e.length);
+        const cur = this._queue.find(e => Array.isArray(e) && e.length);
         if (!cur) {
             return;
         }
         Promise.all(cur.map(img => this._loadSource(img)))
             .then(() => this._runQueue());
-        this.queue.splice(this.queue.indexOf(cur), 1, []);
+        this._queue.splice(this._queue.indexOf(cur), 1, []);
     }
 
     _loadSource(img) {
@@ -184,7 +206,7 @@ class ImageService {
         };
 
         file.onload = () => {
-            this._createCacheEntry(img.src, img.size, img.url, file);
+            this._setCacheEntry(img.src, img.size, img.url, file);
             img.state = ImageState.SUCCESS;
             img.promise = null;
             img.resolve(img.url);
@@ -196,42 +218,41 @@ class ImageService {
         return img.promise;
     }
 
-    _createCacheEntry(src, size, url, file) {
-        if (!this.cache[src]) {
-            this.cache[src] = { updatedAt: Date.now() };
+    _setCacheEntry(src, size, url, file) {
+        if (!this._cache[src]) {
+            this._cache[src] = { updatedAt: Date.now() };
         }
-        if (!this.cache[src][size]) {
+        if (!this._cache[src][size]) {
             const timeoutId = setTimeout(() => {
-                this.cache[src][size] = null;
+                this._cache[src][size] = null;
             }, clearCacheEntryAfter);
-            this.cache[src][size] = {
+            this._cache[src][size] = {
                 url,
                 file,
                 timeoutId
             };
         }
-        if (Object.keys(this.cache).length > maxNumCachedSrc) {
-            delete this.cache.sort((a, b) => b.updatedAt - a.updatedAt).pop();
+        if (Object.keys(this._cache).length > maxNumCachedSrc) {
+            delete this._cache.sort((a, b) => b.updatedAt - a.updatedAt).pop();
         }
     }
 
     _getCacheEntry(src, size) {
-        if (!this.cache[src]) {
+        if (!this._cache[src]) {
             return '';
         }
-        if (!this.cache[src][size]) {
-            size = Object.keys(this.cache[src]).find(e => Number(e) > size);
+        if (!this._cache[src][size]) {
+            size = Object.keys(this._cache[src]).find(e => Number(e) > size);
             if (!size) {
                 return '';
             }
         }
-        this.cache[src].updatedAt = Date.now();
-        clearTimeout(this.cache[src][size].timeoutId);
-        this.cache[src][size].timeoutId = setTimeout(() => {
-            this.cache[src][size] = null;
+        this._cache[src].updatedAt = Date.now();
+        clearTimeout(this._cache[src][size].timeoutId);
+        this._cache[src][size].timeoutId = setTimeout(() => {
+            this._cache[src][size] = null;
         }, clearCacheEntryAfter);
-        console.log('##### CACHE EXISTS');// TODO remove dev code
-        return this.cache[src][size].url;
+        return this._cache[src][size].url;
     }
 }
 

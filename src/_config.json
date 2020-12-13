@@ -203,7 +203,7 @@
                                             "src": "images/background-image.jpg",
                                             "awaitLoad": false,
                                             "priority": 0,
-                                            "targetRatio": 0.5,
+                                            "targetRatio": 1,
                                             "width": "50%"
                                         }
                                     ]
