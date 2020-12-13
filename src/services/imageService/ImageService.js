@@ -2,14 +2,9 @@ import shortid from 'shortid';
 import { ImageState, pageIdentifier, imageIdentifier, findImageIds } from './lib/util';
 import { getOptimalSrc } from './lib/optimalSource';
 
-import { trackingService } from '../../index';
-
-
-// how to deal with bg from css?
-
-
-const maxNumCachedSrc = 3; // 100;
+const maxNumCachedSrc = 100;
 const clearCacheEntryAfter = 1000 * 60 * 60;
+
 
 class ImageService {
     _pages = {};
@@ -26,7 +21,6 @@ class ImageService {
         const timeoutId = setTimeout(onInitialViewComplete, timeout * 1000);
 
         this._onInitialViewComplete = () => {
-            trackingService.stopProcessTimer('IMAGE_SERVICE_INIT_TO_FIRST_VIEW');
             clearTimeout(timeoutId);
             onInitialViewComplete();
             this._onInitialViewComplete = () => {};
@@ -47,9 +41,7 @@ class ImageService {
         if (!awaitCount) {
             onImagesComplete();
         }
-
         this._pages[id] = { id, awaitCount, onImagesComplete };
-
         return id;
     }
 
@@ -58,10 +50,6 @@ class ImageService {
     }
 
     subscribeImage(awaitLoad, priority) {
-        if (!this._images.length) {
-            trackingService.startProcessTimer('IMAGE_SERVICE_INIT_TO_LOAD');
-            trackingService.startProcessTimer('IMAGE_SERVICE_INIT_TO_FIRST_VIEW');
-        }
         const id = imageIdentifier + shortid.generate();
         this._images[id] = {
             id,
@@ -78,7 +66,6 @@ class ImageService {
     }
 
     getImageUrl({ id, width, height, src, srcRatio }) {
-        console.log('###');// TODO remove dev code
         let img = this._images[id];
 
         if (img.width !== width || img.height !== height || img.src !== src || img.srcRatio !== srcRatio) {
@@ -192,7 +179,6 @@ class ImageService {
             }
         });
 
-        trackingService.stopProcessTimer('IMAGE_SERVICE_INIT_TO_LOAD');
         this._runQueue();
     }
 
