@@ -27,7 +27,14 @@ export default function App() {
                     dispatch(actions.onInitialViewComplete());
                 });
 
-            document.body.style.backgroundColor = global.bg;
+            if (typeof global.bg === 'string' && [ '.png', '.jpg', '.jpeg', '.JPG' ].some(type => global.bg.endsWith(type))) {
+                document.body.style.backgroundImage = `url("${global.bg}")`;
+                document.body.style.backgroundRepeat = 'no-repeat';
+                document.body.style.backgroundPosition = 'center';
+                document.body.style.backgroundSize = 'cover';
+            } else {
+                document.body.style.backgroundColor = global.bg;
+            }
 
             if (theme.fonts && theme.fonts.body) {
                 document.body.style.fontFamily = theme.fonts.body;
