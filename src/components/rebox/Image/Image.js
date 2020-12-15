@@ -1,22 +1,20 @@
 import React, { useRef, useState, useEffect } from 'react';
 import s from './Image.module.css';
-import useSize from '../../../hooks/useSize';
 import { imageService } from '../../../index';
+import useSize from '../../../hooks/useSize';
 
 
-// imageRef.current.complete? image fade in? image req url when resize without props.width and props.height
-
-function Image({ width: w, height: h, src, srcRatio, targetRatio, awaitLoad, priority, className, css }) {
+function Image({ width: w, height: h, src, srcRatio, targetRatio, awaitLoad, priority, className, css = {} }) {
     const boxRef = useRef(null);
     const imageRef = useRef(null);
-
-    const [ width, getWidth ] = useSize(w);
-    const [ height, getHeight ] = useSize(h);
 
     const [ id ] = useState(() => imageService.subscribeImage(awaitLoad, priority));
     const [ imageUrl, setImageUrl ] = useState('');
     const [ sizeBy, setSizeBy ] = useState('width');
-    const [ pollCount, setPollCount ] = useState(0);
+    const [ visible, setVisible ] = useState(false);
+
+    const [ width, getWidth ] = useSize(w);
+    const [ height, getHeight ] = useSize(h);
 
     useEffect(() => getWidth(w), [ getWidth, w ]);
     useEffect(() => getHeight(h), [ getHeight, h ]);
@@ -25,32 +23,20 @@ function Image({ width: w, height: h, src, srcRatio, targetRatio, awaitLoad, pri
 
     useEffect(() => {
         setTimeout(() => {
-            let reqWidth = width;
-            let reqHeight = height;
+            let rw = width;
+            let rh = height;
             if (!width && !height) {
                 const boxSize = boxRef.current.getBoundingClientRect();
-                reqWidth = boxSize.width;
-                reqHeight = targetRatio ? boxSize.width / targetRatio : boxSize.height;
+                rw = boxSize.width;
+                rh = targetRatio ? boxSize.width / targetRatio : boxSize.height;
             }
-            imageService.getImageUrl({ id, width: reqWidth, height: reqHeight, src, srcRatio })
-                .then(url => {
-                    console.log('IMAGE URL: ', id, url);// TODO remove dev code
-                    setImageUrl(url);
-                });
+            imageService.getImageUrl({ id, width: rw, height: rh, src, srcRatio })
+                .then(url => setImageUrl(url));
         }, 0);
     }, [ id, width, height, src, srcRatio, targetRatio ]);
 
-    // TODO nicht gut gelöst: poll anew when src changes, poll every 1-2s throughout image in dom
     useEffect(() => {
-        if (pollCount > 50) {
-            return;
-        }
-        let timeoutId = 0;
-        if (!imageRef.current) {
-            timeoutId = setTimeout(() => setPollCount(prev => prev + 1), 20);
-            return () => clearTimeout(timeoutId);
-        }
-        setTimeout(() => {
+        const calcSizeBy = () => {
             const img = imageRef.current.getBoundingClientRect();
             setSizeBy(() => {
                 if (!height) {
@@ -61,10 +47,21 @@ function Image({ width: w, height: h, src, srcRatio, targetRatio, awaitLoad, pri
                 }
                 return (img.width / img.height) / (width / height) < 1 ? 'width' : 'height';
             });
-        }, 0);
-    }, [ width, height, targetRatio, pollCount ]);
+        };
+        const timeout = { id: 0 };
+        const pollImgComplete = () => {
+            if (!imageRef.current || !imageRef.current.complete) {
+                timeout.id = setTimeout(() => pollImgComplete(), 40);
+                return;
+            }
+            calcSizeBy();
+            setVisible(true);
+        };
+        pollImgComplete();
+        return () => clearTimeout(timeout.id);
+    }, [ width, height, targetRatio ]);
 
-    const style = { ...css } || {};
+    const style = { ...css, opacity: visible ? 1 : 0 };
 
     if (width) {
         style.width = width + 'px';

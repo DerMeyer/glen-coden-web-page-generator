@@ -107,7 +107,7 @@
                             "id": "qG-i9mgzs",
                             "minHeight": "100vh",
                             "bg": "images/background-image.jpg",
-                            "fadeInTime": 1,
+                            "fadeInTime": 0,
                             "children": [
                                 {
                                     "component": "SizeBox",
@@ -156,7 +156,7 @@
                             "id": "1pT7gcismz",
                             "minHeight": "100vh",
                             "bg": "images/background-image.jpg",
-                            "fadeInTime": 0,
+                            "fadeInTime": 3,
                             "fromGlobal": [
                                 "contentSize",
                                 "maxContentWidth",
@@ -203,7 +203,7 @@
                                             "src": "images/background-image.jpg",
                                             "awaitLoad": false,
                                             "priority": 0,
-                                            "width": "50%"
+                                            "width": "300px"
                                         }
                                     ]
                                 }

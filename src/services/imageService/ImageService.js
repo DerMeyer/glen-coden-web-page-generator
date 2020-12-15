@@ -5,6 +5,7 @@ import { getOptimalSrc } from './lib/optimalSource';
 const maxNumCachedSrc = 100;
 const clearCacheEntryAfter = 1000 * 60 * 60;
 
+// v1.0.0
 
 class ImageService {
     _pages = {};
