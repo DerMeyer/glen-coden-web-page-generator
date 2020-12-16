@@ -4,6 +4,7 @@ import actions from './store/actions';
 import { configService, imageService, trackingService } from './index';
 
 import Project from './_Project';
+import LoadingSign from './components/partial/LoadingSign/LoadingSign';
 
 
 export default function App() {
@@ -61,11 +62,14 @@ export default function App() {
     }, [ state.initialViewComplete, dispatch, global, theme ]);
 
     return (
-        <div style={{
-            opacity: state.initialViewComplete ? '1' : '0',
-            transition: `opacity ${global.fadeInTime}s`
-        }}>
-            <Project/>
-        </div>
+        <>
+            <div style={{
+                opacity: state.initialViewComplete ? '1' : '0',
+                transition: `opacity ${global.fadeInTime}s`
+            }}>
+                <Project/>
+            </div>
+            <LoadingSign parentVisible={state.initialViewComplete} />
+        </>
     );
 }

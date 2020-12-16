@@ -3,6 +3,8 @@ import s from './Page.module.css';
 import Store from '../../../store/Store';
 import { imageService } from '../../../index';
 
+import LoadingSign from '../../partial/LoadingSign/LoadingSign';
+
 Page.defaultProps = {
     contentSize: {
         width: 0.8,
@@ -13,7 +15,7 @@ Page.defaultProps = {
 };
 
 
-export default function Page({ contentSize, maxContentWidth, pageWidth, maxPageWidth, minHeight, rows, columns, bg, fadeInTime, css, children }) {
+export default function Page({ contentSize, maxContentWidth, pageWidth, maxPageWidth, minHeight, rows, columns, bg, fadeInTime, loadingIcon, css, children }) {
     const { state } = useContext(Store);
     const { vw, vh } = state;
 
@@ -85,13 +87,18 @@ export default function Page({ contentSize, maxContentWidth, pageWidth, maxPageW
         setStyle(r);
     }, [ vw, vh, contentSize.width, contentSize.height, maxContentWidth, pageWidth, maxPageWidth, minHeight, rows, columns, bg, fadeInTime, css, loadComplete ]);
 
+    console.log('### page load complete', loadComplete);// TODO remove dev code
+
     return (
-        <section
-            ref={pageRef}
-            className={s.Page}
-            style={style}
-        >
-            {children}
-        </section>
+        <>
+            <section
+                ref={pageRef}
+                className={s.Page}
+                style={style}
+            >
+                {children}
+            </section>
+            <LoadingSign parentVisible={loadComplete} />
+        </>
     );
 }
