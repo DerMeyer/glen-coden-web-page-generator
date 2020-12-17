@@ -1,3 +1,5 @@
+# Glen Coden Web Page Generator v3
+
 ## Scripts
 
 Any scripts listed in the [Create React App Docs](https://github.com/facebook/create-react-app) will run in this project.
