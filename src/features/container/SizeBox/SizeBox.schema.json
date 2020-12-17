@@ -1,0 +1,26 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "#SizeBox",
+    "title": "SizeBox",
+    "type": "object",
+    "properties": {
+        "width": {
+            "type": [ "number", "string" ],
+            "default": "100vw"
+        },
+        "height": {
+            "type": [ "number", "string" ],
+            "default": "100vh"
+        },
+        "center": {
+            "type": "boolean",
+            "default": false
+        },
+        "children": {
+            "type": "array",
+            "items": {
+                "type": "object"
+            }
+        }
+    }
+}

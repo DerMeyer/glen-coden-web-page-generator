@@ -1,0 +1,15 @@
+.ZoomBox {
+    display: inline-block;
+    overflow: hidden;
+}
+
+.Shifter {
+
+}
+
+.Zoomer {
+    display: grid;
+    grid-template: 1fr / 1fr;
+    justify-items: center;
+    align-items: center;
+}

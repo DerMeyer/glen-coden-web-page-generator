@@ -4,7 +4,8 @@
     "global": {
         "fontTypes": [
             {
-                "name": "'Roboto', 'Arial', 'sans-serif'"
+                "name": "'Roboto', 'Arial', 'sans-serif'",
+                "url": "https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap"
             }
         ],
         "contentSize": [
@@ -77,30 +78,8 @@
     },
     "components": [
         {
-            "component": "Box",
-            "id": "gFFf3IoOT",
-            "width": 1,
-            "children": [
-                {
-                    "component": "ZoomBox",
-                    "id": "-zlxlpIfI",
-                    "children": [
-                        {
-                            "component": "Image",
-                            "id": "gcwq0hcKUy",
-                            "source": "images/background-image.jpg",
-                            "subscribeToGlobalLoading": false,
-                            "loadAfterGlobalLoading": false
-                        }
-                    ]
-                }
-            ]
-        },
-        {
             "component": "Page",
-            "id": "tdC-AHvim-",
-            "rows": 0,
-            "minHeight": 0,
+            "id": "d6FSUGK-B",
             "fromGlobal": [
                 "contentSize",
                 "maxContentWidth",
@@ -109,25 +88,29 @@
             ],
             "children": [
                 {
+                    "component": "ZoomBackground",
+                    "id": "nZuZu5oARj",
+                    "image": "images/background-image.jpg",
+                    "auto": [
+                        true,
+                        false
+                    ],
+                    "factor": 4,
+                    "time": 0.5
+                },
+                {
                     "component": "Heading",
-                    "id": "U_imrJF3bI",
+                    "id": "Xv09An4zjY",
+                    "fontSize": 3,
+                    "color": "white",
                     "text": {
-                        "en": "Welcome to Glen Coden Generator"
+                        "en": "Welcome to*Glen Coden*Generator"
                     },
                     "as": "h1"
                 }
             ]
-        },
-        {
-            "component": "LoadingOverlay",
-            "id": "UMfCKlUt3v",
-            "color": "",
-            "bg": "",
-            "fromGlobal": [
-                "fadeInTime"
-            ]
         }
     ],
-    "_lastUpdated": "2020-11-30T20:05:11.327Z",
+    "_lastUpdated": "2020-12-17T15:12:15.122Z",
     "initialState": {}
 }

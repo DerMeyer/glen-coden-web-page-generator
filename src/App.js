@@ -1,38 +1,50 @@
-import React, { useContext, useEffect } from 'react';
-import Store from './store/Store';
-import actions from './store/actions';
-import { configService } from './index';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { configService, imageService, trackingService } from './index';
+import { setBgStyle } from './app/util';
+import { onInitialViewComplete, resize } from './app/appSlice';
 
 import Project from './_Project';
+import LoadingSign from './features/partial/LoadingSign/LoadingSign';
 
 
 export default function App() {
-    const { state, dispatch } = useContext(Store);
+    const initialViewComplete = useSelector(state => state.app.initialViewComplete);
+    const breakPointType = useSelector(state => state.app.breakPointType);
+    const dispatch = useDispatch();
 
-    configService.setBreakpointType(state.breakPointType);
+    configService.setBreakpointType(breakPointType);
 
     const { global, theme } = configService.getProps();
 
-    console.log('APP (state): ', JSON.stringify(state, null, 4));// TODO remove dev code
-
     useEffect(() => {
-        dispatch(actions.allCompsInitiated());
+        if (!initialViewComplete) {
+            Promise.all([
+                new Promise(resolve => {
+                    imageService.onAllCompsInitiated(resolve, global.loadingTimeout);
+                })
+            ])
+                .then(() => {
+                    trackingService.pageLoaded();
+                    dispatch(onInitialViewComplete());
+                });
 
-        document.body.style.backgroundColor = global.bg;
+            setBgStyle(global.bg, document.body.style);
 
-        if (theme.fonts && theme.fonts.body) {
-            document.body.style.fontFamily = theme.fonts.body;
+            if (theme.fonts && theme.fonts.body) {
+                document.body.style.fontFamily = theme.fonts.body;
+            }
+
+            if (theme.fontWeights && theme.fontWeights.body) {
+                document.body.style.fontWeight = theme.fontWeights.body;
+            }
+
+            if (theme.lineHeights && theme.lineHeights.body) {
+                document.body.style.lineHeight = theme.lineHeights.body;
+            }
         }
-        if (theme.fontWeights && theme.fontWeights.body) {
-            document.body.style.fontWeight = theme.fontWeights.body;
-        }
-        if (theme.lineHeights && theme.lineHeights.body) {
-            document.body.style.lineHeight = theme.lineHeights.body;
-        }
 
-        window.setTimeout(() => dispatch(actions.loadingTimeout()), global.loadingTimeout * 1000);
-
-        const resizeApp = event => dispatch(actions.resize(event.target.innerWidth, event.target.innerHeight));
+        const resizeApp = event => dispatch(resize({ width: event.target.innerWidth, height: event.target.innerHeight }));
 
         window.addEventListener('resize', resizeApp);
         window.addEventListener('orientationchange', resizeApp);
@@ -41,14 +53,17 @@ export default function App() {
             window.removeEventListener('resize', resizeApp);
             window.removeEventListener('orientationchange', resizeApp);
         };
-    }, [ dispatch, global, theme ]);
+    }, [ initialViewComplete, dispatch, global, theme ]);
 
     return (
-        <div style={{
-            opacity: state.allCompsInitiated ? '1' : '0',
-            transition: `opacity ${global.fadeInTime}s`
-        }}>
-            <Project/>
-        </div>
+        <>
+            <div style={{
+                opacity: initialViewComplete ? '1' : '0',
+                transition: `opacity ${global.fadeInTime}s`
+            }}>
+                <Project/>
+            </div>
+            <LoadingSign parentVisible={initialViewComplete} />
+        </>
     );
 }

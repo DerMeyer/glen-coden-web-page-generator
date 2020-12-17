@@ -1,0 +1,19 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "#Image",
+    "title": "Image",
+    "type": "object",
+    "properties": {
+        "src": {
+            "type": "string"
+        },
+        "awaitLoad": {
+            "type": "boolean",
+            "default": false
+        },
+        "priority": {
+            "type": "number",
+            "default": 0
+        }
+    }
+}

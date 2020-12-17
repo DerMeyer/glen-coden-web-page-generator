@@ -1,0 +1,12 @@
+.ImageBox {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    transition: opacity 0.1s;
+}
+
+.Image {
+    flex-shrink: 0;
+    object-fit: cover;
+}

@@ -3,7 +3,7 @@ const fs = require('fs');
 
 function updateComponentsList(sourceDir, targetDir) {
     return new Promise(resolve => {
-        const componentsList = findComponents(sourceDir, '', 'components');
+        const componentsList = findComponents(sourceDir, '', 'features');
         fs.writeFileSync(path.join(targetDir, 'components-list.json'), JSON.stringify(componentsList, null, 4));
         resolve();
     });
