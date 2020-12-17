@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { configService, imageService, trackingService } from './index';
-import { setBgStyle } from './js/helpers';
-import { onInitialViewComplete, resize } from './store/appSlice';
+import { setBgStyle } from './app/util';
+import { onInitialViewComplete, resize } from './app/appSlice';
 
 import Project from './_Project';
-import LoadingSign from './components/partial/LoadingSign/LoadingSign';
+import LoadingSign from './features/partial/LoadingSign/LoadingSign';
 
 
 export default function App() {
