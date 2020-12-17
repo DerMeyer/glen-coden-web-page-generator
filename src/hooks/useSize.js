@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import Store from '../store/Store';
+import Store from '../store/store';
 
 function calcSize(val, vw, vh) {
     if (typeof val === 'string') {

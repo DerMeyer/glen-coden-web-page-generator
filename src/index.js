@@ -2,9 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import './reset.css';
-import * as serviceWorker from './serviceWorker';
-import { Provider } from './store/Store';
 import App from './App';
+import store from './store/store';
+import { Provider } from 'react-redux';
+import * as serviceWorker from './serviceWorker';
 import ConfigService from './services/configService/ConfigService';
 import RequestService from './services/requestService/RequestService';
 import TrackingService from './services/trackingService/TrackingService';
@@ -26,11 +27,12 @@ Promise.all([
 ])
     .then(() => {
         const initialState = configService.getInitialState();
+        console.log('### INIT STATE', initialState);// TODO remove dev code
 
         trackingService.callRender();
 
         ReactDOM.render(
-            <Provider initialState={initialState}>
+            <Provider store={store}>
                 <App />
             </Provider>,
             document.getElementById('root')

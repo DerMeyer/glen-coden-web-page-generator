@@ -115,8 +115,10 @@ class ImageService {
             this._handleAwaitCount(img);
             return Promise.resolve(cacheUrl);
         }
+        img.size = size;
+        img.url = url;
 
-        return this._stageImage({ ...img, size, url });
+        return this._stageImage(img);
     }
 
     _stageImage(img) {

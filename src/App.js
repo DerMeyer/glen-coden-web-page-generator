@@ -1,23 +1,26 @@
-import React, { useContext, useEffect } from 'react';
-import Store from './store/Store';
-import actions from './store/actions';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { configService, imageService, trackingService } from './index';
+import { setBgStyle } from './js/helpers';
+import { onInitialViewComplete, resize } from './store/appSlice';
 
 import Project from './_Project';
 import LoadingSign from './components/partial/LoadingSign/LoadingSign';
 
 
 export default function App() {
-    const { state, dispatch } = useContext(Store);
+    const initialViewComplete = useSelector(state => state.app.initialViewComplete);
+    const breakPointType = useSelector(state => state.app.breakPointType);
+    const dispatch = useDispatch();
 
-    configService.setBreakpointType(state.breakPointType);
+    configService.setBreakpointType(breakPointType);
 
     const { global, theme } = configService.getProps();
 
-    console.log('APP (state): ', JSON.stringify(state, null, 4));// TODO remove dev code
+    console.log('APP: ', 'initial view complete', initialViewComplete, 'breakpoint type', breakPointType);// TODO remove dev code
 
     useEffect(() => {
-        if (!state.initialViewComplete) {
+        if (!initialViewComplete) {
             Promise.all([
                 new Promise(resolve => {
                     imageService.onAllCompsInitiated(resolve, global.loadingTimeout);
@@ -25,17 +28,10 @@ export default function App() {
             ])
                 .then(() => {
                     trackingService.pageLoaded();
-                    dispatch(actions.onInitialViewComplete());
+                    dispatch(onInitialViewComplete());
                 });
 
-            if (typeof global.bg === 'string' && [ '.png', '.jpg', '.jpeg', '.JPG' ].some(type => global.bg.endsWith(type))) {
-                document.body.style.backgroundImage = `url("${global.bg}")`;
-                document.body.style.backgroundRepeat = 'no-repeat';
-                document.body.style.backgroundPosition = 'center';
-                document.body.style.backgroundSize = 'cover';
-            } else {
-                document.body.style.backgroundColor = global.bg;
-            }
+            setBgStyle(global.bg, document.body.style);
 
             if (theme.fonts && theme.fonts.body) {
                 document.body.style.fontFamily = theme.fonts.body;
@@ -50,7 +46,7 @@ export default function App() {
             }
         }
 
-        const resizeApp = event => dispatch(actions.resize(event.target.innerWidth, event.target.innerHeight));
+        const resizeApp = event => dispatch(resize(event.target.innerWidth, event.target.innerHeight));
 
         window.addEventListener('resize', resizeApp);
         window.addEventListener('orientationchange', resizeApp);
@@ -59,17 +55,17 @@ export default function App() {
             window.removeEventListener('resize', resizeApp);
             window.removeEventListener('orientationchange', resizeApp);
         };
-    }, [ state.initialViewComplete, dispatch, global, theme ]);
+    }, [ initialViewComplete, dispatch, global, theme ]);
 
     return (
         <>
             <div style={{
-                opacity: state.initialViewComplete ? '1' : '0',
+                opacity: initialViewComplete ? '1' : '0',
                 transition: `opacity ${global.fadeInTime}s`
             }}>
                 <Project/>
             </div>
-            <LoadingSign parentVisible={state.initialViewComplete} />
+            <LoadingSign parentVisible={initialViewComplete} />
         </>
     );
 }

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import s from './SimpleBackground.module.css';
-import Store from '../../../store/Store';
+import Store from '../../../store/store';
 
 import Image from '../../rebox/Image/Image';
 

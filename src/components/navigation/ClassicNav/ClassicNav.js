@@ -1,6 +1,6 @@
 import React, { useContext, useRef, useState, useCallback, useEffect } from 'react';
 import s from './ClassicNav.module.css';
-import Store from '../../../store/Store';
+import Store from '../../../store/store';
 
 import BurgerIcon from '../../icons/BurgerIcon/BurgerIcon';
 import Overlay from '../../overlay/Overlay/Overlay';

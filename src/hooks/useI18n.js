@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from 'react';
-import Store from '../store/Store';
+import Store from '../store/store';
 import { i18n } from '../js/helpers';
 
 

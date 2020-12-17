@@ -1,6 +1,6 @@
 import React, { useContext, useRef, useState, useCallback, useEffect } from 'react';
 import s from './FlyOverBox.module.css';
-import Store from '../../../store/Store';
+import Store from '../../../store/store';
 
 
 export default function FlyOverBox({ height, maxHeight = Infinity, children }) {

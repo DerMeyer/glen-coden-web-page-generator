@@ -1,6 +1,6 @@
 import React, { useContext, useCallback, useState } from 'react';
 import s from './LoadingOverlay.module.css';
-import Store from '../../../store/Store';
+import Store from '../../../store/store';
 import cx from 'classnames';
 
 import ThreeDotsLoadingIcon from '../../icons/ThreeDotsLoadingIcon/ThreeDotsLoadingIcon';

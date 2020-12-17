@@ -1,7 +1,8 @@
 import React, { useContext, useRef, useState, useEffect } from 'react';
 import s from './Page.module.css';
-import Store from '../../../store/Store';
+import Store from '../../../store/store';
 import { imageService } from '../../../index';
+import { setBgStyle } from '../../../js/helpers';
 
 import LoadingSign from '../../partial/LoadingSign/LoadingSign';
 
@@ -64,16 +65,7 @@ export default function Page({ contentSize, maxContentWidth, pageWidth, maxPageW
             r.gridTemplateColumns = `repeat(${columns}, minmax(${Math.min(contentWidth, maxContentWidth) / columns}px, auto))`;
         }
 
-        if (typeof bg === 'string') {
-            if ([ '.png', '.jpg', '.jpeg', '.JPG' ].some(type => bg.endsWith(type))) {
-                r.backgroundImage = `url("${bg}")`;
-                r.backgroundRepeat = 'no-repeat';
-                r.backgroundPosition = 'center';
-                r.backgroundSize = 'cover';
-            } else {
-                r.backgroundColor = bg;
-            }
-        }
+        setBgStyle(bg, r);
 
         if (fadeInTime) {
             r.opacity = loadComplete ? 1 : 0;

@@ -30,8 +30,8 @@ export const BreakPoints = {
 
 // functions
 
-export function isObject(value) {
-    return value !== null && typeof value !== 'function' && typeof value === 'object' && !Array.isArray(value);
+export function isObject(val) {
+    return val !== null && typeof val !== 'function' && typeof val === 'object' && !Array.isArray(val);
 }
 
 export function isEmail(str) {
@@ -39,33 +39,33 @@ export function isEmail(str) {
     return re.test(String(str).toLowerCase());
 }
 
-export function deepCompare(value1, value2) {
-    if (isObject(value1) && isObject(value2)) {
-        const keys = Object.keys(value1);
+export function deepCompare(val1, val2) {
+    if (isObject(val1) && isObject(val2)) {
+        const keys = Object.keys(val1);
         for (let i = 0; i < keys.length; i++) {
             const key = keys[i];
-            if (!deepCompare(value1[key], value2[key])) {
+            if (!deepCompare(val1[key], val2[key])) {
                 return false;
             }
         }
         return true;
     }
-    if (Array.isArray(value1) && Array.isArray(value2)) {
-        for (let i = 0; i < value1.length; i++) {
-            if (!deepCompare(value1[i], value2[i])) {
+    if (Array.isArray(val1) && Array.isArray(val2)) {
+        for (let i = 0; i < val1.length; i++) {
+            if (!deepCompare(val1[i], val2[i])) {
                 return false;
             }
         }
         return true;
     }
-    return value1 === value2;
+    return val1 === val2;
 }
 
-export function mergeObjects(value1, value2) {
-    if (!isObject(value1) && !isObject(value2)) {
-        if (Array.isArray(value1) && Array.isArray(value2)) {
-            const resultArr = [ ...value1 ];
-            value2.forEach(entry => {
+export function mergeObjects(val1, val2) {
+    if (!isObject(val1) && !isObject(val2)) {
+        if (Array.isArray(val1) && Array.isArray(val2)) {
+            const resultArr = [ ...val1 ];
+            val2.forEach(entry => {
                 if (resultArr.some(result => deepCompare(result, entry))) {
                     return;
                 }
@@ -73,15 +73,15 @@ export function mergeObjects(value1, value2) {
             });
             return resultArr;
         }
-        return value1;
+        return val1;
     }
-    const merged = { ...value1 };
-    Object.keys(value2).forEach(key => {
-        if (value1[key]) {
-            merged[key] = mergeObjects(value1[key], value2[key]);
+    const merged = { ...val1 };
+    Object.keys(val2).forEach(key => {
+        if (val1[key]) {
+            merged[key] = mergeObjects(val1[key], val2[key]);
             return;
         }
-        merged[key] = value2[key];
+        merged[key] = val2[key];
     });
     return merged;
 }
@@ -118,4 +118,17 @@ export function i18n(translations, language = navigator.language.slice(0, 2)) {
         return fallbackTrans;
     }
     return trans;
+}
+
+export function setBgStyle(val, style) {
+    if (typeof val === 'string') {
+        if ([ '.png', '.jpg', '.jpeg', '.JPG' ].some(type => val.endsWith(type))) {
+            style.backgroundImage = `url("${val}")`;
+            style.backgroundRepeat = 'no-repeat';
+            style.backgroundPosition = 'center';
+            style.backgroundSize = 'cover';
+        } else {
+            style.backgroundColor = val;
+        }
+    }
 }
