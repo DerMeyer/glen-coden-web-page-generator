@@ -49,15 +49,15 @@ function Image({ width: w, height: h, src, srcRatio, targetRatio, awaitLoad, pri
             });
         };
         const timeout = { id: 0 };
-        const pollImgComplete = () => {
+        const pollImg = () => {
             if (!imageRef.current || !imageRef.current.complete) {
-                timeout.id = setTimeout(() => pollImgComplete(), 40);
+                timeout.id = setTimeout(() => pollImg(), 40);
                 return;
             }
             calcSizeBy();
             setVisible(true);
         };
-        pollImgComplete();
+        pollImg();
         return () => clearTimeout(timeout.id);
     }, [ width, height, targetRatio ]);
 

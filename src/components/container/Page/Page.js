@@ -87,8 +87,6 @@ export default function Page({ contentSize, maxContentWidth, pageWidth, maxPageW
         setStyle(r);
     }, [ vw, vh, contentSize.width, contentSize.height, maxContentWidth, pageWidth, maxPageWidth, minHeight, rows, columns, bg, fadeInTime, css, loadComplete ]);
 
-    console.log('### page load complete', loadComplete);// TODO remove dev code
-
     return (
         <>
             <section

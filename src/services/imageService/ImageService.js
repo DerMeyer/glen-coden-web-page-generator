@@ -5,7 +5,7 @@ import { getOptimalSrc } from './lib/optimalSource';
 const maxNumCachedSrc = 100;
 const clearCacheEntryAfter = 1000 * 60 * 60;
 
-// v1.0.0
+// v1.1.1
 
 class ImageService {
     _pages = {};
@@ -13,12 +13,14 @@ class ImageService {
     _queue = [];
     _cache = {};
     _onInitialViewComplete = () => {};
+    _timeout = 0;
 
     init() {
         return Promise.resolve();
     }
 
     onAllCompsInitiated(onInitialViewComplete, timeout) {
+        this._timeout = timeout;
         const timeoutId = setTimeout(onInitialViewComplete, timeout * 1000);
 
         this._onInitialViewComplete = () => {
@@ -39,10 +41,15 @@ class ImageService {
             }
             this._images[imgId].pageId = id;
         });
-        if (!awaitCount) {
+        const timeoutId = setTimeout(onImagesComplete, this._timeout * 1000);
+        const onComplete = () => {
+            clearTimeout(timeoutId);
             onImagesComplete();
+        };
+        if (!awaitCount) {
+            onComplete();
         }
-        this._pages[id] = { id, awaitCount, onImagesComplete };
+        this._pages[id] = { id, awaitCount, onComplete };
         return id;
     }
 
@@ -70,8 +77,12 @@ class ImageService {
         let img = this._images[id];
 
         if (img.width !== width || img.height !== height || img.src !== src || img.srcRatio !== srcRatio) {
-            img = { ...this._images[id], state: ImageState.FRESH, width, height, src, srcRatio }
+            img.state = ImageState.FRESH;
         }
+        img.width = width;
+        img.height = height;
+        img.src = src;
+        img.srcRatio = srcRatio;
 
         switch (img.state) {
             case ImageState.FRESH:
@@ -99,6 +110,8 @@ class ImageService {
 
         const cacheUrl = this._getCacheEntry(src, size);
         if (cacheUrl) {
+            img.state = ImageState.SUCCESS;
+            this._checkAllStaged();
             this._handleAwaitCount(img);
             return Promise.resolve(cacheUrl);
         }
@@ -126,10 +139,7 @@ class ImageService {
             resolve
         };
 
-        if (!Object.values(this._images).find(img => img.state === ImageState.FRESH)) {
-            this._bundleSources();
-            this._initQueue();
-        }
+        this._checkAllStaged();
 
         return promise;
     }
@@ -142,11 +152,18 @@ class ImageService {
             }
             page.awaitCount--;
             if (!page.awaitCount) {
-                page.onImagesComplete();
+                page.onComplete();
             }
             if (!Object.values(this._pages).find(page => page.awaitCount)) {
                 this._onInitialViewComplete();
             }
+        }
+    }
+
+    _checkAllStaged() {
+        if (!Object.values(this._images).find(img => img.state === ImageState.FRESH)) {
+            this._bundleSources();
+            this._initQueue();
         }
     }
 
