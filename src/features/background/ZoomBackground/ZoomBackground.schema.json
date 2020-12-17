@@ -9,7 +9,7 @@
         },
         "auto": {
             "type": "boolean",
-            "default": false
+            "default": [ true, false ]
         },
         "factor": {
             "type": "number",

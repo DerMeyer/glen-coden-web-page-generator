@@ -44,7 +44,7 @@ export default function App() {
             }
         }
 
-        const resizeApp = event => dispatch(resize(event.target.innerWidth, event.target.innerHeight));
+        const resizeApp = event => dispatch(resize({ width: event.target.innerWidth, height: event.target.innerHeight }));
 
         window.addEventListener('resize', resizeApp);
         window.addEventListener('orientationchange', resizeApp);

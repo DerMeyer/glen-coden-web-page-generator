@@ -19,7 +19,7 @@ function generateSvgExport(sourceDir, projectDir, projectName) {
                 file += `${index ? '\n' : ''}export {ReactComponent as ${firstLetter.toUpperCase()}${restOfWord.join('')}} from '../svg/${fileName}';`;
             });
 
-            fs.writeFileSync(path.join(sourceDir, 'js', 'svgExports.js'), file);
+            fs.writeFileSync(path.join(sourceDir, 'app', 'svgExports.js'), file);
             resolve();
         });
     });

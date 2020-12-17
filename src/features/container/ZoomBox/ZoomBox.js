@@ -17,7 +17,6 @@ export default function ZoomBox({ auto, doZoom, factor, time, children }) {
 
     const grow = useCallback(() => setActive(true), []);
     const shrink = useCallback(event => {
-        console.log(event);// TODO remove dev code
         if (event && event.target) {
             const { x, y, width, height } = boxRef.current.getBoundingClientRect();
             if (
@@ -82,7 +81,7 @@ export default function ZoomBox({ auto, doZoom, factor, time, children }) {
                         transform: `scale(${active ? (1 + factor / 100) : 1})`,
                         transition: `transform ${time}s ease-out`
                     }}
-                    onTransitionEnd={() => console.log('transition end')}
+                    onTransitionEnd={() => {}}
                 >
                     {children}
                 </div>

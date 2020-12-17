@@ -17,10 +17,10 @@ export default function ZoomBackground({ auto, factor, time, image }) {
                 time={time}
             >
                 <Image
-                    source={image}
+                    src={image}
                     width={vw}
                     height={vh}
-                    subscribeToGlobalLoading
+                    awaitLoad
                 />
             </ZoomBox>
         </div>

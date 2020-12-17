@@ -11,10 +11,10 @@ export default function SimpleBackground({ image }) {
     return (
         <div className={s.SimpleBackground}>
             <Image
-                source={image}
+                src={image}
                 width={vw}
                 height={vh}
-                subscribeToGlobalLoading
+                awaitLoad
             />
         </div>
     );

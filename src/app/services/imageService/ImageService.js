@@ -218,13 +218,13 @@ class ImageService {
         file.onerror = () => {
             const fallbackUrl = this._getCacheEntry(img.src, img.size, true);
             if (!fallbackUrl) {
-                console.warn('image service loading error: return initial src.');
+                console.warn(`Image service error: Found no optimal src for ${img.src} >> return original src`);
                 img.state = ImageState.ERROR;
                 img.promise = null;
                 img.resolve(img.src);
                 return;
             }
-            console.warn('image service loading error: try fallback.');
+            console.warn(`Image service error: Found no optimal src for ${img.src} >> try fallback ${fallbackUrl}`);
             img.url = fallbackUrl;
             this._stageImage(img);
         };

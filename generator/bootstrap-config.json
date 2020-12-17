@@ -131,13 +131,21 @@
         },
         "components": [
             {
-                "component": "ZoomBackground",
-                "image": "images/background-image.jpg"
-            },
-            {
-                "component": "LoadingOverlay",
-                "color": "black",
-                "bg": "white"
+                "component": "Page",
+                "children": [
+                    {
+                        "component": "ZoomBackground",
+                        "image": "images/background-image.jpg"
+                    },
+                    {
+                        "component": "Heading",
+                        "fontSize": 3,
+                        "color": "white",
+                        "text": {
+                            "en": "Welcome to*Glen Coden*Generator"
+                        }
+                    }
+                ]
             }
         ]
     }
