@@ -1,10 +1,10 @@
-import React, { useContext, useRef, useState, useCallback, useEffect } from 'react';
+import React, { useRef, useState, useCallback, useEffect } from 'react';
 import s from './FlyOverBox.module.css';
-import Store from '../../../store/store';
+import { useSelector } from 'react-redux';
 
 
 export default function FlyOverBox({ height, maxHeight = Infinity, children }) {
-    const { state } = useContext(Store);
+    const vh = useSelector(state => state.app.vh);
 
     const boxRef = useRef(null);
     const contentRef = useRef(null);
@@ -18,7 +18,7 @@ export default function FlyOverBox({ height, maxHeight = Infinity, children }) {
             const boxHeight = boxRef.current.offsetHeight;
             const contentHeight = contentRef.current.offsetHeight;
 
-            if (y > state.vh) {
+            if (y > vh) {
                 setContentTop(boxHeight - contentHeight);
                 return;
             }
@@ -26,9 +26,9 @@ export default function FlyOverBox({ height, maxHeight = Infinity, children }) {
                 setContentTop(0);
                 return;
             }
-            setContentTop((boxHeight - contentHeight) * (y / (state.vh + boxHeight)));
+            setContentTop((boxHeight - contentHeight) * (y / (vh + boxHeight)));
         },
-        [ state.vh ]
+        [ vh ]
     );
 
     useEffect(() => {
@@ -37,7 +37,7 @@ export default function FlyOverBox({ height, maxHeight = Infinity, children }) {
             return;
         }
         setBoxHeight(Math.min(contentRef.current.getBoundingClientRect().height * Number(height.slice(0, -1)) / 100, maxHeight));
-    }, [ height, maxHeight, state.loading, state.vh, state.vw ]);
+    }, [ height, maxHeight ]);
 
     useEffect(() => {
         if (!height) {

@@ -30,4 +30,9 @@ export const appSlice = createSlice({
 
 export const { onInitialViewComplete, resize } = appSlice.actions;
 
+export const selectSize = state => ({
+    vw: state.app.vw,
+    vh: state.app.vh
+});
+
 export default appSlice.reducer;

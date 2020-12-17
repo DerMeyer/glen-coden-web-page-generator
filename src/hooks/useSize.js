@@ -1,5 +1,6 @@
-import { useContext, useState } from 'react';
-import Store from '../store/store';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { selectSize } from '../store/appSlice';
 
 function calcSize(val, vw, vh) {
     if (typeof val === 'string') {
@@ -21,8 +22,7 @@ function calcSize(val, vw, vh) {
 
 
 export default function useSize(size) {
-    const { state } = useContext(Store);
-    const { vw, vh } = state;
+    const { vw, vh } = useSelector(selectSize);
 
     const [ inputSize, setInputSize ] = useState(size);
 

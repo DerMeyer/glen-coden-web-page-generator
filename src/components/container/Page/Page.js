@@ -1,6 +1,7 @@
-import React, { useContext, useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import s from './Page.module.css';
-import Store from '../../../store/store';
+import { useSelector } from 'react-redux';
+import { selectSize } from '../../../store/appSlice';
 import { imageService } from '../../../index';
 import { setBgStyle } from '../../../js/helpers';
 
@@ -17,8 +18,7 @@ Page.defaultProps = {
 
 
 export default function Page({ contentSize, maxContentWidth, pageWidth, maxPageWidth, minHeight, rows, columns, bg, fadeInTime, loadingIcon, css, children }) {
-    const { state } = useContext(Store);
-    const { vw, vh } = state;
+    const { vw, vh } = useSelector(selectSize);
 
     const pageRef = useRef(null);
 

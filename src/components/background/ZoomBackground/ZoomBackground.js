@@ -1,13 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import s from './ZoomBackground.module.css';
-import Store from '../../../store/store';
+import { useSelector } from 'react-redux';
+import { selectSize } from '../../../store/appSlice';
 
 import ZoomBox from '../../container/ZoomBox/ZoomBox';
 import Image from '../../rebox/Image/Image';
 
 
 export default function ZoomBackground({ auto, factor, time, image }) {
-    const { state } = useContext(Store);
+    const { vw, vh } = useSelector(selectSize);
     return (
         <div className={s.ZoomBackground}>
             <ZoomBox
@@ -17,8 +18,8 @@ export default function ZoomBackground({ auto, factor, time, image }) {
             >
                 <Image
                     source={image}
-                    width={state.vw}
-                    height={state.vh}
+                    width={vw}
+                    height={vh}
                     subscribeToGlobalLoading
                 />
             </ZoomBox>

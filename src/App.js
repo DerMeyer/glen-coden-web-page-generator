@@ -17,8 +17,6 @@ export default function App() {
 
     const { global, theme } = configService.getProps();
 
-    console.log('APP: ', 'initial view complete', initialViewComplete, 'breakpoint type', breakPointType);// TODO remove dev code
-
     useEffect(() => {
         if (!initialViewComplete) {
             Promise.all([

@@ -1,13 +1,13 @@
-import React, { useContext, useRef, useState, useCallback, useEffect } from 'react';
+import React, { useRef, useState, useCallback, useEffect } from 'react';
 import s from './ClassicNav.module.css';
-import Store from '../../../store/store';
+import { useSelector } from 'react-redux';
 
 import BurgerIcon from '../../icons/BurgerIcon/BurgerIcon';
 import Overlay from '../../overlay/Overlay/Overlay';
 
 
 export default function ClassicNav({ burger, widthFactor, height, split, burgerColor, overlayColor, bg, contentSize, maxContentWidth, css, children }) {
-    const { state } = useContext(Store);
+    const vw = useSelector(state => state.app.vw);
 
     const navRef = useRef(null);
 
@@ -34,11 +34,11 @@ export default function ClassicNav({ burger, widthFactor, height, split, burgerC
 
     useEffect(() => {
         const r = {};
-        r.width = state.vw > maxContentWidth / contentSize.width
+        r.width = vw > maxContentWidth / contentSize.width
             ? `${maxContentWidth * contentSize.width * widthFactor}px`
             : `${contentSize.width * 100}%`;
         setContentStyle(r);
-    }, [ widthFactor, contentSize, maxContentWidth, state.vw ]);
+    }, [ widthFactor, contentSize, maxContentWidth, vw ]);
 
     return (
         <>
