@@ -15,8 +15,7 @@
     "react-redux": "^7.2.2",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0",
-    "shortid": "^2.2.15",
-    "tinify": "^1.6.0-beta.2"
+    "shortid": "^2.2.15"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -28,7 +27,6 @@
     "generate": "node generator/generate/generate.js",
     "make": "node generator/make.js",
     "deploy": "node generator/deploy.js",
-    "optimize": "node optimizer/optimize.js",
     "project": "node project-info.js"
   },
   "eslintConfig": {
