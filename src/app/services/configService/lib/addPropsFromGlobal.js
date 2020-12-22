@@ -1,4 +1,4 @@
-import { isObject } from '../../../util';
+import { isObject } from '../../../lib/util';
 
 function addPropsFromGlobal(element, global) {
     Object.keys(element).forEach(k => {

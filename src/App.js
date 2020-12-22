@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { configService, imageService, trackingService } from './index';
-import { setBgStyle } from './app/util';
+import { setBgStyle } from './app/lib/util';
 import { onInitialViewComplete, resize } from './app/appSlice';
 
 import Project from './_Project';

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getBreakPointType, getDeviceType, getOrientationType } from './util';
+import { getBreakPointType, getDeviceType, getOrientationType } from './lib/util';
 
 
 export const appSlice = createSlice({

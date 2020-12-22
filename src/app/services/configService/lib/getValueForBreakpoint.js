@@ -1,4 +1,4 @@
-import { BreakPointTypes } from '../../../util';
+import { BreakPointTypes } from '../../../lib/util';
 
 const isTypeArray = [
     'fontTypes',

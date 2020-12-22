@@ -1,4 +1,4 @@
-import { isObject } from '../../../util';
+import { isObject } from '../../../lib/util';
 
 function applyReboxTheme(config, theme) {
     if (!isObject(config) || !isObject(theme)) {

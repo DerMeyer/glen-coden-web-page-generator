@@ -3,7 +3,7 @@ import s from './Page.module.css';
 import { useSelector } from 'react-redux';
 import { selectSize } from '../../../app/appSlice';
 import { imageService } from '../../../index';
-import { setBgStyle } from '../../../app/util';
+import { setBgStyle } from '../../../app/lib/util';
 
 import LoadingSign from '../../partial/LoadingSign/LoadingSign';
 

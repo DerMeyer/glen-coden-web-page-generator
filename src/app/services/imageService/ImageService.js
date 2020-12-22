@@ -5,7 +5,7 @@ import { getOptimalSrc } from './lib/optimalSource';
 const maxNumCachedSrc = 100;
 const clearCacheEntryAfter = 1000 * 60 * 60;
 
-// v1.1.1
+// v1.2.1
 
 class ImageService {
     _pages = {};
@@ -28,6 +28,10 @@ class ImageService {
             onInitialViewComplete();
             this._onInitialViewComplete = () => {};
         };
+
+        if (!Object.values(this._pages).find(e => e.awaitCount)) {
+            this._onInitialViewComplete();
+        }
     }
 
     subscribePage(pageNode, onImagesComplete) {

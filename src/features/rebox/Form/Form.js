@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import s from './Form.module.css';
 import useBoxStyle from '../../../app/hooks/useBoxStyle';
 import { requestService } from '../../../index';
-import { isEmail } from '../../../app/util';
+import { isEmail } from '../../../app/lib/util';
 
 const contactForm = {
     name: 'Name',

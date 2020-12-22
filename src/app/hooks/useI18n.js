@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { i18n } from '../util';
+import { i18n } from '../lib/util';
 
 
 export default function useI18n(props) {
